@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   resources :users, only: [:show]
   resources :questions, only: [:show, :create]
-  resources :answers, only [:create, :update]
+  resources :answers, only: [:create, :update]
   
   devise_for :users
   root to: 'pages#home'
