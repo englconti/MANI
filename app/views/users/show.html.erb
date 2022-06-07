@@ -1,2 +1,80 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<p>user show page. Username: <%= current_user.username.capitalize %></p>
+<div class="container-user-show-page">
+
+  <div class="container-lessons">
+    <div class="box-lessons">
+      <div class="box-lesson">
+        <p>Teste introdutório</p>
+      </div>
+    </div>
+
+    <br><br>
+
+    <div class="box-lessons">
+      <div class="box-lesson">
+        <p>Conceitos básicos</p>
+      </div>
+    </div>
+
+    <br><br>
+
+    <div class="box-lessons">
+      <div class="box-lesson">
+        <p>Renda fixa</p>
+      </div>
+
+      <div class="box-lesson">
+        <p>Renda variável</p>
+      </div>
+
+      <div class="box-lesson">
+        <p>FII</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container-center-info">
+    <h2>Você sabia? 🤓</h2>
+    <%= image_tag "ipca-image.png" %>
+    <p>IPCA significa Índice Nacional de Preços ao Consumidor Amplo. Como o nome indica, ele é um índice que tem por função medir a variação de preços de uma cesta de produtos e serviços consumida pela população do país, indicando a variação mês a mês.
+Portanto, para facilitar, o IPCA mede a inflação, sendo, inclusive, um dos índices mais tradicionais do Brasil.</p>
+    <h6>fonte: <a href="https://conteudos.xpi.com.br/" target="blank">https://conteudos.xpi.com.br/</a></h6>
+  </div>
+
+  <div class="container-right-info">
+    <p>Information on the right</p>
+
+    <div class="box-friends-list">
+
+      <div class="box-friends-header">
+        <p>Amigos</p>
+        <p>Score acumulado</p>
+      </div>
+
+      <div class="box-friends-friends-list">
+        <div class="friend-box">
+          <p>Amigo 1</p>
+          <p>27856 XP</p>
+        </div>
+
+        <div class="friend-box">
+          <p>Amigo 2</p>
+          <p>15782 XP</p>
+
+        </div>
+
+      </div>
+
+      <footer>
+        <button type="button" class="btn btn-primary" >Add um amigo!</button>
+        <button type="button" class="btn btn-success" >Envie um convite!</button>
+      </footer>
+
+    </div>
+  </div>
+
+
+
+
+</div>
