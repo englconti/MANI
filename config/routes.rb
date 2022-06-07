@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :users, only: [:show]
 
+  resources :products, only: %i[index show]
+
   resources :questions, only: %i[show create] do
     resources :answers, only: %i[create]
   end
