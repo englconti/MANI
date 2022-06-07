@@ -4,10 +4,26 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+
+    <%= f.input :username,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "username" }%>
+
     <%= f.input :email,
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "email" }%>
+
+      <%= f.text_field :birthday,
+                        placeholder: "Input your birthday",
+                        style: "margin-bottom: 20px",
+                        data: {
+                          controller: "flatpickr",
+                          flatpickr_date_format: "Y-m-d",
+                          flatpickr_min_date: Time.new(1922, 12,31 )
+                        } %>
+
     <%= f.input :password,
                 required: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
@@ -18,8 +34,8 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+    <%= f.button :submit, "Sign up", class: "btn btn-primary", style: "margin-bottom: 20px" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%= render "devise/shared/links"%>

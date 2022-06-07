@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # keep this on top, otherwise some errors will happen with log in!
+  devise_for :users
+  root to: 'pages#home'
+  # ----------------------------------------------------------------
+
   resources :users, only: [:show]
 
   resources :questions, only: %i[show create] do
@@ -6,7 +11,6 @@ Rails.application.routes.draw do
   end
   resources :answers, only: %i[update]
 
-  devise_for :users
-  root to: 'pages#home'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
