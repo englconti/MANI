@@ -1,0 +1,17 @@
+<script src="products.js"></script>
+
+<div class="conteiner">
+  <h1>Products</h1>
+    <body>
+      <%@products.each do |product|%>
+        <div class="card-trip" onclick="onProductClick(<%= product.id %>)">
+          <td>
+            <a href="./show/<%= product.id %>">
+              <%= product.title %>
+            </a>
+          </td>
+          <td><%= product.description %></td>
+        </div>
+      <% end %>
+    </body>
+  </div>
