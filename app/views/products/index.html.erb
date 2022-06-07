@@ -1,17 +1,15 @@
-<script src="products.js"></script>
-
-<div class="conteiner">
+<div class="container">
   <h1>Products</h1>
-    <body>
-      <%@products.each do |product|%>
-        <div class="card-trip" onclick="onProductClick(<%= product.id %>)">
-          <td>
-            <a href="./show/<%= product.id %>">
-              <%= product.title %>
-            </a>
-          </td>
-          <td><%= product.description %></td>
-        </div>
-      <% end %>
-    </body>
+      <div class="row justify-content:center">
+        <%@products.each do |product|%>
+          <div class="card-category col-6" style=" onclick="onProductClick(<%= product.id %>)">
+            <td>
+              <a href="./products/<%= product.id %>">
+                <%= product.title %>
+              </a>
+            </td>
+            <td><%= product.description %></td>
+          </div>
+        <% end %>
+      </div>
   </div>
