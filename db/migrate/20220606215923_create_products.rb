@@ -3,6 +3,9 @@ class CreateProducts < ActiveRecord::Migration[6.1]
     create_table :products do |t|
       t.string :title
       t.text :description
+      t.text :definition
+      t.text :kind
+      t.text :howToInvest
 
       t.timestamps
     end
