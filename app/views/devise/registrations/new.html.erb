@@ -1,5 +1,6 @@
 <h2>Sign up</h2>
 
+<div class="container-new-user-form" style="width: 500px; margin: 0 auto;" >
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
@@ -15,7 +16,9 @@
                 autofocus: true,
                 input_html: { autocomplete: "email" }%>
 
+      <p>Birthday: *</p>
       <%= f.text_field :birthday,
+                        required: true,
                         placeholder: "Input your birthday",
                         style: "margin-bottom: 20px",
                         data: {
@@ -34,8 +37,9 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Sign up", class: "btn btn-primary", style: "margin-bottom: 20px" %>
+    <%= f.button :submit, "Sign up", class: "btn btn-primary btn-sign-up", style: "margin-bottom: 20px" %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links"%>
+</div>
