@@ -27,7 +27,8 @@
 }
 
 .box-lessons {
-  border: 1px solid rgb(36, 236, 13);
+  border: 1px solid rgba(242, 247, 241, 0.283);
+  border-radius: 10px;
 
   display: flex;
   justify-content: space-around;
@@ -178,16 +179,20 @@
     }
 
   }
-
-
-
 }
-
 
 .lesson-not-complete {
   background-color: hsl(43,100%,62%);
 
   &:hover {
     background-color: rgb(157, 229, 232);
+  }
+}
+
+.lesson-complete {
+  background-color: rgb(168, 255, 61);
+
+  &:hover {
+    background-color: rgba(232, 157, 208, 0.799);
   }
 }

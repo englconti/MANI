@@ -1,45 +1,72 @@
+<% complete = "lesson-complete" %>
+<% not_complete = "lesson-not-complete" %>
+
 <p>user show page. Username: <%= current_user.username.capitalize %></p>
 <div class="container-user-show-page">
 
   <div class="container-lessons">
+
     <div class="box-lessons">
-      <% not_complete = "lesson-not-complete" %>
-      <div class="box-lesson <%= not_complete %>" >
+      <% validation_l1 = (@l1_correct_answers > 0 && @l1_correct_answers == @l1_num_questions) %>
+      <% marker_l1 = validation_l1 ? "🤑" : @l1_correct_answers > 2 ? "👀" : @l1_correct_answers == 0 ? "💸" : "😫"%>
+      <% onToggle = "Aula introdutória para mensurar seu nível de conhecimento quando começou a aprender finanças com o Mani!" %>
+      <div class="box-lesson <%= @l1_correct_answers == 0 ? "" : validation_l1 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
         <p>Teste introdutório</p>
-        <p><%= "#{@l1_correct_answers} / #{@l1_num_questions}" %></p>
-        <p>✅</p>
+        <p style="font-size: 15px;"><%= @l1_correct_answers > 0 ? "#{@l1_correct_answers} / #{@l1_num_questions}" : "" %></p>
+        <p style="font-size: 25px;"><%= marker_l1 %></p>
       </div>
     </div>
 
     <br><br>
 
     <div class="box-lessons">
-      <div class="box-lesson">
-        <p>Conceitos básicos</p>
+      <% validation_l2 = (@l2_correct_answers > 0 && @l2_correct_answers == @l2_num_questions) %>
+      <% marker_l2 = validation_l2 ? "🤑" : @l2_correct_answers > 2 ? "👀" : @l2_correct_answers == 0 ? "💸" : "😫"%>
+      <% onToggle = "Aula sobre conceitos básicos de finanças" %>
+      <div class="box-lesson <%= @l2_correct_answers == 0 ? "" : validation_l2 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+        <p>Conceitos Básicos</p>
+        <p style="font-size: 15px;"><%= @l2_correct_answers > 0 ? "#{@l2_correct_answers} / #{@l2_num_questions}" : "" %></p>
+        <p style="font-size: 25px;"><%= marker_l2  %></p>
       </div>
     </div>
 
     <br><br>
 
     <div class="box-lessons">
-      <div class="box-lesson">
-        <p>Renda fixa</p>
+      <% validation_l3 = (@l3_correct_answers > 0 && @l3_correct_answers == @l3_num_questions) %>
+      <% marker_l3 = validation_l3 ? "🤑" : @l3_correct_answers > 2 ? "👀" : @l3_correct_answers == 0 ? "💸" : "😫"%>
+      <% onToggle = "Aula sobre conceitos básicos de finanças" %>
+      <div class="box-lesson <%= @l3_correct_answers == 0 ? "" : validation_l3 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+        <p>Renda Fixa</p>
+        <p style="font-size: 15px;"><%= @l3_correct_answers > 0 ? "#{@l3_correct_answers} / #{@l3_num_questions}" : "" %></p>
+        <p style="font-size: 25px;"><%= marker_l3  %></p>
       </div>
 
-      <div class="box-lesson">
-        <p>Renda variável</p>
+      <% validation_l4 = (@l4_correct_answers > 0 && @l4_correct_answers == @l4_num_questions) %>
+      <% marker_l4 = validation_l4 ? "🤑" : @l4_correct_answers > 2 ? "👀" : @l4_correct_answers == 0 ? "💸" : "😫"%>
+      <% onToggle = "Aula sobre conceitos básicos de finanças" %>
+      <div class="box-lesson <%= @l4_correct_answers == 0 ? "" : validation_l4 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+        <p style="width: 60px">Renda Variável</p>
+        <p style="font-size: 15px;"><%= @l4_correct_answers > 0 ? "#{@l4_correct_answers} / #{@l4_num_questions}" : "" %></p>
+        <p style="font-size: 25px;"><%= marker_l4  %></p>
       </div>
 
-      <div class="box-lesson">
-        <p>FII</p>
+      <% validation_l5 = (@l5_correct_answers > 0 && @l5_correct_answers == @l5_num_questions) %>
+      <% marker_l5 = validation_l5 ? "🤑" : @l5_correct_answers > 2 ? "👀" : @l5_correct_answers == 0 ? "💸" : "😫"%>
+      <% onToggle = "Aula sobre conceitos básicos de finanças" %>
+      <div class="box-lesson <%= @l5_correct_answers == 0 ? "" : validation_l5 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+        <p>FIIs</p>
+        <p style="font-size: 15px;"><%= @l5_correct_answers > 0 ? "#{@l5_correct_answers} / #{@l5_num_questions}" : "" %></p>
+        <p style="font-size: 25px;"><%= marker_l5  %></p>
       </div>
     </div>
 
   </div>
 
   <div class="container-center-info">
+
     <h2>Você sabia? 🤓</h2>
-    <%= image_tag "ipca-image.png" %>
+    <%= image_tag "ipca-image.png", data: {toggle: "tooltip", placement: "left" }, title: "Gráfico de IPCA" %>
     <p>IPCA significa Índice Nacional de Preços ao Consumidor Amplo. Como o nome indica, ele é um índice que tem por função medir a variação de preços de uma cesta de produtos e serviços consumida pela população do país, indicando a variação mês a mês.
 Portanto, para facilitar, o IPCA mede a inflação, sendo, inclusive, um dos índices mais tradicionais do Brasil.</p>
     <h6>fonte: <a href="https://conteudos.xpi.com.br/" target="blank">https://conteudos.xpi.com.br/</a></h6>
@@ -77,7 +104,8 @@ Portanto, para facilitar, o IPCA mede a inflação, sendo, inclusive, um dos ín
     </div>
   </div>
 
-
-
-
 </div>
+
+<script>
+$(".trigger").tooltip({ position: "bottom left", opacity: 0.7});
+</script>
