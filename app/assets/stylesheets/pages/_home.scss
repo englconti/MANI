@@ -1,1 +1,198 @@
 // Specific CSS for your home-page
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Genos:ital,wght@1,200&display=swap');
+
+
+:root {
+  --cor-azul: #183477;
+  --cor-cinza: #b5b5b5;
+  --cor-rosa: #e2aeae;
+  --cor-rosa-claro: #c1918b;
+
+  --fonte-padrao: 'Roboto', sans-serif;
+  --fonte-title: 'Poiret One', cursive;
+  --fonte-sub-title: 'Genos', sans-serif;
+
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+
+body {
+  background-color: rgba(253, 253, 253, 0.699);
+  font-family: --fonte-padrao;
+}
+main {
+  min-width: 300px;
+  max-width: 1500px;
+  margin: auto;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.301);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-family: --fonte-padrao;
+  }
+
+  .banner {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    padding: 150px 0;
+
+    img {
+      max-width: 1080px;   /* Máximo da largura da imagem */
+      width: 90%;
+      max-height: 500px;  /* Máximo da altura da imagem */
+      min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+    }
+  }
+
+  .banner__text {
+    width: 500px;
+    padding: 35px;
+
+    // Titulo Landing Page
+    h1 {
+      margin: 0;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      font-size: 32px;
+      font-weight: bold;
+      font-family: var(--fonte-title);
+      font-size: 60px;
+      font-weight: bolder;
+
+    }
+
+    h2 {
+      margin: 0;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      font-size: 32px;
+      font-weight: bold;
+      font-family: var(--fonte-title);
+    }
+
+    // Paragrafo Landing Page
+    p {
+      font-size: 20px;
+      color: white;
+      opacity: .8;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      font-family: var(--fonte-sub-title);
+    }
+
+    .wrapper{
+      position: relative;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .link_wrapper{
+      position: relative;
+    }
+  }
+
+.menu_btn {
+  min-width: 300px;
+  max-width: 1500px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--cor-cinza);
+  // width: 1000px;
+  // height: 60px;
+  // right: 120px
+}
+
+.card-investments {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+/* CARDS COM FOTO E TEXTO PADRAO */
+
+/*MODELO 02 - foto a esquerda e texto a direita*/
+
+.card-investment-model-02 {
+  margin: 10px 50px 10px;
+  overflow: hidden;
+  height: 120px;
+  width: 900px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 100%;
+    width: 120px;
+    object-fit: cover;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 1.4;
+    opacity: .7;
+    margin-bottom: 0;
+    margin-top: 8px;
+  }
+
+  .card-investment-model-02-infos {
+    padding: 90px;
+  }
+}
+
+/*MODELO 01 - foto a esquerda e texto a direita*/
+
+.card-investment-model-01 {
+  margin: 10px 50px 10px;
+  overflow: hidden;
+  height: 120px;
+  width: 900px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 100%;
+    width: 120px;
+    object-fit: cover;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 1.4;
+    opacity: .7;
+    margin-bottom: 0;
+    margin-top: 8px;
+  }
+
+  .card-investment-model-01-infos {
+    padding: 16px;
+  }
+}
