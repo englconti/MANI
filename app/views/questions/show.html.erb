@@ -11,31 +11,35 @@
     <div class="question-container">
         <h1 style="margin-bottom: 100px"><%= @question.statement %></h1>
       <div>
-        <div class="question-cards">
+        <div class="question-cards" data-option-card-target="content" data-controller="option-card">
 
-          <div class="question-card">
+          <div id="questionA" class="question-card"  data-action="click->option-card#markCard">
             <div>
               <%= @question.a %><p>A</p>
             </div>
           </div>
 
-          <div class="question-card">
+          <div id="questionB" class="question-card" data-action="click->option-card#markCard">
             <div>
               <%= @question.b %><p>B</p>
             </div>
           </div>
-          <div class="question-card">
+
+          <div id="questionC" class="question-card" data-action="click->option-card#markCard">
             <div>
               <%= @question.c %><p>C</p>
             </div>
           </div>
-          <div class="question-card">
+
+          <div id="questionD" class="question-card" data-action="click->option-card#markCard">
             <div>
               <%= @question.d %><p>D</p>
             </div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
+  <button class="btn btn-primary" data-controller="next-question" data-action="click->next-question#next">Next</button>
 </div>

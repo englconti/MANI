@@ -12,7 +12,8 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-import "controllers"
+// - commented to make the stimulus events work once instead of twice:
+// import "controllers"
 import "bootstrap"
 
 // added by Leo for date-picking-----------------------------------------
