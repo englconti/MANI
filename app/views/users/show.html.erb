@@ -3,8 +3,11 @@
 
   <div class="container-lessons">
     <div class="box-lessons">
-      <div class="box-lesson">
+      <% not_complete = "lesson-not-complete" %>
+      <div class="box-lesson <%= not_complete %>" >
         <p>Teste introdutório</p>
+        <p><%= "#{@l1_correct_answers} / #{@l1_num_questions}" %></p>
+        <p>✅</p>
       </div>
     </div>
 

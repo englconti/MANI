@@ -38,12 +38,13 @@
 .box-lesson {
   height: 120px;
   width: 120px;
-  background-color: rgba(6, 133, 8, 0.613);
+  background-color: hsl(0,0%,88%);
   border-radius: 50%;
   border: 2px solid rgb(165, 216, 54);
   box-shadow: 3px 3px 10px black;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -53,7 +54,8 @@
   }
 
   p {
-    margin-top: 8px;
+    // margin-top: 8px;
+    margin: 0 auto;
     color: white;
     text-align: center;
   }
@@ -179,4 +181,13 @@
 
 
 
+}
+
+
+.lesson-not-complete {
+  background-color: hsl(43,100%,62%);
+
+  &:hover {
+    background-color: rgb(157, 229, 232);
+  }
 }
