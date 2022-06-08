@@ -50,6 +50,8 @@
   align-items: center;
 
   &:hover {
+  box-shadow: 6px 6px 30px rgb(255, 255, 255);
+
   background-color: rgba(206, 150, 8, 0.613);
   border: 2px solid rgb(75, 108, 4);
   }
@@ -178,6 +180,14 @@
       padding-bottom: 10px;
     }
 
+  }
+}
+
+.lesson-low-score {
+  background-color: rgb(231, 81, 81);
+
+  &:hover {
+    background-color: rgb(232, 157, 225);
   }
 }
 
