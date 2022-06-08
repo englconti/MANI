@@ -1,5 +1,6 @@
 <% complete = "lesson-complete" %>
 <% not_complete = "lesson-not-complete" %>
+<% low_score = "lesson-low-score" %>
 
 <p>user show page. Username: <%= current_user.username.capitalize %></p>
 <div class="container-user-show-page">
@@ -10,11 +11,13 @@
       <% validation_l1 = (@l1_correct_answers > 0 && @l1_correct_answers == @l1_num_questions) %>
       <% marker_l1 = validation_l1 ? "🤑" : @l1_correct_answers > 2 ? "👀" : @l1_correct_answers == 0 ? "💸" : "😫"%>
       <% onToggle = "Aula introdutória para mensurar seu nível de conhecimento quando começou a aprender finanças com o Mani!" %>
-      <div class="box-lesson <%= @l1_correct_answers == 0 ? "" : validation_l1 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
-        <p>Teste introdutório</p>
-        <p style="font-size: 15px;"><%= @l1_correct_answers > 0 ? "#{@l1_correct_answers} / #{@l1_num_questions}" : "" %></p>
-        <p style="font-size: 25px;"><%= marker_l1 %></p>
-      </div>
+      <%= link_to question_path(Lesson.find(1).questions.first.id), style:"text-decoration: none;" ,:action => 'go' do %>
+        <div class="box-lesson <%= @l1_correct_answers == 0 ? "" :  @l1_correct_answers < 3 ? low_score : validation_l1 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+          <p>Teste introdutório</p>
+          <p style="font-size: 15px;"><%= @l1_correct_answers > 0 ? "#{@l1_correct_answers} / #{@l1_num_questions}" : "" %></p>
+          <p style="font-size: 25px;"><%= marker_l1 %></p>
+        </div>
+      <% end %>
     </div>
 
     <br><br>
@@ -23,11 +26,13 @@
       <% validation_l2 = (@l2_correct_answers > 0 && @l2_correct_answers == @l2_num_questions) %>
       <% marker_l2 = validation_l2 ? "🤑" : @l2_correct_answers > 2 ? "👀" : @l2_correct_answers == 0 ? "💸" : "😫"%>
       <% onToggle = "Aula sobre conceitos básicos de finanças" %>
-      <div class="box-lesson <%= @l2_correct_answers == 0 ? "" : validation_l2 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
-        <p>Conceitos Básicos</p>
-        <p style="font-size: 15px;"><%= @l2_correct_answers > 0 ? "#{@l2_correct_answers} / #{@l2_num_questions}" : "" %></p>
-        <p style="font-size: 25px;"><%= marker_l2  %></p>
-      </div>
+      <%= link_to question_path(Lesson.find(2).questions.first.id), style:"text-decoration: none;" ,:action => 'go' do %>
+        <div class="box-lesson <%= @l2_correct_answers == 0 ? "" :  @l2_correct_answers < 3 ? low_score : validation_l2 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+          <p>Conceitos Básicos</p>
+          <p style="font-size: 15px;"><%= @l2_correct_answers > 0 ? "#{@l2_correct_answers} / #{@l2_num_questions}" : "" %></p>
+          <p style="font-size: 25px;"><%= marker_l2  %></p>
+        </div>
+      <% end %>
     </div>
 
     <br><br>
@@ -36,29 +41,38 @@
       <% validation_l3 = (@l3_correct_answers > 0 && @l3_correct_answers == @l3_num_questions) %>
       <% marker_l3 = validation_l3 ? "🤑" : @l3_correct_answers > 2 ? "👀" : @l3_correct_answers == 0 ? "💸" : "😫"%>
       <% onToggle = "Aula sobre conceitos básicos de finanças" %>
-      <div class="box-lesson <%= @l3_correct_answers == 0 ? "" : validation_l3 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
-        <p>Renda Fixa</p>
-        <p style="font-size: 15px;"><%= @l3_correct_answers > 0 ? "#{@l3_correct_answers} / #{@l3_num_questions}" : "" %></p>
-        <p style="font-size: 25px;"><%= marker_l3  %></p>
-      </div>
+      <%= link_to question_path(Lesson.find(3).questions.first.id), style:"text-decoration: none;" ,:action => 'go' do %>
+        <div class="box-lesson <%= @l3_correct_answers == 0 ? "" :  @l3_correct_answers < 3 ? low_score : validation_l3 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+          <p>Renda Fixa</p>
+          <p style="font-size: 15px;"><%= @l3_correct_answers > 0 ? "#{@l3_correct_answers} / #{@l3_num_questions}" : "" %></p>
+          <p style="font-size: 25px;"><%= marker_l3  %></p>
+        </div>
+      <% end %>
+
 
       <% validation_l4 = (@l4_correct_answers > 0 && @l4_correct_answers == @l4_num_questions) %>
       <% marker_l4 = validation_l4 ? "🤑" : @l4_correct_answers > 2 ? "👀" : @l4_correct_answers == 0 ? "💸" : "😫"%>
       <% onToggle = "Aula sobre conceitos básicos de finanças" %>
-      <div class="box-lesson <%= @l4_correct_answers == 0 ? "" : validation_l4 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
-        <p style="width: 60px">Renda Variável</p>
-        <p style="font-size: 15px;"><%= @l4_correct_answers > 0 ? "#{@l4_correct_answers} / #{@l4_num_questions}" : "" %></p>
-        <p style="font-size: 25px;"><%= marker_l4  %></p>
-      </div>
+      <%= link_to question_path(Lesson.find(4).questions.first.id), style:"text-decoration: none;" ,:action => 'go' do %>
+        <div class="box-lesson <%= @l4_correct_answers == 0 ? "" :  @l4_correct_answers < 3 ? low_score : validation_l4 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+          <p style="width: 60px">Renda Variável</p>
+          <p style="font-size: 15px;"><%= @l4_correct_answers > 0 ? "#{@l4_correct_answers} / #{@l4_num_questions}" : "" %></p>
+          <p style="font-size: 25px;"><%= marker_l4  %></p>
+        </div>
+      <% end %>
+
 
       <% validation_l5 = (@l5_correct_answers > 0 && @l5_correct_answers == @l5_num_questions) %>
       <% marker_l5 = validation_l5 ? "🤑" : @l5_correct_answers > 2 ? "👀" : @l5_correct_answers == 0 ? "💸" : "😫"%>
       <% onToggle = "Aula sobre conceitos básicos de finanças" %>
-      <div class="box-lesson <%= @l5_correct_answers == 0 ? "" : validation_l5 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
-        <p>FIIs</p>
-        <p style="font-size: 15px;"><%= @l5_correct_answers > 0 ? "#{@l5_correct_answers} / #{@l5_num_questions}" : "" %></p>
-        <p style="font-size: 25px;"><%= marker_l5  %></p>
-      </div>
+      <%= link_to question_path(Lesson.find(5).questions.first.id), style:"text-decoration: none;" ,:action => 'go' do %>
+        <div class="box-lesson <%= @l5_correct_answers == 0 ? "" :  @l5_correct_answers < 3 ? low_score : validation_l5 ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+          <p>FIIs</p>
+          <p style="font-size: 15px;"><%= @l5_correct_answers > 0 ? "#{@l5_correct_answers} / #{@l5_num_questions}" : "" %></p>
+          <p style="font-size: 25px;"><%= marker_l5  %></p>
+        </div>
+      <% end %>
+
     </div>
 
   </div>

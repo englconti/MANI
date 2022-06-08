@@ -12,7 +12,6 @@ export default class extends Controller {
     console.log("Connected:", this.element);
   }
 
-
   markCard(e) {
     e.preventDefault();
     // this.contentTarget.classList.toggle('marked');
@@ -65,6 +64,5 @@ export default class extends Controller {
         cardC.classList.remove('marked');
       }
     }
-    return clickedCardValue
   }
 }
