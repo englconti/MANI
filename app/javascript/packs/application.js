@@ -33,13 +33,3 @@ require("flatpickr/dist/flatpickr.css")
 // Manually register Flatpickr as a stimulus controller
 application.register('flatpickr', Flatpickr)
 // end of added by Leo for date-picking----------------------------------
-
-
-// added for tooltip tests by Leo - Not working
-// $(function () {
-//   $('[data-toggle="tooltip"]').tooltip()
-// })
-// $(document).on("user:change", function() {
-//   $('.box-lesson').tooltip();
-// });
-// ----------------------------
