@@ -1,0 +1,14 @@
+
+<% complete = "lesson-complete" %>
+<% not_complete = "lesson-not-complete" %>
+<% low_score = "lesson-low-score" %>
+<% validation = (l_correct_answers > 0 && l_correct_answers == l_num_questions) %>
+<% marker_l1 = validation ? "🤑" : l_correct_answers > 2 ? "👀" : l_correct_answers == 0 ? "💸" : "😫"%>
+<% onToggle = "Aula introdutória para mensurar seu nível de conhecimento quando começou a aprender finanças com o Mani!" %>
+<%= link_to question_path(Lesson.find(lesson.id).questions.first.id), style:"text-decoration: none;" ,:action => 'go' do %>
+  <div class="box-lesson <%= l_correct_answers == 0 ? "" :  l_correct_answers < 3 ? low_score : validation ? complete : not_complete %>" data-toggle="tooltip" title="<%= onToggle %>">
+    <p><%= lesson.title %></p>
+    <p style="font-size: 15px;"><%= l_correct_answers > 0 ? "#{l_correct_answers} / #{l_num_questions}" : "" %></p>
+    <p style="font-size: 25px;"><%= marker_l1 %></p>
+  </div>
+<% end %>
