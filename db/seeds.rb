@@ -33,8 +33,8 @@ User.create!([
 
 # creating Lessons ----------------------------
 Lesson.create!([
-                 { title: "Teste introdutório", description: "lerolero-blablabla", number_of_questions: 5 },
-                 { title: "Conceitos básicos", description: "lerolero-blablabla", number_of_questions: 5 },
+                 { title: "Conceitos básicos I", description: "lerolero-blablabla", number_of_questions: 5 },
+                 { title: "Conceitos básicos II", description: "lerolero-blablabla", number_of_questions: 5 },
                  { title: "Renda fixa", description: "lerolero-blablabla", number_of_questions: 5 },
                  { title: "Renda variável", description: "lerolero-blablabla", number_of_questions: 5 },
                  { title: "FII", description: "lerolero-blablabla", number_of_questions: 5 }
@@ -74,23 +74,23 @@ Answer.create!([
                  { user: chosen_user, question: Question.find(9), is_correct: true },
                  { user: chosen_user, question: Question.find(10), is_correct: false }
                ])
-# Lesson 3.a: Question 11 to 15
+# Lesson 3: Question 11 to 15
 Answer.create!([
-                 { user: chosen_user, question: Question.find(11), is_correct: true },
-                 { user: chosen_user, question: Question.find(12), is_correct: true },
-                 { user: chosen_user, question: Question.find(13), is_correct: true },
-                 { user: chosen_user, question: Question.find(14), is_correct: true },
+                 { user: chosen_user, question: Question.find(11), is_correct: false },
+                 { user: chosen_user, question: Question.find(12), is_correct: false },
+                 { user: chosen_user, question: Question.find(13), is_correct: false },
+                 { user: chosen_user, question: Question.find(14), is_correct: false },
                  { user: chosen_user, question: Question.find(15), is_correct: false }
                ])
-# Lesson 3.b: Question 16 to 20
+# Lesson 4: Question 16 to 20
 Answer.create!([
-                 { user: chosen_user, question: Question.find(16), is_correct: true },
-                 { user: chosen_user, question: Question.find(17), is_correct: true },
-                 { user: chosen_user, question: Question.find(18), is_correct: true },
-                 { user: chosen_user, question: Question.find(19), is_correct: true },
-                 { user: chosen_user, question: Question.find(20), is_correct: true }
+                 { user: chosen_user, question: Question.find(16), is_correct: false },
+                 { user: chosen_user, question: Question.find(17), is_correct: false },
+                 { user: chosen_user, question: Question.find(18), is_correct: false },
+                 { user: chosen_user, question: Question.find(19), is_correct: false },
+                 { user: chosen_user, question: Question.find(20), is_correct: false }
                ])
-# Lesson 3.c: Question 21 to 25
+# Lesson 5: Question 21 to 25
 Answer.create!([
                  { user: chosen_user, question: Question.find(21), is_correct: true },
                  { user: chosen_user, question: Question.find(22), is_correct: true },
