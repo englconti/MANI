@@ -1,20 +1,10 @@
 class UsersController < ApplicationController
   def show
-    # @user = current_user
-
     @lesson1 = render_lesson(1)
     @lesson2 = render_lesson(2)
     @lesson3 = render_lesson(3)
     @lesson4 = render_lesson(4)
     @lesson5 = render_lesson(5)
-
-    # Do the logic to get the answers from the user in all lessons and render it in the show page.
-    # ON PROGRESS
-    # Lesson.all.each do |lesson|
-    #   lesson_answers = @user.answers.where("Condição que pega as respostas da lesson em questão que o usuário respondeu")
-    #   lesson.number_of_questions
-
-    # end
   end
 
   def render_lesson(lesson_id)
