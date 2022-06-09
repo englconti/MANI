@@ -9,6 +9,7 @@ export default class extends Controller {
   confirm(event) {
     event.preventDefault()
     this.element.innerText = "Lets Go!"
+    this.element.setAttribute("hidden", true)
 
     this.questionElement = document.querySelector("#questions-container");
 
@@ -38,12 +39,17 @@ export default class extends Controller {
 
     // 6. Disable non-selected option cards
     const questionCards = document.querySelectorAll(".question-card");
+
     questionCards.forEach((questionCard) => {
-      console.log(questionCard.classList.contains("marked"));
+      // console.log(questionCard.classList.contains("marked"));
       if (!questionCard.classList.contains("marked")) {
         questionCard.classList.add("disabled-question-card");
+        questionCard.classList.remove("question-card");
+        questionCard.classList.remove(questionCard.classList[0]);
+      } else {
+        questionCard.classList.remove(questionCard.classList[1]);
       }
-    });
 
+    });
   }
 }
