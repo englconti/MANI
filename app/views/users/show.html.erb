@@ -2,7 +2,7 @@
 <% not_complete = "lesson-not-complete" %>
 <% low_score = "lesson-low-score" %>
 
-<p>user show page. Username: <%= current_user.username.capitalize %></p>
+<p style="margin-left:50px;">Olá, <%= current_user.username.capitalize %></p>
 <div class="container-user-show-page">
 
   <div class="container-lessons">
@@ -49,7 +49,6 @@
         </div>
       <% end %>
 
-
       <% validation_l4 = (@l4_correct_answers > 0 && @l4_correct_answers == @l4_num_questions) %>
       <% marker_l4 = validation_l4 ? "🤑" : @l4_correct_answers > 2 ? "👀" : @l4_correct_answers == 0 ? "💸" : "😫"%>
       <% onToggle = "Aula sobre conceitos básicos de finanças" %>
@@ -60,7 +59,6 @@
           <p style="font-size: 25px;"><%= marker_l4  %></p>
         </div>
       <% end %>
-
 
       <% validation_l5 = (@l5_correct_answers > 0 && @l5_correct_answers == @l5_num_questions) %>
       <% marker_l5 = validation_l5 ? "🤑" : @l5_correct_answers > 2 ? "👀" : @l5_correct_answers == 0 ? "💸" : "😫"%>
