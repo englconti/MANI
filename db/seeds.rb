@@ -17,7 +17,7 @@ Product.create!([
                   { title: "Tesouro direto", description: nil, definition: nil, kind: nil, how_to_invest: nil },
                   { title: "Ações", description: nil, definition: nil, kind: nil, how_to_invest: nil },
                   { title: "FIIs", description: nil, definition: nil, kind: nil, how_to_invest: nil },
-                  { title: "CDB", description: nil, definition: "renda fixa", kind: "corretora", how_to_invest: "se vira" }
+                  { title: "CDB", description: nil, definition: nil, kind: nil, how_to_invest: nil }
                 ])
 # --------------------------------------------
 

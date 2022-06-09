@@ -1,0 +1,47 @@
+.card-category {
+  background-size: cover;
+  background-position: center;
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  margin-bottom: 30px;
+  width: 45%;
+  margin-right: 20px;
+  padding-right: 0px;
+  font-family: var(--fonte-title);
+  font-size: 26px;
+  font-weight: bold;
+  color:black;
+}
+
+
+.card-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-image {
+  width: 50%;
+  height: 100%;
+}
+
+.banner {
+  background-image: url(https://p7z2w8n8.rocketcdn.me/wp-content/uploads/2021/09/produtos-financeiros-quais-sao-os-principais-do-mercado-3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0;
+  margin-bottom: 80px;
+  font-family: --fonte-padrao;
+}
+
+.clickable {
+  cursor: pointer;
+}
