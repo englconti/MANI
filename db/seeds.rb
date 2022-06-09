@@ -45,11 +45,11 @@ Lesson.create!([
 i = Lesson.first.id
 Lesson.count.times do
   Question.create!([
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "alternativa C" },
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "alternativa C" },
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "alternativa C" },
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "alternativa C" },
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "dificil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "alternativa C" }
+                    { lesson: Lesson.find(i), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+                    { lesson: Lesson.find(i), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+                    { lesson: Lesson.find(i), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+                    { lesson: Lesson.find(i), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+                    { lesson: Lesson.find(i), question_type: "abcd", level: "dificil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" }
                    ])
   i += 1
 end

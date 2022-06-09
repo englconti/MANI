@@ -8,7 +8,7 @@
         </div>
       </div>
     </div>
-    <div class="question-container">
+    <div class="questions-container" id="questions-container" data-question-id="<%= @question.id %>" data-answer-id="<%= @answer_id %>"  >
         <h1 style="margin-bottom: 100px"><%= @question.statement %></h1>
       <div>
         <div class="question-cards" data-option-card-target="content" data-controller="option-card">
@@ -41,5 +41,10 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-primary" data-controller="next-question" data-action="click->next-question#next">Next</button>
+  <div id="question-buttons" style="display:flex; justify-content: space-around; align-items: center; width: 400px; margin: 0 auto;">
+      <button class="btn btn-primary" data-controller="next-question" data-action="click->next-question#confirm">Confirm answer</button>
+    <br><br>
+    <%= button_to 'Next question', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
+  </div>
+
 </div>
