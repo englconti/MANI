@@ -2,7 +2,18 @@
   // nothing to add for now
   border: 1px solid rgba(255, 255, 255, 0.117);
   min-height: 80vh;
+  font-family:"Nunito";
+
 }
+
+#user-page-greeting {
+  font-style: italic;
+  font-size: 20px;
+  color: #44413e;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
 
 .container-user-show-page {
   margin-top: 60px;
@@ -77,23 +88,27 @@
   border: 3px solid #e5e5e5;
   border-radius: 10px;
   background: white;
+  color: rgb(77, 77, 77);
 
   width: 400px;
   min-width: 350px;
-  height: 90%;
+  height: 500px;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 
   h2 {
-    border: 1px solid black;
+    border: 1px solid #e5e5e5;
+    // border-radius: 10px;
     text-align: center;
     vertical-align: center;
-    background-color: rgb(225,225,225);
+    background-color: #e5e5e5;
     margin-top: 20px;
     width: 100%;
+    padding: 5px 0;
+
   }
 
   img {
@@ -103,9 +118,9 @@
   }
 
   p {
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.615);
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
     font-size: 12px;
     width: 90%;
     text-align: justify;
@@ -114,6 +129,11 @@
   }
 
   h6 {
+    // border: 1px solid black;
+    // padding-bottom: 10px;
+    margin-bottom: 10px;
+
+
     align-self: flex-end;
     margin-right: 10px;
   }
@@ -123,10 +143,15 @@
   // border: 1px solid green;
   width: 350px;
   min-width: 340px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .box-friends-list {
   // border: 1px solid rgb(255, 0, 0);
+  border: 2px solid #e5e5e5;
   border-radius: 10px;
   width: 95%;
   margin: 0 auto;
@@ -150,12 +175,12 @@
   }
 
   .box-friends-friends-list {
-    border: 1px solid green;
+    border: 1px solid #e5e5e5;
     height: 300px;
     background-color: rgba(128, 128, 128, 0.56);
 
     .friend-box {
-      margin: 5px 0;
+      margin: 5px 2px;
       background: rgb(225,225,225);
       border: 1px solid rgb(255, 255, 255);
       border-radius: 10px;
@@ -169,11 +194,15 @@
         margin: 0 20px;
       }
 
+      &:hover {
+        background: rgb(241, 236, 236);
+      }
+
     }
   }
 
   footer {
-    border: 1px solid rgb(28, 48, 205);
+    // border: 1px solid rgb(28, 48, 205);
     border-radius: 0 0 10px 10px;
 
     background-color: rgb(225,225,225);
@@ -212,7 +241,7 @@
   background-color: rgb(168, 255, 61);
 
   &:hover {
-    background-color: rgba(232, 157, 208, 0.799);
+    background-color: rgb(194, 251, 124);
   }
 }
 
@@ -221,7 +250,19 @@
   border-radius: 10px;
 
   background-color: rgba(245, 245, 245, 0.476);
-  font-family:"Nunito";
   min-width: 150px;
   padding: 3px;
+}
+
+.btn-add-friend {
+  border-radius: 10px;
+  background: #1cb0f6;
+  border: 0px;
+}
+
+.btn-send-invite {
+  border-radius: 10px;
+  background: rgb(168, 255, 61);
+  border: 0px;
+
 }
