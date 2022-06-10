@@ -23,7 +23,7 @@
 	cursor:pointer;
 	color:#ffffff;
 	// font-family:Arial;
-	font-family:"Nunito";
+	font-family: var(--fonte-padrao);
 
 	font-size:15px;
 	font-weight:bold;
@@ -43,15 +43,37 @@
 }
 
 .btn-ghost {
-  color: black;
-  border: 1px solid black;
+  color: white;
+  border: 3px solid white;
   padding: 8px 24px;
   border-radius: 50px;
   font-weight: lighter;
   opacity: 0.6;
   transition: opacity 0.3s ease;
+  font-family: var(--fonte-padrao);
 
   &:hover {
     opacity: 1;
+    width: 200px;
+    height: 50px;
+    border-color: black;
+  }
+}
+
+.btn-ghost_footer {
+  color: black;
+  border: 23x solid black;
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-weight: lighter;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  font-family: var(--fonte-padrao);
+
+  &:hover {
+    opacity: 1;
+    width: 200px;
+    height: 50px;
+    border-color: #6b6b6b;
   }
 }
