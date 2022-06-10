@@ -66,5 +66,12 @@ export default class extends Controller {
         cardC.classList.remove('marked');
       }
     }
+    // Feature to enable pressing confirm button only after selecting one option
+    const confirmButton = document.getElementById("confirm-button")
+    if (document.querySelector('.marked')) {
+      confirmButton.removeAttribute("disabled");
+    } else {
+      confirmButton.disabled = true;
+    }
   }
 }
