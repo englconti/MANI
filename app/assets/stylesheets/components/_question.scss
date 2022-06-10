@@ -1,3 +1,19 @@
+.question-top-part {
+  margin: 0 auto;
+  margin-top: 30px;
+  // border: 1px solid black;
+  width: 80vw;
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.question-cancel-btn {
+  text-decoration: none;
+  color: rgb(244, 149, 149);
+  font-size: 60px;
+}
+
 .container {
   margin-top: 50px;
   text-align: center;
@@ -7,26 +23,32 @@
 .bar-container-part {
   background-color: rgb(240, 240, 240);
   border-radius: 8px;
-  box-shadow: 0px 0px 4px black;
+  box-shadow: 0px 0px 4px #e5e5e5;
+  height: 19px;
+  width: 60vw;
+}
+
+.bar-evolution {
+  width: 100px;
 }
 
 .bar-container {
   height: 20px;
-  width: 500px;
-  background-color:rgb(62, 110, 206);
+  // width: 12vw;
+  background-color: #1cb0f6;
   border-radius: 8px;
-  box-shadow: inset 0px 0px 10px rgb(34, 60, 113);
+  box-shadow: inset 0px 0px 10px rgb(190, 207, 240);
 }
 
-.bar-deco {
-  height: 2px;
-  width: 480px;
-  background-color: rgb(78, 129, 230);
-  box-shadow: 0px 0px 3px rgb(114, 154, 234);
-  position: relative;
-  top: 5px;
-  left: 8px;
-}
+// .bar-deco {
+//   height: 2px;
+//   width: 480px;
+//   background-color: rgb(78, 129, 230);
+//   box-shadow: 0px 0px 3px rgb(114, 154, 234);
+//   position: relative;
+//   top: 5px;
+//   left: 8px;
+// }
 
 .questions-container {
   margin: 20px auto;
