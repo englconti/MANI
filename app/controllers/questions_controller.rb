@@ -1,5 +1,7 @@
 class QuestionsController < ApplicationController
 
+  before_action :disable_nav, only: [:show]
+
   def show
     @question = Question.find(params[:id])
 

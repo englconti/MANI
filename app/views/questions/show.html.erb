@@ -42,8 +42,11 @@
     </div>
   </div>
   <div id="question-buttons" style="display:flex; justify-content: space-around; align-items: center; width: 400px; margin: 0 auto;">
-      <button class="btn btn-primary" data-controller="next-question" data-action="click->next-question#confirm">Confirm answer</button>
+      <button id="confirm-button" class="btn btn-primary" data-controller="next-question" data-action="click->next-question#confirm" disabled>Confirm answer</button>
     <br><br>
+    <div class="correct-answer" hidden><%= "Great job!" %></div>
+    <p id="correct-answer" hidden><%= @question.correct_answer %></p>
+    <div class="wrong-answer" hidden><%= "The correct answer is #{@question.correct_answer}" %></div>
     <%= button_to 'Next question', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
   </div>
 

@@ -19,7 +19,6 @@ class AnswersController < ApplicationController
       puts "WRONG DUMBASS 👹👿👿"
       answer.is_correct = false
     end
-
     answer.save
   end
 end

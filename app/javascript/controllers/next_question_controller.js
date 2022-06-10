@@ -1,5 +1,6 @@
 import { Controller } from "stimulus"
 import { csrfToken } from "@rails/ujs"
+import { right } from "@popperjs/core"
 
 export default class extends Controller {
 
@@ -8,13 +9,13 @@ export default class extends Controller {
 
   confirm(event) {
     event.preventDefault()
-    this.element.innerText = "Lets Go!"
     this.element.setAttribute("hidden", true)
 
     this.questionElement = document.querySelector("#questions-container");
 
     // 1. Getting the text content from the marked Card and puttinuserAnswer
     const userAnswer = document.querySelector(".marked").children[0].children[0].textContent
+    // console.log(userAnswer)
 
     // 2. Defining the correct URL based on the server routes. OBS: it will need to be change for Heroku deployment
     const urlPatch = `http://localhost:3000/answers/${this.questionElement.dataset.answerId}`;
@@ -52,7 +53,15 @@ export default class extends Controller {
       } else {
         questionCard.classList.remove(questionCard.classList[1]);
       }
+    })
 
-    });
+    const correctAnswer = document.querySelector("#correct-answer").textContent
+    if (userAnswer === correctAnswer) {
+      document.querySelector('.correct-answer').removeAttribute("hidden");
+      document.querySelector('.marked').classList.add("correct-answer-card");
+    } else {
+      document.querySelector('.wrong-answer').removeAttribute("hidden");
+    }
+
   }
 }
