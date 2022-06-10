@@ -38,8 +38,7 @@ main {
   padding: 20px;
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.301);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
   font-family: --fonte-padrao;
   }
 
@@ -96,7 +95,7 @@ main {
   (-webkit-min-device-pixel-ratio: 2),
   (min-resolution: 192dpi) {
     div#stripped {
-    // background-image: url(https://res.cloudinary.com/guijafrone/image/upload/v1654884553/MANI%20GAMES/image_mxynro.png);
+    background-image: url(https://res.cloudinary.com/guijafrone/image/upload/v1654884553/MANI%20GAMES/image_mxynro.png);
     }
   }
   // .banner {
