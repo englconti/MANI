@@ -1,40 +1,42 @@
-<p style="margin-left:50px;">Olá, <%= current_user.username.capitalize %></p>
+<div id="user-page-container">
+  <p id="user-page-greeting">Olá, <%= current_user.username.capitalize %>! Bora aprender com o Mani?</p>
 
-<div class="container-user-show-page">
+  <div class="container-user-show-page">
 
-  <div class="container-lessons">
+    <div class="container-lessons">
 
-    <div class="box-lessons">
-      <%= render 'lesson', lesson: @lesson1[0], l_correct_answers: @lesson1[1], l_num_questions: @lesson1[2] %>
+      <div class="box-lessons">
+        <%= render 'lesson', lesson: @lesson1[0], l_correct_answers: @lesson1[1], l_num_questions: @lesson1[2] %>
+      </div>
+
+      <br><br>
+
+      <div class="box-lessons">
+        <%= render 'lesson', lesson: @lesson2[0], l_correct_answers: @lesson2[1], l_num_questions: @lesson2[2] %>
+      </div>
+
+      <br><br>
+
+      <div class="box-lessons">
+        <%= render 'lesson', lesson: @lesson3[0], l_correct_answers: @lesson3[1], l_num_questions: @lesson3[2] %>
+        <%= render 'lesson', lesson: @lesson4[0], l_correct_answers: @lesson4[1], l_num_questions: @lesson4[2] %>
+        <%= render 'lesson', lesson: @lesson5[0], l_correct_answers: @lesson5[1], l_num_questions: @lesson5[2] %>
+      </div>
+
     </div>
 
-    <br><br>
+    <div class="container-center-info">
 
-    <div class="box-lessons">
-      <%= render 'lesson', lesson: @lesson2[0], l_correct_answers: @lesson2[1], l_num_questions: @lesson2[2] %>
+      <h2>Você sabia? 🤓</h2>
+      <%= image_tag "ipca-image.png", data: {toggle: "tooltip", placement: "left" }, title: "Gráfico de IPCA" %>
+      <p>IPCA significa Índice Nacional de Preços ao Consumidor Amplo. Como o nome indica, ele é um índice que tem por função medir a variação de preços de uma cesta de produtos e serviços consumida pela população do país, indicando a variação mês a mês.
+  Portanto, para facilitar, o IPCA mede a inflação, sendo, inclusive, um dos índices mais tradicionais do Brasil.</p>
+      <h6>fonte: <a href="https://conteudos.xpi.com.br/" target="blank">https://conteudos.xpi.com.br/</a></h6>
     </div>
 
-    <br><br>
-
-    <div class="box-lessons">
-      <%= render 'lesson', lesson: @lesson3[0], l_correct_answers: @lesson3[1], l_num_questions: @lesson3[2] %>
-      <%= render 'lesson', lesson: @lesson4[0], l_correct_answers: @lesson4[1], l_num_questions: @lesson4[2] %>
-      <%= render 'lesson', lesson: @lesson5[0], l_correct_answers: @lesson5[1], l_num_questions: @lesson5[2] %>
-    </div>
+    <div class="container-right-info">
+      <p hidden>Information on the right</p>
+      <%= render 'friends-box' %>
 
   </div>
-
-  <div class="container-center-info">
-
-    <h2>Você sabia? 🤓</h2>
-    <%= image_tag "ipca-image.png", data: {toggle: "tooltip", placement: "left" }, title: "Gráfico de IPCA" %>
-    <p>IPCA significa Índice Nacional de Preços ao Consumidor Amplo. Como o nome indica, ele é um índice que tem por função medir a variação de preços de uma cesta de produtos e serviços consumida pela população do país, indicando a variação mês a mês.
-Portanto, para facilitar, o IPCA mede a inflação, sendo, inclusive, um dos índices mais tradicionais do Brasil.</p>
-    <h6>fonte: <a href="https://conteudos.xpi.com.br/" target="blank">https://conteudos.xpi.com.br/</a></h6>
-  </div>
-
-  <div class="container-right-info">
-    <p>Information on the right</p>
-    <%= render 'friends-box' %>
-
 </div>

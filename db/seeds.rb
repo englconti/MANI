@@ -42,17 +42,51 @@ Lesson.create!([
 # ---------------------------------------------
 
 # creating Questions --------------------------
-i = Lesson.first.id
-Lesson.count.times do
-  Question.create!([
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
-                    { lesson: Lesson.find(i), question_type: "abcd", level: "dificil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" }
-                   ])
-  i += 1
-end
+# Questions Lesson 1
+Question.create!([
+    { lesson: Lesson.find(1), question_type: "abcd", level: "muito facil", statement: "O que é dinheiro?", a: "Um Jogo", b: "Um meio de troca", c: "Um carro", d: "Um papel", img_url: "", correct_answer: "B" },
+    { lesson: Lesson.find(1), question_type: "abcd", level: "muito facil", statement: "Por que usamos dinheiro?", a: "Para facilitar a troca de produtos e servicos entre pessoas", b: "Para podermos criar empresas", c: "Para nos comunicarmos", d: "Para se alimentar", img_url: "", correct_answer: "A" },
+    { lesson: Lesson.find(1), question_type: "abcd", level: "medio", statement: "Antes de termos dinheiro, como trocávamos itens ou serviços?", a: "Por porquinhos", b: "Não havia troca", c: "Através de orações", d: "Usávamos algum outro meio de troca (ex: conchas) ou trocávamos um item por outro.", img_url: "", correct_answer: "D" },
+    { lesson: Lesson.find(1), question_type: "abcd", level: "medio", statement: "O que é escassez?", a: "Falta de comida", b: "Ter em pouca quantidade podendo faltar ou acabar", c: "Falta de água", d: "Excesso de dinheiro", img_url: "", correct_answer: "B" },
+    { lesson: Lesson.find(1), question_type: "abcd", level: "dificil", statement: "O que escassez tem a ver com economia ou financas?", a: "Nada", b: "Tudo, pois basicamente, quanto mais escasso, maior será o valor atribuído a algo", c: "Falta de água pode desequilibrar o orcamento pessoal", d: "Sem lama o porquinho não vive", img_url: "", correct_answer: "B" }
+  ])
+# -----------------
+# Questions Lesson 2
+Question.create!([
+    { lesson: Lesson.find(2), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+    { lesson: Lesson.find(2), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+    { lesson: Lesson.find(2), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+    { lesson: Lesson.find(2), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+    { lesson: Lesson.find(2), question_type: "abcd", level: "dificil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" }
+  ])
+# -----------------
+# Questions Lesson 3
+Question.create!([
+  { lesson: Lesson.find(3), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(3), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(3), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(3), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(3), question_type: "abcd", level: "dificil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" }
+])
+# -----------------
+# Questions Lesson 4
+Question.create!([
+  { lesson: Lesson.find(4), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(4), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(4), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(4), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(4), question_type: "abcd", level: "dificil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" }
+])
+# -----------------
+# Questions Lesson 5
+Question.create!([
+  { lesson: Lesson.find(5), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(5), question_type: "abcd", level: "facil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(5), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(5), question_type: "abcd", level: "medio", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" },
+  { lesson: Lesson.find(5), question_type: "abcd", level: "dificil", statement: "Alguma pergunta sobre finanças", a: "alternativa A", b: "alternativa B", c: "alternativa C", d: "alternativa D", img_url: "", correct_answer: "C" }
+])
+# -----------------
 # ---------------------------------------------
 
 # creating Answers -----------------------------
