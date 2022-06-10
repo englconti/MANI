@@ -38,66 +38,104 @@ main {
   font-family: --fonte-padrao;
   }
 
-  .banner {
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;
-    padding: 150px 0;
+  #banner {
+    background-color: #454546;
+  }
 
-    img {
-      max-width: 1080px;   /* Máximo da largura da imagem */
-      width: 90%;
-      max-height: 500px;  /* Máximo da altura da imagem */
-      min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+  @keyframes scribble {
+    to {
+      stroke-dashoffset: 0;
     }
   }
 
-  .banner__text {
-    width: 500px;
-    padding: 35px;
+  div#stripped {
+    max-width: 750px;
+    margin: 0 auto;
+    background: #454546;
+    background-image: url(https://res.cloudinary.com/guijafrone/image/upload/v1654713074/MANI%20GAMES/Screenshot_2022-06-08_193103_y1qxmz.png);
+    background-size: cover;
+    font-size: 0;
+  }
+  div#stripped svg {
+    background: #454546;
+    mix-blend-mode: darken;
+  }
 
-    // Titulo Landing Page
-    h1 {
-      margin: 0;
-      color: white;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-      font-size: 32px;
-      font-weight: bold;
-      font-family: var(--fonte-title);
-      font-size: 60px;
-      font-weight: bolder;
-
-    }
-
-    h2 {
-      margin: 0;
-      color: white;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-      font-size: 32px;
-      font-weight: bold;
-      font-family: var(--fonte-title);
-    }
-
-    // Paragrafo Landing Page
-    p {
-      font-size: 20px;
-      color: white;
-      opacity: .8;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-      font-family: var(--fonte-sub-title);
-    }
-
-    .wrapper{
-      position: relative;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .link_wrapper{
-      position: relative;
+  div#stripped svg polyline {
+    fill: none;
+    stroke: rgb(236, 231, 231);
+    stroke-width: 200;
+    stroke-dasharray: 20000;
+    stroke-dashoffset: 20000;
+    animation: scribble 3s linear forwards;
+  }
+  @media
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi) {
+    div#stripped {
+    background-image: url(https://res.cloudinary.com/guijafrone/image/upload/v1654713074/MANI%20GAMES/Screenshot_2022-06-08_193103_y1qxmz.png);
     }
   }
+  // .banner {
+  //   background-repeat: no-repeat;
+  //   background-size: 100%;
+  //   background-position: center;
+  //   padding: 150px 0;
+
+  //   img {
+  //     max-width: 1080px;   /* Máximo da largura da imagem */
+  //     width: 90%;
+  //     max-height: 500px;  /* Máximo da altura da imagem */
+  //     min-height: auto;      /* Mínimo da altura, por padrão “auto” */
+  //   }
+  // }
+
+  // .banner__text {
+  //   width: 500px;
+  //   padding: 35px;
+
+  //   // Titulo Landing Page
+  //   h1 {
+  //     margin: 0;
+  //     color: white;
+  //     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  //     font-size: 32px;
+  //     font-weight: bold;
+  //     font-family: var(--fonte-title);
+  //     font-size: 60px;
+  //     font-weight: bolder;
+
+  //   }
+
+  //   h2 {
+  //     margin: 0;
+  //     color: white;
+  //     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  //     font-size: 32px;
+  //     font-weight: bold;
+  //     font-family: var(--fonte-title);
+  //   }
+
+  //   // Paragrafo Landing Page
+  //   p {
+  //     font-size: 20px;
+  //     color: white;
+  //     opacity: .8;
+  //     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  //     font-family: var(--fonte-sub-title);
+  //   }
+
+  //   .wrapper{
+  //     position: relative;
+  //     top: 55%;
+  //     left: 50%;
+  //     transform: translate(-50%, -50%);
+  //   }
+
+  //   .link_wrapper{
+  //     position: relative;
+  //   }
+  // }
 
 .menu_btn {
   min-width: 300px;
