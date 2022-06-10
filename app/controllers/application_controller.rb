@@ -9,5 +9,9 @@ class ApplicationController < ActionController::Base
     # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :birthday, :score, :lives) }
     # devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :birthday, :score, :lives) }
   end
+
+  def disable_nav
+    @disable_nav = true
+  end
   #----------------------------------------------------------------------------------------
 end
