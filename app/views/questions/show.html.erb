@@ -1,4 +1,4 @@
-<div class="question-top-part">
+<div class="question-top-part animate__animated animate__fadeIn">
 
   <div class="question-close-box">
     <%= link_to "X", user_path(current_user), class:"question-cancel-btn", style:"margin-right:20px;" %>
@@ -15,7 +15,7 @@
   <p></p>
 </div>
 
-<div class="container">
+<div class="container animate__animated animate__fadeIn animate__delay-1s">
 
   <div class="container-parts">
 
@@ -25,26 +25,30 @@
         <div class="question-cards" data-option-card-target="content" data-controller="option-card">
 
           <div id="questionA" class="question-card questionA"  data-action="click->option-card#markCard">
-            <div>
-              <%= @question.a %><p>A</p>
+            <div class="question-answer" >
+              <p><%= @question.a %></p>
+              <p class="answer-letter">A</p>
             </div>
           </div>
 
           <div id="questionB" class="question-card questionB" data-action="click->option-card#markCard">
-            <div>
-              <%= @question.b %><p>B</p>
+            <div class="question-answer">
+              <p><%= @question.b %></p>
+              <p class="answer-letter">B</p>
             </div>
           </div>
 
           <div id="questionC" class="question-card questionC" data-action="click->option-card#markCard">
-            <div>
-              <%= @question.c %><p>C</p>
+            <div class="question-answer">
+              <p><%= @question.c %></p>
+              <p class="answer-letter">C</p>
             </div>
           </div>
 
           <div id="questionD" class="question-card questionD" data-action="click->option-card#markCard">
-            <div>
-              <%= @question.d %><p>D</p>
+            <div class="question-answer">
+              <p><%= @question.d %></p>
+              <p class="answer-letter">D</p>
             </div>
           </div>
 

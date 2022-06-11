@@ -5,6 +5,7 @@ import { right } from "@popperjs/core"
 export default class extends Controller {
 
   connect() {
+    console.log("next_question connected")
   }
 
   confirm(event) {
@@ -14,14 +15,14 @@ export default class extends Controller {
     this.questionElement = document.querySelector("#questions-container");
 
     // 1. Getting the text content from the marked Card and puttinuserAnswer
-    const userAnswer = document.querySelector(".marked").children[0].children[0].textContent
+    const userAnswer = document.querySelector(".marked").children[0].children[1].textContent
     // console.log(userAnswer)
 
     // 2. Defining the correct URL based on the server routes. OBS: it will need to be change for Heroku deployment
-    // const urlPatch = `http://localhost:3000/answers/${this.questionElement.dataset.answerId}`;
+    const urlPatch = `http://localhost:3000/answers/${this.questionElement.dataset.answerId}`;
 
     // for Heroku comment the above line and uncomment this one
-    const urlPatch = `https://mani-finance.herokuapp.com/answers/${this.questionElement.dataset.answerId}`;
+    // const urlPatch = `https://mani-finance.herokuapp.com/answers/${this.questionElement.dataset.answerId}`;
 
     // 3. Creating a JS Object with the data we want to send to the server
     const data = { answer: userAnswer, answer_id: this.questionElement.dataset.answerId }

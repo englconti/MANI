@@ -33,3 +33,8 @@ require("flatpickr/dist/flatpickr.css")
 // Manually register Flatpickr as a stimulus controller
 application.register('flatpickr', Flatpickr)
 // end of added by Leo for date-picking----------------------------------
+
+
+// added for animate pages
+import 'animate.css';
+// ------------------------
