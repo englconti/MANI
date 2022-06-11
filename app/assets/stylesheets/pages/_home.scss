@@ -2,7 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Genos:ital,wght@1,200&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque&display=swap');
+$black: #2b2b2b;
+$size: 42px;
 
 :root {
   --cor-azul: #183477;
@@ -203,4 +205,12 @@ main {
   .card-investment-model-01-infos {
     padding: 16px;
   }
+}
+
+html,body {
+  font-family: 'Raleway', sans-serif;
+  padding: 1em 2em;
+  font-size: 18px;
+  background: #222;
+  color: #aaa
 }
