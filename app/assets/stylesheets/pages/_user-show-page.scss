@@ -201,25 +201,45 @@
     }
   }
 
-  footer {
+  #friend-box-footer {
     // border: 1px solid rgb(28, 48, 205);
+    padding: 0;
     border-radius: 0 0 10px 10px;
-
     background-color: rgb(225,225,225);
-
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 80px;
+    align-items: center;
 
     button {
       height: 50px;
       text-align: center;
       padding-bottom: 10px;
+      border-radius: 10px;
+      border: 0px;
+    }
+
+    .btn-add-friend {
+      background: #1cb0f6;
+
+      &:hover {
+        background: #71d2ff;
+      }
+    }
+
+    .btn-send-invite {
+      background: rgb(168, 255, 61);
+
+      &:hover {
+        background: rgb(198, 255, 129);
+      }
     }
 
   }
 }
+
+// Lessons configurations:
 
 .lesson-low-score {
   background-color: #ff4b4b;
@@ -252,17 +272,5 @@
   background-color: rgba(245, 245, 245, 0.476);
   min-width: 150px;
   padding: 3px;
-}
-
-.btn-add-friend {
-  border-radius: 10px;
-  background: #1cb0f6;
-  border: 0px;
-}
-
-.btn-send-invite {
-  border-radius: 10px;
-  background: rgb(168, 255, 61);
-  border: 0px;
 
 }

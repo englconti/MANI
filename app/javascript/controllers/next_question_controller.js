@@ -5,6 +5,7 @@ import { right } from "@popperjs/core"
 export default class extends Controller {
 
   connect() {
+    console.log("next_question connected")
   }
 
   confirm(event) {
@@ -14,7 +15,7 @@ export default class extends Controller {
     this.questionElement = document.querySelector("#questions-container");
 
     // 1. Getting the text content from the marked Card and puttinuserAnswer
-    const userAnswer = document.querySelector(".marked").children[0].children[0].textContent
+    const userAnswer = document.querySelector(".marked").children[0].children[1].textContent
     // console.log(userAnswer)
 
     // 2. Defining the correct URL based on the server routes. OBS: it will need to be change for Heroku deployment
