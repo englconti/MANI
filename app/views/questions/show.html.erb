@@ -1,13 +1,24 @@
-<div class="container">
-  <div class="container-parts">
-    <div class="bar-container-part">
-      <div class="bar-container">
-        <div class="bar-evolution">
-          <div class="bar-deco">
-          </div>
-        </div>
+<div class="question-top-part">
+
+  <div class="question-close-box">
+    <%= link_to "X", user_path(current_user), class:"question-cancel-btn", style:"margin-right:20px;" %>
+  </div>
+
+  <div class="bar-container-part">
+    <div class="bar-container" style="width:<%=@bar_advancement%>;">
+      <div class="bar-evolution">
+        <div class="bar-deco"></div>
       </div>
     </div>
+  </div>
+
+  <p></p>
+</div>
+
+<div class="container">
+
+  <div class="container-parts">
+
     <div class="questions-container" id="questions-container" data-question-id="<%= @question.id %>" data-answer-id="<%= @answer_id %>"  >
         <h1 style="margin-bottom: 100px"><%= @question.statement %></h1>
       <div>
