@@ -5,14 +5,16 @@ class LessonsController < ApplicationController
     @current_lesson = Lesson.find(params[:id])
     # @answer_id = Answer.where(lesson: @lesson, user: current_user)[0].id
 
+    # Finding all answers from the lesson questions of current user (*Try to make it better later!)
+    @questions = @current_lesson.questions
+    answers = @questions.map { |question| Answer.where(user: current_user, question: question)[0] }
+    @answers_array = answers.map { |answer| answer.is_correct }
+
   end
 
   private
 
   def lesson_params
-    raise
-    params.require(:lesson).permit(:lesson_type,
-                                     :statement, :level, :a, :b,
-                                     :c, :d, :img_url, :correct_answer)
+    params.require(:lesson).permit(:title, :description, :number_of_questions)
   end
 end

@@ -168,7 +168,6 @@
   background-color: #7ac70c;
   border: 0;
   border-bottom: 5px solid #619f09;
-
 }
 
 #correct-answer-msg {
@@ -179,4 +178,13 @@
 #wrong-answer-msg {
   // border: 1px solid black;
   width: 20vw;
+}
+
+#btn-lesson-review {
+  width: 20vw;
+  border-radius: 10px;
+  color: white;
+  background-color: #7ac70c;
+  border: 0;
+  border-bottom: 5px solid #619f09;
 }

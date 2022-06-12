@@ -1,6 +1,32 @@
-<p>Lesson title: <%= @current_lesson.title %></p>
-<br>
-<p>Lesson ID: <%= @current_lesson.id %></p>
-<br>
-<p>Lesson description: <%= @current_lesson.description %></p>
-<br>
+
+<% true_count = @answers_array.count(true) %>
+<% q_count = @current_lesson.number_of_questions %>
+<% bar_fill = (1 - true_count.fdiv(q_count)) %>
+<% bar_color = true_count == q_count ? "#58cc02" : true_count >= q_count * 0.5 ? "#ffc800" : "#ff4b4b" %>
+
+<div class="lesson-page">
+  <div class="lesson-top-part animate__animated animate__fadeIn">
+    <h1>LESSON RECAP</h1>
+  </div>
+
+  <div class="container-lesson-page animate__animated animate__fadeIn animate__delay-1s">
+    <div class="container-lesson-parts">
+      <p>Lesson title: <%= @current_lesson.title %></p>
+      <p>Lesson ID: <%= @current_lesson.id %></p>
+      <p>Lesson description: <%= @current_lesson.description %></p>
+      <p>Lesson num of questions: <%= @current_lesson.number_of_questions %></p>
+      <p>Current user: <%= current_user.username %>, ID: <%= current_user.id %></p>
+      <p>Correct answers = <%= "#{@answers_array.count(true)} / #{@current_lesson.number_of_questions}" %></p>
+      <%= render 'progress-circle-bars', bar_fill: (360 * bar_fill), bar_color: bar_color %>
+
+    </div>
+  </div>
+
+  <div class="lesson-footer">
+    <div class="lesson-buttons">
+      <%= button_to 'Redo lesson', question_path(@current_lesson.questions.first), method: :get, id:"btn-redo-lesson", class:"btn btn-primary", disabled: false %>
+      <%= button_to 'Go to lessons', user_path(current_user), method: :get, id:"btn-lesson-page-to-user-page", class:"btn btn-success", disabled: false %>
+    </div>
+  </div>
+
+</div>

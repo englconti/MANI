@@ -1,0 +1,49 @@
+
+.dashboard {
+  display: flex;
+  border: 1px solid blue;
+  align-items: center;
+  justify-content: center;
+}
+
+$circle-size: 200px;
+$stroke-width: 20px;
+
+svg {
+  border: 1px solid red;
+  width: $circle-size;
+  height: $circle-size;
+  margin: 1em;
+}
+
+.bg {
+  fill: none;
+  stroke-width: $stroke-width;
+  stroke: rgb(240, 240, 240);
+}
+
+[class^="meter-"] {
+  fill: none;
+  stroke-width: $stroke-width;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+
+}
+
+.meter-1 {
+  stroke-dasharray: 360;
+  stroke-dashoffset: var(--circleBarFill);
+  stroke: var(--barColor);
+  box-shadow: inset 0px 0px 10px rgb(190, 207, 240);
+  animation: progress-1 3s ease-out;
+}
+
+@keyframes progress-1 {
+    from {
+        stroke-dashoffset: 360;
+    }
+    to {
+        stroke-dashoffset: var(--circleBarFill);
+    }
+}

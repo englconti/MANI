@@ -1,0 +1,80 @@
+@import "progress_circle_bars";
+
+.lesson-page {
+  // height: 100vh;
+  background-color: #A9C9FF;
+  background-image: linear-gradient(180deg, #A9C9FF 0%, #ffffff 100%);
+  position:fixed;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lesson-top-part {
+  margin: 0 auto;
+  margin-top: 30px;
+  // border: 1px solid black;
+  width: 80vw;
+  height: 10vh;
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+// CENTER --------------------------------------------------
+
+.container-lesson-page {
+  border: 1px solid black;
+  height: 70vh;
+}
+
+.container-lesson-parts {
+  border: 1px solid green;
+}
+
+
+
+
+
+// FOOTER --------------------------------------------------
+
+.lesson-footer {
+  border-top: 3px solid #e5e5e5;
+  border-bottom: 1px solid black;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  align-self: stretch;
+}
+
+.lesson-buttons {
+  // border: 1px solid black;
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80vw;
+  margin: 0 auto;
+}
+
+#btn-redo-lesson {
+  width: 20vw;
+  border-radius: 10px;
+  background-color: #1cb0f6;
+  border: 0;
+  border-bottom: 5px solid #1899d6;
+}
+
+#btn-lesson-page-to-user-page {
+  width: 20vw;
+  border-radius: 10px;
+  color: white;
+  background-color: #7ac70c;
+  border: 0;
+  border-bottom: 5px solid #619f09;
+}
