@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   end
   resources :answers, only: %i[update]
 
+  # Added for lesson resume page -----
+  resources :lessons, only: [:show]
+  # ----------------------------------
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
