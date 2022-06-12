@@ -218,10 +218,12 @@
       padding-bottom: 10px;
       border-radius: 10px;
       border: 0px;
+      color: white;
     }
 
     .btn-add-friend {
       background: #1cb0f6;
+      border-bottom: 5px solid #1899d6;
 
       &:hover {
         background: #71d2ff;
@@ -229,7 +231,9 @@
     }
 
     .btn-send-invite {
-      background: rgb(168, 255, 61);
+      background: #7ac70c;
+      border-bottom: 5px solid #619f09;
+
 
       &:hover {
         background: rgb(198, 255, 129);

@@ -10,7 +10,6 @@ export default class extends Controller {
 
   markCard(e) {
     e.preventDefault();
-    console.log("WHATAFUCK");
 
     const cardA = document.querySelector('.questionA');
     const cardB = document.querySelector('.questionB');
