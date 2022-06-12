@@ -42,9 +42,14 @@ export default class extends Controller {
       body: JSON.stringify(data)
     })
 
-    // 5. Enable/Show next question button
-    const nextQuestionBtn = document.querySelector("#btn-next-question");
-    nextQuestionBtn.disabled = false;
+    // 5. Enable/Show next question button AND Lesson review btn at the end of lesson
+    if (document.querySelector("#btn-next-question")) {
+      const nextQuestionBtn = document.querySelector("#btn-next-question");
+      nextQuestionBtn.disabled = false;
+    } else if (document.querySelector("#btn-lesson-review")) {
+      const lessonReviewButton = document.querySelector("#btn-lesson-review")
+      lessonReviewButton.disabled = false;
+    }
 
     // 6. Disable non-selected option cards
     const questionCards = document.querySelectorAll(".question-card");

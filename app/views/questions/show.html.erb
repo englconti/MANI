@@ -55,7 +55,11 @@
       <p id="correct-answer" hidden><%= @question.correct_answer %></p>
       <p class="wrong-answer" id="wrong-answer-msg" hidden><%= "The correct answer is #{@question.correct_answer}" %></p>
       <!--<% next_page = @question.lesson.questions.last.id == (@question.id + 1) ? "Lesson page" : (@question.id + 1) %>-->
-      <%= button_to 'Next question', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
+      <% if @question.lesson.questions.last == @question %>
+        <%= button_to 'Lesson review', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>
+      <% else %>
+        <%= button_to 'Next question', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
+      <% end %>
     </div>
   </div>
 
