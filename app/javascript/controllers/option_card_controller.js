@@ -10,13 +10,14 @@ export default class extends Controller {
 
   markCard(e) {
     e.preventDefault();
+    console.log("WHATAFUCK");
 
     const cardA = document.querySelector('.questionA');
     const cardB = document.querySelector('.questionB');
     const cardC = document.querySelector('.questionC');
     const cardD = document.querySelector('.questionD');
 
-    const clickedCardValue = e.currentTarget.children[0].children[1].textContent;
+    const clickedCardValue = e.currentTarget.children[1].textContent;
     console.log(clickedCardValue);
     console.log(e.currentTarget.children[0])
 
@@ -28,7 +29,7 @@ export default class extends Controller {
     // --------------------------------------------
 
     // Feature to enable pressing confirm button only after selecting one option
-    const confirmButton = document.getElementById("confirm-button")
+    const confirmButton = document.getElementById("confirm-button");
     if (document.querySelector('.marked')) {
       confirmButton.removeAttribute("disabled");
     } else {
