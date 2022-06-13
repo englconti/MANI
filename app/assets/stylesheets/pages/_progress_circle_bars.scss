@@ -1,25 +1,28 @@
+// $borders: 1px solid black;
+$borders: 0;
 
 .dashboard {
   display: flex;
-  border: 1px solid blue;
+  border: $borders;
   align-items: center;
   justify-content: center;
+
 }
 
-$circle-size: 200px;
-$stroke-width: 20px;
+$circle-size: 300px;
+$stroke-width: 22px;
 
 svg {
-  border: 1px solid red;
+  border: $borders;
   width: $circle-size;
   height: $circle-size;
-  margin: 1em;
+  margin: 20px;
 }
 
 .bg {
   fill: none;
   stroke-width: $stroke-width;
-  stroke: rgb(240, 240, 240);
+  stroke: rgb(227, 224, 224);
 }
 
 [class^="meter-"] {
@@ -35,7 +38,7 @@ svg {
   stroke-dasharray: 360;
   stroke-dashoffset: var(--circleBarFill);
   stroke: var(--barColor);
-  box-shadow: inset 0px 0px 10px rgb(190, 207, 240);
+  // box-shadow: inset 0px 0px 10px rgb(190, 207, 240);
   animation: progress-1 3s ease-out;
 }
 

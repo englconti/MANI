@@ -1,31 +1,54 @@
 
 <% true_count = @answers_array.count(true) %>
 <% q_count = @current_lesson.number_of_questions %>
-<% bar_fill = (1 - true_count.fdiv(q_count)) %>
+<% bar_fill = (1 - true_count.fdiv(q_count)) - 0.011 %>
 <% bar_color = true_count == q_count ? "#58cc02" : true_count >= q_count * 0.5 ? "#ffc800" : "#ff4b4b" %>
+<% top_emoji = true_count == q_count ? "🤑" : true_count >= q_count * 0.5 ? "🙂" : "🥵" %>
+<% xp = (true_count * 10) %>
+<% manis = (true_count * 100) %>
 
 <div class="lesson-page">
   <div class="lesson-top-part animate__animated animate__fadeIn">
-    <h1>LESSON RECAP</h1>
+    <h1>Resumo da Aula</h1>
   </div>
 
-  <div class="container-lesson-page animate__animated animate__fadeIn animate__delay-1s">
-    <div class="container-lesson-parts">
-      <p>Lesson title: <%= @current_lesson.title %></p>
-      <p>Lesson ID: <%= @current_lesson.id %></p>
-      <p>Lesson description: <%= @current_lesson.description %></p>
-      <p>Lesson num of questions: <%= @current_lesson.number_of_questions %></p>
-      <p>Current user: <%= current_user.username %>, ID: <%= current_user.id %></p>
-      <p>Correct answers = <%= "#{@answers_array.count(true)} / #{@current_lesson.number_of_questions}" %></p>
-      <%= render 'progress-circle-bars', bar_fill: (360 * bar_fill), bar_color: bar_color %>
+  <div class="container-lesson-page">
 
+    <div class="container-lesson-left animate__animated animate__fadeIn animate__delay-1s">
+      <p id="lesson-title"><%= @current_lesson.title %></p>
+      <p id="lesson-description">Descrição: <%= @current_lesson.description %></p>
+      <p>Você acertou: </p>
+      <div class="box-right-answers">
+        <p id="correct-over-all" class="lesson-important-info"><%= "#{@answers_array.count(true)} / #{@current_lesson.number_of_questions}" %></p>
+      </div>
     </div>
+
+    <div class="container-lesson-center animate__animated animate__fadeIn">
+      <p id="top-circle-emoji"><%= top_emoji %></p>
+      <%= render 'progress-circle-bars', bar_fill: (360 * bar_fill), bar_color: bar_color %>
+    </div>
+
+    <div class="container-lesson-right animate__animated animate__fadeIn animate__delay-1s">
+
+      <p>XP adquirida:</p>
+      <div class="box-xps">
+        <p class="lesson-important-info"><%= xp %></p>
+        <p class="xps">XP</p>
+      </div>
+
+      <p>Mani$ conquistados:</p>
+      <div class="box-manis">
+        <p class="lesson-important-info"><%= manis %> </p>
+        <p class="manis">M$<p>
+      </div>
+    </div>
+
   </div>
 
   <div class="lesson-footer">
     <div class="lesson-buttons">
-      <%= button_to 'Redo lesson', question_path(@current_lesson.questions.first), method: :get, id:"btn-redo-lesson", class:"btn btn-primary", disabled: false %>
-      <%= button_to 'Go to lessons', user_path(current_user), method: :get, id:"btn-lesson-page-to-user-page", class:"btn btn-success", disabled: false %>
+      <%= button_to 'Refazer aula', question_path(@current_lesson.questions.first), method: :get, id:"btn-redo-lesson", class:"btn btn-primary", disabled: false %>
+      <%= button_to 'Voltar ao menu', user_path(current_user), method: :get, id:"btn-lesson-page-to-user-page", class:"btn btn-success", disabled: false %>
     </div>
   </div>
 
