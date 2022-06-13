@@ -3,6 +3,16 @@
 $borders-red: 0;
 $borders: 0;
 
+$dark: #4d4e4e;
+$dark-grey: #1999d6;
+$grey: #e1e1e1;
+$red:#ff4c4c;
+$light-green: #a8ff3e;
+$green: #7ac70d;
+$dark-green: #629f0a;
+$blue: #1db0f6;
+$dark-blue: #1999d6;
+
 .question-page {
   // height: 100vh;
   background-color: #A9C9FF;
@@ -17,7 +27,6 @@ $borders: 0;
   flex-direction: column;
   align-items: center;
 }
-
 
 .question-top-part {
   margin: 0 auto;
@@ -152,13 +161,13 @@ $borders: 0;
 }
 
 .correct-answer-card {
-  background-color: #a8ff3e;
+  background-color: $light-green;
   color: #6a6a81;
 }
 
 .wrong-answer-card {
   color: #6a6a81;
-  background-color: #ff4b4b;
+  background-color: $red;
 }
 
 .question-card-greyed {
@@ -178,12 +187,12 @@ $borders: 0;
 }
 
 .correct-answer-footer-style {
-  box-shadow: inset 0px 0px 20px #619f09;
+  box-shadow: inset 0px 0px 60px $light-green;
   border: none;
 }
 
 .wrong-answer-footer-style {
-  box-shadow: inset 0px 0px 20px #ff4b4b;
+  box-shadow: inset 0px 0px 60px $red;
   border: none;
 }
 
@@ -213,7 +222,14 @@ $borders: 0;
   border-bottom: 5px solid #619f09;
 }
 
+.answer-feedback {
+  border: $borders-red;
+  width: 20vw;
+}
+
 #correct-answer-msg {
+  margin: 0;
+  text-align: center;
   border: $borders;
   width: 20vw;
   color: #619f09;
@@ -222,6 +238,8 @@ $borders: 0;
 
 
 #wrong-answer-msg {
+  margin: 0;
+  text-align: center;
   border: $borders;
   width: 20vw;
   color: rgb(167, 24, 24);
