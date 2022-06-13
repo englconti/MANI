@@ -1,10 +1,19 @@
 class UsersController < ApplicationController
   def show
+    # Conceitos Básicos I
     @lesson1 = render_lesson(1)
+    # Conceitos Básicos II
     @lesson2 = render_lesson(2)
+    # Finanças Pessoais I
     @lesson3 = render_lesson(3)
+    # Renda Fixa I
     @lesson4 = render_lesson(4)
+    # Renda Variável I
     @lesson5 = render_lesson(5)
+    # Finanças Pessoais II
+    @lesson6 = render_lesson(6)
+    # FII I
+    @lesson7 = render_lesson(7)
   end
 
   def render_lesson(lesson_id)

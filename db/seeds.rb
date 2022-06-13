@@ -2,7 +2,7 @@ require "csv"
 
 # Creating Products ------------------------------------------------
 puts "-=-=-=-=- CREATING PRODUCTS -=-=-=-=-"
-products_path = "db/data/products_starter.csv"
+products_path = "db/data/Mani - products_starter.csv"
 CSV.foreach(products_path, headers: :first_row) do |row|
   if Product.find_by(title: row['title']).nil?
     Product.create!(title: row['title'],
@@ -17,7 +17,7 @@ end
 
 # Creating Lessons -------------------------------------------------
 puts "-=-=-=-=- CREATING LESSONS -=-=-=-=-"
-lessons_path = "db/data/lessons_starter.csv"
+lessons_path = "db/data/Mani - lessons_starter.csv"
 CSV.foreach(lessons_path, headers: :first_row) do |row|
   if Lesson.find_by(title: row['title']).nil?
     Lesson.create!(title: row['title'], description: row['description'])
@@ -28,7 +28,7 @@ end
 
 # Creating Questions -----------------------------------------------
 puts "-=-=-=-=- CREATING QUESTIONS -=-=-=-=-"
-questions_path = "db/data/questions_starter.csv"
+questions_path = "db/data/Mani - questions_starter.csv"
 # questions_path = "#{__FILE__}/../db/data/questions_starter.csv"
 skipper = true
 CSV.foreach(questions_path, headers: :first_row) do |row|
