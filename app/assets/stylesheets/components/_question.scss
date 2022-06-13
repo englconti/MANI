@@ -20,14 +20,13 @@
   // border: 1px solid black;
   width: 80vw;
   display:flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .question-cancel-btn {
-  text-decoration: none;
-  color: rgb(244, 149, 149);
-  font-size: 60px;
+  color: rgb(145, 145, 145);
+  font-size: 30px;
 }
 
 .container {
@@ -123,6 +122,7 @@
 
 .correct-answer-card {
   background-color: #a8ff3e;
+  color: #6a6a81;
 }
 
 .wrong-answer-card {
@@ -142,6 +142,16 @@
   align-items: center;
   flex-grow: 1;
   align-self: stretch;
+}
+
+.correct-answer-footer-style {
+  box-shadow: inset 0px 0px 20px #619f09;
+  border: none;
+}
+
+.wrong-answer-footer-style {
+  box-shadow: inset 0px 0px 20px #ff4b4b;
+  border: none;
 }
 
 #question-buttons {
@@ -173,11 +183,15 @@
 #correct-answer-msg {
   // border: 1px solid black;
   width: 20vw;
+  color: #619f09;
+  font-weight: bolder;
 }
 
 #wrong-answer-msg {
   // border: 1px solid black;
   width: 20vw;
+  color: rgb(167, 24, 24);
+  font-weight: bolder;
 }
 
 #btn-lesson-review {
@@ -187,4 +201,18 @@
   background-color: #7ac70c;
   border: 0;
   border-bottom: 5px solid #619f09;
+}
+
+#sound-off{
+  color: rgb(145, 145, 145);
+  position: absolute;
+  left: 30px;
+  cursor: pointer;
+}
+
+#sound-on{
+  color: rgb(145, 145, 145);
+  position: absolute;
+  left: 30px;
+  cursor: pointer;
 }

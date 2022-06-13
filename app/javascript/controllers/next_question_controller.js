@@ -11,6 +11,21 @@ export default class extends Controller {
     // -------------------------------------
   }
 
+  mute(event) {
+    this.element.setAttribute("hidden", true);
+    const unMuteBtn = document.getElementById("sound-on")
+    unMuteBtn.hidden = false
+    unMuteBtn.classList.add("mute")
+    console.log(unMuteBtn.classList)
+  }
+
+  unMute(event) {
+    this.element.setAttribute("hidden", true);
+    const muteBtn = document.getElementById("sound-off")
+    muteBtn.hidden = false
+    muteBtn.classList.add("unmute")
+    console.log(muteBtn.classList)
+  }
   confirm(event) {
     event.preventDefault();
 
@@ -62,13 +77,28 @@ export default class extends Controller {
     })
 
     const correctAnswer = document.querySelector("#correct-answer").textContent
-
+    const audio = new Audio('http://codeskulptor-demos.commondatastorage.googleapis.com/descent/gotitem.mp3');
+    const wrongAudio = new Audio('https://rpg.hamsterrepublic.com/wiki-images/d/d7/Oddbounce.ogg');
+    const muteBtn = document.getElementById("sound-off");
+    const unMuteBtn = document.getElementById("sound-on")
     if (userAnswer === correctAnswer) {
       document.querySelector('.correct-answer').removeAttribute("hidden");
       document.querySelector('.marked').classList.add("correct-answer-card");
+      document.querySelector('.question-footer').classList.add("correct-answer-footer-style")
+      if (unMuteBtn.classList.contains("mute")){
+        audio.muted
+      } else {
+        audio.play();
+      }
     } else {
       document.querySelector('.marked').classList.add("wrong-answer-card");
       document.querySelector('.wrong-answer').removeAttribute("hidden");
+      document.querySelector('.question-footer').classList.add("wrong-answer-footer-style")
+      if (unMuteBtn.classList.contains("mute")){
+        audio.muted
+      } else {
+        wrongAudio.play();
+      }
     }
 
       // 7. Feature to make the bar move -----
