@@ -72,26 +72,37 @@ $borders: 0;
 .container-parts {
   border: $borders-red;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    border: $borders;
+    width: 90vw;
+    text-align: center;
+  }
 }
 
 .questions-container {
   border: $borders;
   border-radius: 10px;
   width: 90vw;
-  margin: 20px auto;
+  height: 350px;
   text-align: center;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .question-cards {
-  border: $borders;
+  border: $borders-red;
   border-radius: 10px;
   width: 80vw;
+  height: 90%;
   display: flex;
   justify-content: center;
+  align-items: stretch;
 }
 
 .question-card {
@@ -101,8 +112,9 @@ $borders: 0;
   border-radius: 10px;
   // min-width: 200px;
   width: 15vw;
-  height: 300px;
+  min-height: 150px;
   margin: 5px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

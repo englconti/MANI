@@ -18,8 +18,8 @@
   <div class="container-question-page animate__animated animate__fadeIn animate__delay-1s">
     <div class="container-parts">
     <!-- data-lesson-questions-count="<%= @question.lesson.questions.count %>" data-first-question-id="<%= @question.lesson.questions.first.id %>"-->
+      <h1><%= @question.statement %></h1>
       <div class="questions-container" id="questions-container" data-question-id="<%= @question.id %>" data-answer-id="<%= @answer_id %>" data-lesson-questions-count="<%= @question.lesson.questions.count %>" data-first-question-id="<%= @question.lesson.questions.first.id %>">
-          <h1 style="margin-bottom: 100px"><%= @question.statement %></h1>
           <div class="question-cards" data-option-card-target="content" data-controller="option-card">
             <div id="questionA" class="question-card questionA"  data-action="click->option-card#markCard">
               <div class="question-answer" >
