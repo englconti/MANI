@@ -1,6 +1,6 @@
 
 <% true_count = @answers_array.count(true) %>
-<% q_count = @current_lesson.number_of_questions %>
+<% q_count = @current_lesson.questions.count %>
 <% bar_fill = (1 - true_count.fdiv(q_count)) - 0.011 %>
 <% bar_color = true_count == q_count ? "#58cc02" : true_count >= q_count * 0.5 ? "#ffc800" : "#ff4b4b" %>
 <% top_emoji = true_count == q_count ? "🤑" : true_count >= q_count * 0.5 ? "🙂" : "🥵" %>
@@ -19,7 +19,7 @@
       <p id="lesson-description">Descrição: <%= @current_lesson.description %></p>
       <p>Você acertou: </p>
       <div class="box-right-answers">
-        <p id="correct-over-all" class="lesson-important-info"><%= "#{@answers_array.count(true)} / #{@current_lesson.number_of_questions}" %></p>
+        <p id="correct-over-all" class="lesson-important-info"><%= "#{@answers_array.count(true)} / #{q_count}" %></p>
       </div>
     </div>
 
