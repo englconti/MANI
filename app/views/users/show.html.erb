@@ -1,5 +1,22 @@
 <div id="user-page-container" class="animate__animated">
-  <p id="user-page-greeting">Olá, <%= current_user.username.capitalize %>! Bora aprender com o Mani?</p>
+  <div class="box-user-header">
+
+    <p id="user-page-greeting">Olá, <%= current_user.username.capitalize %>! Bora aprender com o Mani?</p>
+
+    <div class="box-user-info">
+
+      <div class="box-xps">
+        <p><%= current_user.xp %></p>
+        <p class="user-xp">XP</p>
+      </div>
+
+      <div class="box-manis">
+        <p><%= current_user.manis %> </p>
+        <p class="user-manis">M$<p>
+      </div>
+
+    </div>
+  </div>
 
   <div class="container-user-show-page animate__animated animate__fadeIn">
 
