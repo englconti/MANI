@@ -1,11 +1,10 @@
 
-<% true_count = @answers_array.count(true) %>
-<% q_count = @current_lesson.questions.count %>
-<% bar_fill = (1 - true_count.fdiv(q_count)) - 0.011 %>
-<% bar_color = true_count == q_count ? "#58cc02" : true_count >= q_count * 0.5 ? "#ffc800" : "#ff4b4b" %>
-<% top_emoji = true_count == q_count ? "🤑" : true_count >= q_count * 0.5 ? "🙂" : "🥵" %>
-<% xp = (true_count * 10) %>
-<% manis = (true_count * 100) %>
+<% q_count = @questions.count %>
+<% bar_fill = (1 - @true_count.fdiv(q_count)) - 0.011 %>
+<% bar_color = @true_count == q_count ? "#58cc02" : @true_count >= q_count * 0.5 ? "#ffc800" : "#ff4b4b" %>
+<% top_emoji = @true_count == q_count ? "🤑" : @true_count >= q_count * 0.5 ? "🙂" : "🥵" %>
+<% xp = (@true_count * 5) %>
+<% manis = (@true_count * 3) %>
 
 <div class="lesson-page">
   <div class="lesson-top-part animate__animated animate__fadeIn">

@@ -1,3 +1,8 @@
+$borders: 1px solid black;
+$borders-red: 1px solid rgb(255, 0, 0);
+$borders-red: 0;
+$borders: 0;
+
 #user-page-container {
   // nothing to add for now
   border: 1px solid rgba(255, 255, 255, 0.117);
@@ -6,12 +11,54 @@
 
 }
 
+.box-user-header {
+  border: $borders-red;
+  min-height: 60px;
+  max-width: 90vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #user-page-greeting {
+  border: $borders;
   font-style: italic;
   font-size: 20px;
   color: #44413e;
-  margin-top: 20px;
-  margin-left: 50px;
+  margin: 0;
+  // margin-top: 20px;
+  // margin-left: 50px;
+}
+
+.box-user-info {
+  border: $borders;
+  margin: 0;
+  min-width: 200px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  p {
+    color: #4d4e4e;
+    margin: 0;
+    font-weight: 600;
+    font-size: 30px;
+  }
+    .user-manis {
+      margin-left: 2px;
+      font-size: 20px;
+      font-weight: 600;
+      color: gold;
+    }
+
+    .user-xp {
+      margin-left: 2px;
+      font-size: 20px;
+      font-weight: 600;
+      color:#1899d6;
+    }
 }
 
 
@@ -33,7 +80,7 @@
 }
 
 .container-lessons {
-  // border: 1px solid rgb(250, 246, 2);
+  border: $borders;
   border-radius: 30px;
   // background: rgba(128, 128, 128, 0.572);
   display: flex;
@@ -45,7 +92,7 @@
 }
 
 .box-lessons {
-  // border: 1px solid rgba(242, 247, 241, 0.283);
+  border: $borders;
   border-radius: 10px;
 
   display: flex;
@@ -129,7 +176,7 @@
   }
 
   h6 {
-    // border: 1px solid black;
+    border: $borders;
     // padding-bottom: 10px;
     margin-bottom: 10px;
 
@@ -140,7 +187,7 @@
 }
 
 .container-right-info {
-  // border: 1px solid green;
+  border: $borders;
   width: 350px;
   min-width: 340px;
   height: 500px;
@@ -150,14 +197,14 @@
 }
 
 .box-friends-list {
-  // border: 1px solid rgb(255, 0, 0);
+  border: $borders;
   border: 2px solid #e5e5e5;
   border-radius: 10px;
   width: 95%;
   margin: 0 auto;
 
   .box-friends-header {
-    // border: 1px solid green;
+    border: $borders;
     border-radius: 10px 10px 0 0;
 
     background-color: rgb(77, 77, 77);
@@ -202,7 +249,7 @@
   }
 
   #friend-box-footer {
-    // border: 1px solid rgb(28, 48, 205);
+    border: $borders;
     padding: 0;
     border-radius: 0 0 10px 10px;
     background-color: rgb(225,225,225);
