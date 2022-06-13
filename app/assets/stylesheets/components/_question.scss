@@ -1,3 +1,8 @@
+// $borders: 1px solid black;
+// $borders-red: 1px solid rgb(255, 0, 0);
+$borders-red: 0;
+$borders: 0;
+
 .question-page {
   // height: 100vh;
   background-color: #A9C9FF;
@@ -16,8 +21,10 @@
 
 .question-top-part {
   margin: 0 auto;
-  margin-top: 30px;
-  // border: 1px solid black;
+  // margin-top: 30px;
+  // padding-top: 20px;
+  border: $borders;
+  height: 15vh;
   width: 80vw;
   display:flex;
   justify-content: space-around;
@@ -56,8 +63,20 @@
   box-shadow: inset 0px 0px 10px rgb(190, 207, 240);
 }
 
+// CENTER CONTAINER ---------------------------
+
+.container-question-page {
+  border: $borders;
+  height: 70vh;
+}
+
+.container-parts {
+  border: $borders-red;
+  height: 100%;
+}
+
 .questions-container {
-  // border: 1px solid #e5e5e5;
+  border: $borders;
   border-radius: 10px;
   width: 90vw;
   margin: 20px auto;
@@ -69,7 +88,7 @@
 }
 
 .question-cards {
-  // border: 1px solid #e5e5e5;
+  border: $borders;
   border-radius: 10px;
   width: 80vw;
   display: flex;
@@ -99,7 +118,7 @@
   border-left: 2px solid #e5e5e5;
 
   .question-answer {
-    // border: 1px solid black;
+    border: $borders;
     height: 80%;
     margin: auto;
     width: 90%;
@@ -134,10 +153,12 @@
   background-color: #e5e5e5;
 }
 
+// FOOTER ---------------------------------------------
+
 .question-footer {
   border-top: 3px solid #e5e5e5;
   border-bottom: 1px solid black;
-  height: auto;
+  height: 15vh;
   display: flex;
   align-items: center;
   flex-grow: 1;
@@ -145,7 +166,7 @@
 }
 
 #question-buttons {
-  // border: 1px solid black;
+  border: $borders;
   display:flex;
   justify-content: space-around;
   align-items: center;
@@ -171,12 +192,12 @@
 }
 
 #correct-answer-msg {
-  // border: 1px solid black;
+  border: $borders;
   width: 20vw;
 }
 
 #wrong-answer-msg {
-  // border: 1px solid black;
+  border: $borders;
   width: 20vw;
 }
 
