@@ -9,27 +9,36 @@ export default class extends Controller {
     // 0. Feature to make the bar move -----
     this.barStatusLoad(0)
     // -------------------------------------
+    const unMuteBtn = document.getElementById("sound-on");
+    const muteBtn = document.getElementById("sound-off");
+    console.log(localStorage['alerts'])
+    if (localStorage["alerts"] === 'true') {
+      muteBtn.hidden = false;
+      unMuteBtn.hidden = true;
+    } else {
+      unMuteBtn.hidden = false;
+      muteBtn.hidden = true;
+    }
   }
 
   mute(event) {
-    this.element.setAttribute("hidden", true);
-    const unMuteBtn = document.getElementById("sound-on")
-    unMuteBtn.hidden = false
-    unMuteBtn.classList.add("mute")
-    console.log(unMuteBtn.classList)
+    event.currentTarget.setAttribute("hidden", true);
+    const unMuteBtn = document.getElementById("sound-on");
+    unMuteBtn.hidden = false;
+    localStorage.setItem('alerts', false);
   }
 
   unMute(event) {
-    this.element.setAttribute("hidden", true);
-    const muteBtn = document.getElementById("sound-off")
-    muteBtn.hidden = false
-    muteBtn.classList.add("unmute")
-    console.log(muteBtn.classList)
+    event.currentTarget.setAttribute("hidden", true);
+    const muteBtn = document.getElementById("sound-off");
+    muteBtn.hidden = false;
+    localStorage.setItem('alerts', true);
   }
+
   confirm(event) {
     event.preventDefault();
 
-    this.element.setAttribute("hidden", true);
+    // this.element.setAttribute("hidden", true);
 
     this.questionElement = document.querySelector("#questions-container");
 
@@ -85,8 +94,9 @@ export default class extends Controller {
       document.querySelector('.correct-answer').removeAttribute("hidden");
       document.querySelector('.marked').classList.add("correct-answer-card");
       document.querySelector('.question-footer').classList.add("correct-answer-footer-style")
-      if (unMuteBtn.classList.contains("mute")){
-        audio.muted
+      console.log(localStorage["alerts"])
+      if (localStorage["alerts"] === 'false') {
+        audio.muted;
       } else {
         audio.play();
       }
@@ -94,8 +104,9 @@ export default class extends Controller {
       document.querySelector('.marked').classList.add("wrong-answer-card");
       document.querySelector('.wrong-answer').removeAttribute("hidden");
       document.querySelector('.question-footer').classList.add("wrong-answer-footer-style")
-      if (unMuteBtn.classList.contains("mute")){
-        audio.muted
+      console.log(localStorage["alerts"])
+      if (localStorage["alerts"] === 'false') {
+        audio.muted;
       } else {
         wrongAudio.play();
       }
