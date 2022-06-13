@@ -50,11 +50,11 @@
     </div>
   </div>
 
-  <div class="question-footer">
+  <div class="question-footer" data-controller="next-question">
     <div id="question-buttons">
-      <button id="confirm-button" class="btn btn-primary" data-controller="next-question" data-action="click->next-question#confirm" disabled>Confirmar resposta</button>
+      <button id="confirm-button" class="btn btn-primary" data-action="click->next-question#confirm" disabled>Confirmar resposta</button>
       <div class="correct-answer" id="correct-answer-msg" hidden><%= "Resposta correta!" %></div>
-      <p id="correct-answer" hidden><%= @question.correct_answer %></p>
+      <p id="correct-answer" class="animate__animated animate__bounce" hidden><%= @question.correct_answer %></p>
       <p class="wrong-answer" id="wrong-answer-msg" hidden><%= "A resposta correta é #{@question.correct_answer}" %></p>
       <!--<% next_page = @question.lesson.questions.last.id == (@question.id + 1) ? "Lesson page" : (@question.id + 1) %>-->
       <% if @question.lesson.questions.last == @question %>
@@ -63,8 +63,8 @@
         <%= button_to 'Próxima pergunta', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
       <% end %>
     </div>
-    <span id="sound-off" data-controller="next-question" data-action="click->next-question#mute"><i class="fas fa-volume-mute"></i></span>
-    <span id="sound-on" data-controller="next-question" data-action="click->next-question#unMute" hidden><i class="fas fa-volume-up"></i></span>
+    <span id="sound-off" data-action="click->next-question#mute"><i class="fas fa-volume-mute"></i></span>
+    <span id="sound-on" data-action="click->next-question#unMute"><i class="fas fa-volume-up"></i></span>
   </div>
 
 </div>
