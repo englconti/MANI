@@ -1,7 +1,8 @@
 class Lesson < ApplicationRecord
   has_many :questions
 
+  has_many :answers, through: :questions
+
   validates :title, presence: true
   validates :description, presence: true
-  validates :number_of_questions, presence: true
 end
