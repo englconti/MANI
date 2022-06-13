@@ -15,13 +15,13 @@
             <%= link_to "Home", root_path, class: "nav-link", style:"margin-right:20px;" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Go to Lessons", user_path(current_user), class: "nav-link", style:"margin-right:20px;" %>
+            <%= link_to "Meu dashboard", user_path(current_user), class: "nav-link", style:"margin-right:20px;" %>
           </li>
           <li class="nav-item dropdown">
             <%= image_tag "perfil.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "My Profile", user_path(current_user), class: "dropdown-item" %>
-              <%= link_to "Edit account", edit_user_registration_path(current_user), class: "dropdown-item" %>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="border-radius: 10px;">
+              <%= link_to "Meu perfil", user_path(current_user), class: "dropdown-item" %>
+              <%= link_to "Editar dados", edit_user_registration_path(current_user), class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>

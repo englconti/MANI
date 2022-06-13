@@ -53,9 +53,11 @@
   <div class="question-footer" data-controller="next-question">
     <div id="question-buttons">
       <button id="confirm-button" class="btn btn-primary" data-action="click->next-question#confirm" disabled>Confirmar resposta</button>
-      <div class="correct-answer" id="correct-answer-msg" hidden><%= "Resposta correta!" %></div>
-      <p id="correct-answer" class="animate__animated animate__bounce" hidden><%= @question.correct_answer %></p>
-      <p class="wrong-answer" id="wrong-answer-msg" hidden><%= "A resposta correta é #{@question.correct_answer}" %></p>
+      <div class="answer-feedback">
+        <p class="correct-answer animate__animated animate__heartBeat" id="correct-answer-msg" hidden><%= "Resposta correta!" %></p>
+        <p id="correct-answer" class="animate__animated animate__bounce" hidden><%= @question.correct_answer %></p>
+        <p class="wrong-answer animate__animated animate__headShake" id="wrong-answer-msg" hidden><%= "A resposta correta é #{@question.correct_answer}" %></p>
+      </div>
       <!--<% next_page = @question.lesson.questions.last.id == (@question.id + 1) ? "Lesson page" : (@question.id + 1) %>-->
       <% if @question.lesson.questions.last == @question %>
         <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>

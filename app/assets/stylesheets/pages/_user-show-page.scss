@@ -3,6 +3,17 @@ $borders-red: 1px solid rgb(255, 0, 0);
 $borders-red: 0;
 $borders: 0;
 
+$dark: #4d4e4e;
+$dark-grey: #1999d6;
+$grey: #e1e1e1;
+$red:#ff4c4c;
+$light-green: #a8ff3e;
+$green: #7ac70d;
+$dark-green: #629f0a;
+$blue: #1db0f6;
+$dark-blue: #1999d6;
+$gold: gold;
+
 #user-page-container {
   // nothing to add for now
   border: 1px solid rgba(255, 255, 255, 0.117);
@@ -14,7 +25,7 @@ $borders: 0;
 .box-user-header {
   border: $borders-red;
   min-height: 60px;
-  max-width: 90vw;
+  max-width: 92vw;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -25,7 +36,7 @@ $borders: 0;
   border: $borders;
   font-style: italic;
   font-size: 20px;
-  color: #44413e;
+  color: $dark;
   margin: 0;
   // margin-top: 20px;
   // margin-left: 50px;
@@ -34,30 +45,35 @@ $borders: 0;
 .box-user-info {
   border: $borders;
   margin: 0;
-  min-width: 200px;
+  min-width: 345px;
 
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-around;
 
   p {
-    color: #4d4e4e;
+    color: $dark;
     margin: 0;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 25px;
   }
-    .user-manis {
-      margin-left: 2px;
-      font-size: 20px;
-      font-weight: 600;
-      color: gold;
-    }
 
-    .user-xp {
-      margin-left: 2px;
-      font-size: 20px;
-      font-weight: 600;
-      color:#1899d6;
+  .my-status {
+    font-size: 15px;
+  }
+
+  .user-manis {
+    margin-left: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $gold;
+  }
+
+  .user-xp {
+    margin-left: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $dark-blue;
     }
 }
 
