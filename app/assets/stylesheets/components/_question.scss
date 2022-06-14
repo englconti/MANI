@@ -1,5 +1,5 @@
-$borders: 1px solid black;
-$borders-red: 1px solid rgb(255, 0, 0);
+// $borders: 1px solid black;
+// $borders-red: 1px solid rgb(255, 0, 0);
 $borders-red: 0;
 $borders: 0;
 
@@ -190,6 +190,11 @@ $dark-blue: #1999d6;
 }
 
 // FOOTER ---------------------------------------------
+
+.right-buttons {
+  border: $borders;
+}
+
 
 .question-footer {
   border-top: 3px solid #e5e5e5;

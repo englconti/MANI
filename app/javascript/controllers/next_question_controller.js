@@ -107,13 +107,6 @@ export default class extends Controller {
     // -------------------------------------
 
     // 8. Removing hearts if wrong confirmation (only view, true change happens on the answers_controller.rb)
-    // console.log(`hearts amount -> ${heartsAmount}`)
-    // console.log(typeof +heartsAmount)
-    // if (userAnswer === correctAnswer) {
-    //   hearts.innerHTML = heartsArray[+heartsAmount]
-    // } else {
-    //   hearts.innerHTML = heartsArray[+heartsAmount-1]
-    // }
     this.renderHearts(userAnswer === correctAnswer)
     // -------------------------------------
   }
@@ -128,12 +121,21 @@ export default class extends Controller {
       progressBar.style = `width: ${progress}vw;`
   }
 
-  renderHearts = function (trueOrFalse) {
+  renderHearts = function (correctGuess) {
     const hearts = document.querySelector(".hearts");
     const heartsAmount = hearts.dataset.heartsAmount;
+    const lastQuestion = hearts.dataset.lastQuestion === "true";
     const heartsArray = ["🖤🖤🖤🖤🖤", "💗🖤🖤🖤🖤", "💗💗🖤🖤🖤", "💗💗💗🖤🖤", "💗💗💗💗🖤","💗💗💗💗💗"]
-    hearts.innerHTML = trueOrFalse ? heartsArray[+heartsAmount] : heartsArray[+heartsAmount - 1]
-    // !trueOrFalse &&
-  }
+    hearts.innerHTML = correctGuess ? heartsArray[+heartsAmount] : heartsArray[+heartsAmount - 1]
 
+    // Logic to replace next-lesson button for lesson-review if meet criteria
+    if (!correctGuess && (heartsAmount - 1 == 0) && !lastQuestion) {
+      const nextQuestionBtn = document.querySelector("#btn-next-question");
+      const lessonReviewButton = document.querySelector("#btn-lesson-review")
+      nextQuestionBtn.disabled = true;
+      nextQuestionBtn.hidden = true;
+      lessonReviewButton.hidden = false;
+      lessonReviewButton.disabled = false;
+    }
+  }
 }

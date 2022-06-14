@@ -46,6 +46,8 @@
 
   <div class="lesson-footer">
     <div class="lesson-buttons">
+      <% current_user.lives = 5 %>
+      <% current_user.save %>
       <%= button_to 'Refazer aula', question_path(@current_lesson.questions.first), method: :get, id:"btn-redo-lesson", class:"btn btn-primary", disabled: false %>
       <%= button_to 'Voltar ao menu', user_path(current_user), method: :get, id:"btn-lesson-page-to-user-page", class:"btn btn-success", disabled: false %>
     </div>
