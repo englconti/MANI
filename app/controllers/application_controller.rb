@@ -13,5 +13,9 @@ class ApplicationController < ActionController::Base
   def disable_nav
     @disable_nav = true
   end
+
+  def disable_dashboard_button
+    @disable_dashboard_button = true
+  end
   #----------------------------------------------------------------------------------------
 end
