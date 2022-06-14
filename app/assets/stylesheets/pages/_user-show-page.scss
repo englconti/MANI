@@ -15,11 +15,10 @@ $dark-blue: #1999d6;
 $gold: gold;
 
 #user-page-container {
-  // nothing to add for now
-  border: 1px solid rgba(255, 255, 255, 0.117);
+  border-top: 1px solid $grey;
+  // border: 1px solid rgba(255, 255, 255, 0.117);
   min-height: 80vh;
   font-family:"Nunito";
-
 }
 
 .box-user-header {
@@ -341,3 +340,62 @@ $gold: gold;
   padding: 3px;
 
 }
+
+
+// ADD FRIENDS WINDOW ----------------------------------
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.box-window-add-friend {
+  border: $borders;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: 60vh;
+  background-color: white;
+  border-radius: 9px;
+
+  padding: 5rem 6rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  transition: all 0.5s;
+
+  .btn--close-modal {
+    font-family: inherit;
+    color: inherit;
+    position: absolute;
+    top: 0.5rem;
+    right: 1.6rem;
+    font-size: 3.5rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+
+  .search-friend-top {
+    border: $borders;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+
+// ---------------------------------------

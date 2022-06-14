@@ -1,4 +1,19 @@
-    <div class="box-friends-list">
+    <div class="box-friends-list" data-controller="friends-actions">
+
+    <!--Window for adding friends-->
+      <div class="container-window-add-friend" >
+
+        <div class="overlay hidden" data-action="click->friends-actions#closeWindow"></div>
+        <div class="box-window-add-friend hidden">
+          <button class="btn--close-modal" data-action="click->friends-actions#closeWindow">&times;</button>
+          <div class="search-friend-top">
+            <p>Search for a friend</p>
+            <input type="form">
+          </div>
+        </div>
+
+      </div>
+    <!--end of window to add friends-->
 
       <div class="box-friends-header">
         <p>Amigos</p>
@@ -24,7 +39,7 @@
       </div>
 
       <footer id="friend-box-footer">
-        <button type="button" class="btn btn-primary btn-add-friend" >Add um amigo!</button>
+        <button type="button" class="btn btn-primary btn-add-friend" data-action="click->friends-actions#openWindow" >Add um amigo!</button>
         <button type="button" class="btn btn-success btn-send-invite" >Envie um convite!</button>
       </footer>
 
