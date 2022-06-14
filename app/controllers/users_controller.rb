@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def show
+    refill_lives
     # Conceitos Básicos I
     @lesson1 = render_lesson(1)
     # Conceitos Básicos II
@@ -24,4 +25,10 @@ class UsersController < ApplicationController
     correct_answers_count = lesson_answers.where("is_correct = ?", true).count
     [lesson, correct_answers_count, questions_count]
   end
+
+  def refill_lives
+    current_user.lives = 5
+    current_user.save
+  end
+
 end

@@ -38,8 +38,6 @@ export default class extends Controller {
   confirm(event) {
     event.preventDefault();
 
-    // this.element.setAttribute("hidden", true);
-
     this.questionElement = document.querySelector("#questions-container");
 
     // 1. Getting the text content from the marked Card and puttinuserAnswer
@@ -95,26 +93,29 @@ export default class extends Controller {
       document.querySelector('.marked').classList.add("correct-answer-card");
       document.querySelector('.question-footer').classList.add("correct-answer-footer-style")
       console.log(localStorage["alerts"])
-      if (localStorage["alerts"] === 'false') {
-        audio.muted;
-      } else {
-        audio.play();
-      }
+      localStorage["alerts"] === 'false' ? audio.muted : audio.play();
     } else {
       document.querySelector('.marked').classList.add("wrong-answer-card");
       document.querySelector('.wrong-answer').removeAttribute("hidden");
       document.querySelector('.question-footer').classList.add("wrong-answer-footer-style")
       console.log(localStorage["alerts"])
-      if (localStorage["alerts"] === 'false') {
-        audio.muted;
-      } else {
-        wrongAudio.play();
-      }
+      localStorage["alerts"] === 'false' ? audio.muted : wrongAudio.play();
     }
 
-      // 7. Feature to make the bar move -----
-      this.barStatusLoad(1)
-      // -------------------------------------
+    // 7. Feature to make the bar move -----
+    this.barStatusLoad(1)
+    // -------------------------------------
+
+    // 8. Removing hearts if wrong confirmation (only view, true change happens on the answers_controller.rb)
+    // console.log(`hearts amount -> ${heartsAmount}`)
+    // console.log(typeof +heartsAmount)
+    // if (userAnswer === correctAnswer) {
+    //   hearts.innerHTML = heartsArray[+heartsAmount]
+    // } else {
+    //   hearts.innerHTML = heartsArray[+heartsAmount-1]
+    // }
+    this.renderHearts(userAnswer === correctAnswer)
+    // -------------------------------------
   }
 
   barStatusLoad = function (num) {
@@ -126,4 +127,13 @@ export default class extends Controller {
       const progressBar = document.querySelector(".bar-container");
       progressBar.style = `width: ${progress}vw;`
   }
+
+  renderHearts = function (trueOrFalse) {
+    const hearts = document.querySelector(".hearts");
+    const heartsAmount = hearts.dataset.heartsAmount;
+    const heartsArray = ["🖤🖤🖤🖤🖤", "💗🖤🖤🖤🖤", "💗💗🖤🖤🖤", "💗💗💗🖤🖤", "💗💗💗💗🖤","💗💗💗💗💗"]
+    hearts.innerHTML = trueOrFalse ? heartsArray[+heartsAmount] : heartsArray[+heartsAmount - 1]
+    // !trueOrFalse &&
+  }
+
 }

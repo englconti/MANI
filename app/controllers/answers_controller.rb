@@ -18,6 +18,8 @@ class AnswersController < ApplicationController
     else
       puts "WRONG DUMBASS 👹👿👿"
       answer.is_correct = false
+      current_user.lives -= 1
+      current_user.save
     end
     answer.save
   end

@@ -1,5 +1,5 @@
-// $borders: 1px solid black;
-// $borders-red: 1px solid rgb(255, 0, 0);
+$borders: 1px solid black;
+$borders-red: 1px solid rgb(255, 0, 0);
 $borders-red: 0;
 $borders: 0;
 
@@ -7,6 +7,7 @@ $dark: #4d4e4e;
 $dark-grey: #1999d6;
 $grey: #e1e1e1;
 $red:#ff4c4c;
+$red-heart: #e8505f;
 $light-green: #a8ff3e;
 $green: #7ac70d;
 $dark-green: #629f0a;
@@ -34,15 +35,29 @@ $dark-blue: #1999d6;
   // padding-top: 20px;
   border: $borders;
   height: 15vh;
-  width: 80vw;
+  width: 85vw;
   display:flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
+.hearts {
+  border: $borders-red;
+  width: 120px;
+}
+
+.question-close-box {
+  border: $borders;
+  text-align: center;
+  width: 120px;
+}
+
 .question-cancel-btn {
   color: rgb(145, 145, 145);
   font-size: 30px;
+  &:hover {
+    color: $red-heart;
+  }
 }
 
 .container {
