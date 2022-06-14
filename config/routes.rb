@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # ----------------------------------------------------------------
 
-  resources :users, only: [:show]
+  resources :users, only: %i[show index]
 
   resources :products, only: %i[index show]
 

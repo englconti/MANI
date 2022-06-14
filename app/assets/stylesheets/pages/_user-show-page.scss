@@ -6,6 +6,7 @@ $borders: 0;
 $dark: #4d4e4e;
 $dark-grey: #1999d6;
 $grey: #e1e1e1;
+$grey-dark: #aaafb8;
 $red:#ff4c4c;
 $light-green: #a8ff3e;
 $green: #7ac70d;
@@ -363,39 +364,111 @@ $gold: gold;
 
 .box-window-add-friend {
   border: $borders;
+  border-radius: 10px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50vw;
   height: 60vh;
-  background-color: white;
-  border-radius: 9px;
+  background-color: $grey-dark;
 
-  padding: 5rem 6rem;
+  padding: 10px;
   box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
   z-index: 1000;
   transition: all 0.5s;
 
-  .btn--close-modal {
-    font-family: inherit;
-    color: inherit;
-    position: absolute;
-    top: 0.5rem;
-    right: 1.6rem;
-    font-size: 3.5rem;
+  .add-friend-cancel-btn {
+    color: rgb(145, 145, 145);
+    font-size: 30px;
     cursor: pointer;
-    border: none;
-    background: none;
+
+    &:hover {
+      color: $red-heart;
+    }
   }
 
   .search-friend-top {
-    border: $borders;
+    border: $borders-red;
+    background-color: $dark;
+    border-radius: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    height: 60px;
+
+    #search-friend-statement {
+      margin: 0;
+      border: $borders;
+      color: white;
+      font-size: 25px;
+    }
+
+    #search-friend-bar {
+      // margin-top: 20px;
+      height: 100%;
+      border: $borders-red;
+      margin: 0;
+      padding: 0;
+      padding-top: 10px;
+    }
+
   }
 }
 
+
+#users-list {
+  border: $borders-red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.friend-box-search {
+  margin: 5px 2px;
+  background: rgb(225,225,225);
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  height: 35px;
+  width: 90%;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+
+  p {
+    border: $borders-red;
+    margin: 0;
+  }
+
+  #friend-username {
+    width: 150px;
+  }
+
+  #friend-email {
+    width: 300px;
+  }
+
+  &:hover {
+    background: rgb(241, 236, 236);
+  }
+
+  #btn-search-add-friend {
+    background: #1cb0f6;
+    border: 0;
+    border-bottom: 5px solid #1899d6;
+    color: white;
+    font-size: 15px;
+    padding: 2px 2px 0 0;
+    border-radius: 10px;
+    width: 80px;
+
+    &:hover {
+      background: #71d2ff;
+    }
+  }
+}
 
 // ---------------------------------------

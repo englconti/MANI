@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   before_action :disable_dashboard_button, only: [:show]
 
+  def index
+    # Code for searching friends purpose
+    # ----------------------------------
+  end
+
   def show
     refill_lives
     # Conceitos Básicos I
@@ -17,6 +22,14 @@ class UsersController < ApplicationController
     @lesson6 = render_lesson(6)
     # FII I
     @lesson7 = render_lesson(7)
+
+    @all_users = User.search_by_username_and_email(params[:query])
+
+    respond_to do |format|
+      format.html # Follow regular flow of Rails
+      format.text { render partial: 'friends.html', locals: { users: @all_users } }
+    end
+
   end
 
   def render_lesson(lesson_id)

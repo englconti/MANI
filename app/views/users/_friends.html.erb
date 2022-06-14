@@ -1,0 +1,7 @@
+<% users.each do |user| %>
+  <div class="friend-box-search">
+    <p id="friend-username"><%= user.username %></p>
+    <p id="friend-email"><%= user.email %></p>
+    <button id="btn-search-add-friend">Add</button>
+  </div>
+<% end %>

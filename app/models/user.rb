@@ -12,6 +12,15 @@ class User < ApplicationRecord
   has_many :friendships_as_receiver, class_name: "Friendship", foreign_key: :receiver_id
   # ----------------------------------
 
+  # for searching friends ------------
+  include PgSearch::Model
+  pg_search_scope :search_by_username_and_email,
+                  against: %i[username email],
+                  using: {
+                    tsearch: { prefix: true } # <-- now `superman batm` will return something!
+                  }
+  # ----------------------------------
+
 
   def populate_answers
     num_of_questions = Question.count
