@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :disable_dashboard_button, only: [:show]
+
   def show
     refill_lives
     # Conceitos Básicos I
