@@ -38,8 +38,6 @@ export default class extends Controller {
   confirm(event) {
     event.preventDefault();
 
-    // this.element.setAttribute("hidden", true);
-
     this.questionElement = document.querySelector("#questions-container");
 
     // 1. Getting the text content from the marked Card and puttinuserAnswer
@@ -95,26 +93,22 @@ export default class extends Controller {
       document.querySelector('.marked').classList.add("correct-answer-card");
       document.querySelector('.question-footer').classList.add("correct-answer-footer-style")
       console.log(localStorage["alerts"])
-      if (localStorage["alerts"] === 'false') {
-        audio.muted;
-      } else {
-        audio.play();
-      }
+      localStorage["alerts"] === 'false' ? audio.muted : audio.play();
     } else {
       document.querySelector('.marked').classList.add("wrong-answer-card");
       document.querySelector('.wrong-answer').removeAttribute("hidden");
       document.querySelector('.question-footer').classList.add("wrong-answer-footer-style")
       console.log(localStorage["alerts"])
-      if (localStorage["alerts"] === 'false') {
-        audio.muted;
-      } else {
-        wrongAudio.play();
-      }
+      localStorage["alerts"] === 'false' ? audio.muted : wrongAudio.play();
     }
 
-      // 7. Feature to make the bar move -----
-      this.barStatusLoad(1)
-      // -------------------------------------
+    // 7. Feature to make the bar move -----
+    this.barStatusLoad(1)
+    // -------------------------------------
+
+    // 8. Removing hearts if wrong confirmation (only view, true change happens on the answers_controller.rb)
+    this.renderHearts(userAnswer === correctAnswer)
+    // -------------------------------------
   }
 
   barStatusLoad = function (num) {
@@ -125,5 +119,23 @@ export default class extends Controller {
       const progress = (currentQuestionId - firstQuestionId + num) * (60 / questionsCount);
       const progressBar = document.querySelector(".bar-container");
       progressBar.style = `width: ${progress}vw;`
+  }
+
+  renderHearts = function (correctGuess) {
+    const hearts = document.querySelector(".hearts");
+    const heartsAmount = hearts.dataset.heartsAmount;
+    const lastQuestion = hearts.dataset.lastQuestion === "true";
+    const heartsArray = ["🖤🖤🖤🖤🖤", "💗🖤🖤🖤🖤", "💗💗🖤🖤🖤", "💗💗💗🖤🖤", "💗💗💗💗🖤","💗💗💗💗💗"]
+    hearts.innerHTML = correctGuess ? heartsArray[+heartsAmount] : heartsArray[+heartsAmount - 1]
+
+    // Logic to replace next-lesson button for lesson-review if meet criteria
+    if (!correctGuess && (heartsAmount - 1 == 0) && !lastQuestion) {
+      const nextQuestionBtn = document.querySelector("#btn-next-question");
+      const lessonReviewButton = document.querySelector("#btn-lesson-review")
+      nextQuestionBtn.disabled = true;
+      nextQuestionBtn.hidden = true;
+      lessonReviewButton.hidden = false;
+      lessonReviewButton.disabled = false;
+    }
   }
 }

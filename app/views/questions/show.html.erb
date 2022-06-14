@@ -1,8 +1,10 @@
+<% last_question = @question.lesson.questions.last == @question %>
+
 <div class="question-page">
   <div class="question-top-part animate__animated animate__fadeIn">
     <div class="question-close-box">
       <%= link_to user_path(current_user), class:"question-cancel-btn" do %>
-        <i class="fa-solid fa-circle-xmark"></i>
+        <i class="fa-solid fa-circle-xmark question-cancel-btn"></i>
       <% end %>
     </div>
     <div class="bar-container-part">
@@ -12,7 +14,10 @@
         </div>
       </div>
     </div>
-    <p></p>
+
+    <div class="hearts" data-hearts-amount="<%= current_user.lives %>" data-last-question="<%= last_question %>">
+      <%= "💗" * current_user.lives %><%= "🖤" * (5 - current_user.lives)%>
+    </div>
   </div>
 
   <div class="container-question-page animate__animated animate__fadeIn animate__delay-1s">
@@ -59,11 +64,15 @@
         <p class="wrong-answer animate__animated animate__headShake" id="wrong-answer-msg" hidden><%= "A resposta correta é #{@question.correct_answer}" %></p>
       </div>
       <!--<% next_page = @question.lesson.questions.last.id == (@question.id + 1) ? "Lesson page" : (@question.id + 1) %>-->
-      <% if @question.lesson.questions.last == @question %>
-        <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>
-      <% else %>
-        <%= button_to 'Próxima pergunta', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
-      <% end %>
+      <div class="right-buttons">
+        <% if last_question %>
+          <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>
+        <% else %>
+          <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true, hidden: true %>
+          <%= button_to 'Próxima pergunta', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
+        <% end %>
+      </div>
+
     </div>
     <span id="sound-on" data-action="click->next-question#unMute"><i class="fas fa-volume-mute"></i></span>
     <span id="sound-off" data-action="click->next-question#mute"><i class="fas fa-volume-up"></i></span>
