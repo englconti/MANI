@@ -65,8 +65,8 @@
         <%= button_to 'Próxima pergunta', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
       <% end %>
     </div>
-    <span id="sound-off" data-action="click->next-question#mute"><i class="fas fa-volume-mute"></i></span>
-    <span id="sound-on" data-action="click->next-question#unMute"><i class="fas fa-volume-up"></i></span>
+    <span id="sound-on" data-action="click->next-question#unMute"><i class="fas fa-volume-mute"></i></span>
+    <span id="sound-off" data-action="click->next-question#mute"><i class="fas fa-volume-up"></i></span>
   </div>
 
 </div>

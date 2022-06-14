@@ -1,7 +1,7 @@
 lesson_title,question_type,level,statement,a,b,c,d,img_url,correct_answer
 Conceitos Básicos I,abcd,muito fácil,O que é dinheiro?,Um jogo,Um símbolo,Um meio de troca,Um carro,,C
 Conceitos Básicos I,abcd,muito fácil,Por que usamos dinheiro?,Para facilitar a troca de produtos e servicos entre pessoas,Para podermos criar empresas,Para nos comunicarmos,Para se alimentar,,A
-Conceitos Básicos I,abcd,fácil,"Antes de termos dinheiro, como trocávamos itens ou serviços?",Éramos porquinhos,Éramos mais felizes,Não havia troca,Usávamos algum outro meio de troca (ex: conchas) ou trocávamos um item por outro.,,C
+Conceitos Básicos I,abcd,fácil,"Antes de termos dinheiro, como trocávamos itens ou serviços?",Éramos porquinhos,Éramos mais felizes,Não havia troca,Usávamos algum outro meio de troca (ex: conchas) ou trocávamos um item por outro.,,D
 Conceitos Básicos I,abcd,médio,O que é escassez?,Falta de comida,Ter em pouca quantidade podendo faltar ou acabar,Falta de água,Abundancia,,B
 Conceitos Básicos I,abcd,médio,O que escassez tem a ver com economia ou financas?,Nada,"Tudo, pois basicamente, quanto mais escasso, maior será o valor atribuído a algo",Falta de água pode desequilibrar o orcamento pessoal,Sem lama o porquinho não vive,,B
 Conceitos Básicos II,abcd,muito fácil,Alguma pergunta de finanças,Alternativa A,Alternativa B,Alternativa C,Alternativa D,,C
@@ -37,6 +37,7 @@ Finanças Pessoais II,abcd,médio,"Segundo o SEBRAE, de cada 10 pequenas empresa
 Finanças Pessoais II,abcd,médio,Por que as empresas quebram?,Amplo conhecimentos e cultura do candidato a empresário,Competência para se relacionar com o mercado,Falta de estratégia,Falta de burocracia,,C
 Finanças Pessoais II,abcd,médio,Com o fluxo de caixa NÃO podemos saber se:,Vai faltar ou vai sobrar dinheiro no futuro,Posso dar mais prazo para os meus clientes,Precisa de empréstimo,A empresa será afetada pela crise,,D
 Finanças Pessoais II,abcd,médio,"São características do cenário econômico atual, exceto:
-",Custo financeiro baixo,Concorrência cada vez mais competitiva,Consumidores que exigem maiores prazos de pagamento,Fornecedores que concedem prazos menores de pagamento,,A
+
+",Custo financeiro baixo,Concorrência cada vez mais competitiva,Consumidores que exigem maiores prazos de pagamento,Fornecedores que concedem prazos menores de pagamento,,A
 Finanças Pessoais II,abcd,médio,Para a montagem da projeção do fluxo de caixa devemos considerar os seguintes itens: ENTRADAS e SAÍDAS. É um exemplo de entrada:,Empréstimos,Despesas gerais de administração,Compras à vista,Comissões aos vendedores,,A
 Finanças Pessoais II,abcd,médio,É uma movimentação que aumenta o caixa:,Distribuição de lucros para sócios,Pagamento de juros para credores,Rendimentos de aplicações financeiras,Compras à vista,,C
