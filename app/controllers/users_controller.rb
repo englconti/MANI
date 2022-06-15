@@ -30,7 +30,16 @@ class UsersController < ApplicationController
       format.text { render partial: 'friends.html', locals: { users: @all_users } }
     end
 
+    @all_friends = find_friends
   end
+
+  def find_friends
+    # array of friendships of receivers
+    Friendship.where(asker: current_user).map { |friendship| friendship.receiver }
+
+    # 2. make for friendships where current user is the receiver
+  end
+
 
   def render_lesson(lesson_id)
     @user = current_user

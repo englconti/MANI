@@ -3,7 +3,7 @@
 <div class="question-page">
   <div class="question-top-part animate__animated animate__fadeIn">
     <div class="question-close-box">
-      <%= link_to user_path(current_user), class:"question-cancel-btn" do %>
+      <%= link_to user_path(current_user), data: { confirm: "Tem certeza que deseja sair da aula?" }, class:"question-cancel-btn" do %>
         <i class="fa-solid fa-circle-xmark question-cancel-btn"></i>
       <% end %>
     </div>

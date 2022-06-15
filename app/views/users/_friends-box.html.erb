@@ -50,6 +50,13 @@
           <p>10859 XP</p>
         </div>
 
+      <% all_friends.each do |friend| %>
+        <div class="friend-box">
+          <p><%= friend.username %></p>
+          <p><%= friend.xp %> XP</p>
+        </div>
+      <% end %>
+
       </div>
 
       <footer id="friend-box-footer">
