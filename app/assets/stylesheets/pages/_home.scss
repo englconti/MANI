@@ -2,8 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Genos:ital,wght@1,200&display=swap');
+
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,800);
+
+
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque&display=swap');
+$black: #2b2b2b;
+$size: 42px;
 
 
 :root {
@@ -30,8 +36,10 @@
 
 body {
   background-color: rgba(253, 253, 253, 0.699);
-  font-family: --fonte-padrao;
-
+  font-family: var(--fonte-padrao);
+  p {
+    font-family: var(--fonte-padrao);
+  }
 }
 main {
   min-width: 300px;
@@ -267,8 +275,6 @@ main {
     padding: 16px;
   }
 }
-
-
 
 /* Sticky footer position and size
 -------------------------------------------------- */
@@ -533,7 +539,7 @@ figure.snip1139 .author h5 span {
 /* Sticky footer style and color
 -------------------------------------------------- */
 footer {
-  padding-top: 30px;
+  padding-top: 0px;
   // margin-bottom: 150px;
   background-color: #8c8c8c;
   color: black;

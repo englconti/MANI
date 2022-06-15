@@ -1,15 +1,14 @@
-.card-category {
+.card-category-product {
   background-size: cover;
   background-position: center;
   height: 180px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
   font-size: 24px;
   font-weight: bold;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   margin-bottom: 30px;
   width: 45%;
@@ -30,6 +29,7 @@
 .card-image {
   width: 50%;
   height: 100%;
+  border-radius: 0 10px 10px 0;
 }
 
 .banner {
@@ -40,6 +40,10 @@
   padding: 150px 0;
   margin-bottom: 80px;
   font-family: --fonte-padrao;
+  color: white;
+  div {
+    margin-left: 50px;
+  }
 }
 
 .clickable {

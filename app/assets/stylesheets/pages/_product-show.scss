@@ -1,0 +1,15 @@
+.btn-product{
+  color: black;
+  border: 3px solid black;
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-weight: lighter;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  font-family: var(--fonte-padrao);
+}
+
+.container_btn{
+  margin-top: 100px;
+  margin-left: 50px;
+}

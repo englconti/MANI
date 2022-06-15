@@ -1,8 +1,20 @@
 <main>
+<% renda_fixa = "O investimento MAIS SEGURO e MAIS RENTAVEL que a poupanca por apenas R$30,00." %>
+<% renda_emergencia = "A sua SEGURANCA antes de investir qualquer centavo!" %>
+<% renda_variavel = "A forma MAIS RAPIDA de ter ganhos exponencias.<br>Para esse investimento e aconselhavel ter uma reserva de emergica de no minimo 6 meses." %>
+
+<% pilar_1 = "Auxiliar na educacao financeira de pessoas que tem pouco ou nenhum conhecimento" %>
+<% pilar_2 = "Ensinar financas de maneira educativa, interativa e ludica para todos os publicos" %>
+<% pilar_3 = "Transmitir o conhecimento ou aprendizado de forma gratuita" %>
+<% pilar_4 = "Possibilitar o acesso a esse tipo de conhecimento ao maximo de pessoas com algum interesse no assunto" %>
 
 <div id="banner">
 <h1>MANI INVEST</h1>
-<p>Aprenda a <strong>INVESTIR</strong> jogando!</p>
+<h2>Aprenda <strong>FINANÇAS</strong> e <span
+              class="txt-rotate"
+              data-period="2000"
+              data-rotate='[ "conheça mais", "jogue", "se divirta", "mude!" ]'></span>
+</h2>
   <div id="stripped">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1062">
   <polyline points="0,154 131,0 0,348 269,0 0,562 437,0
@@ -14,9 +26,12 @@
         <div class="banner__text">
 
           <h1><strong>Mani Invest</strong></h1>
-          <br>
-          <h2>Aprenda a <strong>investir</strong> jogando!</h2>
-          <p>CONHECA, JOGUE, APRENDA, MUDE!</p>
+         <h2>Aprenda a investir jogando!
+            <br><span
+              class="txt-rotate"
+              data-period="2000"
+              data-rotate='[ "Conheça", "Jogue", "Divirta-se", "Mude!" ]'></span>
+          </h2>
           <a href="#" class="btn_banner">COMECAR</a>
 
         </div>
@@ -36,11 +51,10 @@
         <div class="card-investment-model-01">
 
           <a href="http://localhost:3000/products/4" target="_blank">
-            <img src="https://res.cloudinary.com/guijafrone/image/upload/v1654541466/mani%20invest/35409570_jutyhb.jpg" />
+            <%= image_tag "p1.png"%>
           </a>
             <div class="card-investment-model-01-infos">
-                <h2>Renda Fixa</h2>
-                <p>O investimento <strong>MAIS SEGURO</strong> e <strong>MAIS RENTAVEL</strong> que a poupanca por apenas R$30,00.</p>
+                <h2><%= pilar_1 %></h2>
             </div>
 
         </div>
@@ -51,12 +65,11 @@
 
 
             <div class="card-investment-model-02-infos">
-                <h2>Reserva de Emergencia</h2>
-                <p>A sua <strong>SEGURANCA</strong> antes de investir qualquer centavo!</p>
+                <h2><%= pilar_2 %></h2>
             </div>
 
             <a href="http://localhost:3000/products/1" target="_blank">
-            <img src="https://res.cloudinary.com/guijafrone/image/upload/v1654542556/mani%20invest/reserva-emergencia-993x480_kezqb9.jpg" />
+              <%= image_tag "p2.png"%>
             </a>
         </div>
 
@@ -66,15 +79,12 @@
         <div class="card-investment-model-01">
 
           <a href="http://localhost:3000/products/5" target="_blank">
-            <img src="https://res.cloudinary.com/guijafrone/image/upload/v1654541979/mani%20invest/entenda-a-diferenca-entre-renda-fixa-e-variavel-5_ee7d49d9_ubyyxp.webp" />
+            <%= image_tag "p3.png"%>
           </a>
 
             <div class="card-investment-model-01-infos">
-                <h2>Renda Variavel</h2>
-                <p>A forma <strong>MAIS RAPIDA</strong> de ter ganhos exponencias.</p><br>
-                <p>Para esse investimento e aconselhavel ter uma reserva de emergica de no minimo 6 meses.</p>
+                <h2><%= pilar_3 %></h2>
             </div>
-</a>
         </div>
 
         <br><br>
@@ -83,18 +93,75 @@
         <div class="card-investment-model-02">
 
             <div class="card-investment-model-02-infos">
-                <h2>Renda Fixa</h2>
-                <p>O investimento <strong>MAIS SEGURO</strong> e <strong>MAIS RENTAVEL</strong> que a poupanca por apenas R$30,00.</p>
+                <h2><%= pilar_4 %></h2>
             </div>
 
           <a href="http://localhost:3000/products/6" target="_blank">
-            <img src="https://res.cloudinary.com/guijafrone/image/upload/v1654542556/mani%20invest/reserva-emergencia-993x480_kezqb9.jpg" />
+            <%= image_tag "p4.png"%>
 
              </a>
         </div>
         <br><br>
       </div>
 
+  <script>
+    var TxtRotate = function(el, toRotate, period) {
+      this.toRotate = toRotate;
+      this.el = el;
+      this.loopNum = 0;
+      this.period = parseInt(period, 10) || 2000;
+      this.txt = '';
+      this.tick();
+      this.isDeleting = false;
+    };
+
+    TxtRotate.prototype.tick = function() {
+      var i = this.loopNum % this.toRotate.length;
+      var fullTxt = this.toRotate[i];
+
+      if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+      } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+      }
+
+      this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+      var that = this;
+      var delta = 300 - Math.random() * 100;
+
+      if (this.isDeleting) { delta /= 2; }
+
+      if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+      } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+      }
+
+      setTimeout(function() {
+        that.tick();
+      }, delta);
+    };
+
+    window.onload = function() {
+      var elements = document.getElementsByClassName('txt-rotate');
+      for (var i=0; i<elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-rotate');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+          new TxtRotate(elements[i], JSON.parse(toRotate), period);
+        }
+      }
+      // INJECT CSS
+      var css = document.createElement("style");
+      css.type = "text/css";
+      css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+      document.body.appendChild(css);
+    };
+  </script>
 
 <%# CARD TESTMONIALS %>
 
@@ -275,7 +342,7 @@
                 <div class="row">
                     <div class="col-6">
                         <ul class="list-unstyled">
-                            <li><a href="">Produtos</a></li>
+                            <li><%= link_to "Products", products_path, style:"text-decoration:none;" %></li>
                             <li><a href="">Beneficios</a></li>
                             <li><a href="">Parceiros</a></li>
                             <li><a href="">Time</a></li>
@@ -291,12 +358,14 @@
                         </ul>
                     </div>
                 </div>
-                <ul class="nav">
-                    <li class="nav-item"><a href="" class="nav-link pl-0"><i class="fa fa-facebook fa-lg"></i></a></li>
-                    <li class="nav-item"><a href="" class="nav-link"><i class="fa fa-twitter fa-lg"></i></a></li>
-                    <li class="nav-item"><a href="" class="nav-link"><i class="fa fa-github fa-lg"></i></a></li>
-                    <li class="nav-item"><a href="" class="nav-link"><i class="fa fa-instagram fa-lg"></i></a></li>
-                </ul>
+                <div>
+                  <ul class="nav" >
+                      <li><a href="" ><i class="fa fa-facebook fa-lg"></i></a></li>
+                      <li><a href="" ><i class="fa fa-twitter fa-lg" style="margin-left: 10px;"></i></a></li>
+                      <li><a href="" ><i class="fa fa-github fa-lg" style="margin-left: 10px;"></i></a></li>
+                      <li><a href="" ><i class="fa fa-instagram fa-lg" style="margin-left: 10px;"></i></a></li>
+                  </ul>
+                </div>
                 <br>
             </div>
             <div class="col-md-2">

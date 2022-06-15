@@ -1,0 +1,10 @@
+<!-- cx and cy should be half of scss $circle-size -->
+<% cxcy = "150" %>
+<% radius = "59" %>
+
+<div class="dashboard">
+  <svg>
+    <circle class="bg" cx="<%= cxcy %>" cy="<%= cxcy %>" r="<%= radius %>" />
+    <circle class="meter-1" style="--circleBarFill: <%= bar_fill %>; --barColor: <%= bar_color %>;" cx="<%= cxcy %>" cy="<%= cxcy %>" r="<%= radius %>" />
+  </svg>
+</div>

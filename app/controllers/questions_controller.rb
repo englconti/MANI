@@ -1,16 +1,10 @@
 class QuestionsController < ApplicationController
+  before_action :disable_nav, only: [:show]
 
   def show
     @question = Question.find(params[:id])
-
     @answer_id = Answer.where(question: @question, user: current_user)[0].id
   end
-
-  # Questions are created on the seed file!
-  # def create
-  #   # @question = Question.new(question_params)
-  #   # @question.lesson_id = Lesson.find(lesson_params)
-  # end
 
   private
 

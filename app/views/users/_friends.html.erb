@@ -1,0 +1,13 @@
+<% users.each do |user| %>
+  <div class="friend-box-search">
+    <p id="friend-username"><%= user.username %></p>
+    <p id="friend-email"><%= user.email %></p>
+    <!--<button id="btn-search-add-friend">Add</button>-->
+    <% already_follow = !current_user.friendships_as_asker.find_by(receiver: user).nil?  %>
+    <% if already_follow %>
+      <%= button_to 'Unfollow', friendship_path(receiver_username: user.username), method: 'delete', class:"btn-search-unfollow"%>
+    <% else %>
+      <%= button_to 'Follow', friendships_path(receiver_username: user.username), method: 'post', class:"btn-search-follow"%>
+    <% end %>
+  </div>
+<% end %>

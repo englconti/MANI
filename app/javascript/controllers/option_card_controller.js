@@ -16,54 +16,37 @@ export default class extends Controller {
     const cardC = document.querySelector('.questionC');
     const cardD = document.querySelector('.questionD');
 
-    const clickedCardValue = e.currentTarget.children[0].children[0].textContent;
+    const clickedCardValue = e.currentTarget.children[1].textContent;
+    console.log(clickedCardValue);
+    console.log(e.currentTarget.children[0])
 
-    if (clickedCardValue == "A") {
-      cardA.classList.toggle('marked');
-      if (cardB.classList.contains('marked')) {
-        cardB.classList.remove('marked');
-      }
-      if (cardC.classList.contains('marked')) {
-        cardC.classList.remove('marked');
-      }
-      if (cardD.classList.contains('marked')) {
-        cardD.classList.remove('marked');
-      }
+    // Refactoring -------------------------------
+    this.markCardValidation(clickedCardValue, "A", cardA, cardB, cardC, cardD);
+    this.markCardValidation(clickedCardValue, "B", cardB, cardA, cardC, cardD);
+    this.markCardValidation(clickedCardValue, "C", cardC, cardB, cardA, cardD);
+    this.markCardValidation(clickedCardValue, "D", cardD, cardB, cardC, cardA);
+    // --------------------------------------------
+
+    // Feature to enable pressing confirm button only after selecting one option
+    const confirmButton = document.getElementById("confirm-button");
+    if (document.querySelector('.marked')) {
+      confirmButton.removeAttribute("disabled");
+    } else {
+      confirmButton.disabled = true;
     }
-    if (clickedCardValue == "B") {
-      cardB.classList.toggle('marked');
-      if (cardA.classList.contains('marked')) {
-        cardA.classList.remove('marked');
+  }
+
+  markCardValidation = function (clickedCardValue, answerLetter, card1, card2, card3, card4) {
+    if (clickedCardValue == answerLetter) {
+      card1.classList.toggle('marked');
+      if (card2.classList.contains('marked')) {
+        card2.classList.remove('marked');
       }
-      if (cardC.classList.contains('marked')) {
-        cardC.classList.remove('marked');
+      if (card3.classList.contains('marked')) {
+        card3.classList.remove('marked');
       }
-      if (cardD.classList.contains('marked')) {
-        cardD.classList.remove('marked');
-      }
-    }
-    if (clickedCardValue == "C") {
-      cardC.classList.toggle('marked');
-      if (cardA.classList.contains('marked')) {
-        cardA.classList.remove('marked');
-      }
-      if (cardB.classList.contains('marked')) {
-        cardB.classList.remove('marked');
-      }
-      if (cardD.classList.contains('marked')) {
-        cardD.classList.remove('marked');
-      }
-    }
-    if (clickedCardValue == "D") {
-      cardD.classList.toggle('marked');
-      if (cardA.classList.contains('marked')) {
-        cardA.classList.remove('marked');
-      }
-      if (cardB.classList.contains('marked')) {
-        cardB.classList.remove('marked');
-      }
-      if (cardC.classList.contains('marked')) {
-        cardC.classList.remove('marked');
+      if (card4.classList.contains('marked')) {
+        card4.classList.remove('marked');
       }
     }
   }
