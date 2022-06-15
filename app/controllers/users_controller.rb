@@ -2,8 +2,6 @@ class UsersController < ApplicationController
   before_action :disable_dashboard_button, only: [:show]
 
   def index
-    # Code for searching friends purpose
-    # ----------------------------------
   end
 
   def show
@@ -23,23 +21,24 @@ class UsersController < ApplicationController
     # FII I
     @lesson7 = render_lesson(7)
 
-    @all_users = User.search_by_username_and_email(params[:query])
+    # SEARCHING FOR FRIENDS ---------------------------------------------------------------
+    # all_users passed as users to partial _friends.html AND removed current_user from list
+    @all_users = User.search_by_username_and_email(params[:query]).where("id != ?", current_user.id)
 
     respond_to do |format|
       format.html # Follow regular flow of Rails
       format.text { render partial: 'friends.html', locals: { users: @all_users } }
     end
+    # END ---------------------------------------------------------------------------------
 
+    # FOLLOWED friends to be rendered -----------------------------------------------------
     @all_friends = find_friends
+    # -------------------------------------------------------------------------------------
   end
 
   def find_friends
-    # array of friendships of receivers
     Friendship.where(asker: current_user).map { |friendship| friendship.receiver }
-
-    # 2. make for friendships where current user is the receiver
   end
-
 
   def render_lesson(lesson_id)
     @user = current_user
@@ -54,5 +53,4 @@ class UsersController < ApplicationController
     current_user.lives = 5
     current_user.save
   end
-
 end
