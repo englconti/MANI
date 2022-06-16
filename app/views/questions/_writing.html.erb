@@ -1,0 +1,26 @@
+<div data-controller="wr-choice">
+  <h1><%= remove_words_from_statement(statement, @question).html_safe %></h1>
+  <h1 hidden><%= statement %></h1>
+  <div class="wr-questions-container" id="questions-container">
+    <div class="wr-question-cards">
+      <div id="choiceA" class="wr-question-card choiceA" data-wr-choice-target="option" data-action="click->wr-choice#select">
+        <span class="answer-letter">tempo</span>
+      </div>
+      <div id="choiceB" class="wr-question-card choiceB" data-wr-choice-target="option" data-action="click->wr-choice#select">
+        <span class="answer-letter">amanhã</span>
+      </div>
+      <div id="choiceC" class="wr-question-card choiceC" data-wr-choice-target="option" data-action="click->wr-choice#select">
+        <span class="answer-letter">hoje</span>
+      </div>
+      <div id="choiceD" class="wr-question-card choiceD" data-wr-choice-target="option" data-action="click->wr-choice#select">
+        <span class="answer-letter">investido</span>
+      </div>
+      <div id="choiceE" class="wr-question-card choiceE" data-wr-choice-target="option" data-action="click->wr-choice#select">
+        <span class="answer-letter">crescimento</span>
+      </div>
+      <div id="choiceF" class="wr-question-card choiceF" data-wr-choice-target="option" data-action="click->wr-choice#select">
+        <span class="answer-letter">vendido</span>
+      </div>
+    </div>
+  </div>
+</div>
