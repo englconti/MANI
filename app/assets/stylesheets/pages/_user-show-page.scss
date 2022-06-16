@@ -1,5 +1,7 @@
 $borders: 1px solid black;
 $borders-red: 1px solid rgb(255, 0, 0);
+$borders-green: 1px solid rgb(12, 241, 12);
+$borders-green: 0;
 $borders-red: 0;
 $borders: 0;
 
@@ -22,8 +24,10 @@ $gold: gold;
   font-family:"Nunito";
 }
 
+// 1. HEADER -----------------------------------------------------------------
+
 .box-user-header {
-  border: $borders-red;
+  border: $borders-green;
   min-height: 60px;
   max-width: 92vw;
   margin: 0 auto;
@@ -32,52 +36,9 @@ $gold: gold;
   align-items: center;
 }
 
-#user-page-greeting {
-  border: $borders;
-  font-style: italic;
-  font-size: 20px;
-  color: $dark;
-  margin: 0;
-  // margin-top: 20px;
-  // margin-left: 50px;
-}
+// --------------------------------------------------------------------------
 
-.box-user-info {
-  border: $borders;
-  margin: 0;
-  min-width: 345px;
-
-  display: flex;
-  align-items: baseline;
-  justify-content: space-around;
-
-  p {
-    color: $dark;
-    margin: 0;
-    font-weight: 600;
-    font-size: 25px;
-  }
-
-  .my-status {
-    font-size: 15px;
-  }
-
-  .user-manis {
-    margin-left: 2px;
-    font-size: 15px;
-    font-weight: 600;
-    color: $gold;
-  }
-
-  .user-xp {
-    margin-left: 2px;
-    font-size: 15px;
-    font-weight: 600;
-    color: $dark-blue;
-    }
-}
-
-
+// 2. BODY CONTENT -------------------------------------------------------------
 .container-user-show-page {
   margin-top: 60px;
 
@@ -95,6 +56,7 @@ $gold: gold;
   flex-wrap: wrap;
 }
 
+// 2.1 LEFT SIDE - LESSONS -----------------------------------------------------
 .container-lessons {
   border: $borders;
   border-radius: 30px;
@@ -147,6 +109,43 @@ $gold: gold;
   }
 }
 
+// 2.1.1 Lessons configurations: -----------------------------------------------
+
+.lesson-low-score {
+  background-color: #ff4b4b;
+
+  &:hover {
+    background-color: #f92323;
+  }
+}
+
+.lesson-not-complete {
+  background-color: #ffd900;
+
+  &:hover {
+    background-color: #ffed88;
+  }
+}
+
+.lesson-complete {
+  background-color: rgb(168, 255, 61);
+
+  &:hover {
+    background-color: rgb(194, 251, 124);
+  }
+}
+
+.lesson-title {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+
+  background-color: rgba(245, 245, 245, 0.476);
+  min-width: 150px;
+  padding: 3px;
+
+}
+
+// 2.2 CENTER - VOCE SABIA? ----------------------------------------------------
 .container-center-info {
   border: 3px solid #e5e5e5;
   border-radius: 10px;
@@ -200,6 +199,38 @@ $gold: gold;
     align-self: flex-end;
     margin-right: 10px;
   }
+}
+
+// 2.3 RIGHT SIDE - FRIENDS LIST -----------------------------------------------
+.box-followers {
+  display: flex;
+  justify-content: space-around;
+  width: 250px;
+  margin: 0 auto;
+
+  .followers-icon {
+    padding-top: 6px;
+    color:#4d4e56;
+  }
+
+  .followers-block {
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    width: 95px;
+    color:#4d4e56;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .followers-numbers {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
 }
 
 .container-right-info {
@@ -307,45 +338,7 @@ $gold: gold;
   }
 }
 
-// Lessons configurations:
-
-.lesson-low-score {
-  background-color: #ff4b4b;
-
-  &:hover {
-    background-color: #f92323;
-  }
-}
-
-.lesson-not-complete {
-  background-color: #ffd900;
-
-  &:hover {
-    background-color: #ffed88;
-  }
-}
-
-.lesson-complete {
-  background-color: rgb(168, 255, 61);
-
-  &:hover {
-    background-color: rgb(194, 251, 124);
-  }
-}
-
-.lesson-title {
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
-
-  background-color: rgba(245, 245, 245, 0.476);
-  min-width: 150px;
-  padding: 3px;
-
-}
-
-
-// ADD FRIENDS WINDOW ----------------------------------
-
+// 2.3.1 ADD FRIENDS WINDOW ----------------------------------------------------
 .overlay {
   position: fixed;
   top: 0;
@@ -418,7 +411,6 @@ $gold: gold;
   }
 }
 
-
 #users-list {
   border: $borders-red;
   display: flex;
@@ -487,5 +479,4 @@ $gold: gold;
     }
   }
 }
-
-// ---------------------------------------
+// -----------------------------------------------------------------------------

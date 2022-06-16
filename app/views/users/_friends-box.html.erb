@@ -1,67 +1,68 @@
-    <div class="box-friends-list" data-controller="friends-actions">
+<div class="box-followers">
+  <i class="fa-solid fa-users followers-icon"></i>
+  <div class="followers-block">
+    <p>Followers</p>
+    <p class="followers-numbers"><%= current_user.friendships_as_receiver.count %></p>
+  </div>
+  <div class="followers-block">
+    <p>Following</p>
+    <p class="followers-numbers"><%= current_user.friendships_as_asker.count %></p>
+  </div>
+</div>
 
-    <!--Window for adding friends-->
-      <div class="container-window-add-friend" >
-        <div class="overlay hidden" data-action="click->friends-actions#closeWindow"></div>
-        <div class="box-window-add-friend hidden">
-          <div class="search-friend-top">
-            <p id="search-friend-statement">Search for a friend</p>
-            <div id="search-friend-bar">
-              <%= form_with url: user_path, method: :get, html: { class: 'mb-5', data: { friends_actions_target: 'form' } } do |f| %>
-                <%= f.text_field :query,
-                                  class: "form-control",
-                                  placeholder: 'Type a username',
-                                  value: params[:query],
-                                  data: {
-                                        friends_actions_target: 'searchInput',
-                                        action: "keyup->friends-actions#update"
-                                      } %>
-              <% end %>
-            </div>
-            <i class="fa-solid fa-circle-xmark add-friend-cancel-btn" data-action="click->friends-actions#closeWindow"></i>
-          </div>
+<div class="box-friends-list" data-controller="friends-actions">
 
-          <div id="users-list" data-friends-actions-target="list">
-          <!--Insert friends based on query-->
-          </div>
-
+  <!--Window for adding friends-->
+  <div class="container-window-add-friend" >
+    <div class="overlay hidden" data-action="click->friends-actions#closeWindow"></div>
+    <div class="box-window-add-friend hidden">
+      <div class="search-friend-top">
+        <p id="search-friend-statement">Search for a friend</p>
+        <div id="search-friend-bar">
+          <%= form_with url: user_path, method: :get, html: { class: 'mb-5', data: { friends_actions_target: 'form' } } do |f| %>
+            <%= f.text_field :query,
+                              class: "form-control",
+                              placeholder: 'Type a username',
+                              value: params[:query],
+                              data: {
+                                    friends_actions_target: 'searchInput',
+                                    action: "keyup->friends-actions#update"
+                                  } %>
+          <% end %>
         </div>
+        <i class="fa-solid fa-circle-xmark add-friend-cancel-btn" data-action="click->friends-actions#closeWindow"></i>
       </div>
-    <!--end of window to add friends-->
-
-      <div class="box-friends-header">
-        <p>Amigos</p>
-        <p>Score acumulado</p>
+      <div id="users-list" data-friends-actions-target="list">
+      <!--Insert friends based on query-->
       </div>
-
-      <div class="box-friends-friends-list">
-        <div class="friend-box">
-          <p>Mani</p>
-          <p>27856 XP</p>
-        </div>
-        <!--
-        <div class="friend-box">
-          <p>Milano</p>
-          <p>15782 XP</p>
-        </div>
-
-        <div class="friend-box">
-          <p>Stacy</p>
-          <p>10859 XP</p>
-        </div>
-        -->
-      <% all_friends.each do |friend| %>
-        <div class="friend-box">
-          <p><%= friend.username %></p>
-          <p><%= friend.xp %> XP</p>
-        </div>
-      <% end %>
-
-      </div>
-
-      <footer id="friend-box-footer">
-        <button type="button" class="btn btn-primary btn-add-friend" data-action="click->friends-actions#openWindow" >Add um amigo!</button>
-        <button type="button" class="btn btn-success btn-send-invite" >Envie um convite!</button>
-      </footer>
-
     </div>
+  </div>
+  <!--end of window to add friends-->
+
+  <div class="box-friends-header">
+
+    <p>Amigos</p>
+    <p>XP Atual</p>
+  </div>
+
+  <div class="box-friends-friends-list">
+    <!--
+    <div class="friend-box">
+      <p>Mani</p>
+      <p>27856 XP</p>
+    </div>
+    -->
+    <% all_friends.each do |friend| %>
+      <div class="friend-box">
+        <p><%= friend.username %></p>
+        <p><%= friend.xp %> XP</p>
+      </div>
+    <% end %>
+  </div>
+
+  <footer id="friend-box-footer">
+    <button type="button" class="btn btn-primary btn-add-friend" data-action="click->friends-actions#openWindow" >Add um amigo!</button>
+    <button type="button" class="btn btn-success btn-send-invite" >Envie um convite!</button>
+  </footer>
+
+</div>

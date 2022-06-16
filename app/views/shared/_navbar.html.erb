@@ -1,9 +1,13 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "mani_logo.png" %>
-    <% end %>
-
+    <div class="nav-left-box">
+      <%= link_to root_path, class: "navbar-brand" do %>
+        <%= image_tag "Mani-oficial-bg.png" %>
+      <% end %>
+      <% if @show_user_info %>
+        <p id="user-page-greeting">Olá, <%= current_user.username.capitalize %>! Bora aprender com o Mani?</p>
+      <% end %>
+    </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,17 +15,36 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", root_path, class: "nav-link", style:"margin-right:20px;" %>
-          </li>
 
           <!-- Removing dashboard button from dashboard page-->
           <% unless @disable_dashboard_button %>
+            <li class="nav-item active">
+              <%= link_to "Home", root_path, class: "nav-link", style:"margin-right:20px;" %>
+            </li>
             <li class="nav-item">
               <%= link_to "Meu dashboard", user_path(current_user), class: "nav-link", style:"margin-right:20px;" %>
             </li>
           <% end %>
           <!-- end -->
+
+          <% if @show_user_info %>
+
+              <div class="box-user-info">
+
+                <p class="my-status">Meu status:</p class="my-status">
+
+                <div class="box-xps">
+                  <p><%= current_user.xp %></p>
+                  <p class="user-xp">XP</p>
+                </div>
+
+                <div class="box-manis">
+                  <p><%= current_user.manis %> </p>
+                  <p class="user-manis">M$<p>
+                </div>
+
+              </div>
+          <% end %>
 
           <li class="nav-item dropdown">
             <%= image_tag "perfil.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>

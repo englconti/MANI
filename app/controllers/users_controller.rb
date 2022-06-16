@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :disable_dashboard_button, only: [:show]
+  before_action :show_user_info, only: [:show]
 
   def index
   end
