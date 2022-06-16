@@ -8,7 +8,7 @@
       <% end %>
     </div>
     <div class="bar-container-part">
-      <div class="bar-container" style="width: 0;">
+      <div class="bar-container">
         <div class="bar-evolution">
           <div class="bar-deco"></div>
         </div>
@@ -23,35 +23,11 @@
   <div class="container-question-page animate__animated animate__fadeIn animate__delay-1s">
     <div class="container-parts">
     <!-- data-lesson-questions-count="<%= @question.lesson.questions.count %>" data-first-question-id="<%= @question.lesson.questions.first.id %>"-->
-      <h1><%= @question.statement %></h1>
-      <div class="questions-container" id="questions-container" data-question-id="<%= @question.id %>" data-answer-id="<%= @answer_id %>" data-lesson-questions-count="<%= @question.lesson.questions.count %>" data-first-question-id="<%= @question.lesson.questions.first.id %>">
-          <div class="question-cards" data-option-card-target="content" data-controller="option-card">
-            <div id="questionA" class="question-card questionA"  data-action="click->option-card#markCard">
-              <div class="question-answer" >
-                <p><%= @question.a %></p>
-              </div>
-              <p class="answer-letter">A</p>
-            </div>
-            <div id="questionB" class="question-card questionB" data-action="click->option-card#markCard">
-              <div class="question-answer">
-                <p><%= @question.b %></p>
-              </div>
-              <p class="answer-letter">B</p>
-            </div>
-            <div id="questionC" class="question-card questionC" data-action="click->option-card#markCard">
-              <div class="question-answer">
-                <p><%= @question.c %></p>
-              </div>
-              <p class="answer-letter">C</p>
-            </div>
-            <div id="questionD" class="question-card questionD" data-action="click->option-card#markCard">
-              <div class="question-answer">
-                <p><%= @question.d %></p>
-              </div>
-              <p class="answer-letter">D</p>
-            </div>
-          </div>
-      </div>
+      <% if @type == "abcd" %>
+        <%= render 'abcd', statement: @statement, a: @choice_a, b: @choice_b, c: @choice_c, d: @choice_d  %>
+      <% else %>
+        <%= render 'writing', statement: @statement, a: @choice_a, b: @choice_b, c: @choice_c, d: @choice_d %>
+      <% end %>
     </div>
   </div>
 
