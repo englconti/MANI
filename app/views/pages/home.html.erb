@@ -1,108 +1,97 @@
-<main>
 <% renda_fixa = "O investimento MAIS SEGURO e MAIS RENTAVEL que a poupanca por apenas R$30,00." %>
 <% renda_emergencia = "A sua SEGURANCA antes de investir qualquer centavo!" %>
 <% renda_variavel = "A forma MAIS RAPIDA de ter ganhos exponencias.<br>Para esse investimento e aconselhavel ter uma reserva de emergica de no minimo 6 meses." %>
-
 <% pilar_1 = "Auxiliar na educacao financeira de pessoas que tem pouco ou nenhum conhecimento" %>
 <% pilar_2 = "Ensinar financas de maneira educativa, interativa e ludica para todos os publicos" %>
 <% pilar_3 = "Transmitir o conhecimento ou aprendizado de forma gratuita" %>
 <% pilar_4 = "Possibilitar o acesso a esse tipo de conhecimento ao maximo de pessoas com algum interesse no assunto" %>
 
-<div id="banner">
-<h1>MANI INVEST</h1>
-<h2>Aprenda <strong>FINANÇAS</strong> e <span
-              class="txt-rotate"
-              data-period="2000"
-              data-rotate='[ "conheça mais", "jogue", "se divirta", "mude!" ]'></span>
-</h2>
-  <div id="stripped">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1062">
-  <polyline points="0,154 131,0 0,348 269,0 0,562 437,0
-    0,766 565,14 0,1062 719,0 289,1062 843,0 543,1062 995,0 729,1062 1161,0 947,1062 1307,0 1143,1062 1500,162 1299,1062 1500,830"/>
-  </svg>
-  </div>
-</div>
-<%# <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(https://res.cloudinary.com/guijafrone/image/upload/v1654543696/MANI%20GAMES/ideia-de-dinheiro-crescendo-passo-com-arvore_34152-2619_ez400j.webp);">
-        <div class="banner__text">
-
-          <h1><strong>Mani Invest</strong></h1>
-         <h2>Aprenda a investir jogando!
-            <br><span
-              class="txt-rotate"
-              data-period="2000"
-              data-rotate='[ "Conheça", "Jogue", "Divirta-se", "Mude!" ]'></span>
-          </h2>
-          <a href="#" class="btn_banner">COMECAR</a>
-
-        </div>
-</div> %>
-
-        <div class="menu_btn">
-            <br>
-            <a class="btn btn-ghost" href="http://localhost:3000/products/4" target="_blank">Reserva  Emergencia</a>
-            <a class="btn btn-ghost" href="http://localhost:3000/products/2" target="_blank">Renda Fixa</a>
-            <a class="btn btn-ghost" href="http://localhost:3000/products/6" target="_blank">Fundos Imobiliarios</a>
-            <a class="btn btn-ghost" href="http://localhost:3000/products/4" target="_blank">Renda Variavel</a>
-            <a class="btn btn-ghost" href="#">Crypto</a>
-        </div>
-
-        <br><br>
-      <div class="card-investments">
-        <div class="card-investment-model-01">
-
-          <a href="http://localhost:3000/products/4" target="_blank">
-            <%= image_tag "p1.png"%>
-          </a>
-            <div class="card-investment-model-01-infos">
-                <h2><%= pilar_1 %></h2>
-            </div>
-
-        </div>
-
-        <br><br>
-
-        <div class="card-investment-model-02">
-
-
-            <div class="card-investment-model-02-infos">
-                <h2><%= pilar_2 %></h2>
-            </div>
-
-            <a href="http://localhost:3000/products/1" target="_blank">
-              <%= image_tag "p2.png"%>
-            </a>
-        </div>
-
-        <br><br>
-
-
-        <div class="card-investment-model-01">
-
-          <a href="http://localhost:3000/products/5" target="_blank">
-            <%= image_tag "p3.png"%>
-          </a>
-
-            <div class="card-investment-model-01-infos">
-                <h2><%= pilar_3 %></h2>
-            </div>
-        </div>
-
-        <br><br>
-
-
-        <div class="card-investment-model-02">
-
-            <div class="card-investment-model-02-infos">
-                <h2><%= pilar_4 %></h2>
-            </div>
-
-          <a href="http://localhost:3000/products/6" target="_blank">
-            <%= image_tag "p4.png"%>
-
-             </a>
-        </div>
-        <br><br>
+<main>
+  <div id="banner">
+    <h1>MANI INVEST</h1>
+    <h2>Aprenda <strong>FINANÇAS</strong> e <span
+                  class="txt-rotate"
+                  data-period="2000"
+                  data-rotate='[ "conheça mais", "jogue", "se divirta", "mude!" ]'></span>
+    </h2>
+    <div class="banner-lower-container">
+      <div class="banner-central-img">
+        <%= image_tag "Mani-oficial-bg.png", class: "banner-img" %>
       </div>
+
+      <div class="banner-btns">
+        <% if user_signed_in? %>
+          <%= button_to"Acesse seu dashboard", user_path(current_user), method: "get", class:"banner-btn", id:"banner-btn-login" %>
+        <% else %>
+          <%= button_to "Registre-se agora", new_user_registration_path, method: "get", class:"banner-btn", id:"banner-btn-register" %>
+          <%= button_to"Já é um Maner? Faça seu login!", new_user_session_path, method: "get", class:"banner-btn", id:"banner-btn-login" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="something-future">
+      <p>Put something here</p>
+    </div>
+  </div>
+  <hr style="width:60%; margin-left:20%;">
+
+    <%# <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(https://res.cloudinary.com/guijafrone/image/upload/v1654543696/MANI%20GAMES/ideia-de-dinheiro-crescendo-passo-com-arvore_34152-2619_ez400j.webp);">
+            <div class="banner__text">
+
+              <h1><strong>Mani Invest</strong></h1>
+            <h2>Aprenda a investir jogando!
+                <br><span
+                  class="txt-rotate"
+                  data-period="2000"
+                  data-rotate='[ "Conheça", "Jogue", "Divirta-se", "Mude!" ]'></span>
+              </h2>
+              <a href="#" class="btn_banner">COMECAR</a>
+
+            </div>
+    </div> %>
+
+    <!--
+            <div class="menu_btn">
+                <br>
+                <a class="btn btn-ghost" href="http://localhost:3000/products/4" target="_blank">Reserva  Emergencia</a>
+                <a class="btn btn-ghost" href="http://localhost:3000/products/2" target="_blank">Renda Fixa</a>
+                <a class="btn btn-ghost" href="http://localhost:3000/products/6" target="_blank">Fundos Imobiliarios</a>
+                <a class="btn btn-ghost" href="http://localhost:3000/products/4" target="_blank">Renda Variavel</a>
+                <a class="btn btn-ghost" href="#">Crypto</a>
+            </div>
+    -->
+  <br><br>
+  <div class="card-investments">
+    <div class="card-investment-model-01">
+      <%= image_tag "p8.png"%>
+      <div class="card-investment-model-01-infos">
+          <h2><%= pilar_1 %></h2>
+      </div>
+    </div>
+    <br><br>
+    <div class="card-investment-model-02">
+      <div class="card-investment-model-02-infos">
+          <h2><%= pilar_2 %></h2>
+      </div>
+        <%= image_tag "p7.png"%>
+    </div>
+    <br><br>
+    <div class="card-investment-model-01">
+      <%= image_tag "p5.png"%>
+      <div class="card-investment-model-01-infos">
+          <h2><%= pilar_3 %></h2>
+      </div>
+    </div>
+
+    <br><br>
+
+    <div class="card-investment-model-02">
+      <div class="card-investment-model-02-infos">
+          <h2><%= pilar_4 %></h2>
+      </div>
+      <%= image_tag "p6.png"%>
+    </div>
+    <br><br>
+  </div>
 
   <script>
     var TxtRotate = function(el, toRotate, period) {
@@ -162,229 +151,165 @@
       document.body.appendChild(css);
     };
   </script>
-
-<%# CARD TESTMONIALS %>
-
-
-<div id="testmonials">
-  <div class="cards_testmonials_text">
-  <br>
-    <h2>Testemunhos</h2>
-    <p>Mani vidas transformadas atraves do nosso servico</p>
-  </div>
-
-<div id="cards_testmonials">
-  <figure class="snip1139">
-  <blockquote>Sometimes I think the surest sign that intelligent life exists elsewhere in the universe is that none of it has tried to contact us.
-    <div class="arrow"></div>
-  </blockquote>
-  <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321599/MANI%20GAMES/advogado_stz8la.avif" alt="sample3"/>
-  <div class="author">
-    <h5>Pedro de Souza <span>- Advogado</span></h5>
-  </div>
-</figure>
-
-<figure class="snip1139 hover">
-  <blockquote>I don't need to compromise on my principles, because they don't have the slightest bearing on what happens to me anyway.
-    <div class="arrow"></div>
-  </blockquote>
-  <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321593/MANI%20GAMES/photo-1573497019940-1c28c88b4f3e_spojda.avif" alt="sample47"/>
-  <div class="author">
-    <h5>Maria Auxiliadora<span>- Domestica</span></h5>
-  </div>
-</figure>
-
-<figure class="snip1139">
-  <blockquote>That's the problem with nature, something's always stinging you or oozing mucous all over you. Let's go and watch TV.
-    <div class="arrow"></div>
-  </blockquote>
-  <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321941/MANI%20GAMES/photo-1583123810408-23e7b5d1af9f_rm1ldp.avif" alt="sample17"/>
-  <div class="author">
-    <h5>Renato Carvalho<span>- Auxiliar Administrativo</span></h5>
-  </div>
-</figure>
-
-  <figure class="snip1139">
-  <blockquote>Sometimes I think the surest sign that intelligent life exists elsewhere in the universe is that none of it has tried to contact us.
-    <div class="arrow"></div>
-  </blockquote>
-  <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321595/MANI%20GAMES/mulher_lsayoj.avif" alt="sample3"/>
-  <div class="author">
-    <h5>Amanda Novaes <span>- Autonoma</span></h5>
-  </div>
-</figure>
-
-
- <figure class="snip1139">
-  <blockquote>Sometimes I think the surest sign that intelligent life exists elsewhere in the universe is that none of it has tried to contact us.
-    <div class="arrow"></div>
-  </blockquote>
-  <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655322233/MANI%20GAMES/casal_xhmrqh.avif" alt="sample3"/>
-  <div class="author">
-    <h5>Camila Santos e Andre Mattos <span>- Noivos</span></h5>
-  </div>
-</figure>
-
-<figure class="snip1139 hover">
-  <blockquote>I don't need to compromise on my principles, because they don't have the slightest bearing on what happens to me anyway.
-    <div class="arrow"></div>
-  </blockquote>
-  <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321597/MANI%20GAMES/medica_cir7jd.avif" alt="sample47"/>
-  <div class="author">
-    <h5>Marcos Klaussen<span>- Medico</span></h5>
-  </div>
-</figure>
-
-
-<figure class="snip1139">
-  <blockquote>That's the problem with nature, something's always stinging you or oozing mucous all over you. Let's go and watch TV.
-    <div class="arrow"></div>
-  </blockquote>
-  <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321855/MANI%20GAMES/photo-1494790108377-be9c29b29330_pct7a2.avif" alt="sample17"/>
-  <div class="author">
-    <h5>Renata Beltrao<span>- Estudante</span></h5>
-  </div>
-</figure>
-</div>
-
-
-<div class="container_owners">
-  <div class="row">
-
-  <%# ALEXANDRE %>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="our-team">
-        <div class="picture">
-          <img class="img-fluid" src="https://avatars.githubusercontent.com/u/91762552?v=4">
-        </div>
-        <div class="team-content">
-          <h3 class="name">Alexandre Vieira</h3>
-          <h4 class="title">Web Developer</h4>
-        </div>
-        <ul class="social">
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-twitter" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-google-plus" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
-        </ul>
-      </div>
+  <hr style="width:60%; margin-left:20%;">
+  <!--------------------------------------------------------------------------------------------------------------------->
+  <%# CARD TESTMONIALS %>
+  <div id="testmonials">
+    <div class="cards_testmonials_text">
+      <br>
+      <h2>Testemunhos (futuramente)</h2>
+      <p>MANI: vidas transformadas através de aprendizado e diversão!</p>
     </div>
 
-    <%# GUILHERME %>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="our-team">
-        <div class="picture">
-          <img class="img-fluid" src="https://avatars.githubusercontent.com/u/100196358?v=4">
-        </div>
+    <div id="cards_testmonials">
 
-        <div class="team-content">
-          <h3 class="name">Guilherme Jafrone</h3>
-          <h4 class="title">Web Developer</h4>
+      <figure class="snip1139">
+        <blockquote>Sometimes I think the surest sign that intelligent life exists elsewhere in the universe is that none of it has tried to contact us.
+          <div class="arrow"></div>
+        </blockquote>
+        <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321599/MANI%20GAMES/advogado_stz8la.avif" alt="sample3"/>
+        <div class="author">
+          <h5>Pedro de Souza <span>- Advogado</span></h5>
         </div>
-        <ul class="social">
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-twitter" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-google-plus" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
-        </ul>
+      </figure>
+
+      <figure class="snip1139 hover">
+        <blockquote>I don't need to compromise on my principles, because they don't have the slightest bearing on what happens to me anyway.
+          <div class="arrow"></div>
+        </blockquote>
+        <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321593/MANI%20GAMES/photo-1573497019940-1c28c88b4f3e_spojda.avif" alt="sample47"/>
+        <div class="author">
+          <h5>Maria Auxiliadora<span>- Domestica</span></h5>
+        </div>
+      </figure>
+
+      <figure class="snip1139">
+        <blockquote>That's the problem with nature, something's always stinging you or oozing mucous all over you. Let's go and watch TV.
+          <div class="arrow"></div>
+        </blockquote>
+        <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321941/MANI%20GAMES/photo-1583123810408-23e7b5d1af9f_rm1ldp.avif" alt="sample17"/>
+        <div class="author">
+          <h5>Renato Carvalho<span>- Auxiliar Administrativo</span></h5>
+        </div>
+      </figure>
+
+      <figure class="snip1139">
+        <blockquote>Sometimes I think the surest sign that intelligent life exists elsewhere in the universe is that none of it has tried to contact us.
+          <div class="arrow"></div>
+        </blockquote>
+        <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321595/MANI%20GAMES/mulher_lsayoj.avif" alt="sample3"/>
+        <div class="author">
+          <h5>Amanda Novaes <span>- Autonoma</span></h5>
+        </div>
+      </figure>
+
+      <!--
+      <figure class="snip1139">
+        <blockquote>Sometimes I think the surest sign that intelligent life exists elsewhere in the universe is that none of it has tried to contact us.
+          <div class="arrow"></div>
+        </blockquote>
+        <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655322233/MANI%20GAMES/casal_xhmrqh.avif" alt="sample3"/>
+        <div class="author">
+          <h5>Camila Santos e Andre Mattos <span>- Noivos</span></h5>
+        </div>
+      </figure>
+
+      <figure class="snip1139 hover">
+        <blockquote>I don't need to compromise on my principles, because they don't have the slightest bearing on what happens to me anyway.
+          <div class="arrow"></div>
+        </blockquote>
+        <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321597/MANI%20GAMES/medica_cir7jd.avif" alt="sample47"/>
+        <div class="author">
+          <h5>Marcos Klaussen<span>- Medico</span></h5>
+        </div>
+      </figure>
+
+
+      <figure class="snip1139">
+        <blockquote>That's the problem with nature, something's always stinging you or oozing mucous all over you. Let's go and watch TV.
+          <div class="arrow"></div>
+        </blockquote>
+        <img src="https://res.cloudinary.com/guijafrone/image/upload/v1655321855/MANI%20GAMES/photo-1494790108377-be9c29b29330_pct7a2.avif" alt="sample17"/>
+        <div class="author">
+          <h5>Renata Beltrao<span>- Estudante</span></h5>
+        </div>
+      </figure>
+      -->
+  </div>
+
+  <hr style="width:60%;margin-top:80px;">
+  <div class="container_owners">
+    <div class="row developers-div">
+
+      <%# LEONARDO CONTI %>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="our-team">
+          <div class="picture">
+            <img class="img-fluid" src="https://avatars.githubusercontent.com/u/99144261?v=4">
+          </div>
+          <div class="team-content">
+            <h3 class="name">Leonardo<br>Conti</h3>
+            <h4 class="title">Web Developer</h4>
+          </div>
+          <ul class="social">
+            <li><a href="https://github.com/englconti" target="blank" class="fa fa-github" aria-hidden="true"></a></li>
+            <li><a href="https://www.linkedin.com/in/engleonardoconti/" target="blank" class="fa fa-linkedin" aria-hidden="true"></a></li>
+          </ul>
+        </div>
       </div>
-    </div>
-<%#
-    JP Valladares %>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="our-team">
-        <div class="picture">
-          <img class="img-fluid" src="https://picsum.photos/130/130?image=856">
+
+      <%# ALEXANDRE %>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="our-team">
+          <div class="picture">
+            <img class="img-fluid" src="https://avatars.githubusercontent.com/u/91762552?v=4">
+          </div>
+          <div class="team-content">
+            <h3 class="name">Alexandre<br>Vieira</h3>
+            <h4 class="title">Web Developer</h4>
+          </div>
+          <ul class="social">
+            <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-github" aria-hidden="true"></a></li>
+            <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
+          </ul>
         </div>
-        <div class="team-content">
-          <h3 class="name">Jose Paulo Valladares</h3>
-          <h4 class="title">Web Developer</h4>
-        </div>
-        <ul class="social">
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-twitter" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-google-plus" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
-        </ul>
       </div>
-    </div>
 
-    <%# LEONARDO CONTI %>
+      <%# GUILHERME %>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="our-team">
+          <div class="picture">
+            <img class="img-fluid" src="https://avatars.githubusercontent.com/u/100196358?v=4">
+          </div>
 
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="our-team">
-        <div class="picture">
-          <img class="img-fluid" src="https://avatars.githubusercontent.com/u/99144261?v=4">
+          <div class="team-content">
+            <h3 class="name">Guilherme Jafrone</h3>
+            <h4 class="title">Web Developer</h4>
+          </div>
+          <ul class="social">
+            <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-github" aria-hidden="true"></a></li>
+            <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
+          </ul>
         </div>
-        <div class="team-content">
-          <h3 class="name">Leonardo Conti</h3>
-          <h4 class="title">Web Developer</h4>
+      </div>
+
+      <%# JP Valladares %>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="our-team">
+          <div class="picture">
+            <img class="img-fluid" src="https://picsum.photos/130/130?image=856">
+          </div>
+          <div class="team-content">
+            <h3 class="name">Jose Paulo Valladares</h3>
+            <h4 class="title">Web Developer</h4>
+          </div>
+          <ul class="social">
+            <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-github" aria-hidden="true"></a></li>
+            <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
+          </ul>
         </div>
-        <ul class="social">
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-twitter" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-google-plus" aria-hidden="true"></a></li>
-          <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
-        </ul>
       </div>
     </div>
   </div>
-</div>
-
-
 </main>
-
-<%# <footer class="footer"> %>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5">
-                <h1><i class="fas fa-pig"></i> MANI ALL GROUP</h1>
-                <div class="row">
-                    <div class="col-6">
-                        <ul class="list-unstyled">
-                            <li><%= link_to "Products", products_path, style:"text-decoration:none;" %></li>
-                            <li><a href="">Beneficios</a></li>
-                            <li><a href="">Parceiros</a></li>
-                            <li><a href="">Time</a></li>
-                        </ul>
-
-                    </div>
-                    <div class="col-6">
-                        <ul class="list-unstyled">
-                            <li><a href="">Investimentos</a></li>
-                            <li><a href="">Suporte</a></li>
-                            <li><a href="">Termos Legais</a></li>
-                            <li><a href="">Sobre</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                  <ul class="nav" >
-                      <li><a href="" ><i class="fa fa-facebook fa-lg"></i></a></li>
-                      <li><a href="" ><i class="fa fa-twitter fa-lg" style="margin-left: 10px;"></i></a></li>
-                      <li><a href="" ><i class="fa fa-github fa-lg" style="margin-left: 10px;"></i></a></li>
-                      <li><a href="" ><i class="fa fa-instagram fa-lg" style="margin-left: 10px;"></i></a></li>
-                  </ul>
-                </div>
-                <br>
-            </div>
-            <div class="col-md-2">
-                <h2 class="text-md-right">Contato</h2>
-                <hr>
-            </div>
-            <div class="col-md-5">
-                <form>
-                    <fieldset class="form-group">
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail">
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <textarea class="form-control" id="exampleMessage" placeholder="Mensagem"></textarea>
-                    </fieldset>
-                    <fieldset class="form-group text-xs-right"> <br>
-                        <button type="button" class="btn-ghost_footer">Enviar</button>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-    </div>
-</footer>
+<%= render 'footer' %>

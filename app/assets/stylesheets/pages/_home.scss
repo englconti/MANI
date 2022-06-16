@@ -11,6 +11,22 @@
 $black: #2b2b2b;
 $size: 42px;
 
+$borders: 1px solid black;
+$borders-red: 1px solid rgb(255, 0, 0);
+$borders-red: 0;
+$borders: 0;
+
+$dark: #4d4e4e;
+$dark-grey: #1999d6;
+$grey: #e1e1e1;
+$grey-dark: #aaafb8;
+$red:#ff4c4c;
+$light-green: #a8ff3e;
+$green: #7ac70d;
+$dark-green: #629f0a;
+$blue: #1db0f6;
+$dark-blue: #1999d6;
+$gold: gold;
 
 :root {
   --cor-azul: #183477;
@@ -42,6 +58,9 @@ body {
   }
 }
 main {
+  background-image: url("background-hq.png");
+  background-position: center;
+  background-size: cover;
   min-width: 300px;
   max-width: 1500px;
   margin: auto;
@@ -50,27 +69,113 @@ main {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.301);
   border-radius: 10px;
   font-family: --fonte-padrao;
+  color: $dark;
+  margin-top: 10px;
   }
 
   #banner {
-    background-color: #454546;
+    border: $borders;
+    // background-color: #454546;
     min-width: 300px;
     max-width: 1500px;
     margin: auto;
     padding: 20px;
-    background-color: var(--cor-cinza);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.301);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    // background-color: var(--cor-cinza);
+    // background-color: rgba(255, 255, 255, 0);
+    // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.301);
+    // border-top-left-radius: 10px;
+    // border-top-right-radius: 10px;
+    border-radius: 10px;
     font-family: --fonte-padrao;
-    color: white;
+    color: $dark;
     text-align: center;
     text-shadow: 1px 1px 1px black;
 
     h1 {
+      border: $borders;
       font-weight: bolder;
       font-size: 60px;
     }
+
+    h2 {
+      border: $borders;
+    }
+
+    .banner-lower-container {
+      border: $borders;
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      align-items: center;
+
+      .banner-img {
+        border: $borders-red;
+        width: 240px;
+        margin-top: 30px;
+        $rotate: -10deg;
+        -webkit-transform: rotate($rotate);
+        -moz-transform: rotate($rotate);
+        -ms-transform: rotate($rotate);
+        -o-transform: rotate($rotate);
+        transform: rotate($rotate);
+      }
+
+      .banner-btns {
+        border: $borders-red;
+        height: 200px;
+        width: 300px;
+        font-family: Nunito;
+
+        text-align: center;
+        padding-bottom: 10px;
+        border-radius: 10px;
+        color: white;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        .banner-btn {
+          text-decoration: none;
+          color: white;
+          padding: 0 10px;
+          border: 0;
+          height: 50px;
+          border-radius: 10px;
+          width: 250px;
+        }
+
+        #banner-btn-register {
+          background: #1cb0f6;
+          border-bottom: 5px solid #1899d6;
+
+          &:hover {
+            background: #71d2ff;
+          }
+        }
+
+        #banner-btn-login {
+          background: #7ac70c;
+          border-bottom: 5px solid #619f09;
+
+
+          &:hover {
+            background: rgb(198, 255, 129);
+          }
+        }
+      }
+
+
+     }
+
+     .something-future {
+      border: $borders;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+     }
+
 
     }
 
@@ -315,7 +420,6 @@ html {
 }
 
 #testmonials {
-  background-color: #9c8f8f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -325,11 +429,12 @@ html {
   border-radius: 10px;
   text-align: center;
   font-size: var(--fonte-title);
+  // margin-bottom: 50px;
 
 }
 
 #cards_testmonials {
-  background-color: #9c8f8f;
+  // background-color: #9c8f8f;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -347,6 +452,7 @@ figure.snip1139 {
   margin: 10px;
   min-width: 220px;
   max-width: 310px;
+  max-height:450px;
   width: 100%;
   color: #333;
   text-align: left;
@@ -432,15 +538,20 @@ figure.snip1139 .author h5 span {
 .container_owners {
   display: flex;
   align-items: center;
+  margin-top:80px;
 }
 
 .our-team {
   padding: 30px 0 40px;
   margin-bottom: 30px;
-  background-color: #f7f5ec;
+  background-color: #4d4e4e77;
   text-align: center;
   overflow: hidden;
   position: relative;
+  border-radius: 10px;
+  min-width: 200px;
+  // min-height: 95%;
+  // width: 230px;
 }
 
 .our-team .picture {
@@ -457,7 +568,7 @@ figure.snip1139 .author h5 span {
   width: 100%;
   height: 0;
   border-radius: 50%;
-  background-color: #1369ce;
+  background-color: $blue;
   position: absolute;
   bottom: 135%;
   right: 0;
@@ -476,7 +587,7 @@ figure.snip1139 .author h5 span {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: #1369ce;
+  background-color: $blue;
   position: absolute;
   top: 0;
   left: 0;
@@ -499,7 +610,7 @@ figure.snip1139 .author h5 span {
 .our-team .title {
   display: block;
   font-size: 15px;
-  color: #4e5052;
+  color: white;
   text-transform: capitalize;
 }
 
@@ -507,7 +618,7 @@ figure.snip1139 .author h5 span {
   width: 100%;
   padding: 0;
   margin: 0;
-  background-color: #1369ce;
+  background-color: $blue;
   position: absolute;
   bottom: -100px;
   left: 0;
@@ -532,8 +643,20 @@ figure.snip1139 .author h5 span {
 }
 
 .our-team .social li a:hover {
-  color: #1369ce;
+  color: $blue;
   background-color: #f7f5ec;
+}
+
+.team-content {
+  .name {
+    border: $borders;
+    color: white;
+    // width: 100px;
+  }
+}
+
+.developers-div {
+  border: $borders;
 }
 
 /* Sticky footer style and color
@@ -541,8 +664,8 @@ figure.snip1139 .author h5 span {
 footer {
   padding-top: 0px;
   // margin-bottom: 150px;
-  background-color: #8c8c8c;
-  color: black;
+  // background-color: #8c8c8c;
+  color: $dark;
 
   h1 {
     font-family: var(--fonte-title);
