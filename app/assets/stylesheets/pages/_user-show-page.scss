@@ -203,9 +203,10 @@ $gold: gold;
 
 // 2.3 RIGHT SIDE - FRIENDS LIST -----------------------------------------------
 .box-followers {
+  border: $borders-red;
   display: flex;
   justify-content: space-around;
-  width: 250px;
+  width: 280px;
   margin: 0 auto;
 
   .followers-icon {
@@ -214,19 +215,22 @@ $gold: gold;
   }
 
   .followers-block {
+    border: $borders;
     display:flex;
     align-items:center;
-    justify-content: space-between;
-    width: 95px;
+    justify-content: center;
+    width: 110px;
     color:#4d4e56;
   }
 
   p {
+    border: $borders-green;
     margin: 0;
     padding: 0;
   }
 
   .followers-numbers {
+    margin-left: 5px;
     font-size: 20px;
     font-weight: 700;
   }

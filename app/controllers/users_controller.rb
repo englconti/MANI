@@ -35,6 +35,11 @@ class UsersController < ApplicationController
     # FOLLOWED friends to be rendered -----------------------------------------------------
     @all_friends = find_friends
     # -------------------------------------------------------------------------------------
+
+    # RANDOM Information ------------------------------------------------------------------
+    @information = random_information
+    # -------------------------------------------------------------------------------------
+
   end
 
   def find_friends
@@ -54,5 +59,9 @@ class UsersController < ApplicationController
   def refill_lives
     current_user.lives = 5
     current_user.save
+  end
+
+  def random_information
+    Information.all.sample
   end
 end

@@ -30,10 +30,9 @@
     <div class="container-center-info">
 
       <h2>Você sabia? 🤓</h2>
-      <%= image_tag "ipca-image.png", data: {toggle: "tooltip", placement: "left" }, title: "Gráfico de IPCA" %>
-      <p>IPCA significa Índice Nacional de Preços ao Consumidor Amplo. Como o nome indica, ele é um índice que tem por função medir a variação de preços de uma cesta de produtos e serviços consumida pela população do país, indicando a variação mês a mês.
-  Portanto, para facilitar, o IPCA mede a inflação, sendo, inclusive, um dos índices mais tradicionais do Brasil.</p>
-      <h6>fonte: <a href="https://conteudos.xpi.com.br/" target="blank">https://conteudos.xpi.com.br/</a></h6>
+      <%= image_tag @information.img_url, style:"max-width:350px; max-height: 150px;" %>
+      <p><%= @information.text %></p>
+      <h6 style="font-size:10px">fonte: <a href="<%= @information.source %>" target="blank"><%= @information.source %></a></h6>
     </div>
 
     <div class="container-right-info">

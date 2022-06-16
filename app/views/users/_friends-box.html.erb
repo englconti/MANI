@@ -54,7 +54,7 @@
     -->
     <% all_friends.each do |friend| %>
       <div class="friend-box">
-        <p><%= friend.username %></p>
+        <p><%= friend.username.capitalize %></p>
         <p><%= friend.xp %> XP</p>
       </div>
     <% end %>
