@@ -11,7 +11,8 @@ export default class extends Controller {
     // -------------------------------------
     const unMuteBtn = document.getElementById("sound-on");
     const muteBtn = document.getElementById("sound-off");
-    console.log(localStorage['alerts'])
+    // console.log(localStorage['alerts'])
+    // To keep the user selection of the mute or unmute button even after page refresh.
     if (localStorage["alerts"] === 'true') {
       muteBtn.hidden = false;
       unMuteBtn.hidden = true;
