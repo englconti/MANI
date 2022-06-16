@@ -1,3 +1,20 @@
+$borders: 1px solid black;
+$borders-red: 1px solid rgb(255, 0, 0);
+$borders-red: 0;
+$borders: 0;
+
+$dark: #4d4e4e;
+$dark-grey: #1999d6;
+$grey: #e1e1e1;
+$grey-dark: #aaafb8;
+$red:#ff4c4c;
+$light-green: #a8ff3e;
+$green: #7ac70d;
+$dark-green: #629f0a;
+$blue: #1db0f6;
+$dark-blue: #1999d6;
+$gold: gold;
+
 .navbar {
   font-family: "Nunito";
 }
@@ -12,4 +29,77 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 40px;
+}
+
+// Added by Mani ---------------------------------------------------------------
+.container-fluid {
+  border:$borders;
+}
+
+.nav-left-box {
+  border: $borders;
+  display:flex;
+  align-items:center;
+}
+
+#user-page-greeting {
+  border: $borders;
+  font-style: italic;
+  font-size: 20px;
+  color: $dark;
+  margin: 0;
+}
+
+.navbar-nav {
+  border: $borders;
+}
+
+.box-user-info {
+  border: $borders-red;
+  margin: 0;
+  min-width: 280px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  p {
+    color: $dark;
+    margin: 0;
+    font-weight: 600;
+    font-size: 25px;
+  }
+
+  .my-status {
+    font-size: 15px;
+    align-self: flex-start;
+  }
+
+  .box-manis {
+    border: $borders;
+    // align-self: flex-end;
+  }
+
+  .user-manis {
+    margin-left: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $gold;
+  }
+
+  .box-xps {
+    border: $borders;
+    display: flex;
+
+    p {
+      border: $borders-red;
+    }
+  }
+
+  .user-xp {
+    margin-left: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $dark-blue;
+    }
 }

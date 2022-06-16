@@ -1,24 +1,5 @@
 <div id="user-page-container">
   <div class="box-user-header">
-
-    <p id="user-page-greeting">Olá, <%= current_user.username.capitalize %>! Bora aprender com o Mani?</p>
-
-
-    <div class="box-user-info">
-
-      <p class="my-status">Meu status:</p class="my-status">
-
-      <div class="box-xps">
-        <p><%= current_user.xp %></p>
-        <p class="user-xp">XP</p>
-      </div>
-
-      <div class="box-manis">
-        <p><%= current_user.manis %> </p>
-        <p class="user-manis">M$<p>
-      </div>
-
-    </div>
   </div>
 
   <div class="container-user-show-page animate__animated animate__fadeIn">
@@ -56,8 +37,6 @@
     </div>
 
     <div class="container-right-info">
-      <p hidden>Information on the right</p>
       <%= render 'friends-box', all_users: @all_users, all_friends: @all_friends %>
-
-  </div>
+    </div>
 </div>
