@@ -1,6 +1,6 @@
+<% last_question = @question.lesson.questions.last == @question %>
 <div data-controller="wr-choice">
-  <h1><%= remove_words_from_statement(statement, @question).html_safe %></h1>
-  <h1 hidden><%= statement %></h1>
+  <h1 ><%= statement.html_safe %></h1>
   <div class="wr-questions-container" id="questions-container">
     <div class="wr-question-cards">
       <div id="choiceA" class="wr-question-card choiceA" data-wr-choice-target="option" data-action="click->wr-choice#select">
@@ -22,5 +22,28 @@
         <span class="answer-letter">vendido</span>
       </div>
     </div>
+  </div>
+
+  <div class="question-footer" data-controller="wr-choice">
+    <div id="question-buttons">
+      <button id="wr-confirm-button" class="btn btn-primary" data-action="click->wr-choice#confirm" disabled>Confirmar resposta</button>
+      <div class="answer-feedback">
+        <p class="correct-answer animate__animated animate__heartBeat" id="correct-answer-msg" hidden><%= "Resposta correta!" %></p>
+        <p id="wr-correct-answer" class="animate__animated animate__bounce" hidden><%= @question.correct_answer %></p>
+        <p class="wrong-answer animate__animated animate__headShake" id="wrong-answer-msg" hidden><%= "A resposta correta é #{@question.correct_answer}" %></p>
+      </div>
+      <!--<% next_page = @question.lesson.questions.last.id == (@question.id + 1) ? "Lesson page" : (@question.id + 1) %>-->
+      <div class="right-buttons">
+        <% if last_question %>
+          <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>
+        <% else %>
+          <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true, hidden: true %>
+          <%= button_to 'Próxima pergunta', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
+        <% end %>
+      </div>
+
+    </div>
+    <span id="sound" data-action="click->wr-choice#unMute"><i class="fas fa-volume-mute"></i></span>
+    <span id="no-sound" data-action="click->wr-choice#mute"><i class="fas fa-volume-up"></i></span>
   </div>
 </div>
