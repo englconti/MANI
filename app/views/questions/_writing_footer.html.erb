@@ -1,5 +1,5 @@
 <div class="question-footer" data-controller="wr-next-question">
-  <div id="question-buttons">
+  <div id="question-buttons" data-question-index="<%= current_question_i %>">
     <button id="confirm-button" class="btn btn-primary" data-action="click->wr-next-question#confirmWr" disabled>Confirmar resposta</button>
     <div class="answer-feedback">
       <p class="correct-answer animate__animated animate__heartBeat" id="correct-answer-msg" hidden><%= "Resposta correta!" %></p>

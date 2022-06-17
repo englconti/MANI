@@ -2,7 +2,7 @@
 <!-- Replace words for answers from CSV(they may all be in one column like "a" -> "palavra1 palavra2 palavra3"(...)) -->
 <div data-controller="wr-select">
   <h1 ><%= question.statement.html_safe %></h1>
-  <div class="questions-container" id="questions-container" data-question-id="<%= question.id %>" data-answer-id="<%= answer_id %>" data-lesson-questions-count="<%= question.lesson.questions.count %>" data-first-question-id="<%= question.lesson.questions.first.id %>" data-words-count="<%= words.count %>">
+  <div class="questions-container" id="questions-container" data-question-id="<%= question.id %>" data-answer-id="<%= answer_id %>" data-lesson-questions-count="<%= question.lesson.questions.count %>" data-first-question-id="<%= question.lesson.questions.first.id %>" data-words-count="<%= words.count %>" data-question-type="<%= question.question_type %>">
     <div class="wr-question-cards">
       <% words.each_with_index do |word, index| %>
         <div id="choice<%= index %>" class="wr-question-card choice<%= index %>" data-wr-select-target="option" data-action="click->wr-select#select">

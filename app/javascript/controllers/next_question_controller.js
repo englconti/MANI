@@ -98,11 +98,11 @@ export default class extends Controller {
   }
 
   barStatusLoad = function (num) {
+      const currentQuestionIndex = document.querySelector("#question-buttons").dataset.questionIndex
+      console.log(`Current question index: ${currentQuestionIndex}`)
       const questionElement = document.querySelector("#questions-container");
-      const currentQuestionId = questionElement.dataset.questionId;
       const questionsCount = questionElement.dataset.lessonQuestionsCount;
-      const firstQuestionId = questionElement.dataset.firstQuestionId;
-      const progress = (currentQuestionId - firstQuestionId + num) * (60 / questionsCount);
+      const progress = (+currentQuestionIndex + num) * (60 / questionsCount);
       const progressBar = document.querySelector(".bar-container");
       progressBar.style = `width: ${progress}vw;`
   }
@@ -124,14 +124,6 @@ export default class extends Controller {
       lessonReviewButton.disabled = false;
     }
   }
-
-  // Added for merging controllers -----------------------------
-
-
-
-
-  // END of mergin ---------------------------------------------
-
 
   checkLastMuteStatus() {
     const unMuteBtn = document.getElementById("sound-on");

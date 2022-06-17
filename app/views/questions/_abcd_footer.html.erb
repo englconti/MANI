@@ -1,5 +1,6 @@
 <div class="question-footer" data-controller="next-question">
-  <div id="question-buttons">
+  <% current_question_i = @question.lesson.questions.index(@question) %>
+  <div id="question-buttons" data-question-index="<%= current_question_i %>">
     <button id="confirm-button" class="btn btn-primary" data-action="click->next-question#confirmAbcd" disabled>Confirmar resposta</button>
     <div class="answer-feedback">
       <p class="correct-answer animate__animated animate__heartBeat" id="correct-answer-msg" hidden><%= "Resposta correta!" %></p>
@@ -12,7 +13,8 @@
         <%= button_to 'Resumo da Aula', lesson_path(question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>
       <% else %>
         <%= button_to 'Resumo da Aula', lesson_path(question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true, hidden: true %>
-        <%= button_to 'Próxima pergunta', question_path(question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
+        <% next_question = @question.lesson.questions[current_question_i + 1]  %>
+        <%= button_to 'Próxima pergunta', question_path(next_question), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
       <% end %>
     </div>
   </div>
