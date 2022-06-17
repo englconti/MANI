@@ -1,0 +1,88 @@
+<% last_question = @question.lesson.questions.last == @question %>
+
+<div class="question-page">
+  <!--TOP PART-->
+  <div class="question-top-part animate__animated animate__fadeIn">
+    <div class="question-close-box">
+      <%= link_to user_path(current_user), data: { confirm: "Tem certeza que deseja sair da aula?" }, class:"question-cancel-btn" do %>
+        <i class="fa-solid fa-circle-xmark question-cancel-btn"></i>
+      <% end %>
+    </div>
+    <div class="bar-container-part">
+      <div class="bar-container">
+        <div class="bar-evolution">
+          <div class="bar-deco"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hearts" data-hearts-amount="<%= current_user.lives %>" data-last-question="<%= last_question %>">
+      <%= "💗" * current_user.lives %><%= "🖤" * (5 - current_user.lives)%>
+    </div>
+  </div>
+  <!--END OF TOP-->
+
+  <!--BODY-->
+  <!--
+  <div class="container-question-page animate__animated animate__fadeIn animate__delay-1s">
+    <div class="container-parts">
+      <h1><%= @question.statement %></h1>
+      <div class="questions-container" id="questions-container" data-question-id="<%= @question.id %>" data-answer-id="<%= @answer_id %>" data-lesson-questions-count="<%= @question.lesson.questions.count %>" data-first-question-id="<%= @question.lesson.questions.first.id %>">
+        <div class="question-cards" data-controller="option-card">
+          <div id="questionA" class="question-card questionA"  data-action="click->option-card#markCard">
+            <div class="question-answer" >
+              <p><%= @question.a %></p>
+            </div>
+            <p class="answer-letter">A</p>
+          </div>
+          <div id="questionB" class="question-card questionB" data-action="click->option-card#markCard">
+            <div class="question-answer">
+              <p><%= @question.b %></p>
+            </div>
+            <p class="answer-letter">B</p>
+          </div>
+          <div id="questionC" class="question-card questionC" data-action="click->option-card#markCard">
+            <div class="question-answer">
+              <p><%= @question.c %></p>
+            </div>
+            <p class="answer-letter">C</p>
+          </div>
+          <div id="questionD" class="question-card questionD" data-action="click->option-card#markCard">
+            <div class="question-answer">
+              <p><%= @question.d %></p>
+            </div>
+            <p class="answer-letter">D</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+  <!--END OF BODY-->
+
+  <!--FOOTER-->
+  <% current_question_i = @question.lesson.questions.index(@question) %>
+  <% next_question = @question.lesson.questions[current_question_i + 1]  %>
+  <div class="question-footer" data-controller="next-question">
+    <div id="question-buttons">
+      <button id="confirm-button" class="btn btn-primary" data-action="click->next-question#confirm" disabled>Confirmar resposta</button>
+      <div class="answer-feedback">
+        <p class="correct-answer animate__animated animate__heartBeat" id="correct-answer-msg" hidden><%= "Resposta correta!" %></p>
+        <p id="correct-answer" class="animate__animated animate__bounce" hidden><%= @question.correct_answer %></p>
+        <p class="wrong-answer animate__animated animate__headShake" id="wrong-answer-msg" hidden><%= "A resposta correta é #{@question.correct_answer}" %></p>
+      </div>
+      <!--<% next_page = @question.lesson.questions.last.id == (@question.id + 1) ? "Lesson page" : (@question.id + 1) %>-->
+      <div class="right-buttons">
+        <% if last_question %>
+          <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>
+        <% else %>
+          <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true, hidden: true %>
+          <%= button_to 'Próxima pergunta', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
+        <% end %>
+      </div>
+    </div>
+    <span id="sound-on" data-action="click->next-question#unMute"><i class="fas fa-volume-mute"></i></span>
+    <span id="sound-off" data-action="click->next-question#mute"><i class="fas fa-volume-up"></i></span>
+  </div>
+  <!--END OF FOOTER-->
+
+</div>

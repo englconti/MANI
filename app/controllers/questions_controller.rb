@@ -3,13 +3,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @type = @question.question_type
     @answer_id = Answer.where(question: @question, user: current_user)[0].id
-    @statement = @question.statement
-    @choice_a = @question.a
-    @choice_b = @question.b
-    @choice_c = @question.c
-    @choice_d = @question.d
   end
 
   private

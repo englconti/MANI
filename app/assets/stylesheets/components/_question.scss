@@ -265,33 +265,11 @@ $dark-blue: #1999d6;
   color: #183477;
 }
 
-// animation to slowly fade out an element
-
-// .hide-slow {
-//   animation-name:fadeOut;
-//   animation-duration:0.5s;
-//   animation-fill-mode: forwards;
-// }
-
-// @keyframes fadeOut {
-//   from {
-//     opacity: 1;
-//     margin-left: 0%;
-//   }
-
-//   to {
-//       opacity: 0;
-//       margin-left: -100%;
-//       height: 0; /* added */
-//   }
-// }
-
 // FOOTER ---------------------------------------------
 
 .right-buttons {
   border: $borders;
 }
-
 
 .question-footer {
   border-top: 3px solid #e5e5e5;
@@ -352,7 +330,6 @@ $dark-blue: #1999d6;
   color: #619f09;
   font-weight: bolder;
 }
-
 
 #wrong-answer-msg {
   margin: 0;

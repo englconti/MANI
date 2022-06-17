@@ -1,49 +1,19 @@
-<% last_question = @question.lesson.questions.last == @question %>
-<div data-controller="wr-choice">
-  <h1 ><%= statement.html_safe %></h1>
-  <div class="wr-questions-container" id="questions-container">
+<% if question.a %>
+  <% words = question.a.split %>
+<% else %>
+  <% words = ["palavra1", "palavra2", "palavra3", "palavra4", "palavra5", "palavra6"] %>
+<% end %>
+
+<!-- Replace words for answers from CSV(they may all be in one column like "a" -> "palavra1 palavra2 palavra3"(...)) -->
+<div data-controller="wr-select">
+  <h1 ><%= question.statement.html_safe %></h1>
+  <div class="questions-container" id="questions-container" data-question-id="<%= question.id %>" data-answer-id="<%= answer_id %>" data-lesson-questions-count="<%= question.lesson.questions.count %>" data-first-question-id="<%= question.lesson.questions.first.id %>" data-words-count="<%= words.count %>" data-question-type="<%= question.question_type %>">
     <div class="wr-question-cards">
-      <div id="choiceA" class="wr-question-card choiceA" data-wr-choice-target="option" data-action="click->wr-choice#select">
-        <span class="answer-letter">tempo</span>
-      </div>
-      <div id="choiceB" class="wr-question-card choiceB" data-wr-choice-target="option" data-action="click->wr-choice#select">
-        <span class="answer-letter">amanhã</span>
-      </div>
-      <div id="choiceC" class="wr-question-card choiceC" data-wr-choice-target="option" data-action="click->wr-choice#select">
-        <span class="answer-letter">hoje</span>
-      </div>
-      <div id="choiceD" class="wr-question-card choiceD" data-wr-choice-target="option" data-action="click->wr-choice#select">
-        <span class="answer-letter">investido</span>
-      </div>
-      <div id="choiceE" class="wr-question-card choiceE" data-wr-choice-target="option" data-action="click->wr-choice#select">
-        <span class="answer-letter">crescimento</span>
-      </div>
-      <div id="choiceF" class="wr-question-card choiceF" data-wr-choice-target="option" data-action="click->wr-choice#select">
-        <span class="answer-letter">vendido</span>
-      </div>
+      <% words.each_with_index do |word, index| %>
+        <div id="choice<%= index %>" class="wr-question-card choice<%= index %>" data-wr-select-target="option" data-action="click->wr-select#select">
+          <span class="answer-letter"><%=word%></span>
+        </div>
+      <% end %>
     </div>
-  </div>
-
-  <div class="question-footer" data-controller="wr-choice">
-    <div id="question-buttons">
-      <button id="wr-confirm-button" class="btn btn-primary" data-action="click->wr-choice#confirm" disabled>Confirmar resposta</button>
-      <div class="answer-feedback">
-        <p class="correct-answer animate__animated animate__heartBeat" id="correct-answer-msg" hidden><%= "Resposta correta!" %></p>
-        <p id="wr-correct-answer" class="animate__animated animate__bounce" hidden><%= @question.correct_answer %></p>
-        <p class="wrong-answer animate__animated animate__headShake" id="wrong-answer-msg" hidden><%= "A resposta correta é #{@question.correct_answer}" %></p>
-      </div>
-      <!--<% next_page = @question.lesson.questions.last.id == (@question.id + 1) ? "Lesson page" : (@question.id + 1) %>-->
-      <div class="right-buttons">
-        <% if last_question %>
-          <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>
-        <% else %>
-          <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true, hidden: true %>
-          <%= button_to 'Próxima pergunta', question_path(@question.id + 1), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
-        <% end %>
-      </div>
-
-    </div>
-    <span id="sound" data-action="click->wr-choice#unMute"><i class="fas fa-volume-mute"></i></span>
-    <span id="no-sound" data-action="click->wr-choice#mute"><i class="fas fa-volume-up"></i></span>
   </div>
 </div>
