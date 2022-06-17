@@ -12,7 +12,8 @@ class AnswersController < ApplicationController
     user = current_user
     if params[:question_type] == "writing"
       # params[:answer] == Boolean
-      answer.is_correct = params[:answer] == "true"
+      answer.is_correct = params[:answer]
+      puts answer.is_correct
       user.lives -= answer.is_correct ? 0 : 1
       user.save
     elsif params[:question_type] == "abcd"
