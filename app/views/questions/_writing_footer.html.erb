@@ -1,0 +1,22 @@
+<div class="question-footer" data-controller="wr-next-question">
+  <div id="question-buttons">
+    <button id="confirm-button" class="btn btn-primary" data-action="click->wr-next-question#confirmWr" disabled>Confirmar resposta</button>
+    <div class="answer-feedback">
+      <p class="correct-answer animate__animated animate__heartBeat" id="correct-answer-msg" hidden><%= "Resposta correta!" %></p>
+      <p id="correct-answer" class="animate__animated animate__bounce" hidden><%= @question.correct_answer %></p>
+      <p class="wrong-answer animate__animated animate__headShake" id="wrong-answer-msg" hidden><%= "A resposta correta é #{@question.correct_answer}" %></p>
+    </div>
+    <div class="right-buttons">
+      <% if last_question %>
+        <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>
+      <% else %>
+        <%= button_to 'Resumo da Aula', lesson_path(@question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true, hidden: true %>
+        <% current_question_i = @question.lesson.questions.index(@question) %>
+        <% next_question = @question.lesson.questions[current_question_i + 1]  %>
+        <%= button_to 'Próxima pergunta', question_path(next_question), method: :get, id:"btn-next-question", class:"btn btn-success", disabled: true %>
+      <% end %>
+    </div>
+  </div>
+  <span id="sound-on" data-action="click->wr-next-question#unMute"><i class="fas fa-volume-mute"></i></span>
+  <span id="sound-off" data-action="click->wr-next-question#mute"><i class="fas fa-volume-up"></i></span>
+</div>

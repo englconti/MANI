@@ -34,7 +34,6 @@ require("flatpickr/dist/flatpickr.css")
 application.register('flatpickr', Flatpickr)
 // end of added by Leo for date-picking----------------------------------
 
-
 // added for animate pages
 import 'animate.css';
 // ------------------------

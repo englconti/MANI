@@ -6,10 +6,6 @@ export default class extends Controller {
 
   connect() {
     console.log("Connected:", this.element);
-    console.log(this.element);
-    console.log(this.formTarget);
-    console.log(this.listTarget);
-    console.log(this.searchInputTarget);
   }
 
   openWindow(e) {

@@ -5,14 +5,30 @@ import { right } from "@popperjs/core"
 export default class extends Controller {
 
   connect() {
+    console.log("teste")
     // 1. Feature to make the bar move -----
     this.barStatusLoad(0);
     // 2. Check last mute status -----------
     this.checkLastMuteStatus();
     // -------------------------------------
+
+    // Added for merging controllers -------
+    const questionType = document.querySelector(".container-parts").dataset.questionType
+    if (questionType == "writing") {
+      console.log("Question type: WRITING");
+      this.choiceTargets.forEach((target) => {
+        if (target) {
+          target.style.display = 'inline-block'
+        }
+        console.log(target);
+      })
+    } else if (questionType == "abcd") {
+      console.log("Question type: ABCD")
+    }
+    // End of merging -----------------------
   }
 
-  confirm(event) {
+  confirmAbcd(event) {
     event.preventDefault();
 
     this.questionElement = document.querySelector("#questions-container");
@@ -108,6 +124,14 @@ export default class extends Controller {
       lessonReviewButton.disabled = false;
     }
   }
+
+  // Added for merging controllers -----------------------------
+
+
+
+
+  // END of mergin ---------------------------------------------
+
 
   checkLastMuteStatus() {
     const unMuteBtn = document.getElementById("sound-on");
