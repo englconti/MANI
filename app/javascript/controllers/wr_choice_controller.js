@@ -84,14 +84,6 @@ export default class extends Controller {
             if (blank.innerHTML == addedWord) {
               blank.innerHTML = "_______";
               blank.classList.remove('filled-blank');
-              // console.log("Removing")
-              // console.log(wordsSelected)
-              // wordsSelected.forEach((word) => {
-              //   if (word == addedWord){
-              //     wordsSelected.splice(word, 1);
-              //     console.log(wordsSelected)
-              //   }
-              // })
             }
           })
         } else {
@@ -103,8 +95,6 @@ export default class extends Controller {
                   blank.innerHTML = addedWord;
                   blank.classList.add('filled-blank');
                   wordsSelected.push(addedWord)
-                  // console.log("Adding")
-                  // console.log(wordsSelected)
                   break
                 }
               }
