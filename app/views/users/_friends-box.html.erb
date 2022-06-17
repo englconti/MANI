@@ -17,7 +17,7 @@
     <div class="overlay hidden" data-action="click->friends-actions#closeWindow"></div>
     <div class="box-window-add-friend hidden">
       <div class="search-friend-top">
-        <p id="search-friend-statement">Search for a friend</p>
+        <p id="search-friend-statement">Busque um amigo:</p>
         <div id="search-friend-bar">
           <%= form_with url: user_path, method: :get, html: { class: 'mb-5', data: { friends_actions_target: 'form' } } do |f| %>
             <%= f.text_field :query,
@@ -39,19 +39,31 @@
   </div>
   <!--end of window to add friends-->
 
-  <div class="box-friends-header">
+  <!--Window for sending invites (under development)-->
+  <div class="container-window-send-invite" >
+    <div class="overlay-send-invite hidden" data-action="click->friends-actions#closeInviteWindow"></div>
+    <div class="box-window-send-invite hidden">
+      <div class="send-invite-top">
+        <p id="send-invite-statement">Digite o e-mail de quem deseja convitar</p>
+        <i class="fa-solid fa-circle-xmark send-invite-cancel-btn" data-action="click->friends-actions#closeInviteWindow"></i>
+      </div>
+      <div id="send-invite-body" data-friends-actions-target="list">
+      <!--Insert friends based on query-->
+        <input type="text" id="form-send-invite">
+        <button type="button" id="box-btn-send-invite" class="btn btn-success" data-action="click->friends-actions#sendInviteFake" >Enviar convite!!</button>
+        <p id="blank-space-send-invite"></p>
+        <p id="fake-invite-msg" style="color: white;" class="animate__animated animate__fadeIn" hidden>Convite enviado com sucesso!</p>
+      </div>
+    </div>
+  </div>
+  <!--end of window to send invites-->
 
+  <div class="box-friends-header">
     <p>Amigos</p>
     <p>XP Atual</p>
   </div>
 
   <div class="box-friends-friends-list">
-    <!--
-    <div class="friend-box">
-      <p>Mani</p>
-      <p>27856 XP</p>
-    </div>
-    -->
     <% all_friends.each do |friend| %>
       <div class="friend-box">
         <p><%= friend.username.capitalize %></p>
@@ -62,7 +74,7 @@
 
   <footer id="friend-box-footer">
     <button type="button" class="btn btn-primary btn-add-friend" data-action="click->friends-actions#openWindow" >Add um amigo!</button>
-    <button type="button" class="btn btn-success btn-send-invite" >Envie um convite!</button>
+    <button type="button" class="btn btn-success btn-send-invite" data-action="click->friends-actions#openInviteWindow" >Envie um convite!</button>
   </footer>
 
 </div>

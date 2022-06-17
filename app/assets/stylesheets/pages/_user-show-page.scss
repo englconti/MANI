@@ -20,7 +20,7 @@ $gold: gold;
 #user-page-container {
   border-top: 1px solid $grey;
   // border: 1px solid rgba(255, 255, 255, 0.117);
-  min-height: 80vh;
+  height: 100vh;
   font-family:"Nunito";
 }
 
@@ -67,6 +67,8 @@ $gold: gold;
   justify-content: center;
   min-width: 600px;
   min-height: 500px;
+  background-color:#e5f5fc;
+
 }
 
 .box-lessons {
@@ -484,3 +486,104 @@ $gold: gold;
   }
 }
 // -----------------------------------------------------------------------------
+
+
+// 2.3.2 SEND AN INVITE --------------------------------------------------------
+
+.container-window-send-invite {
+
+}
+.overlay-send-invite {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+
+.box-window-send-invite {
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  border: $borders;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: 45vh;
+  background-color: $grey-dark;
+
+  padding: 10px;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  transition: all 0.5s;
+
+  .send-invite-cancel-btn {
+    color: rgb(145, 145, 145);
+    font-size: 30px;
+    cursor: pointer;
+
+    &:hover {
+      color: $red-heart;
+    }
+
+  }
+
+  .send-invite-top {
+    border: $borders-red;
+    background-color: $dark;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+
+    #send-invite-statement {
+      margin: 0;
+      border: $borders;
+      color: white;
+      font-size: 25px;
+    }
+  }
+
+  .hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+#form-send-invite {
+  width: 80%;
+  height: 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#send-invite-body {
+  height: 80%;
+  border: $borders-red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#box-btn-send-invite {
+  height: 50px;
+  text-align: center;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  border: 0px;
+  color: white;
+  background: #7ac70c;
+  border-bottom: 5px solid #619f09;
+  width: 60%;
+
+  &:hover {
+    background: rgb(198, 255, 129);
+  }
+}

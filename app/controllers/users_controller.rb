@@ -39,11 +39,11 @@ class UsersController < ApplicationController
     # RANDOM Information ------------------------------------------------------------------
     @information = random_information
     # -------------------------------------------------------------------------------------
-
   end
 
   def find_friends
-    Friendship.where(asker: current_user).map { |friendship| friendship.receiver }
+    friends = Friendship.where(asker: current_user).map { |friendship| friendship.receiver }
+    friends.sort_by { |friend| friend.xp }.reverse
   end
 
   def render_lesson(lesson_id)
