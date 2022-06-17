@@ -1,4 +1,9 @@
-<% words = ["palavra1", "palavra2", "palavra3", "palavra4", "palavra5", "palavra6"] %>
+<% if question.a %>
+  <% words = question.a.split %>
+<% else %>
+  <% words = ["palavra1", "palavra2", "palavra3", "palavra4", "palavra5", "palavra6"] %>
+<% end %>
+
 <!-- Replace words for answers from CSV(they may all be in one column like "a" -> "palavra1 palavra2 palavra3"(...)) -->
 <div data-controller="wr-select">
   <h1 ><%= question.statement.html_safe %></h1>
@@ -9,5 +14,6 @@
           <span class="answer-letter"><%=word%></span>
         </div>
       <% end %>
+    </div>
   </div>
 </div>

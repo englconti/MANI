@@ -7,7 +7,6 @@
       <p id="correct-answer" class="animate__animated animate__bounce" hidden><%= question.correct_answer %></p>
       <p class="wrong-answer animate__animated animate__headShake" id="wrong-answer-msg" hidden><%= "A resposta correta é #{question.correct_answer}" %></p>
     </div>
-    <!--<% next_page = question.lesson.questions.last.id == (question.id + 1) ? "Lesson page" : (question.id + 1) %>-->
     <div class="right-buttons">
       <% if last_question %>
         <%= button_to 'Resumo da Aula', lesson_path(question.lesson), method: :get, id:"btn-lesson-review", class:"btn btn-success", disabled: true %>

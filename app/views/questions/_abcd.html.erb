@@ -1,6 +1,6 @@
 
 <h1><%= question.statement %></h1>
-<div class="questions-container" id="questions-container" data-question-id="<%= question.id %>" data-answer-id="<%= answer_id %>" data-lesson-questions-count="<%= question.lesson.questions.count %>" data-first-question-id="<%= question.lesson.questions.first.id %>">
+<div class="questions-container" id="questions-container" data-question-id="<%= question.id %>" data-answer-id="<%= answer_id %>" data-lesson-questions-count="<%= question.lesson.questions.count %>" data-first-question-id="<%= question.lesson.questions.first.id %>" data-question-type="<%= question.question_type %>">
   <div class="question-cards" data-controller="option-card">
     <div id="questionA" class="question-card questionA"  data-action="click->option-card#markCard">
       <div class="question-answer" >

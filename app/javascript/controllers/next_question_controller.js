@@ -41,7 +41,7 @@ export default class extends Controller {
     // const urlPatch = `https://mani-finance.herokuapp.com/answers/${this.questionElement.dataset.answerId}`;
 
     // 3. Creating a JS Object with the data we want to send to the server
-    const data = { answer: userAnswer, answer_id: this.questionElement.dataset.answerId };
+    const data = { answer: userAnswer, answer_id: this.questionElement.dataset.answerId, question_type: this.questionElement.dataset.questionType };
 
     // 4. Send data to correct route - In this case PATCH, since we will only be updating answers.
     fetch(urlPatch, {
