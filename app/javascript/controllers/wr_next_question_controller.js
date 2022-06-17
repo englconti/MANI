@@ -39,10 +39,12 @@ export default class extends Controller {
     const wrongAudio = new Audio('https://rpg.hamsterrepublic.com/wiki-images/d/d7/Oddbounce.ogg');
     let isCorrect = true
     userAnswer.forEach((word, index) => {
+      console.log(`word: ${word}`)
       if (word !== correctAnswer[index]) {
         isCorrect = false;
       }
     });
+    console.log(`isCorrect: ${isCorrect}`);
     if (isCorrect) {
       document.querySelector('.correct-answer').removeAttribute("hidden");
       document.querySelector('.highlight').classList.add("correct-answer-card");
