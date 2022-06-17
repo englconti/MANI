@@ -37,4 +37,25 @@ export default class extends Controller {
       })
   }
 
+  openInviteWindow(e) {
+    // e.preventDefault();
+    const overlay = document.querySelector(".overlay-send-invite");
+    const windowAddFriend = document.querySelector(".box-window-send-invite");
+
+    overlay.classList.remove("hidden");
+    windowAddFriend.classList.remove("hidden");
+  }
+
+  closeInviteWindow() {
+    const overlay = document.querySelector(".overlay-send-invite");
+    const windowSendInvite = document.querySelector(".box-window-send-invite");
+
+    overlay.classList.add("hidden");
+    windowSendInvite.classList.add("hidden");
+  }
+
+  sendInviteFake() {
+    document.querySelector("#blank-space-send-invite").hidden = true;
+    document.querySelector("#fake-invite-msg").hidden = false;
+  }
 }
