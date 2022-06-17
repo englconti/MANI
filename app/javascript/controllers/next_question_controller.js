@@ -5,27 +5,11 @@ import { right } from "@popperjs/core"
 export default class extends Controller {
 
   connect() {
-    console.log("teste")
+    console.log("controller next_question connected!");
     // 1. Feature to make the bar move -----
     this.barStatusLoad(0);
     // 2. Check last mute status -----------
     this.checkLastMuteStatus();
-    // -------------------------------------
-
-    // Added for merging controllers -------
-    const questionType = document.querySelector(".container-parts").dataset.questionType
-    if (questionType == "writing") {
-      console.log("Question type: WRITING");
-      this.choiceTargets.forEach((target) => {
-        if (target) {
-          target.style.display = 'inline-block'
-        }
-        console.log(target);
-      })
-    } else if (questionType == "abcd") {
-      console.log("Question type: ABCD")
-    }
-    // End of merging -----------------------
   }
 
   confirmAbcd(event) {
@@ -69,22 +53,22 @@ export default class extends Controller {
     })
 
     // 7. Playing sound and chaging card colors based on user answer
-    const correctAnswer = document.querySelector("#correct-answer").textContent
+    const correctAnswer = document.querySelector("#correct-answer").textContent;
     userAnswer === correctAnswer ? this.correctAnswerAction() : this.wrongAnswerAction();
 
     // 8. Feature to make the bar move -----
-    this.barStatusLoad(1)
+    this.barStatusLoad(1);
 
     // 9. Removing hearts if wrong confirmation (only view, true change happens on the answers_controller.rb)
-    this.renderHearts(userAnswer === correctAnswer)
+    this.renderHearts(userAnswer === correctAnswer);
   }
 
   correctAnswerAction() {
     const audio = new Audio('http://codeskulptor-demos.commondatastorage.googleapis.com/descent/gotitem.mp3');
     document.querySelector('.correct-answer').removeAttribute("hidden");
     document.querySelector('.marked').classList.add("correct-answer-card");
-    document.querySelector('.question-footer').classList.add("correct-answer-footer-style")
-    console.log(localStorage["alerts"])
+    document.querySelector('.question-footer').classList.add("correct-answer-footer-style");
+    console.log(localStorage["alerts"]);
     localStorage["alerts"] === 'false' ? audio.muted : audio.play();
   }
 
@@ -92,8 +76,8 @@ export default class extends Controller {
     const wrongAudio = new Audio('https://rpg.hamsterrepublic.com/wiki-images/d/d7/Oddbounce.ogg');
     document.querySelector('.marked').classList.add("wrong-answer-card");
     document.querySelector('.wrong-answer').removeAttribute("hidden");
-    document.querySelector('.question-footer').classList.add("wrong-answer-footer-style")
-    console.log(localStorage["alerts"])
+    document.querySelector('.question-footer').classList.add("wrong-answer-footer-style");
+    console.log(localStorage["alerts"]);
     localStorage["alerts"] === 'false' ? wrongAudio.muted : wrongAudio.play();
   }
 
@@ -111,13 +95,13 @@ export default class extends Controller {
     const hearts = document.querySelector(".hearts");
     const heartsAmount = hearts.dataset.heartsAmount;
     const lastQuestion = hearts.dataset.lastQuestion === "true";
-    const heartsArray = ["🖤🖤🖤🖤🖤", "💗🖤🖤🖤🖤", "💗💗🖤🖤🖤", "💗💗💗🖤🖤", "💗💗💗💗🖤","💗💗💗💗💗"]
-    hearts.innerHTML = correctGuess ? heartsArray[+heartsAmount] : heartsArray[+heartsAmount - 1]
+    const heartsArray = ["🖤🖤🖤🖤🖤", "💗🖤🖤🖤🖤", "💗💗🖤🖤🖤", "💗💗💗🖤🖤", "💗💗💗💗🖤","💗💗💗💗💗"];
+    hearts.innerHTML = correctGuess ? heartsArray[+heartsAmount] : heartsArray[+heartsAmount - 1];
 
     // Logic to replace next-lesson button for lesson-review if meet criteria
     if (!correctGuess && (heartsAmount - 1 == 0) && !lastQuestion) {
       const nextQuestionBtn = document.querySelector("#btn-next-question");
-      const lessonReviewButton = document.querySelector("#btn-lesson-review")
+      const lessonReviewButton = document.querySelector("#btn-lesson-review");
       nextQuestionBtn.disabled = true;
       nextQuestionBtn.hidden = true;
       lessonReviewButton.hidden = false;

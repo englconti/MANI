@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = [ "content" ]
 
   connect() {
-    console.log("Connected:", this.element);
+    console.log("controller");
   }
 
   markCard(e) {
@@ -18,7 +18,7 @@ export default class extends Controller {
 
     const clickedCardValue = e.currentTarget.children[1].textContent;
     console.log(clickedCardValue);
-    console.log(e.currentTarget.children[0])
+    console.log(e.currentTarget.children[0]);
 
     // Refactoring -------------------------------
     this.markCardValidation(clickedCardValue, "A", cardA, cardB, cardC, cardD);
