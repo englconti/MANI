@@ -3,7 +3,6 @@
   <div class="banner__text">
       <h1><%=@product.title%></h1>
         <p>Entenda o que é, quais os tipos e como investir</p>
-      <div><%=@product.description%></div>
   </div>
 </div>
 
@@ -23,5 +22,5 @@
 </div>
 
 <div class="container_btn">
-  <a class="btn btn-product" href="http://localhost:3000/products" target="_blank">Back</a>
+  <%= link_to "Voltar", products_path, class:"btn btn-product" %>
 </div>

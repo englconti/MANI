@@ -163,9 +163,7 @@ main {
             background: rgb(198, 255, 129);
           }
         }
-      }
-
-
+       }
      }
 
      .something-future {
@@ -176,6 +174,12 @@ main {
       justify-content: center;
      }
 
+     .box-effect-p {
+      margin-top: 150px;
+      #home-effect-p {
+        font-size: 30px;
+      }
+     }
 
     }
 
@@ -213,66 +217,6 @@ main {
     background-image: url(https://res.cloudinary.com/guijafrone/image/upload/v1654884553/MANI%20GAMES/image_mxynro.png);
     }
   }
-  // .banner {
-  //   background-repeat: no-repeat;
-  //   background-size: 100%;
-  //   background-position: center;
-  //   padding: 150px 0;
-
-  //   img {
-  //     max-width: 1080px;   /* Máximo da largura da imagem */
-  //     width: 90%;
-  //     max-height: 500px;  /* Máximo da altura da imagem */
-  //     min-height: auto;      /* Mínimo da altura, por padrão “auto” */
-  //   }
-  // }
-
-  // .banner__text {
-  //   width: 500px;
-  //   padding: 35px;
-
-  //   // Titulo Landing Page
-  //   h1 {
-  //     margin: 0;
-  //     color: white;
-  //     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-  //     font-size: 32px;
-  //     font-weight: bold;
-  //     font-family: var(--fonte-title);
-  //     font-size: 60px;
-  //     font-weight: bolder;
-
-  //   }
-
-  //   h2 {
-  //     margin: 0;
-  //     color: white;
-  //     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-  //     font-size: 32px;
-  //     font-weight: bold;
-  //     font-family: var(--fonte-title);
-  //   }
-
-  //   // Paragrafo Landing Page
-  //   p {
-  //     font-size: 20px;
-  //     color: white;
-  //     opacity: .8;
-  //     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-  //     font-family: var(--fonte-sub-title);
-  //   }
-
-  //   .wrapper{
-  //     position: relative;
-  //     top: 55%;
-  //     left: 50%;
-  //     transform: translate(-50%, -50%);
-  //   }
-
-  //   .link_wrapper{
-  //     position: relative;
-  //   }
-  // }
 
 .menu_btn {
   min-width: 300px;
@@ -300,7 +244,6 @@ main {
     border-radius: 10px;
   }
 }
-
 
 /* CARDS COM FOTO E TEXTO PADRAO */
 
