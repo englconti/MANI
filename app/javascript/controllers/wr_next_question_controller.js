@@ -72,7 +72,7 @@ export default class extends Controller {
 
 
     // Defining the correct URL based on the server routes. OBS: Replace URL for Heroku deployment
-    const urlPatch = `http://localhost:3000/answers/${this.questionElement.dataset.answerId}`;
+    // const urlPatch = `http://localhost:3000/answers/${this.questionElement.dataset.answerId}`;
     const urlPatch = `https://mani-finance.herokuapp.com/answers/${this.questionElement.dataset.answerId}`;
 
     // Creating a JS Object with the data we want to send to the server
