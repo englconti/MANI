@@ -15,7 +15,8 @@ export default class extends Controller {
   confirmAbcd(event) {
     event.preventDefault();
 
-    this.questionElement = document.querySelector("#questions-container");
+    // this.questionElement = document.querySelector("#questions-container");
+    this.questionElement = document.querySelector(".container-parts");
 
     // 1. Getting the text content from the marked Card and puttinuserAnswer
     const userAnswer = document.querySelector(".marked").children[1].textContent;
