@@ -23,7 +23,7 @@
 
   <!--BODY-->
   <div class="container-question-page animate__animated animate__fadeIn animate__delay-1s">
-    <div class="container-parts">
+    <div class="container-parts" data-answer-id="<%= @answer_id %>" data-question-type="<%= @question.question_type %>">
       <%= render @question.question_type, question: @question, answer_id: @answer_id %>
     </div>
   </div>
