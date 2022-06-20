@@ -1,0 +1,15 @@
+<div class="container-window-send-invite" >
+  <div class="overlay-send-invite hidden" data-action="click->friends-actions#closeInviteWindow"></div>
+  <div class="box-window-send-invite hidden">
+    <div class="send-invite-top">
+      <p id="send-invite-statement">Digite o e-mail de quem deseja convitar</p>
+      <i class="fa-solid fa-circle-xmark send-invite-cancel-btn" data-action="click->friends-actions#closeInviteWindow"></i>
+    </div>
+    <div id="send-invite-body" data-friends-actions-target="list">
+      <input type="text" id="form-send-invite">
+      <button type="button" id="box-btn-send-invite" class="btn btn-success" data-action="click->friends-actions#sendInviteFake" >Enviar convite!!</button>
+      <p id="blank-space-send-invite"></p>
+      <p id="fake-invite-msg" style="color: white;" class="animate__animated animate__fadeIn" hidden>Feature em desenvolvimento!!</p>
+    </div>
+  </div>
+</div>
