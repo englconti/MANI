@@ -164,10 +164,9 @@ class LessonFlowTest < ActionDispatch::IntegrationTest
     other = create_user
     answer = other.answers.first
 
-    # RecordNotFound is rendered as a 404 in production
-    assert_raises(ActiveRecord::RecordNotFound) do
-      patch answer_url(answer), params: { answer: "a" }
-    end
+    patch answer_url(answer), params: { answer: "a" }
+
+    assert_response :not_found
     assert_not answer.reload.is_correct
   end
 
