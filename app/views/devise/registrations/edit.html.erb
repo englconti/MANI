@@ -1,4 +1,4 @@
-<h2>Here you can edit your personal information, <%= current_user.username.humanize %></h2>
+<h2>Aqui você pode editar seus dados, <%= current_user.username.humanize %></h2>
 <br>
 
 <div class="container-edit-form" style="width: 500px; margin: 0 auto;" >
@@ -9,34 +9,34 @@
       <%= f.input :email, required: true, autofocus: true %>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <p>Aguardando confirmação para: <%= resource.unconfirmed_email %></p>
       <% end %>
 
       <%= f.input :password, # this is the text on top of the form box
-                  hint: "leave it blank if you don't want to change it",
-                  label: "New password:",
+                  hint: "deixe em branco se não quiser alterar",
+                  label: "Nova senha:",
                   required: false,
                   input_html: { autocomplete: "new-password" } %>
 
       <%= f.input :password_confirmation,
-                  label: "New password confirmation:",
+                  label: "Confirmação da nova senha:",
                   required: false,
                   input_html: { autocomplete: "new-password" } %>
 
       <%= f.input :current_password,
-                  hint: "Input your current password to confirm your changes",
+                  hint: "informe sua senha atual para confirmar as alterações",
                   required: true,
                   input_html: { autocomplete: "current-password" } %>
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Update", class: "btn btn-warning", style: "width: 200px; margin-bottom: 20px" %>
+      <%= f.button :submit, "Atualizar", class: "btn btn-warning", style: "width: 200px; margin-bottom: 20px" %>
     </div>
 
     <div style="display: flex; flex-direction: column; width: 200px">
-      <%= link_to "Back", :back, class: "btn btn-secondary" %>
+      <%= link_to "Voltar", :back, class: "btn btn-secondary" %>
       <br>
-      <%= link_to "Cancel my account", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "Are you sure?" }, method: :delete %>
+      <%= link_to "Excluir minha conta", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "Tem certeza?" }, method: :delete %>
     </div>
   <% end %>
 </div>

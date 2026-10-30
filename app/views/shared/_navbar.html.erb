@@ -31,7 +31,7 @@
 
               <div class="box-user-info">
 
-                <p class="my-status">Meu status:</p class="my-status">
+                <p class="my-status">Meu status:</p>
 
                 <div class="box-xps">
                   <p><%= current_user.xp %></p>
@@ -40,7 +40,7 @@
 
                 <div class="box-manis">
                   <p><%= current_user.manis %> </p>
-                  <p class="user-manis">M$<p>
+                  <p class="user-manis">M$</p>
                 </div>
 
               </div>
@@ -51,15 +51,15 @@
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="border-radius: 10px;">
               <%= link_to "Meu perfil", user_path(current_user), class: "dropdown-item" %>
               <%= link_to "Editar dados", edit_user_registration_path(current_user), class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+              <%= link_to "Sair", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+            <%= link_to "Cadastre-se", new_user_registration_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            <%= link_to "Entrar", new_user_session_path, class: "nav-link" %>
           </li>
         <% end %>
       </ul>

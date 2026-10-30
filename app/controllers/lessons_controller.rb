@@ -1,5 +1,6 @@
 class LessonsController < ApplicationController
   before_action :disable_nav, only: [:show]
+  # NOTE: show still credits XP on every visit (known defect B-1, see docs/spec/01-backend.md)
 
   def show
     @current_lesson = Lesson.find(params[:id])
@@ -18,6 +19,13 @@ class LessonsController < ApplicationController
 
     # Add Mani$ to user
     add_manis
+  end
+
+  # Redoing a lesson refills the lives (explicit POST instead of a side effect on GET)
+  def restart
+    lesson = Lesson.find(params[:id])
+    current_user.update(lives: 5)
+    redirect_to question_path(lesson.questions.first)
   end
 
   private

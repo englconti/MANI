@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.3'
+ruby '3.0.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.6'
@@ -29,8 +29,11 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'devise'
+# Portuguese (pt-BR) translations for Rails and Devise
+gem 'rails-i18n', '~> 6.0'
+gem 'devise-i18n'
 
-gem 'autoprefixer-rails', '10.2.5'
+gem 'autoprefixer-rails', '~> 10.4'
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'simple_form', github: 'heartcombo/simple_form'
 group :development, :test do  gem 'pry-byebug'
@@ -69,3 +72,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'flatpickr'
 gem 'pg_search', '~> 2.3.0'
 gem 'rack-cors'
+
+# json 3.x is incompatible with ActiveSupport 6.1 (quirks_mode keyword)
+gem 'json', '< 2.10'
