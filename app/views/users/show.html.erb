@@ -6,33 +6,25 @@
 
     <div class="container-lessons">
 
-      <div class="box-lessons">
-        <%= render 'lesson', lesson: @lesson1[0], l_correct_answers: @lesson1[1], l_num_questions: @lesson1[2] %>
-      </div>
-
-      <br><br>
-
-      <div class="box-lessons">
-        <%= render 'lesson', lesson: @lesson2[0], l_correct_answers: @lesson2[1], l_num_questions: @lesson2[2] %>
-        <%= render 'lesson', lesson: @lesson3[0], l_correct_answers: @lesson3[1], l_num_questions: @lesson3[2] %>
-      </div>
-
-      <br><br>
-
-      <div class="box-lessons">
-        <%= render 'lesson', lesson: @lesson4[0], l_correct_answers: @lesson4[1], l_num_questions: @lesson4[2] %>
-        <%= render 'lesson', lesson: @lesson5[0], l_correct_answers: @lesson5[1], l_num_questions: @lesson5[2] %>
-        <%= render 'lesson', lesson: @lesson6[0], l_correct_answers: @lesson6[1], l_num_questions: @lesson6[2] %>
-      </div>
+      <% @lesson_rows.each_with_index do |row, index| %>
+        <% unless index.zero? %><br><br><% end %>
+        <div class="box-lessons">
+          <% row.each do |lesson, correct_answers, num_questions| %>
+            <%= render 'lesson', lesson: lesson, l_correct_answers: correct_answers, l_num_questions: num_questions %>
+          <% end %>
+        </div>
+      <% end %>
 
     </div>
 
     <div class="container-center-info">
 
       <h2>Você sabia? 🤓</h2>
-      <%= image_tag @information.img_url, style:"max-width:350px; max-height: 150px;" %>
-      <p><%= @information.text %></p>
-      <h6 style="font-size:10px">fonte: <a href="<%= @information.source %>" target="blank"><%= @information.source %></a></h6>
+      <% if @information %>
+        <%= image_tag @information.img_url, style:"max-width:350px; max-height: 150px;" %>
+        <p><%= @information.text %></p>
+        <h6 style="font-size:10px">fonte: <a href="<%= @information.source %>" target="blank"><%= @information.source %></a></h6>
+      <% end %>
     </div>
 
     <div class="container-right-info">

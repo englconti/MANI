@@ -75,7 +75,8 @@ export default class extends Controller {
     const urlPatch = `/answers/${this.questionElement.dataset.answerId}`;
 
     // Creating a JS Object with the data we want to send to the server
-    const data = { answer: isCorrect, answer_id: this.questionElement.dataset.answerId, question_type: this.questionElement.dataset.questionType };
+    // The server grades the typed words itself; the client only sends them
+    const data = { answer: userAnswer.join(' '), answer_id: this.questionElement.dataset.answerId, question_type: this.questionElement.dataset.questionType };
 
     // Send data to correct route - In this case PATCH, since we will only be updating answers.
     fetch(urlPatch, {

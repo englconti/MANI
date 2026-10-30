@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :answers
+  has_many :lesson_completions
+
+  validates :lives, numericality: { greater_than_or_equal_to: 0 }
 
   after_create :populate_answers
 
@@ -21,6 +24,10 @@ class User < ApplicationRecord
                   }
   # ----------------------------------
 
+
+  def lose_life!
+    update!(lives: [lives - 1, 0].max)
+  end
 
   def populate_answers
     Question.find_each do |question|

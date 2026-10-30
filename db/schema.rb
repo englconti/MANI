@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_16_200721) do
+ActiveRecord::Schema.define(version: 2026_10_30_200002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,11 +43,24 @@ ActiveRecord::Schema.define(version: 2022_06_16_200721) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "lesson_completions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "lesson_id", null: false
+    t.integer "correct_count", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lesson_id"], name: "index_lesson_completions_on_lesson_id"
+    t.index ["user_id", "lesson_id"], name: "index_lesson_completions_on_user_id_and_lesson_id", unique: true
+    t.index ["user_id"], name: "index_lesson_completions_on_user_id"
+  end
+
   create_table "lessons", force: :cascade do |t|
     t.string "title", null: false
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position", null: false
+    t.index ["position"], name: "index_lessons_on_position"
   end
 
   create_table "products", force: :cascade do |t|
@@ -97,5 +110,7 @@ ActiveRecord::Schema.define(version: 2022_06_16_200721) do
   add_foreign_key "answers", "users"
   add_foreign_key "friendships", "users", column: "asker_id"
   add_foreign_key "friendships", "users", column: "receiver_id"
+  add_foreign_key "lesson_completions", "lessons"
+  add_foreign_key "lesson_completions", "users"
   add_foreign_key "questions", "lessons"
 end
