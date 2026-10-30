@@ -1,11 +1,11 @@
-<h2>Log in</h2>
+<h2>Entrar</h2>
 
 <div class="container-log-in-form" style="width: 500px; margin: 0 auto;" >
   <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-inputs">
 
       <%= f.input :username,
-                  placeholder: "USERNAME",
+                  placeholder: "NOME DE USUÁRIO",
                   required: false,
                   autofocus: true,
                   input_html: { autocomplete: "username" } %>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Log in", class:"btn btn-success btn-log-in"%>
+      <%= f.button :submit, "Entrar", class:"btn btn-success btn-log-in"%>
     </div>
   <% end %>
 

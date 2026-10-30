@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   resources :answers, only: %i[update]
 
   # Added for lesson resume page -----
-  resources :lessons, only: [:show]
+  resources :lessons, only: [:show] do
+    member { post :restart }
+  end
   # ----------------------------------
   # Added for friendships ------------
   resources :friendships, only: %i[show create index destroy]

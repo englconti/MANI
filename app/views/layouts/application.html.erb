@@ -1,27 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <title>MANI</title>
 
     <!-- FAVICON ITEM MANI INVEST -->
     <link rel="icon" href="https://res.cloudinary.com/guijafrone/image/upload/v1654712310/MANI%20GAMES/favicon_vsn2fs.gif" type="image/x-icon">
 
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/051ef55d92.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="_css/animate.css">
-
   </head>
 
   <body>
     <!--div #body-container added by Leo to add background-color to entire site -->
-    <div id="#body-container" style="border: 1px solid white; background-color: white;">
+    <div id="body-container" style="border: 1px solid white; background-color: white;">
       <%= render 'shared/navbar' unless @disable_nav %>
       <!--Alerts for everything-->
       <%= render 'shared/flashes' %>

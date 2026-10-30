@@ -23,11 +23,8 @@ class User < ApplicationRecord
 
 
   def populate_answers
-    num_of_questions = Question.count
-    i = 1
-    num_of_questions.times do
-      self.answers << Answer.new(question: Question.find(i), user: self, is_correct: false)
-      i += 1
+    Question.find_each do |question|
+      answers << Answer.new(question: question, user: self, is_correct: false)
     end
   end
 

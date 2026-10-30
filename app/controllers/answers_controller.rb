@@ -33,6 +33,8 @@ class AnswersController < ApplicationController
       end
     end
     answer.save
+    # The client calls this with fetch (Accept: json) and has no template to render
+    head :no_content
   end
 
 end
