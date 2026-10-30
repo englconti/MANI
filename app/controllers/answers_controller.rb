@@ -7,8 +7,10 @@ class AnswersController < ApplicationController
   # server decides whether it is correct. Only the user's own answers are reachable.
   def update
     answer = current_user.answers.find(params[:id])
-    answer.submit!(params[:answer])
-    # The client calls this with fetch (Accept: json) and has no template to render
-    head :no_content
+    correct = answer.submit!(params[:answer])
+    # The correct answer is revealed only now, after the user has answered
+    render json: { correct: correct,
+                   correct_answer_label: answer.question.correct_answer_label,
+                   lives: current_user.reload.lives }
   end
 end

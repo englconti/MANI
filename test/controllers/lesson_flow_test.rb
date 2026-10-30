@@ -47,9 +47,69 @@ class LessonFlowTest < ActionDispatch::IntegrationTest
     patch answer_url(answer), params: { answer_id: answer.id, answer: "a", question_type: "abcd" },
                               headers: { "Accept" => "application/json" }
 
-    assert_response :no_content
+    assert_response :success
+    body = JSON.parse(response.body)
+    assert body["correct"]
+    assert_equal 5, body["lives"]
     assert answer.reload.is_correct
     assert_equal 5, @user.reload.lives
+  end
+
+  test "wrong answer response reveals the correct answer and the remaining lives" do
+    answer = @user.answers.first
+
+    patch answer_url(answer), params: { answer: "B" }, headers: { "Accept" => "application/json" }
+
+    body = JSON.parse(response.body)
+    assert_equal false, body["correct"]
+    assert_equal 4, body["lives"]
+    assert_equal "a: a", body["correct_answer_label"].downcase
+  end
+
+  test "question page does not leak the correct answer in the html" do
+    question = @lesson.questions.first
+    question.update!(correct_answer: "C", c: "resposta secreta xyz")
+
+    get question_url(question)
+
+    assert_response :success
+    assert_select "input[type=radio][name=answer]", 4
+    assert_select "#check-button[disabled]"
+    assert_not_includes response.body, "resposta secreta xyz is correct" # sanity: never rendered as a verdict
+    assert_no_match(/id="correct-answer"/, response.body)
+    assert_no_match(/A resposta correta/, response.body)
+  end
+
+  test "question page exposes lesson progress and navigation to the client" do
+    middle = @lesson.questions.second
+
+    get question_url(middle)
+
+    assert_select "[data-controller=lesson][data-lesson-index-value='1'][data-lesson-count-value='3']"
+    assert_select "[data-lesson-next-url-value='#{question_path(@lesson.questions.third)}']"
+    assert_select "[data-lesson-last-value='false']"
+  end
+
+  test "last question points to the lesson summary" do
+    get question_url(@lesson.questions.last)
+
+    assert_select "[data-lesson-last-value='true'][data-lesson-next-url-value='#{lesson_path(@lesson)}']"
+  end
+
+  test "writing question renders word buttons and strips unsafe markup" do
+    lesson = create_lesson(count: 1, question_type: "writing")
+    question = lesson.questions.first
+    question.update!(a: "um dois tres",
+                     statement: "Complete <div class='fill-ins'>_______</div><script>alert(1)</script>")
+    user = create_user
+    sign_in user
+
+    get question_url(question)
+
+    assert_response :success
+    assert_select "button.wr-question-card", 3
+    assert_select ".question-statement .fill-ins", 1
+    assert_select ".question-statement script", 0
   end
 
   test "wrong abcd answer is stored as incorrect and costs one life" do
