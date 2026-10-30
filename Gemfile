@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.11'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 7.2.0'
+gem 'rails', '~> 8.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
@@ -28,9 +28,9 @@ gem 'redis', '~> 4.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-gem 'devise', '~> 4.9'
+gem 'devise', '>= 4.9'
 # Portuguese (pt-BR) translations for Rails and Devise
-gem 'rails-i18n', '~> 7.0'
+gem 'rails-i18n', '>= 7.0'
 gem 'devise-i18n'
 
 gem 'autoprefixer-rails', '~> 10.4'
@@ -75,5 +75,3 @@ gem 'rack-cors'
 # Rails 7.1 test runner is not compatible with minitest 6
 gem 'minitest', '< 6'
 
-# json 3.x is incompatible with ActiveSupport 7.1 (quirks_mode keyword)
-gem 'json', '< 2.10'
