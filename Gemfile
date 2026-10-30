@@ -7,14 +7,15 @@ ruby '3.4.11'
 gem 'rails', '~> 8.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
+
+# Asset pipeline: Propshaft serves files built by esbuild (JS) and dart-sass (CSS)
+gem 'propshaft'
+gem 'jsbundling-rails'
+gem 'cssbundling-rails'
+# Hotwire: Turbo replaces Turbolinks and rails-ujs
+gem 'turbo-rails'
 # Use Puma as the app server
 gem 'puma', '>= 6.4'
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -33,8 +34,6 @@ gem 'devise', '>= 4.9'
 gem 'rails-i18n', '>= 7.0'
 gem 'devise-i18n'
 
-gem 'autoprefixer-rails', '~> 10.4'
-gem 'font-awesome-sass', '~> 5.6.1'
 gem 'simple_form', '~> 5.3'
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'

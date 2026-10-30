@@ -1,5 +1,4 @@
 import { Controller } from "stimulus"
-import { csrfToken } from "@rails/ujs"
 import { playCorrect, playWrong, soundEnabled, setSoundEnabled } from "../lesson/sounds"
 
 // Drives one question screen (multiple choice or "writing" fill-in-the-blanks).
@@ -89,7 +88,7 @@ export default class extends Controller {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "X-CSRF-Token": csrfToken()
+          "X-CSRF-Token": document.querySelector("meta[name=csrf-token]")?.content
         },
         body: JSON.stringify({ answer: this.userAnswer() })
       })

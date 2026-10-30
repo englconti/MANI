@@ -18,7 +18,7 @@
      data-lesson-last-value="<%= last_question %>">
 
   <header class="question-top-part animate__animated animate__fadeIn">
-    <%= link_to user_path(current_user), data: { confirm: "Tem certeza que deseja sair da aula?" },
+    <%= link_to user_path(current_user), data: { turbo_confirm: "Tem certeza que deseja sair da aula?" },
                 class: "question-cancel-btn", "aria-label": "Sair da aula" do %>
       <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
     <% end %>

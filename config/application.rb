@@ -1,4 +1,4 @@
-require_relative "boot"
+﻿require_relative "boot"
 
 require "rails/all"
 
@@ -14,7 +14,7 @@ module MANI
       generate.test_framework :test_unit, fixture: false
     end
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 8.1
 
     # Configuration for the application, engines, and railties goes here.
     #

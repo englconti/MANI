@@ -40,3 +40,7 @@ yarn-debug.log*
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store
+
+# Built assets (esbuild + sass)
+/app/assets/builds/*
+!/app/assets/builds/.keep

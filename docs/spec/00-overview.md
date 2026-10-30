@@ -49,6 +49,18 @@ Método: spec em fases (visão, requisitos, design técnico, tarefas). A skill `
 - F20: enunciados de escrita passam por `sanitize` em vez de `html_safe`.
 - 38 testes, sem pulados. Conferido no navegador: pergunta abcd (desktop e celular), resposta errada e pergunta de escrita.
 
+**Fase 4 executada** (branch `fase-4-upgrade-plataforma`, commits por etapa):
+- Ruby 3.0.7 → **3.4.11**; Rails 6.1 → 7.0 → 7.1 → 7.2 → **8.1.4**; Devise 4.8 → **5.0**; Puma 6; simple_form do RubyGems.
+- A etapa 7.1 foi feita já no Ruby 3.4: o Rails 7.1 não instala no Ruby 3.0 (a gem `psych` 5 não compila). A 8.0 foi pulada (a 8.0 acaba em 07/11/2026).
+- Webpacker/webpack/Babel/Turbolinks/rails-ujs/Spring/Sprockets/sassc removidos. Entram **Propshaft, esbuild (jsbundling), Sass (cssbundling), Turbo e Stimulus 3**. Node 22 ou mais novo (o Node 16 não é mais exigido).
+- Links com método e confirmação migraram para `data-turbo-method` e `data-turbo-confirm`; o CSRF do `fetch` vem da meta tag.
+- `load_defaults 8.1`; ambiente de teste com `show_exceptions = :rescuable`.
+- A imagem de fundo da home passou a vir de uma variável CSS (`--home-background`), porque o CSS compilado não tem como conhecer o nome com hash do arquivo.
+- Font Awesome: o CSS do gem saiu; os ícones dependem só do kit de CDN do layout (F18 continua parcial).
+- 38 testes, `zeitwerk:check` limpo e Brakeman sem alertas. Conferido no navegador: home, login e logout via Turbo, pergunta e navegação entre perguntas.
+- **Cuidados no Windows:** rodar tarefas Rails com `SKIP_CSS_BUILD=1`; o caminho com acento ("Área") ainda exige o workaround do bootsnap em `config/boot.rb` (a conferir se continua necessário).
+- **Nota sobre a verificação:** no painel de navegador embutido, o Turbo só renderiza a navegação quando a página está sendo pintada (os `requestAnimationFrame` ficam parados em segundo plano); isso é do ambiente de teste e não do app.
+
 Observação: o front-end recomenda **esbuild** (jsbundling) como bundler; a spec de back-end deixou em aberto "importmap ou jsbundling". Considerar resolvida a favor do esbuild se você aprovar.
 
 ## Decisões que dependem de você
