@@ -29,9 +29,9 @@ end
 # Creating Lessons -------------------------------------------------
 puts "-=-=-=-=- CREATING LESSONS -=-=-=-=-"
 lessons_path = "db/data/Mani - lessons_starter.csv"
-CSV.foreach(lessons_path, headers: :first_row) do |row|
+CSV.foreach(lessons_path, headers: :first_row).with_index(1) do |row, position|
   if Lesson.find_by(title: row['title']).nil?
-    Lesson.create!(title: row['title'], description: row['description'])
+    Lesson.create!(title: row['title'], description: row['description'], position: position)
     puts "Lesson created: #{Lesson.last.title}"
   end
 end

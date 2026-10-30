@@ -7,20 +7,7 @@ class UsersController < ApplicationController
 
   def show
     refill_lives
-    # Conceitos Básicos I
-    @lesson1 = render_lesson(1)
-    # Conceitos Básicos II
-    @lesson2 = render_lesson(2)
-    # Finanças Pessoais I
-    @lesson3 = render_lesson(3)
-    # Renda Fixa I
-    @lesson4 = render_lesson(4)
-    # Renda Variável I
-    @lesson5 = render_lesson(5)
-    # Finanças Pessoais II
-    @lesson6 = render_lesson(6)
-    # FII I
-    @lesson7 = render_lesson(7)
+    @lesson_rows = lesson_rows
 
     # SEARCHING FOR FRIENDS ---------------------------------------------------------------
     # all_users passed as users to partial _friends.html AND removed current_user from list
@@ -46,14 +33,17 @@ class UsersController < ApplicationController
     friends.sort_by { |friend| friend.xp }.reverse
   end
 
-  def render_lesson(lesson_id)
-    @user = current_user
-    lesson = Lesson.find(lesson_id)
-    questions_count = lesson.questions.count
-    lesson_answers = @user.answers.where("question_id > ? and question_id < ?",
-                                         lesson.questions.first.id - 1, lesson.questions.first.id + questions_count)
-    correct_answers_count = lesson_answers.where("is_correct = ?", true).count
-    [lesson, correct_answers_count, questions_count]
+  # Lessons that have questions, in map order, as [lesson, correct_count, total]
+  # groups for the map rows (1 lesson, then 2, then 3 per row).
+  def lesson_rows
+    totals = Question.group(:lesson_id).count
+    corrects = current_user.answers.where(is_correct: true).joins(:question)
+                           .group("questions.lesson_id").count
+    entries = Lesson.ordered.where(id: totals.keys).map do |lesson|
+      [lesson, corrects.fetch(lesson.id, 0), totals.fetch(lesson.id)]
+    end
+    first_rows = [entries.shift(1), entries.shift(2)]
+    (first_rows + entries.each_slice(3).to_a).reject(&:empty?)
   end
 
   def refill_lives

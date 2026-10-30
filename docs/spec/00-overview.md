@@ -29,6 +29,15 @@ Método: spec em fases (visão, requisitos, design técnico, tarefas). A skill `
 - Correções: URL do Heroku removida do JS (F1); vidas não são mais alteradas por GET na tela de resumo, "Refazer aula" é um POST (F2); app em pt-BR com `rails-i18n` e `devise-i18n` (F14); `answers#update` responde 204; `populate_answers` sem ids fixos; HTML inválido, viewport duplicado e `<link>` 404 corrigidos; `lang="pt-BR"`.
 - **Não feito:** T0.2 (o ajuste do bootsnap em `config/boot.rb` continua, necessário por causa do acento no caminho); remoção do kit Font Awesome do CDN (F18 parcial); `html_safe` nos enunciados (F20 parcial).
 
+**Fase 2 executada** (branch `fase-2-regras-do-jogo`):
+- B-1: tabela `lesson_completions`; XP/manis só recompensam a melhora sobre a melhor nota já premiada (visitar o resumo de novo não soma nada).
+- B-2: o servidor corrige a resposta (`Answer#submit!`, `Question#correct?`); o JS de escrita envia as palavras digitadas, não o veredito.
+- B-3: `answers#update` só alcança respostas do próprio usuário (outra pessoa recebe 404).
+- B-4: `User#lose_life!` nunca passa de 0 e há validação `lives >= 0`.
+- B-5: `lessons.position` (migração preserva a ordem atual); o perfil lista as lições por posição, sem ids fixos; respostas de perguntas novas são criadas sob demanda.
+- 33 testes, sem pulados.
+- **Decisão pendente:** a regra de vidas continua a atual (o perfil recarrega para 5). A lição "FII I" passou a aparecer no mapa: antes o código a calculava mas a tela não a exibia.
+
 Observação: o front-end recomenda **esbuild** (jsbundling) como bundler; a spec de back-end deixou em aberto "importmap ou jsbundling". Considerar resolvida a favor do esbuild se você aprovar.
 
 ## Decisões que dependem de você

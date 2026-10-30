@@ -3,7 +3,8 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answer_id = Answer.where(question: @question, user: current_user)[0].id
+    # Questions added after the user signed up get their answer row on first visit
+    @answer_id = current_user.answers.find_or_create_by!(question: @question).id
   end
 
   private

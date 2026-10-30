@@ -61,42 +61,72 @@ class LessonFlowTest < ActionDispatch::IntegrationTest
     assert_equal 4, @user.reload.lives
   end
 
-  test "writing answer flag from the client is stored (known gap B-2)" do
-    answer = @user.answers.first
-
-    patch answer_url(answer), params: { answer_id: answer.id, answer: "true", question_type: "writing" }
-
-    assert answer.reload.is_correct
-  end
-
-  # ---- Known defects from docs/spec/01-backend.md; remove `skip` when fixed in phase 2 ----
+  # ---- Game rules enforced on the server (docs/spec/01-backend.md, B-1 to B-5) ----
 
   test "B-1: visiting the lesson summary twice must not credit xp twice" do
-    skip "B-1 pendente (fase 2)"
     @user.answers.limit(2).update_all(is_correct: true)
 
     2.times { get lesson_url(@lesson) }
 
     assert_equal 10, @user.reload.xp
+    assert_equal 6, @user.manis
+  end
+
+  test "B-1: improving the score on a later visit only rewards the difference" do
+    @user.answers.limit(1).update_all(is_correct: true)
+    get lesson_url(@lesson)
+    assert_equal 5, @user.reload.xp
+
+    @user.answers.update_all(is_correct: true)
+    get lesson_url(@lesson)
+    get lesson_url(@lesson)
+
+    assert_equal 15, @user.reload.xp
+    assert_equal 9, @user.manis
+  end
+
+  test "B-2: a writing answer is graded by the server, not by the client's verdict" do
+    lesson = create_lesson(count: 1, question_type: "writing")
+    user = create_user
+    sign_in user
+    answer = user.answers.find_by(question: lesson.questions.first)
+
+    patch answer_url(answer), params: { answer: "true" }
+    assert_not answer.reload.is_correct
+    assert_equal 4, user.reload.lives
+
+    patch answer_url(answer), params: { answer: " palavra " }
+    assert answer.reload.is_correct
+    assert_equal 4, user.reload.lives
   end
 
   test "B-3: a user cannot change another user's answer" do
-    skip "B-3 pendente (fase 2)"
     other = create_user
     answer = other.answers.first
 
-    patch answer_url(answer), params: { answer_id: answer.id, answer: "a", question_type: "abcd" }
-
+    # RecordNotFound is rendered as a 404 in production
+    assert_raises(ActiveRecord::RecordNotFound) do
+      patch answer_url(answer), params: { answer: "a" }
+    end
     assert_not answer.reload.is_correct
   end
 
   test "B-4: lives never go below zero" do
-    skip "B-4 pendente (fase 2)"
     @user.update!(lives: 0)
     answer = @user.answers.first
 
-    patch answer_url(answer), params: { answer_id: answer.id, answer: "b", question_type: "abcd" }
+    patch answer_url(answer), params: { answer: "b" }
 
-    assert_operator @user.reload.lives, :>=, 0
+    assert_equal 0, @user.reload.lives
+  end
+
+  test "B-5: a question created after sign up still gets an answer row" do
+    late = Question.create!(lesson: @lesson, question_type: "abcd", statement: "late",
+                            a: "a", b: "b", c: "c", d: "d", correct_answer: "a")
+
+    assert_difference -> { @user.answers.count } => 1 do
+      get question_url(late)
+    end
+    assert_response :success
   end
 end
