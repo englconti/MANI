@@ -38,6 +38,17 @@ Método: spec em fases (visão, requisitos, design técnico, tarefas). A skill `
 - 33 testes, sem pulados.
 - **Decisão pendente:** a regra de vidas continua a atual (o perfil recarrega para 5). A lição "FII I" passou a aparecer no mapa: antes o código a calculava mas a tela não a exibia.
 
+**Fase 3 executada** (branch `fase-3-licao-acessivel`):
+- F6: um único botão no rodapé ("Verificar", que vira o link "Continuar" ou "Ver resumo").
+- F4: alternativas são radios nativos (teclado, leitor de tela), atalhos A-D/1-4 e Enter, `aria-live` no feedback, `aria-label` nos ícones, barra com `role=progressbar`, palavras do exercício de escrita como botões com `aria-pressed`.
+- F5: tela de pergunta mobile-first (1 coluna no celular, 2 no desktop, `dvh`, sem `vw` fixo, vidas como contador).
+- F16: contraste revisado (≥ 4.5:1), estado certo/errado também por ícone (✔/✘), `prefers-reduced-motion`.
+- F17: sons gerados pelo Web Audio (sem arquivos nem domínios externos); botão de som único, ligado por padrão.
+- F3 (adiantado): o servidor devolve JSON com o resultado e a resposta certa só depois de responder; `#correct-answer` saiu do HTML.
+- F7 (adiantado): um único `lesson_controller.js` substitui os 4 controllers antigos.
+- F20: enunciados de escrita passam por `sanitize` em vez de `html_safe`.
+- 38 testes, sem pulados. Conferido no navegador: pergunta abcd (desktop e celular), resposta errada e pergunta de escrita.
+
 Observação: o front-end recomenda **esbuild** (jsbundling) como bundler; a spec de back-end deixou em aberto "importmap ou jsbundling". Considerar resolvida a favor do esbuild se você aprovar.
 
 ## Decisões que dependem de você

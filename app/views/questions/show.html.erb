@@ -1,38 +1,55 @@
-<% last_question = @question.lesson.questions.last == @question %>
+<% lesson = @question.lesson %>
+<% lesson_questions = lesson.questions.to_a %>
+<% current_question_i = lesson_questions.index(@question) %>
+<% next_question = lesson_questions[current_question_i + 1] %>
+<% last_question = next_question.nil? %>
+<% lives = current_user.lives %>
 
-<div class="question-page">
-  <!--TOP PART-->
-  <div class="question-top-part animate__animated animate__fadeIn">
-    <div class="question-close-box">
-      <%= link_to user_path(current_user), data: { confirm: "Tem certeza que deseja sair da aula?" }, class:"question-cancel-btn" do %>
-        <i class="fa-solid fa-circle-xmark question-cancel-btn"></i>
-      <% end %>
+<div class="question-page"
+     data-controller="lesson"
+     data-action="keydown@document->lesson#key"
+     data-lesson-type-value="<%= @question.question_type %>"
+     data-lesson-answer-url-value="<%= answer_path(@answer_id) %>"
+     data-lesson-index-value="<%= current_question_i %>"
+     data-lesson-count-value="<%= lesson_questions.size %>"
+     data-lesson-lives-value="<%= lives %>"
+     data-lesson-next-url-value="<%= next_question ? question_path(next_question) : lesson_path(lesson) %>"
+     data-lesson-review-url-value="<%= lesson_path(lesson) %>"
+     data-lesson-last-value="<%= last_question %>">
+
+  <header class="question-top-part animate__animated animate__fadeIn">
+    <%= link_to user_path(current_user), data: { confirm: "Tem certeza que deseja sair da aula?" },
+                class: "question-cancel-btn", "aria-label": "Sair da aula" do %>
+      <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+    <% end %>
+    <div class="bar-container-part" role="progressbar" aria-label="Progresso da aula"
+         aria-valuemin="0" aria-valuemax="<%= lesson_questions.size %>" aria-valuenow="<%= current_question_i %>">
+      <div class="bar-container" data-lesson-target="bar"></div>
     </div>
-    <div class="bar-container-part">
-      <div class="bar-container">
-        <div class="bar-evolution">
-          <div class="bar-deco"></div>
-        </div>
-      </div>
+    <div class="hearts" role="img" aria-label="<%= lives %> <%= lives == 1 ? 'vida' : 'vidas' %>" data-lesson-target="hearts">
+      <span aria-hidden="true">💗</span>
+      <span class="hearts-count" aria-hidden="true" data-lesson-target="heartsCount"><%= lives %></span>
     </div>
-    <div class="hearts" data-hearts-amount="<%= current_user.lives %>" data-last-question="<%= last_question %>">
-      <%= "💗" * current_user.lives %><%= "🖤" * (5 - current_user.lives)%>
+  </header>
+
+  <%# Not a <main>: a global `main` rule styles the landing page background %>
+  <div class="container-question-page animate__animated animate__fadeIn" role="main">
+    <div class="question-body">
+      <%= render @question.question_type, question: @question %>
     </div>
   </div>
-  <!--END OF TOP-->
 
-  <!--BODY-->
-  <div class="container-question-page animate__animated animate__fadeIn animate__delay-1s">
-    <div class="container-parts" data-answer-id="<%= @answer_id %>" data-question-type="<%= @question.question_type %>">
-      <%= render @question.question_type, question: @question, answer_id: @answer_id %>
+  <%# A div, not <footer>: a global `footer` rule styles the landing page footer %>
+  <div class="question-footer" data-lesson-target="footer">
+    <button type="button" class="sound-toggle" data-lesson-target="soundToggle" data-action="lesson#toggleSound"
+            aria-pressed="true" aria-label="Desligar o som">
+      <i class="fas fa-volume-up" aria-hidden="true"></i>
+    </button>
+    <div class="answer-feedback" role="status" aria-live="polite" data-lesson-target="feedback"></div>
+    <div class="right-buttons">
+      <button type="button" id="check-button" class="question-action" data-lesson-target="check"
+              data-action="lesson#check" disabled>Verificar</button>
+      <a id="continue-link" class="question-action" data-lesson-target="continue" href="#" hidden>Continuar</a>
     </div>
   </div>
-  <!--END OF BODY-->
-
-  <!--FOOTER-->
-  <% current_question_i = @question.lesson.questions.index(@question) %>
-  <% next_question = @question.lesson.questions[current_question_i + 1]  %>
-  <%= render "#{@question.question_type}_footer", question: @question, last_question: last_question, current_question_i: current_question_i, next_question: next_question%>
-  <!--END OF FOOTER-->
-
 </div>
