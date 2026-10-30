@@ -1,14 +1,14 @@
 ﻿source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.7'
+ruby '3.4.11'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 7.0.8'
+gem 'rails', '~> 7.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma', '>= 6.4'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -71,5 +71,9 @@ gem 'flatpickr'
 gem 'pg_search', '~> 2.3.0'
 gem 'rack-cors'
 
-# json 3.x is incompatible with ActiveSupport 6.1 (quirks_mode keyword)
+
+# Rails 7.1 test runner is not compatible with minitest 6
+gem 'minitest', '< 6'
+
+# json 3.x is incompatible with ActiveSupport 7.1 (quirks_mode keyword)
 gem 'json', '< 2.10'
