@@ -1,0 +1,112 @@
+// Mani design tokens. New components read these custom properties; text/background
+// pairs below keep a contrast of at least 4.5:1.
+:root {
+  --mani-green: #58cc02;
+  --mani-green-dark: #3f9a00;
+  --mani-green-ink: #14300a;
+  --mani-green-soft: #d7ffb8;
+
+  --mani-blue: #0a74b0;
+  --mani-blue-dark: #075a88;
+  --mani-blue-soft: #ddf4ff;
+
+  --mani-gold: #ffc800;
+  --mani-gold-ink: #4a3800;
+  --mani-gold-soft: #fff4c2;
+
+  --mani-red: #e5484d;
+  --mani-red-ink: #a31212;
+  --mani-red-soft: #ffdfe0;
+
+  --mani-ink: #1f2937;
+  --mani-muted: #4b5563;
+  --mani-line: #e5e5e0;
+  --mani-surface: #ffffff;
+  --mani-bg: #f7f7f5;
+
+  --mani-radius: 16px;
+  --mani-shadow: 0 2px 0 rgba(0, 0, 0, 0.06), 0 8px 24px rgba(31, 41, 55, 0.08);
+
+  --mani-font-body: "Nunito", system-ui, sans-serif;
+  --mani-font-display: "Baloo 2", "Nunito", system-ui, sans-serif;
+}
+
+// Shared button used by the redesigned screens (the 3D look of the lesson screen)
+.mani-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 10px 24px;
+  border: 0;
+  border-bottom: 5px solid transparent;
+  border-radius: 14px;
+  font-family: var(--mani-font-display);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(2px);
+    border-bottom-width: 3px;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--mani-blue);
+    outline-offset: 2px;
+  }
+
+  &[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.mani-btn-primary {
+  background: var(--mani-green);
+  border-bottom-color: var(--mani-green-dark);
+  color: var(--mani-green-ink);
+
+  &:hover {
+    color: var(--mani-green-ink);
+    filter: brightness(1.05);
+  }
+}
+
+.mani-btn-secondary {
+  background: var(--mani-blue);
+  border-bottom-color: var(--mani-blue-dark);
+  color: #fff;
+
+  &:hover {
+    color: #fff;
+    filter: brightness(1.08);
+  }
+}
+
+.mani-btn-ghost {
+  background: var(--mani-surface);
+  border: 2px solid var(--mani-line);
+  border-bottom-width: 5px;
+  color: var(--mani-ink);
+
+  &:hover {
+    color: var(--mani-ink);
+    border-color: var(--mani-blue);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

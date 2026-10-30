@@ -1,0 +1,172 @@
+// Lesson summary (celebration) and "no lives" screens --------------------------------
+
+.finish-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: linear-gradient(180deg, var(--mani-blue-soft) 0%, #fff 70%);
+  font-family: var(--mani-font-body);
+  color: var(--mani-ink);
+}
+
+.finish-card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 480px;
+  padding: 28px 24px 24px;
+  background: var(--mani-surface);
+  border-radius: 24px;
+  box-shadow: var(--mani-shadow);
+  text-align: center;
+
+  h1 {
+    font-family: var(--mani-font-display);
+    font-size: clamp(1.6rem, 6vw, 2.1rem);
+    margin: 8px 0 4px;
+  }
+}
+
+.finish-mascot img {
+  width: 120px;
+  height: auto;
+  animation: finish-bounce 1.4s ease-out 1;
+}
+
+.finish-lesson {
+  color: var(--mani-muted);
+  margin: 0 0 8px;
+}
+
+.finish-stars {
+  font-size: 2.2rem;
+  letter-spacing: 6px;
+  color: #b58900;
+  margin-bottom: 12px;
+
+  .off { color: #d4d4cf; }
+}
+
+.finish-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0 0 16px;
+
+  > div {
+    padding: 12px 6px;
+    border: 2px solid var(--mani-line);
+    border-radius: 14px;
+  }
+
+  dt {
+    font-size: 0.8125rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--mani-muted);
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-family: var(--mani-font-display);
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .is-xp dd { color: var(--mani-blue-dark); }
+  .is-manis dd { color: #8a6500; }
+  .is-score dd { color: var(--mani-green-dark); }
+}
+
+.finish-note {
+  margin: 0 0 6px;
+  color: var(--mani-muted);
+}
+
+.finish-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0 20px;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--mani-bg);
+  border: 2px solid var(--mani-line);
+  font-weight: 800;
+  color: var(--mani-ink);
+
+  &.is-streak { background: var(--mani-gold-soft); border-color: var(--mani-gold); color: var(--mani-gold-ink); }
+  &.is-lives { background: var(--mani-red-soft); border-color: var(--mani-red); color: var(--mani-red-ink); }
+}
+
+.finish-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  form { margin: 0; }
+  .mani-btn { width: 100%; }
+}
+
+.finish-countdown {
+  margin: 12px 0;
+  font-family: var(--mani-font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--mani-red-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.finish-hearts {
+  font-size: 2rem;
+  letter-spacing: 6px;
+  margin-bottom: 4px;
+}
+
+// Confetti: pure CSS, only for a perfect lesson ------------------------------------
+
+.confetti {
+  position: absolute;
+  top: -12px;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: confetti-fall 2.4s ease-in 1 forwards;
+  pointer-events: none;
+
+  @for $i from 1 through 14 {
+    &:nth-child(#{$i}) {
+      left: #{($i * 7) % 100}%;
+      background: nth((#58cc02, #ffc800, #0a74b0, #e5484d), ($i % 4) + 1);
+      animation-delay: #{($i % 5) * 0.15}s;
+      transform: rotate(#{$i * 23}deg);
+    }
+  }
+}
+
+@keyframes confetti-fall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(420px) rotate(540deg); }
+}
+
+@keyframes finish-bounce {
+  0% { transform: translateY(-24px) scale(0.9); opacity: 0; }
+  60% { transform: translateY(6px) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti { display: none; }
+}

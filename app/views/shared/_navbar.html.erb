@@ -43,6 +43,10 @@
                   <p class="user-manis">M$</p>
                 </div>
 
+                <% streak = current_user.current_streak %>
+                <span class="status-chip is-streak" title="Dias seguidos estudando">🔥 <%= streak %><span class="visually-hidden"> <%= streak == 1 ? "dia seguido" : "dias seguidos" %></span></span>
+                <span class="status-chip is-lives" title="Vidas">❤ <%= current_user.lives %><span class="visually-hidden"> <%= current_user.lives == 1 ? "vida" : "vidas" %></span></span>
+
               </div>
           <% end %>
 

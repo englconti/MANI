@@ -3,15 +3,14 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    unless LessonMap.new(current_user).unlocked?(@question.lesson)
+      return redirect_to user_path(current_user), alert: "Termine a aula anterior para liberar esta."
+    end
+
+    current_user.recharge_lives!
+    return redirect_to no_lives_path if current_user.out_of_lives?
+
     # Questions added after the user signed up get their answer row on first visit
     @answer_id = current_user.answers.find_or_create_by!(question: @question).id
-  end
-
-  private
-
-  def question_params
-    params.require(:question).permit(:question_type,
-                                     :statement, :level, :a, :b,
-                                     :c, :d, :img_url, :correct_answer)
   end
 end

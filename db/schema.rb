@@ -10,17 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_10_30_200002) do
-
+ActiveRecord::Schema[8.1].define(version: 2026_10_31_100002) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "answers", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "question_id", null: false
     t.boolean "is_correct"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
@@ -28,8 +27,8 @@ ActiveRecord::Schema.define(version: 2026_10_30_200002) do
   create_table "friendships", force: :cascade do |t|
     t.bigint "asker_id"
     t.bigint "receiver_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "status", default: false
     t.index ["asker_id"], name: "index_friendships_on_asker_id"
     t.index ["receiver_id"], name: "index_friendships_on_receiver_id"
@@ -39,16 +38,16 @@ ActiveRecord::Schema.define(version: 2026_10_30_200002) do
     t.string "text"
     t.string "img_url"
     t.string "source"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "lesson_completions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "lesson_id", null: false
     t.integer "correct_count", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "index_lesson_completions_on_lesson_id"
     t.index ["user_id", "lesson_id"], name: "index_lesson_completions_on_user_id_and_lesson_id", unique: true
     t.index ["user_id"], name: "index_lesson_completions_on_user_id"
@@ -57,8 +56,8 @@ ActiveRecord::Schema.define(version: 2026_10_30_200002) do
   create_table "lessons", force: :cascade do |t|
     t.string "title", null: false
     t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "position", null: false
     t.index ["position"], name: "index_lessons_on_position"
   end
@@ -69,8 +68,8 @@ ActiveRecord::Schema.define(version: 2026_10_30_200002) do
     t.text "definition"
     t.text "kind"
     t.text "how_to_invest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -84,8 +83,8 @@ ActiveRecord::Schema.define(version: 2026_10_30_200002) do
     t.string "d"
     t.string "img_url"
     t.string "correct_answer"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "index_questions_on_lesson_id"
   end
 
@@ -93,15 +92,18 @@ ActiveRecord::Schema.define(version: 2026_10_30_200002) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "xp", default: 0
     t.string "username", null: false
-    t.datetime "birthday", null: false
+    t.datetime "birthday", precision: nil, null: false
     t.integer "lives", default: 5
     t.integer "manis", default: 0
+    t.datetime "lives_recharge_started_at"
+    t.integer "streak_count", default: 0, null: false
+    t.date "last_study_on"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

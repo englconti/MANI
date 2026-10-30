@@ -6,6 +6,31 @@ class PagesAndAccessTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "landing page has the calls to action for visitors" do
+    get root_url
+
+    assert_select "a#banner-btn-register[href='#{new_user_registration_path}']"
+    assert_select "a#banner-btn-login[href='#{new_user_session_path}']"
+    assert_select ".steps .step-card", 3
+  end
+
+  test "landing page for a signed in user points to the trail" do
+    user = create_user
+    sign_in user
+
+    get root_url
+
+    assert_select "a#banner-btn-login[href='#{user_path(user)}']"
+    assert_select "a#banner-btn-register", 0
+  end
+
+  test "sign up form uses the native date picker and a show-password toggle" do
+    get new_user_registration_url
+
+    assert_select "input[type=date][name='user[birthday]']"
+    assert_select "[data-controller=password] input[type=checkbox]"
+  end
+
   test "sign up and login pages are public" do
     get new_user_registration_url
     assert_response :success

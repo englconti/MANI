@@ -1,22 +1,38 @@
 class LessonsController < ApplicationController
   before_action :disable_nav, only: [:show]
+  before_action :set_lesson
+  before_action :require_unlocked_lesson
 
   def show
-    @current_lesson = Lesson.find(params[:id])
-
-    @questions = @current_lesson.questions
-    answers = @current_lesson.answers.where(user: current_user)
-    @answers_array = answers.map { |answer| answer.is_correct }
-    @true_count = @answers_array.count(true)
+    answers = @lesson.answers.where(user: current_user)
+    @questions = @lesson.questions
+    @true_count = answers.where(is_correct: true).count
 
     # Idempotent: only an improvement over the best score is rewarded
-    LessonCompletion.record!(user: current_user, lesson: @current_lesson, correct_count: @true_count)
+    gained = LessonCompletion.record!(user: current_user, lesson: @lesson, correct_count: @true_count)
+    @xp_gained = gained * LessonCompletion::XP_PER_CORRECT_ANSWER
+    @manis_gained = gained * LessonCompletion::MANIS_PER_CORRECT_ANSWER
+    @map = LessonMap.new(current_user)
+    current_user.recharge_lives!
   end
 
-  # Redoing a lesson refills the lives (explicit POST instead of a side effect on GET)
+  # Redoing a lesson needs at least one life; lives are only recharged by time
   def restart
-    lesson = Lesson.find(params[:id])
-    current_user.update(lives: 5)
-    redirect_to question_path(lesson.questions.first)
+    current_user.recharge_lives!
+    return redirect_to no_lives_path if current_user.out_of_lives?
+
+    redirect_to question_path(@lesson.questions.first)
+  end
+
+  private
+
+  def set_lesson
+    @lesson = Lesson.find(params[:id])
+  end
+
+  def require_unlocked_lesson
+    return if LessonMap.new(current_user).unlocked?(@lesson)
+
+    redirect_to user_path(current_user), alert: "Termine a aula anterior para liberar esta."
   end
 end

@@ -5,16 +5,13 @@
   <div class="container-user-show-page animate__animated animate__fadeIn">
 
     <div class="container-lessons">
-
-      <% @lesson_rows.each_with_index do |row, index| %>
-        <% unless index.zero? %><br><br><% end %>
-        <div class="box-lessons">
-          <% row.each do |lesson, correct_answers, num_questions| %>
-            <%= render 'lesson', lesson: lesson, l_correct_answers: correct_answers, l_num_questions: num_questions %>
-          <% end %>
-        </div>
+      <h1 class="trail-heading">Sua trilha</h1>
+      <% if @lesson_map.current %>
+        <p class="trail-subtitle">Próxima aula: <strong><%= @lesson_map.current.lesson.title %></strong></p>
+      <% else %>
+        <p class="trail-subtitle">Você concluiu todas as aulas! 🎉</p>
       <% end %>
-
+      <%= render 'trail', nodes: @lesson_map.nodes %>
     </div>
 
     <div class="container-center-info">

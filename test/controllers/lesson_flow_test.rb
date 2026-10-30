@@ -24,13 +24,89 @@ class LessonFlowTest < ActionDispatch::IntegrationTest
     assert_equal 6, @user.manis
   end
 
-  test "restarting a lesson refills lives and goes to its first question" do
-    @user.update!(lives: 1)
+  test "restarting a lesson goes to its first question and does not refill lives" do
+    @user.update!(lives: 1, lives_recharge_started_at: Time.current)
 
     post restart_lesson_url(@lesson)
 
     assert_redirected_to question_path(@lesson.questions.first)
-    assert_equal 5, @user.reload.lives
+    assert_equal 1, @user.reload.lives
+  end
+
+  test "restarting a lesson without lives sends the user to the no-lives screen" do
+    @user.update!(lives: 0, lives_recharge_started_at: Time.current)
+
+    post restart_lesson_url(@lesson)
+
+    assert_redirected_to no_lives_path
+  end
+
+  test "question pages send a user without lives to the no-lives screen" do
+    @user.update!(lives: 0, lives_recharge_started_at: Time.current)
+
+    get question_url(@lesson.questions.first)
+
+    assert_redirected_to no_lives_path
+  end
+
+  test "a life comes back after the recharge time and unblocks the lesson" do
+    @user.update!(lives: 0, lives_recharge_started_at: Time.current)
+
+    travel_to 21.minutes.from_now do
+      get question_url(@lesson.questions.first)
+
+      assert_response :success
+      assert_equal 1, @user.reload.lives
+    end
+  end
+
+  test "no-lives screen shows the countdown while there are no lives" do
+    @user.update!(lives: 0, lives_recharge_started_at: Time.current)
+
+    get no_lives_url
+
+    assert_response :success
+    assert_select "[data-controller=countdown][data-countdown-until-value]"
+  end
+
+  test "no-lives screen goes back to the map when lives are available" do
+    get no_lives_url
+
+    assert_redirected_to user_path(@user)
+  end
+
+  test "lesson summary shows the reward and a repeat visit gives nothing new" do
+    @user.answers.limit(2).update_all(is_correct: true)
+
+    get lesson_url(@lesson)
+    assert_select "[data-celebration-value='10']"
+    assert_select "[data-celebration-value='6']"
+
+    get lesson_url(@lesson)
+    assert_select "[data-celebration-value='0']", 2
+    assert_equal 10, @user.reload.xp
+  end
+
+  test "finishing a lesson unlocks the next one" do
+    second = create_lesson(count: 2)
+    other = create_user # has an answer row for every question
+
+    sign_in other
+    get question_url(second.questions.first)
+    assert_redirected_to user_path(other)
+
+    get lesson_url(@lesson)
+    get question_url(second.questions.first)
+    assert_response :success
+  end
+
+  test "answering a question starts the daily streak" do
+    answer = @user.answers.first
+
+    patch answer_url(answer), params: { answer: "a" }, headers: { "Accept" => "application/json" }
+
+    assert_equal 1, @user.reload.streak_count
+    assert_equal Time.zone.today, @user.last_study_on
   end
 
   test "lesson summary does not touch lives" do
@@ -102,6 +178,7 @@ class LessonFlowTest < ActionDispatch::IntegrationTest
     question.update!(a: "um dois tres",
                      statement: "Complete <div class='fill-ins'>_______</div><script>alert(1)</script>")
     user = create_user
+    LessonCompletion.create!(user: user, lesson: @lesson) # unlocks the second lesson
     sign_in user
 
     get question_url(question)

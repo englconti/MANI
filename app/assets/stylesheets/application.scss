@@ -7,7 +7,9 @@
 @import "bootstrap/scss/bootstrap";
 // Font Awesome comes from the CDN kit loaded in the layout
 @import "animate.css/animate.min";
-@import "flatpickr/dist/flatpickr";
+
+// Mani tokens and shared buttons come after Bootstrap so they can override .btn
+@import "config/tokens";
 
 // Your CSS partials
 @import "components/index";

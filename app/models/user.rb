@@ -3,6 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  include HasLives
+  include HasStreak
+
   has_many :answers
   has_many :lesson_completions
 
@@ -24,10 +27,6 @@ class User < ApplicationRecord
                   }
   # ----------------------------------
 
-
-  def lose_life!
-    update!(lives: [lives - 1, 0].max)
-  end
 
   def populate_answers
     Question.find_each do |question|

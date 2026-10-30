@@ -9,6 +9,7 @@ class Answer < ApplicationRecord
     transaction do
       update!(is_correct: correct)
       user.lose_life! unless correct
+      user.register_study_day!
     end
     correct
   end
