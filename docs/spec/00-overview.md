@@ -61,6 +61,17 @@ Método: spec em fases (visão, requisitos, design técnico, tarefas). A skill `
 - **Cuidados no Windows:** rodar tarefas Rails com `SKIP_CSS_BUILD=1`; o caminho com acento ("Área") ainda exige o workaround do bootsnap em `config/boot.rb` (a conferir se continua necessário).
 - **Nota sobre a verificação:** no painel de navegador embutido, o Turbo só renderiza a navegação quando a página está sendo pintada (os `requestAnimationFrame` ficam parados em segundo plano); isso é do ambiente de teste e não do app.
 
+**Fase 5 executada** (branch `fase-5-redesign`), com as decisões tomadas por você:
+- **Vidas por tempo:** cada vida volta em 20 minutos (`HasLives`); o perfil e o "refazer aula" não recarregam mais de graça. Sem vidas, as perguntas redirecionam para `/sem-vidas`, com contagem regressiva.
+- **Identidade própria do Mani:** tokens em CSS custom properties (`config/_tokens.scss`), fonte de títulos Baloo 2, botão 3D compartilhado (`.mani-btn`), paleta verde/azul/amarelo com contraste ≥ 4.5:1.
+- **Trilha de lições** (F10): estados concluída/atual/bloqueada com anel de progresso e estrelas (`LessonMap`). Terminar uma aula (chegar ao resumo) libera a próxima; aulas bloqueadas redirecionam para o perfil. Uma migração de dados cria o progresso de quem já tinha respostas corretas.
+- **Fim de aula** (F11): resumo com estrelas, acertos, XP e M$ ganhos agora (contagem animada, confete só em aula perfeita, ambos desligados com `prefers-reduced-motion`).
+- **Sem vidas** (F12): tela própria com contagem regressiva.
+- **Streak diário** (F13): `streak_count` e `last_study_on`, atualizado ao responder; chips de sequência e vidas no cabeçalho e no resumo.
+- **Home e cadastro** (F15, F19): nova home (proposta de valor, como funciona, pilares, equipe) sem os depoimentos de exemplo; cadastro e login em card fluido, data nativa (`type=date`) e "mostrar senha". O flatpickr saiu das dependências.
+- 70 testes, `zeitwerk:check` e Brakeman limpos. Conferido no navegador: home, login, trilha, resumo da aula e tela de sem vidas.
+- **Ainda não coberto:** modo escuro, telas de produtos e amigos (F21), "Excluir minha conta"/edição de dados no novo visual, e o redesign da tela de pergunta usa tokens próprios (`_question.scss`) que ainda não leem os tokens globais.
+
 Observação: o front-end recomenda **esbuild** (jsbundling) como bundler; a spec de back-end deixou em aberto "importmap ou jsbundling". Considerar resolvida a favor do esbuild se você aprovar.
 
 ## Decisões que dependem de você

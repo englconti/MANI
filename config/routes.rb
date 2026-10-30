@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show index]
 
+  get "sem-vidas", to: "lives#show", as: :no_lives
+
   resources :products, only: %i[index show]
 
   resources :questions, only: %i[show create] do

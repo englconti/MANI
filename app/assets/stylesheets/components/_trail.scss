@@ -1,0 +1,148 @@
+// Lesson trail on the profile page ----------------------------------------------
+
+.trail-heading {
+  font-family: var(--mani-font-display);
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 0 0 4px;
+  color: var(--mani-ink);
+}
+
+.trail-subtitle {
+  text-align: center;
+  color: var(--mani-muted);
+  margin: 0 0 8px;
+}
+
+.lesson-trail {
+  list-style: none;
+  margin: 0 auto;
+  padding: 16px 0 32px;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trail-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+
+  // Connector to the previous node
+  & + &::before {
+    content: "";
+    width: 6px;
+    height: 40px;
+    margin-bottom: 8px;
+    border-radius: 3px;
+    background: var(--mani-line);
+  }
+
+  // Zig-zag
+  &:nth-child(4n + 2) .trail-body { transform: translateX(-52px); }
+  &:nth-child(4n + 4) .trail-body { transform: translateX(52px); }
+}
+
+.trail-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  max-width: 220px;
+}
+
+// The progress ring: a conic gradient filled up to --p percent
+.trail-link {
+  --p: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: conic-gradient(var(--ring-color, var(--mani-line)) calc(var(--p) * 1%), var(--mani-line) 0);
+  text-decoration: none;
+  color: var(--mani-ink);
+
+  &:focus-visible {
+    outline: 3px solid var(--mani-blue);
+    outline-offset: 4px;
+  }
+}
+
+.trail-icon {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.18);
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.trail-title {
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--mani-ink);
+}
+
+.trail-meta {
+  font-size: 0.875rem;
+  color: var(--mani-muted);
+}
+
+.trail-stars {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: #b58900; // dark gold: readable on white
+}
+
+.trail-stars .off {
+  color: #c9c9c2;
+}
+
+.trail-node.is-completed {
+  .trail-link { --ring-color: var(--mani-green); }
+  .trail-icon { background: var(--mani-green); color: var(--mani-green-ink); }
+}
+
+.trail-node.is-current {
+  .trail-link { --ring-color: var(--mani-blue); }
+  .trail-icon {
+    background: var(--mani-blue);
+    color: #fff;
+    animation: trail-pulse 2s ease-in-out infinite;
+  }
+}
+
+.trail-node.is-locked {
+  .trail-icon { background: #e5e7eb; color: #4b5563; }
+  .trail-title { color: var(--mani-muted); }
+}
+
+.trail-start {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--mani-blue-soft);
+  color: var(--mani-blue-dark);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@keyframes trail-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(10, 116, 176, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(10, 116, 176, 0); }
+}
+
+@media (max-width: 420px) {
+  .trail-node:nth-child(4n + 2) .trail-body { transform: translateX(-36px); }
+  .trail-node:nth-child(4n + 4) .trail-body { transform: translateX(36px); }
+}

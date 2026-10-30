@@ -1,0 +1,34 @@
+<ol class="lesson-trail" aria-label="Trilha de aulas">
+  <% nodes.each do |node| %>
+    <% lesson = node.lesson %>
+    <% icon = node.completed? ? "✔" : node.current? ? "▶" : "🔒" %>
+    <% status = node.completed? ? "concluída, #{node.correct} de #{node.total} acertos" : node.current? ? "disponível" : "bloqueada" %>
+    <li class="trail-node is-<%= node.state %>">
+      <div class="trail-body">
+        <% if node.locked? %>
+          <span class="trail-link" role="img" aria-label="<%= lesson.title %>: <%= status %>">
+            <span class="trail-icon" aria-hidden="true"><%= icon %></span>
+          </span>
+        <% else %>
+          <%= link_to question_path(lesson.questions.first), class: "trail-link",
+                      style: "--p: #{node.percent}",
+                      "aria-label": "#{lesson.title}: #{status}" do %>
+            <span class="trail-icon" aria-hidden="true"><%= icon %></span>
+          <% end %>
+        <% end %>
+
+        <span class="trail-title"><%= lesson.title %></span>
+        <% if node.current? %>
+          <span class="trail-start">Começar</span>
+        <% elsif node.completed? %>
+          <span class="trail-stars" aria-hidden="true">
+            <% 3.times do |i| %><span class="<%= 'off' if i >= node.stars %>">★</span><% end %>
+          </span>
+          <span class="trail-meta"><%= node.correct %> / <%= node.total %> acertos</span>
+        <% else %>
+          <span class="trail-meta">Termine a aula anterior</span>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ol>
