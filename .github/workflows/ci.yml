@@ -31,9 +31,10 @@ jobs:
           bundler-cache: true
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
           cache: yarn
       - run: yarn install --frozen-lockfile
+      - run: yarn build && yarn build:css
       - run: bin/rails db:create db:schema:load
       - run: bin/rails test
 

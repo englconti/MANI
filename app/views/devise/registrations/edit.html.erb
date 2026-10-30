@@ -36,7 +36,8 @@
     <div style="display: flex; flex-direction: column; width: 200px">
       <%= link_to "Voltar", :back, class: "btn btn-secondary" %>
       <br>
-      <%= link_to "Excluir minha conta", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "Tem certeza?" }, method: :delete %>
+      <%= link_to "Excluir minha conta", registration_path(resource_name), class: "btn btn-danger",
+                  data: { turbo_confirm: "Tem certeza?", turbo_method: :delete } %>
     </div>
   <% end %>
 </div>
