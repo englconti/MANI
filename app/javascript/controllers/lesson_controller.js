@@ -116,10 +116,12 @@ export default class extends Controller {
     this.footerTarget.classList.add(result.correct ? "correct-answer-footer-style" : "wrong-answer-footer-style")
 
     if (result.correct) {
-      this.showFeedback("Resposta correta!", "is-correct")
+      this.showFeedback("Resposta correta!", "is-correct", result.explanation)
       playCorrect()
     } else {
-      this.showFeedback(`A resposta correta é ${result.correct_answer_label}`, "is-wrong")
+      this.revealCorrectOption(result.correct_option)
+      const answer = result.correct_answer_text || result.correct_answer_label
+      this.showFeedback(`A resposta correta é: ${answer}`, "is-wrong", result.explanation)
       playWrong()
     }
 
@@ -152,9 +154,25 @@ export default class extends Controller {
     this.continueTarget.focus()
   }
 
-  showFeedback(message, state) {
+  // After a wrong answer, mark the option that was right (not only the one picked)
+  revealCorrectOption(letter) {
+    if (!letter) return
+    const option = this.optionTargets.find((candidate) => candidate.value === letter)
+    if (!option) return
+    const card = option.closest(".question-card")
+    card.classList.remove("question-card-greyed")
+    card.classList.add("correct-answer-card")
+  }
+
+  showFeedback(message, state, explanation = null) {
     this.feedbackTarget.className = `answer-feedback ${state}`
     this.feedbackTarget.textContent = message
+    if (explanation) {
+      const note = document.createElement("span")
+      note.className = "answer-explanation"
+      note.textContent = explanation
+      this.feedbackTarget.appendChild(note)
+    }
   }
 
   // --- Progress, lives, sound -----------------------------------------------

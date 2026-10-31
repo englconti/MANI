@@ -1,6 +1,6 @@
 <% content_for :title, "Aula" %>
 <% lesson = @question.lesson %>
-<% lesson_questions = lesson.questions.to_a %>
+<% lesson_questions = @sequence %>
 <% current_question_i = lesson_questions.index(@question) %>
 <% next_question = lesson_questions[current_question_i + 1] %>
 <% last_question = next_question.nil? %>
@@ -14,7 +14,7 @@
      data-lesson-index-value="<%= current_question_i %>"
      data-lesson-count-value="<%= lesson_questions.size %>"
      data-lesson-lives-value="<%= lives %>"
-     data-lesson-next-url-value="<%= next_question ? question_path(next_question) : lesson_path(lesson) %>"
+     data-lesson-next-url-value="<%= next_question ? question_path(next_question, retry: @retry_ids&.join("-")) : lesson_path(lesson) %>"
      data-lesson-review-url-value="<%= lesson_path(lesson) %>"
      data-lesson-last-value="<%= last_question %>">
 

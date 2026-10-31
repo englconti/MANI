@@ -265,4 +265,91 @@ class LessonFlowTest < ActionDispatch::IntegrationTest
     end
     assert_response :success
   end
+  test "the answer response carries the explanation and the right option" do
+    question = @lesson.questions.first
+    question.update!(correct_answer: "C", explanation: "Porque sim.")
+    answer = @user.answers.find_by(question: question)
+
+    patch answer_url(answer), params: { answer: "A" }, headers: { "Accept" => "application/json" }
+
+    body = JSON.parse(response.body)
+    assert_equal "Porque sim.", body["explanation"]
+    assert_equal "C", body["correct_option"]
+    assert_equal "c", body["correct_answer_text"]
+  end
+
+  test "the explanation is also sent after a right answer and is null when there is none" do
+    answer = @user.answers.first
+
+    patch answer_url(answer), params: { answer: "a" }, headers: { "Accept" => "application/json" }
+
+    body = JSON.parse(response.body)
+    assert body["correct"]
+    assert_nil body["explanation"]
+  end
+
+  test "the options keep their original letters as values whatever the order shown" do
+    question = @lesson.questions.first
+
+    get question_url(question)
+
+    values = css_select("input[name=answer]").map { |input| input["value"] }
+    assert_equal %w[A B C D], values.sort
+    assert_equal %w[A B C D], css_select(".answer-letter").map(&:text)
+  end
+
+  test "retrying only the wrong ones goes through just those questions" do
+    first, second, third = @lesson.questions.to_a
+    @user.answers.find_by(question: first).update!(is_correct: false)
+    @user.answers.find_by(question: second).update!(is_correct: true)
+    @user.answers.find_by(question: third).update!(is_correct: false)
+
+    post retry_wrong_lesson_url(@lesson)
+
+    assert_redirected_to question_url(first, retry: "#{first.id}-#{third.id}")
+    follow_redirect!
+    assert_response :success
+    assert_select "[data-lesson-count-value='2']"
+    assert_select "[data-lesson-index-value='0']"
+    assert_select "[data-lesson-next-url-value='#{question_path(third, retry: "#{first.id}-#{third.id}")}']"
+
+    get question_url(third, retry: "#{first.id}-#{third.id}")
+    assert_select "[data-lesson-last-value='true']"
+    assert_select "[data-lesson-next-url-value='#{lesson_path(@lesson)}']"
+  end
+
+  test "retrying with nothing wrong goes back to the summary" do
+    @user.answers.update_all(is_correct: true)
+
+    post retry_wrong_lesson_url(@lesson)
+
+    assert_redirected_to lesson_url(@lesson)
+  end
+
+  test "retrying needs a life" do
+    @user.answers.first.update!(is_correct: false)
+    @user.update!(lives: 0, lives_recharge_started_at: Time.current)
+
+    post retry_wrong_lesson_url(@lesson)
+
+    assert_redirected_to no_lives_url
+  end
+
+  test "a retry list that does not include the question is ignored" do
+    first, second, _third = @lesson.questions.to_a
+
+    get question_url(first, retry: "#{second.id}")
+
+    assert_select "[data-lesson-count-value='3']"
+  end
+
+  test "the summary offers to retry the wrong ones only when there are some" do
+    @user.answers.update_all(is_correct: true)
+    get lesson_url(@lesson)
+    assert_select "#btn-retry-wrong", 0
+
+    @user.answers.first.update!(is_correct: false)
+    get lesson_url(@lesson)
+    assert_select "#btn-retry-wrong", text: /Refazer só as que errei \(1\)/
+  end
 end

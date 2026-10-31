@@ -1,12 +1,14 @@
 <h1 id="question-statement" class="question-statement"><%= question.statement %></h1>
 <fieldset class="question-cards" aria-describedby="question-statement">
   <legend class="visually-hidden">Escolha uma alternativa</legend>
-  <% %w[A B C D].each do |letter| %>
+  <%# The value stays the original letter (what the server grades); the badge shows the position %>
+  <% question.options_for(current_user).each_with_index do |(letter, text), position| %>
+    <% shown = %w[A B C D][position] %>
     <label class="question-card">
       <input type="radio" name="answer" value="<%= letter %>" class="visually-hidden"
              data-lesson-target="option" data-action="change->lesson#select">
-      <span class="answer-letter" aria-hidden="true"><%= letter %></span>
-      <span class="question-answer"><span class="visually-hidden">Alternativa <%= letter %>: </span><%= question.public_send(letter.downcase) %></span>
+      <span class="answer-letter" aria-hidden="true"><%= shown %></span>
+      <span class="question-answer"><span class="visually-hidden">Alternativa <%= shown %>: </span><%= text %></span>
     </label>
   <% end %>
 </fieldset>

@@ -7,7 +7,7 @@ require "csv"
 # lesson is skipped, so a database with different content is never overwritten.
 module ContentSync
   # The CSV "level" is a label ("fácil") but the column is an integer, so it is not synced
-  QUESTION_FIELDS = %w[question_type statement a b c d img_url correct_answer].freeze
+  QUESTION_FIELDS = %w[question_type statement a b c d img_url correct_answer explanation].freeze
   INFORMATION_FIELDS = %w[text img_url source].freeze
 
   module_function
@@ -51,7 +51,7 @@ module ContentSync
   end
 
   def update_if_needed(record, row, fields)
-    attributes = fields.to_h { |field| [field, row[field]] }
+    attributes = (fields & record.class.column_names).to_h { |field| [field, row[field]] }
     return false if attributes.all? { |field, value| record[field].to_s == value.to_s }
 
     record.update_columns(attributes)

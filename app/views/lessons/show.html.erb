@@ -3,7 +3,7 @@
 <% percent = total.zero? ? 0 : (@true_count * 100.0 / total).round %>
 <% stars = percent == 100 ? 3 : percent >= 60 ? 2 : 1 %>
 <% headline = percent == 100 ? "Aula perfeita!" : percent >= 60 ? "Muito bem!" : "Aula concluída!" %>
-<% encouragement = percent == 100 ? "Você gabaritou. Seu dinheiro agradece! 🤑" : percent >= 60 ? "Quase lá: refazer a aula rende mais pontos." : "Errar faz parte. Refaça a aula para ganhar mais XP." %>
+<% encouragement = percent == 100 ? "Você gabaritou. Seu dinheiro agradece!" : percent >= 60 ? "Quase lá: refazer a aula rende mais pontos." : "Errar faz parte. Refaça a aula para ganhar mais XP." %>
 <% streak = current_user.current_streak %>
 
 <div class="finish-page" data-controller="celebration">
@@ -51,6 +51,10 @@
       <% if current_user.out_of_lives? %>
         <%= link_to "Sem vidas: veja quando voltam", no_lives_path, class: "mani-btn mani-btn-ghost" %>
       <% else %>
+        <% if @wrong_count.positive? %>
+          <%= button_to "Refazer só as que errei (#{@wrong_count})", retry_wrong_lesson_path(@lesson), method: :post,
+                        id: "btn-retry-wrong", class: "mani-btn mani-btn-secondary" %>
+        <% end %>
         <%= button_to "Refazer aula", restart_lesson_path(@lesson), method: :post, id: "btn-redo-lesson",
                       class: "mani-btn mani-btn-ghost" %>
       <% end %>

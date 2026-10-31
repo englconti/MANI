@@ -48,7 +48,8 @@ CSV.foreach(questions_path, headers: :first_row) do |row|
                      c: row['c'],
                      d: row['d'],
                      img_url: row['img_url'],
-                     correct_answer: row['correct_answer'])
+                     correct_answer: row['correct_answer'],
+                     explanation: row['explanation'])
     puts "Question created: #{Question.last.statement}"
   end
 end
