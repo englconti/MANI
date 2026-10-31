@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'friendships/new'
-  get 'friendships/create'
-  get 'friendships/index'
-  get 'friendships/destroy'
   # keep this on top, otherwise some errors will happen with log in!
   devise_for :users
   root to: 'pages#home'

@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon" aria-label="Principal">
   <div class="container-fluid">
     <div class="nav-left-box">
       <%= link_to root_path, class: "navbar-brand" do %>
@@ -8,7 +8,7 @@
         <p id="user-page-greeting">Olá, <%= current_user.username.capitalize %>! Bora aprender com o Mani?</p>
       <% end %>
     </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Abrir ou fechar o menu">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -19,10 +19,10 @@
           <!-- Removing dashboard button from dashboard page-->
           <% unless @disable_dashboard_button %>
             <li class="nav-item active">
-              <%= link_to "Home", root_path, class: "nav-link", style:"margin-right:20px;" %>
+              <%= link_to "Home", root_path, class: "nav-link" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Meu dashboard", user_path(current_user), class: "nav-link", style:"margin-right:20px;" %>
+              <%= link_to "Meu dashboard", user_path(current_user), class: "nav-link" %>
             </li>
           <% end %>
           <!-- end -->
@@ -34,14 +34,16 @@
                 <span class="status-chip is-manis"><%= current_user.manis %> M$</span>
 
                 <% streak = current_user.current_streak %>
-                <span class="status-chip is-streak" title="Dias seguidos estudando">🔥 <%= streak %><span class="visually-hidden"> <%= streak == 1 ? "dia seguido" : "dias seguidos" %></span></span>
-                <span class="status-chip is-lives" title="Vidas">❤ <%= current_user.lives %><span class="visually-hidden"> <%= current_user.lives == 1 ? "vida" : "vidas" %></span></span>
+                <span class="status-chip is-streak" title="Dias seguidos estudando"><%= mani_icon(:flame) %> <%= streak %><span class="visually-hidden"> <%= streak == 1 ? "dia seguido" : "dias seguidos" %></span></span>
+                <span class="status-chip is-lives" title="Vidas"><%= mani_icon(:heart) %> <%= current_user.lives %><span class="visually-hidden"> <%= current_user.lives == 1 ? "vida" : "vidas" %></span></span>
               </li>
           <% end %>
 
           <li class="nav-item dropdown">
-            <%= image_tag "perfil.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="border-radius: 10px;">
+            <button type="button" class="avatar-button dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu da conta">
+              <%= image_tag "perfil.png", class: "avatar", alt: "" %>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Meu perfil", user_path(current_user), class: "dropdown-item" %>
               <%= link_to "Editar dados", edit_user_registration_path(current_user), class: "dropdown-item" %>
               <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
@@ -58,4 +60,4 @@
       </ul>
     </div>
   </div>
-</div>
+</nav>

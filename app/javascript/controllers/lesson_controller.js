@@ -80,6 +80,8 @@ export default class extends Controller {
   async check() {
     if (this.checked || this.checkTarget.disabled) return
     this.checkTarget.disabled = true
+    const checkLabel = this.checkTarget.textContent
+    this.checkTarget.textContent = "Verificando..."
 
     let result
     try {
@@ -96,6 +98,7 @@ export default class extends Controller {
       result = await response.json()
     } catch (error) {
       this.showFeedback("Não foi possível enviar sua resposta. Tente de novo.", "is-error")
+      this.checkTarget.textContent = checkLabel
       this.checkTarget.disabled = false
       return
     }

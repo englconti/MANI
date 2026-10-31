@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # Follow regular flow of Rails
-      format.text { render partial: 'friends.html', locals: { users: @all_users } }
+      format.text { render partial: 'friends', formats: [:html], locals: { users: @all_users } }
     end
     # END ---------------------------------------------------------------------------------
 

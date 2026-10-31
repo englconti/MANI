@@ -7,6 +7,8 @@ ruby '3.4.11'
 gem 'rails', '~> 8.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
+# Not a default gem since Ruby 3.4; used by db/seeds.rb and lib/content_sync.rb
+gem 'csv'
 
 # Asset pipeline: Propshaft serves files built by esbuild (JS) and dart-sass (CSS)
 gem 'propshaft'

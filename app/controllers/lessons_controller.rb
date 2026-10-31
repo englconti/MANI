@@ -33,6 +33,6 @@ class LessonsController < ApplicationController
   def require_unlocked_lesson
     return if LessonMap.new(current_user).unlocked?(@lesson)
 
-    redirect_to user_path(current_user), alert: "Termine a aula anterior para liberar esta."
+    redirect_to user_path(current_user), alert: "Termine #{@lesson.prerequisite&.title || "a aula anterior"} para liberar esta aula."
   end
 end

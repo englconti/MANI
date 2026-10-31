@@ -101,6 +101,7 @@ GEM
     crass (1.0.8)
     cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
+    csv (3.3.2)
     date (3.6.0)
     devise (5.0.4)
       bcrypt (~> 3.0)
@@ -309,6 +310,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   cssbundling-rails
+  csv
   devise (>= 4.9)
   devise-i18n
   dotenv-rails

@@ -23,4 +23,24 @@ class SocialAndCatalogTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to user_path(@user)
   end
+  test "searching for friends returns the matching people as a list" do
+    get user_url(@user, query: "bob"), headers: { "Accept" => "text/plain" }
+
+    assert_response :success
+    assert_select "p.friend-username", text: "bob"
+    assert_select "form[action='#{friendships_path(receiver_username: "bob")}'] button", text: "Seguir"
+  end
+
+  test "searching for someone who does not exist returns an empty list" do
+    get user_url(@user, query: "zzzxqy"), headers: { "Accept" => "text/plain" }
+
+    assert_response :success
+    assert_empty response.body.strip
+  end
+
+  test "following shows a message in Portuguese" do
+    post friendships_url(receiver_username: "bob")
+
+    assert_equal "Você agora segue essa pessoa.", flash[:notice]
+  end
 end

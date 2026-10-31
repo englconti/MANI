@@ -1,3 +1,4 @@
+<% content_for :title, "Resumo da aula" %>
 <% total = @questions.size %>
 <% percent = total.zero? ? 0 : (@true_count * 100.0 / total).round %>
 <% stars = percent == 100 ? 3 : percent >= 60 ? 2 : 1 %>
@@ -16,7 +17,7 @@
     <p class="finish-lesson"><%= @lesson.title %></p>
 
     <div class="finish-stars" role="img" aria-label="<%= stars %> de 3 estrelas">
-      <% 3.times do |i| %><span class="<%= 'off' if i >= stars %>" aria-hidden="true">★</span><% end %>
+      <% 3.times do |i| %><span class="<%= 'off' if i >= stars %>" aria-hidden="true"><%= mani_icon(:star) %></span><% end %>
     </div>
 
     <dl class="finish-stats">
@@ -39,9 +40,11 @@
     </p>
 
     <div class="finish-chips">
-      <span class="status-chip is-streak" title="Dias seguidos estudando">🔥 <%= streak %> <%= streak == 1 ? "dia" : "dias" %></span>
-      <span class="status-chip is-lives" title="Vidas restantes">❤ <%= current_user.lives %> <%= current_user.lives == 1 ? "vida" : "vidas" %></span>
+      <span class="status-chip is-streak" title="Dias seguidos estudando"><%= mani_icon(:flame) %> <%= streak %> <%= streak == 1 ? "dia" : "dias" %></span>
+      <span class="status-chip is-lives" title="Vidas restantes"><%= mani_icon(:heart) %> <%= current_user.lives %> <%= current_user.lives == 1 ? "vida" : "vidas" %></span>
     </div>
+
+    <p class="disclaimer">Conteúdo educacional. Não é recomendação de investimento.</p>
 
     <div class="finish-actions">
       <%= link_to "Continuar", user_path(current_user), class: "mani-btn mani-btn-primary", id: "btn-lesson-page-to-user-page" %>

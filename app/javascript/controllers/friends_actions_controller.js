@@ -4,6 +4,10 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   static targets = [ "content", "form", "list", "searchInput" ]
 
+  disconnect() {
+    clearTimeout(this.searchTimer)
+  }
+
   openWindow(e) {
     // e.preventDefault();
     const overlay = document.querySelector(".overlay");
@@ -21,14 +25,36 @@ export default class extends Controller {
     windowAddFriend.classList.add("hidden");
   }
 
+  // Waits for a pause in typing, then searches; shows loading, empty and error states
   update(e) {
     e.preventDefault();
-    const url = `${this.formTarget.action}?query=${this.searchInputTarget.value}`
-    fetch(url, { headers: { 'Accept': 'text/plain' } })
-      .then(response => response.text())
-      .then((data) => {
-        this.listTarget.innerHTML = data;
-      })
+    clearTimeout(this.searchTimer)
+    this.searchTimer = setTimeout(() => this.search(), 250)
+  }
+
+  async search() {
+    const query = this.searchInputTarget.value.trim()
+    if (query === "") {
+      this.listTarget.innerHTML = ""
+      return
+    }
+
+    this.listTarget.textContent = "Buscando..."
+    const url = `${this.formTarget.action}?query=${encodeURIComponent(query)}`
+    try {
+      const response = await fetch(url, { headers: { 'Accept': 'text/plain' } })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      const data = await response.text()
+      // Ignore an answer that arrives after the person kept typing
+      if (query !== this.searchInputTarget.value.trim()) return
+      if (data.trim() === "") {
+        this.listTarget.textContent = "Nenhuma pessoa encontrada."
+      } else {
+        this.listTarget.innerHTML = data
+      }
+    } catch (error) {
+      this.listTarget.textContent = "Não foi possível buscar agora. Tente de novo."
+    }
   }
 
   openInviteWindow(e) {

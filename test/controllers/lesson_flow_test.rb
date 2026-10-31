@@ -87,8 +87,8 @@ class LessonFlowTest < ActionDispatch::IntegrationTest
     assert_equal 10, @user.reload.xp
   end
 
-  test "finishing a lesson unlocks the next one" do
-    second = create_lesson(count: 2)
+  test "finishing a lesson unlocks the lesson that requires it" do
+    second = create_lesson(count: 2, prerequisite: @lesson)
     other = create_user # has an answer row for every question
 
     sign_in other

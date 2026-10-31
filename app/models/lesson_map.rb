@@ -1,10 +1,10 @@
-# The trail of lessons shown on the profile. Lessons unlock in order: finishing a
-# lesson (reaching its summary) unlocks the next one; the first lesson not yet
-# finished is the "current" one.
+# The trail of lessons shown on the profile. A lesson is open unless it has a
+# prerequisite the user has not finished yet (finishing = reaching its summary).
+# Level 1 lessons have no prerequisite; a level 2 lesson needs its level 1 lesson.
 class LessonMap
-  Node = Struct.new(:lesson, :state, :correct, :total, keyword_init: true) do
+  Node = Struct.new(:lesson, :state, :correct, :total, :prerequisite, keyword_init: true) do
     def completed? = state == :completed
-    def current? = state == :current
+    def available? = state == :available
     def locked? = state == :locked
 
     def percent
@@ -31,13 +31,36 @@ class LessonMap
     @nodes ||= build_nodes
   end
 
+  # One track per subject: a lesson with no prerequisite starts a track and the
+  # lessons that require it follow, one behind the other.
+  Track = Struct.new(:subject, :nodes, keyword_init: true)
+
+  def tracks
+    @tracks ||= begin
+      by_prerequisite = nodes.group_by { |node| node.lesson.prerequisite_id }
+      known_ids = nodes.map { |node| node.lesson.id }.to_set
+      roots = nodes.select { |node| node.lesson.prerequisite_id.nil? || !known_ids.include?(node.lesson.prerequisite_id) }
+
+      roots.map do |root|
+        chain = [root]
+        chain << by_prerequisite.fetch(chain.last.lesson.id, []).first while by_prerequisite.key?(chain.last.lesson.id)
+        Track.new(subject: root.lesson.subject, nodes: chain)
+      end
+    end
+  end
+
+  def available_count
+    nodes.count(&:available?)
+  end
+
   def unlocked?(lesson)
     node = nodes.find { |candidate| candidate.lesson.id == lesson.id }
     node.present? && !node.locked?
   end
 
+  # The first lesson still to do among the open ones
   def current
-    nodes.find(&:current?)
+    nodes.find(&:available?)
   end
 
   private
@@ -47,19 +70,19 @@ class LessonMap
     corrects = @user.answers.where(is_correct: true).joins(:question)
                     .group("questions.lesson_id").count
     finished_ids = @user.lesson_completions.pluck(:lesson_id).to_set
-    current_taken = false
 
-    Lesson.ordered.where(id: totals.keys).map do |lesson|
+    lessons = Lesson.ordered.includes(:prerequisite).where(id: totals.keys)
+
+    lessons.map do |lesson|
       state = if finished_ids.include?(lesson.id)
                 :completed
-              elsif !current_taken
-                current_taken = true
-                :current
+              elsif lesson.prerequisite_id.nil? || finished_ids.include?(lesson.prerequisite_id)
+                :available
               else
                 :locked
               end
       Node.new(lesson: lesson, state: state, correct: corrects.fetch(lesson.id, 0),
-               total: totals.fetch(lesson.id))
+               total: totals.fetch(lesson.id), prerequisite: lesson.prerequisite)
     end
   end
 end

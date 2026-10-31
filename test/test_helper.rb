@@ -8,8 +8,9 @@ class ActiveSupport::TestCase
 
   # Builds a lesson with `count` abcd questions (correct answer is always "a").
   # Must run before the users that need answers are created.
-  def create_lesson(title: "Lesson #{SecureRandom.hex(3)}", count: 3, question_type: "abcd")
-    lesson = Lesson.create!(title: title, description: "desc")
+  def create_lesson(title: "Lesson #{SecureRandom.hex(3)}", count: 3, question_type: "abcd", prerequisite: nil)
+    lesson = Lesson.create!(title: title, description: "desc", prerequisite: prerequisite,
+                            level: prerequisite ? 2 : 1)
     count.times do |i|
       Question.create!(lesson: lesson, question_type: question_type, level: 1,
                        statement: "Question #{i}", a: "a", b: "b", c: "c", d: "d",

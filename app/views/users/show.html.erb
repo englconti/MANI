@@ -1,3 +1,4 @@
+<% content_for :title, "Sua trilha" %>
 <div id="user-page-container">
   <div class="box-user-header">
   </div>
@@ -6,25 +7,29 @@
 
     <div class="container-lessons">
       <h1 class="trail-heading">Sua trilha</h1>
-      <% if @lesson_map.current %>
+      <% available = @lesson_map.available_count %>
+      <% if available > 1 %>
+        <p class="trail-subtitle"><strong><%= available %> aulas abertas</strong>: escolha por onde começar.</p>
+      <% elsif available == 1 %>
         <p class="trail-subtitle">Próxima aula: <strong><%= @lesson_map.current.lesson.title %></strong></p>
       <% else %>
-        <p class="trail-subtitle">Você concluiu todas as aulas! 🎉</p>
+        <p class="trail-subtitle">Você concluiu todas as aulas! <%= mani_icon(:trophy) %></p>
       <% end %>
-      <%= render 'trail', nodes: @lesson_map.nodes %>
+      <%= render 'trail', tracks: @lesson_map.tracks %>
     </div>
 
     <div class="container-center-info">
 
-      <h2>Você sabia? 🤓</h2>
+      <h2>Você sabia? <%= mani_icon(:star) %></h2>
       <% if @information %>
-        <%= image_tag @information.img_url, style:"max-width:350px; max-height: 150px;" %>
+        <%= image_tag @information.img_url, alt: "" %>
         <p><%= @information.text %></p>
-        <h6 style="font-size:10px">fonte: <a href="<%= @information.source %>" target="blank"><%= @information.source %></a></h6>
+        <h6>fonte: <a href="<%= @information.source %>" target="_blank" rel="noopener"><%= @information.source %></a></h6>
       <% end %>
     </div>
 
     <div class="container-right-info">
       <%= render 'friends-box', all_users: @all_users, all_friends: @all_friends %>
     </div>
+  </div>
 </div>

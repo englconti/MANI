@@ -15,11 +15,18 @@ end
 # Creating Lessons -------------------------------------------------
 puts "-=-=-=-=- CREATING LESSONS -=-=-=-=-"
 lessons_path = "db/data/Mani - lessons_starter.csv"
-CSV.foreach(lessons_path, headers: :first_row).with_index(1) do |row, position|
-  if Lesson.find_by(title: row['title']).nil?
-    Lesson.create!(title: row['title'], description: row['description'], position: position)
-    puts "Lesson created: #{Lesson.last.title}"
-  end
+lesson_rows = CSV.read(lessons_path, headers: :first_row)
+lesson_rows.each.with_index(1) do |row, position|
+  lesson = Lesson.find_or_initialize_by(title: row['title'])
+  new_lesson = lesson.new_record?
+  lesson.update!(description: row['description'], level: row['level'].to_i, position: position)
+  puts "Lesson created: #{lesson.title}" if new_lesson
+end
+# Prerequisites need every lesson to exist first
+lesson_rows.each do |row|
+  next if row['prerequisite'].blank?
+
+  Lesson.find_by!(title: row['title']).update!(prerequisite: Lesson.find_by!(title: row['prerequisite']))
 end
 # ------------------------------------------------------------------
 

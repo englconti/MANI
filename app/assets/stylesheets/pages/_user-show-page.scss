@@ -65,8 +65,7 @@ $red-heart: #e8505f;
 
   img {
     width: 100%;
-    max-width: none !important;
-    max-height: 220px !important;
+    max-height: 220px;
     object-fit: cover;
     border-bottom: var(--mani-outline);
   }
@@ -82,7 +81,7 @@ $red-heart: #e8505f;
   h6 {
     margin: 0;
     padding: 0 20px 16px;
-    font-size: 0.8125rem !important;
+    font-size: 0.8125rem;
     color: var(--mani-muted);
     overflow-wrap: anywhere;
 
@@ -257,10 +256,15 @@ $red-heart: #e8505f;
 
 .add-friend-cancel-btn,
 .send-invite-cancel-btn {
+  padding: 0;
+  border: 0;
+  background: none;
   font-size: 1.8rem;
+  line-height: 1;
   color: var(--mani-muted);
   cursor: pointer;
   &:hover { color: $red-heart; }
+  &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; border-radius: 50%; }
 }
 
 #users-list {
@@ -280,8 +284,8 @@ $red-heart: #e8505f;
   border-radius: 12px;
 
   p { margin: 0; overflow-wrap: anywhere; }
-  #friend-username { font-weight: 800; }
-  #friend-email { flex: 1 1 160px; font-size: 0.9rem; color: var(--mani-muted); }
+  .friend-username { font-weight: 800; }
+  .friend-email { flex: 1 1 160px; font-size: 0.9rem; color: var(--mani-muted); }
   form { margin: 0; }
 
   .btn-search-follow,
@@ -309,7 +313,7 @@ $red-heart: #e8505f;
   gap: 12px;
 
   p { margin: 0; }
-  #fake-invite-msg { color: var(--mani-teal-dark) !important; font-weight: 700; }
+  #fake-invite-msg { color: var(--mani-teal-dark); font-weight: 700; }
 }
 
 #form-send-invite {
