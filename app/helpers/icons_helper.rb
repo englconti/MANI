@@ -9,6 +9,13 @@ module IconsHelper
       <path d="M14 25l7 7 13-15" fill="none" stroke="#{INK}" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M14 25l7 7 13-15" fill="none" stroke="#fffaf0" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
     SVG
+    # A finished lesson that still has mistakes: a gold circle with a "do it again" arrow
+    retry: <<~SVG,
+      <circle cx="24" cy="24" r="20" fill="#ffb81c" stroke="#{INK}" stroke-width="3"/>
+      <path d="M31 16A10.5 10.5 0 1 0 34.5 25" fill="none" stroke="#{INK}" stroke-width="8" stroke-linecap="round"/>
+      <path d="M31 16A10.5 10.5 0 1 0 34.5 25" fill="none" stroke="#fffaf0" stroke-width="4" stroke-linecap="round"/>
+      <path d="M35.5 11.5L40 21l-11.5-2.5z" fill="#fffaf0" stroke="#{INK}" stroke-width="3" stroke-linejoin="round"/>
+    SVG
     lock: <<~SVG,
       <path d="M15 22v-6a9 9 0 0 1 18 0v6" fill="none" stroke="#{INK}" stroke-width="9" stroke-linecap="round"/>
       <path d="M15 22v-6a9 9 0 0 1 18 0v6" fill="none" stroke="#8a8f98" stroke-width="3.5" stroke-linecap="round"/>
