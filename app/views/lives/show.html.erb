@@ -1,3 +1,4 @@
+<% content_for :title, "Sem vidas" %>
 ﻿<div class="finish-page" data-controller="countdown"
      data-countdown-until-value="<%= @next_life_at.iso8601 %>">
   <div class="finish-card">
@@ -5,7 +6,7 @@
     <h1>Suas vidas acabaram</h1>
     <p class="finish-lesson">Cada erro custa uma vida. Elas voltam sozinhas, uma a cada <%= User::LIFE_RECHARGE_TIME.in_minutes.to_i %> minutos.</p>
 
-    <div class="finish-hearts" role="img" aria-label="0 vidas"><span aria-hidden="true">🖤🖤🖤🖤🖤</span></div>
+    <div class="finish-hearts" role="img" aria-label="0 vidas"><span aria-hidden="true"><% 5.times do %><span class="off"><%= mani_icon(:heart) %></span><% end %></span></div>
 
     <p class="finish-note">Próxima vida em</p>
     <div class="finish-countdown" data-countdown-target="display" role="timer" aria-live="off">

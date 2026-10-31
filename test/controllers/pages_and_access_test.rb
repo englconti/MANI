@@ -68,4 +68,23 @@ class PagesAndAccessTest < ActionDispatch::IntegrationTest
     end
     assert_response :redirect
   end
+  test "landing page carries the educational disclaimer and a page title" do
+    get root_url
+
+    assert_select ".disclaimer", text: /não é recomendação de investimento/i
+    assert_select "title", text: "Aprenda finanças jogando · MANI"
+  end
+
+  test "pages without a title fall back to the app name" do
+    get new_user_session_url
+
+    assert_select "title", text: "Entrar · MANI"
+  end
+
+  test "the stray GET routes for friendships are gone" do
+    paths = Rails.application.routes.routes.map { |route| route.path.spec.to_s }
+
+    assert_not_includes paths, "/friendships/new(.:format)"
+    assert_not_includes paths, "/friendships/destroy(.:format)"
+  end
 end

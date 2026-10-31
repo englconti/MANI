@@ -1,3 +1,4 @@
+<% content_for :title, "Aula" %>
 <% lesson = @question.lesson %>
 <% lesson_questions = lesson.questions.to_a %>
 <% current_question_i = lesson_questions.index(@question) %>
@@ -27,7 +28,7 @@
       <div class="bar-container" data-lesson-target="bar"></div>
     </div>
     <div class="hearts" role="img" aria-label="<%= lives %> <%= lives == 1 ? 'vida' : 'vidas' %>" data-lesson-target="hearts">
-      <span aria-hidden="true">💗</span>
+      <span aria-hidden="true"><%= mani_icon(:heart) %></span>
       <span class="hearts-count" aria-hidden="true" data-lesson-target="heartsCount"><%= lives %></span>
     </div>
   </header>

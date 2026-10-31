@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <title>MANI</title>
+    <title><%= content_for?(:title) ? "#{yield(:title)} · MANI" : "MANI" %></title>
 
     <!-- FAVICON ITEM MANI INVEST -->
     <link rel="icon" href="https://res.cloudinary.com/guijafrone/image/upload/v1654712310/MANI%20GAMES/favicon_vsn2fs.gif" type="image/x-icon">

@@ -92,3 +92,14 @@
 @media (max-width: 575px) {
   #user-page-greeting { font-size: 1rem; max-width: 18ch; line-height: 1.2; }
 }
+
+.navbar-lewagon .avatar-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  line-height: 0;
+
+  &::after { display: none; }
+  &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 3px; }
+}

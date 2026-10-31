@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     unless LessonMap.new(current_user).unlocked?(@question.lesson)
-      return redirect_to user_path(current_user), alert: "Termine a aula anterior para liberar esta."
+      return redirect_to user_path(current_user), alert: "Termine #{@question.lesson.prerequisite&.title || "a aula anterior"} para liberar esta aula."
     end
 
     current_user.recharge_lives!

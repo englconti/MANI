@@ -1,3 +1,4 @@
+<% content_for :title, "Aprenda finanças jogando" %>
 <main class="landing">
   <section class="hero">
     <div class="landing-inner hero-grid">
@@ -23,17 +24,17 @@
       <p class="section-lead">Três passos para transformar estudo em hábito.</p>
       <div class="steps-grid">
         <div class="step-card">
-          <div class="step-emoji" aria-hidden="true">📚</div>
+          <div class="step-emoji" aria-hidden="true"><%= mani_icon(:books) %></div>
           <h3>Aprenda em lições curtas</h3>
           <p>Perguntas rápidas sobre renda fixa, renda variável, finanças pessoais e mais.</p>
         </div>
         <div class="step-card">
-          <div class="step-emoji" aria-hidden="true">🏆</div>
+          <div class="step-emoji" aria-hidden="true"><%= mani_icon(:trophy) %></div>
           <h3>Ganhe XP e M$</h3>
           <p>Cada acerto rende pontos. Mantenha a sequência diária e cuide das suas vidas.</p>
         </div>
         <div class="step-card">
-          <div class="step-emoji" aria-hidden="true">🤝</div>
+          <div class="step-emoji" aria-hidden="true"><%= mani_icon(:handshake) %></div>
           <h3>Evolua com amigos</h3>
           <p>Siga seus amigos, compare o XP e aprenda junto.</p>
         </div>
@@ -75,6 +76,8 @@
       </ul>
     </div>
   </section>
+
+  <p class="disclaimer">Conteúdo educacional. Não é recomendação de investimento.</p>
 
   <% unless user_signed_in? %>
     <footer class="landing-footer">

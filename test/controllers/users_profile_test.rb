@@ -21,25 +21,30 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     get user_url(@user)
 
     assert_response :success
-    titles = response.body.scan(%r{<span class="trail-title">(Primeira|Segunda|Terceira)</span>}).flatten
+    titles = css_select(".trail-title .visually-hidden").map(&:text)
     assert_equal %w[Primeira Segunda Terceira], titles
   end
 
-  test "the first lesson is current and the others are locked" do
+  test "level 1 lessons are available and level 2 is locked until its prerequisite is done" do
     first = create_lesson(title: "Aula 1", count: 2)
     create_lesson(title: "Aula 2", count: 2)
+    create_lesson(title: "Aula 1 B", count: 2, prerequisite: first)
 
     get user_url(@user)
 
-    assert_select "li.trail-node.is-current", 1
+    assert_select "li.trail-node.is-available", 2
     assert_select "li.trail-node.is-locked", 1
-    assert_select "li.trail-node.is-current a[href='#{question_path(first.questions.first)}']"
+    assert_select "li.trail-node.is-available a[href='#{question_path(first.questions.first)}']"
     assert_select "li.trail-node.is-locked a", 0
+    assert_select "li.trail-node.is-locked .trail-meta", text: /Aula 1 para liberar/
+    assert_select "li.track", 2
+    assert_select "li.track:first-child li.trail-node", 2
+    assert_select ".trail-subtitle", text: /2 aulas abertas/
   end
 
   test "a finished lesson shows its score and unlocks the next one" do
     lesson = create_lesson(title: "Aula X", count: 3)
-    create_lesson(title: "Aula Y", count: 1)
+    create_lesson(title: "Aula Y", count: 1, prerequisite: lesson)
     user = create_user # created after the lessons so it has an answer per question
     sign_in user
     user.answers.where(question: lesson.questions.first(2)).update_all(is_correct: true)
@@ -48,7 +53,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     get user_url(user)
 
     assert_select "li.trail-node.is-completed", 1
-    assert_select "li.trail-node.is-current", 1
+    assert_select "li.trail-node.is-available", 1
     assert_includes response.body, "2 / 3 acertos"
   end
 
@@ -75,5 +80,10 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
 
     assert_select ".status-chip.is-streak", /4/
     assert_select ".status-chip.is-lives", /5/
+  end
+  test "the page title names the trail" do
+    get user_url(@user)
+
+    assert_select "title", text: "Sua trilha · MANI"
   end
 end

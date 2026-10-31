@@ -10,7 +10,7 @@ class FriendshipsController < ApplicationController
     friendship = Friendship.new(asker: current_user, receiver: receiver)
 
     if friendship.save
-      redirect_to user_path(current_user), notice: "Friend successfully followed!"
+      redirect_to user_path(current_user), notice: "Você agora segue essa pessoa."
     else
       render :new # ????
     end
@@ -21,7 +21,7 @@ class FriendshipsController < ApplicationController
 
   def destroy
     if @friendship.destroy
-      redirect_to user_path(current_user), notice: "Friend unfollowed!"
+      redirect_to user_path(current_user), notice: "Você deixou de seguir essa pessoa."
     end
   end
 
