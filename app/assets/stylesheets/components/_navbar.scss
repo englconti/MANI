@@ -107,4 +107,22 @@
 
   &::after { display: none; }
   &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 3px; }
+
+  // A store avatar is already a round drawing with transparent corners (and sometimes a hat
+  // above the circle), so it is shown whole, with no frame
+  &:has(.avatar.is-custom) {
+    overflow: visible;
+    border: 0;
+    background: none;
+  }
+}
+
+.navbar-lewagon .avatar.is-custom { transform: none; }
+
+// The M$ chip of the top bar is a link to the store
+a.status-chip {
+  text-decoration: none;
+
+  &:hover { filter: brightness(0.96); }
+  &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; }
 }

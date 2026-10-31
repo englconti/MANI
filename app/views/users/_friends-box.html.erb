@@ -47,6 +47,7 @@
     <% ranking.each do |place| %>
       <li class="friend-box<%= " is-me" if place.me %>">
         <span class="rank"><span class="visually-hidden">Posição </span><%= place.rank %></span>
+        <%= avatar_tag(place.user, class: "rank-avatar") %>
         <p><%= place.me ? "Você" : place.user.username.capitalize %></p>
         <p><%= place.xp %> XP</p>
       </li>
