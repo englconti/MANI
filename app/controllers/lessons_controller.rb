@@ -5,9 +5,11 @@ class LessonsController < ApplicationController
 
   # The introduction of the lesson, before its first question
   def intro
-    return redirect_to question_path(@lesson.questions.first, skip_intro: 1) unless @lesson.intro?
+    @resume_question = @lesson.resume_question_for(current_user)
+    return redirect_to question_path(@lesson.questions.first, skip_intro: 1) unless @lesson.intro? || @resume_question
 
     @question_count = @lesson.questions.count
+    @answered_before = @lesson.answers.where(user: current_user).where.not(answered_at: nil).count
   end
 
   def show
@@ -35,6 +37,7 @@ class LessonsController < ApplicationController
     current_user.recharge_lives!
     return redirect_to no_lives_path if current_user.out_of_lives?
 
+    @lesson.reset_answers_for(current_user)
     redirect_to question_path(@lesson.questions.first, skip_intro: 1)
   end
 
