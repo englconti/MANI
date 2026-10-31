@@ -15,7 +15,10 @@ Rails.application.routes.draw do
 
   # Added for lesson resume page -----
   resources :lessons, only: [:show] do
-    member { post :restart }
+    member do
+      post :restart
+      post :retry_wrong
+    end
   end
   # ----------------------------------
   # Added for friendships ------------

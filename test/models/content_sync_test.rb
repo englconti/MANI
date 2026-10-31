@@ -56,4 +56,20 @@ class ContentSyncTest < ActiveSupport::TestCase
     assert_not_includes lesson.questions.reload.map(&:statement), "Só uma"
     assert_match(/skipping Aula Sync/, messages.first)
   end
+  test "every row of the questions CSV has as many columns as the header" do
+    rows = CSV.read(Rails.root.join("db/data/Mani - questions_starter.csv"), headers: true)
+
+    rows.each_with_index do |row, index|
+      assert_equal rows.headers.size, row.fields.size, "line #{index + 2} (#{row['statement'].to_s[0, 40]}) has the wrong number of columns"
+    end
+  end
+
+  test "multiple choice rows have four options and a letter as the answer" do
+    rows = CSV.read(Rails.root.join("db/data/Mani - questions_starter.csv"), headers: true).select { |row| row["question_type"] == "abcd" }
+
+    rows.each do |row|
+      assert_equal 4, %w[a b c d].count { |option| row[option].to_s.strip != "" }, "#{row['statement'][0, 40]} needs four options"
+      assert_includes %w[A B C D], row["correct_answer"], "#{row['statement'][0, 40]} needs a letter answer"
+    end
+  end
 end

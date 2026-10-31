@@ -7,6 +7,7 @@ class LessonsController < ApplicationController
     answers = @lesson.answers.where(user: current_user)
     @questions = @lesson.questions
     @true_count = answers.where(is_correct: true).count
+    @wrong_count = answers.where(is_correct: false).count
 
     # Idempotent: only an improvement over the best score is rewarded
     gained = LessonCompletion.record!(user: current_user, lesson: @lesson, correct_count: @true_count)
@@ -22,6 +23,18 @@ class LessonsController < ApplicationController
     return redirect_to no_lives_path if current_user.out_of_lives?
 
     redirect_to question_path(@lesson.questions.first)
+  end
+
+  # Goes through only the questions the user got wrong, in lesson order
+  def retry_wrong
+    current_user.recharge_lives!
+    return redirect_to no_lives_path if current_user.out_of_lives?
+
+    wrong_ids = current_user.answers.where(question: @lesson.questions, is_correct: false).pluck(:question_id).to_set
+    wrong = @lesson.questions.select { |question| wrong_ids.include?(question.id) }
+    return redirect_to lesson_path(@lesson), notice: "Você acertou tudo: não há o que refazer." if wrong.empty?
+
+    redirect_to question_path(wrong.first, retry: wrong.map(&:id).join("-"))
   end
 
   private

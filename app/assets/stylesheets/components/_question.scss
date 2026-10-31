@@ -439,3 +439,13 @@ $q-wrong-text: #a31212;
     transition: none;
   }
 }
+
+// Short "why" under the verdict
+.answer-explanation {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: $q-text;
+}
