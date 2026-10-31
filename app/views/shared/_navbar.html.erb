@@ -29,25 +29,14 @@
 
           <% if @show_user_info %>
 
-              <div class="box-user-info">
-
-                <p class="my-status">Meu status:</p>
-
-                <div class="box-xps">
-                  <p><%= current_user.xp %></p>
-                  <p class="user-xp">XP</p>
-                </div>
-
-                <div class="box-manis">
-                  <p><%= current_user.manis %> </p>
-                  <p class="user-manis">M$</p>
-                </div>
+              <li class="box-user-info" aria-label="Meu status">
+                <span class="status-chip is-xp"><%= current_user.xp %> XP</span>
+                <span class="status-chip is-manis"><%= current_user.manis %> M$</span>
 
                 <% streak = current_user.current_streak %>
                 <span class="status-chip is-streak" title="Dias seguidos estudando">🔥 <%= streak %><span class="visually-hidden"> <%= streak == 1 ? "dia seguido" : "dias seguidos" %></span></span>
                 <span class="status-chip is-lives" title="Vidas">❤ <%= current_user.lives %><span class="visually-hidden"> <%= current_user.lives == 1 ? "vida" : "vidas" %></span></span>
-
-              </div>
+              </li>
           <% end %>
 
           <li class="nav-item dropdown">
