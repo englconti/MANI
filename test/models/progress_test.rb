@@ -5,11 +5,12 @@ class ProgressTest < ActiveSupport::TestCase
 
   test "the level comes from the total XP" do
     assert_equal "Cofrinho", PlayerLevel.for(0).name
-    assert_equal "Cofrinho", PlayerLevel.for(49).name
-    assert_equal "Poupador", PlayerLevel.for(50).name
-    assert_equal 2, PlayerLevel.for(50).number
-    assert_equal "Investidor", PlayerLevel.for(120).name
+    assert_equal "Cofrinho", PlayerLevel.for(74).name
+    assert_equal "Poupador", PlayerLevel.for(75).name
+    assert_equal 2, PlayerLevel.for(75).number
+    assert_equal "Investidor", PlayerLevel.for(170).name
     assert_equal "Estrategista", PlayerLevel.for(300).name
+    assert_equal "Sábio", PlayerLevel.for(450).name
   end
 
   test "a negative or missing XP is the first level" do
@@ -18,10 +19,10 @@ class ProgressTest < ActiveSupport::TestCase
   end
 
   test "progress inside a level and what is missing for the next" do
-    level = PlayerLevel.for(85) # Poupador runs from 50 to 120
+    level = PlayerLevel.for(122) # Poupador runs from 75 to 170
 
-    assert_equal 50, level.percent
-    assert_equal 35, level.xp_to_next
+    assert_equal 49, level.percent
+    assert_equal 48, level.xp_to_next
     assert_equal "Investidor", level.next_name
     assert_not level.max?
   end
@@ -29,7 +30,7 @@ class ProgressTest < ActiveSupport::TestCase
   test "the last level has no next one and is full" do
     level = PlayerLevel.for(999)
 
-    assert_equal "Mestre", level.name
+    assert_equal "Lenda", level.name
     assert level.max?
     assert_equal 100, level.percent
     assert_equal 0, level.xp_to_next
@@ -40,7 +41,10 @@ class ProgressTest < ActiveSupport::TestCase
 
     assert_equal minimums.sort, minimums
     assert_equal 0, minimums.first
-    assert_operator minimums[1], :<=, 2 * 35
+    assert_operator minimums[1], :<=, 2 * 40
+    assert_equal 7, minimums.size
+    # reachable: the lessons give 5 XP per right answer
+    assert_operator minimums.last, :<=, Question.count.nonzero? ? 5 * Question.count : 505
   end
 
   # --- XP per day ----------------------------------------------------------------------
@@ -154,13 +158,13 @@ class ProgressTest < ActiveSupport::TestCase
     entries = PlayerLevel.all(130)
 
     assert_equal PlayerLevel::LEVELS.size, entries.size
-    assert_equal %i[done done current locked locked], entries.map(&:state)
-    assert_equal [1, 2, 3, 4, 5], entries.map(&:number)
-    assert_equal [0, 50, 120, 220, 340], entries.map(&:from)
-    assert_equal [50, 120, 220, 340, nil], entries.map(&:to)
+    assert_equal %i[done current locked locked locked locked locked], entries.map(&:state)
+    assert_equal [1, 2, 3, 4, 5, 6, 7], entries.map(&:number)
+    assert_equal [0, 75, 170, 275, 365, 430, 480], entries.map(&:from)
+    assert_equal [75, 170, 275, 365, 430, 480, nil], entries.map(&:to)
   end
 
   test "with no XP the first level is the current one" do
-    assert_equal %i[current locked locked locked locked], PlayerLevel.all(0).map(&:state)
+    assert_equal %i[current locked locked locked locked locked locked], PlayerLevel.all(0).map(&:state)
   end
 end

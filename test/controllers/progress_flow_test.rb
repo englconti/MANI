@@ -20,14 +20,14 @@ class ProgressFlowTest < ActionDispatch::IntegrationTest
 
     assert_select ".progress-panel .tile-title", text: /Nível 1: Cofrinho/
     assert_select ".progress-panel .meter[role=progressbar][aria-valuenow='0']"
-    assert_select ".progress-panel .tile-note", text: /Faltam 50 XP para Poupador/
+    assert_select ".progress-panel .tile-note", text: /Faltam 75 XP para Poupador/
     assert_select ".progress-panel .tile-note", text: /0 de 20 XP hoje/
     assert_select ".progress-panel .tile-title", text: /0 dias seguidos/
     assert_select ".progress-panel .tile-note", text: /Estude hoje para começar uma sequência/
   end
 
   test "the panel follows the XP of the day and the level" do
-    @user.update!(xp: 60)
+    @user.update!(xp: 100)
     XpDay.credit!(@user, 12)
 
     get user_url(@user)
@@ -183,7 +183,7 @@ class ProgressFlowTest < ActionDispatch::IntegrationTest
   # --- Lesson summary ------------------------------------------------------------------------------
 
   test "the summary says when the lesson took the person to the next level" do
-    @user.update!(xp: 40)
+    @user.update!(xp: 65)
     @user.answers.update_all(is_correct: true)
 
     get lesson_url(@lesson)

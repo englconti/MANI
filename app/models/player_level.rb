@@ -1,6 +1,9 @@
 # The player's level, from the total XP. Names follow the money: from a piggy bank to a master.
 class PlayerLevel
-  LEVELS = [["Cofrinho", 0], ["Poupador", 50], ["Investidor", 120], ["Estrategista", 220], ["Mestre", 340]].freeze
+  # Each level asks for more than the one before. The lessons give 5 XP per right answer, 505 XP
+  # in all, so the last level (480) needs almost every answer right, in every lesson.
+  LEVELS = [["Cofrinho", 0], ["Poupador", 75], ["Investidor", 170], ["Estrategista", 275], ["Mestre", 365],
+            ["Sábio", 430], ["Lenda", 480]].freeze
 
   # One row of the list of all levels. state: :done, :current or :locked
   Entry = Struct.new(:number, :name, :from, :to, :state, keyword_init: true)
