@@ -6,6 +6,14 @@ class PagesAndAccessTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "signing in goes straight to the user page" do
+    user = create_user
+
+    post user_session_url, params: { user: { username: user.username, password: "senha1234" } }
+
+    assert_redirected_to user_url(user)
+  end
+
   test "landing page has the calls to action for visitors" do
     get root_url
 
