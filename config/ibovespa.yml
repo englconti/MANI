@@ -1,0 +1,27 @@
+# Monthly variation of the Ibovespa, in %, for the 12 complete months before the date below.
+# The simulator repeats this curve for the "Ações" line. It is past data, not a forecast.
+#
+# To update it: replace the 12 months (oldest first), the date and the sources, and check each
+# month against the official history of B3 (https://www.b3.com.br). The numbers were collected on
+# the web from the sources below, not from B3 directly, so confirm them before relying on them.
+as_of: "2026-10-31"
+months:
+  - { month: "2025-11", change: 6.37 }
+  - { month: "2025-12", change: 1.29 }
+  - { month: "2026-01", change: 12.56 }
+  - { month: "2026-02", change: 4.09 }
+  - { month: "2026-03", change: -0.70 }
+  - { month: "2026-04", change: -0.08 }
+  - { month: "2026-05", change: -7.22 }
+  - { month: "2026-06", change: -1.01 }
+  - { month: "2026-07", change: 3.47 }
+  - { month: "2026-08", change: -0.33 }
+  - { month: "2026-09", change: 5.03 }
+  - { month: "2026-10", change: -9.88 }
+sources:
+  - name: "Meu Dividendos: variação mensal do Ibovespa (nov/2025 a ago/2026)"
+    url: "https://www.meusdividendos.com/indicadores/ibovespa"
+  - name: "Ibiuna Equities, relatório mensal de setembro/2026 (+5,03%, 186.340 pontos)"
+    url: "https://acionista.com.br/wp-content/uploads/2026/10/202609_RelatorioMensal_IbiunaEquitiesCICFIA.pdf"
+  - name: "Gazeta Mercantil: Ibovespa fecha outubro/2026 em queda de 9,88% (167.921,80 pontos)"
+    url: "https://gazetamercantil.com/ibovespa-outubro-2026-queda-dolar-alta"

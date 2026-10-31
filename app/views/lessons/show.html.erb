@@ -6,12 +6,8 @@
 <% encouragement = percent == 100 ? "Você gabaritou. Seu dinheiro agradece!" : percent >= 60 ? "Quase lá: refazer a aula rende mais pontos." : "Errar faz parte. Refaça a aula para ganhar mais XP." %>
 <% streak = current_user.current_streak %>
 
-<div class="finish-page" data-controller="celebration">
+<div class="finish-page" data-controller="celebration" data-celebration-stars-value="<%= stars %>">
   <div class="finish-card">
-    <% if stars == 3 %>
-      <div aria-hidden="true"><% 14.times do %><span class="confetti"></span><% end %></div>
-    <% end %>
-
     <div class="finish-mascot" aria-hidden="true"><%= mascot_tag(percent == 100 ? "pig-cheering" : percent >= 60 ? "pig-sunglasses" : "pig-thinking") %></div>
     <h1><%= headline %></h1>
     <p class="finish-lesson"><%= @lesson.title %></p>

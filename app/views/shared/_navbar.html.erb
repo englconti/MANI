@@ -25,6 +25,9 @@
               <%= link_to "Meu dashboard", user_path(current_user), class: "nav-link" %>
             </li>
           <% end %>
+          <li class="nav-item">
+            <%= link_to "Simulador", simulator_path, class: "nav-link" %>
+          </li>
           <!-- end -->
 
           <% if @show_user_info %>

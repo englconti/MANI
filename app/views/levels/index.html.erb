@@ -1,0 +1,76 @@
+<% content_for :title, "Níveis" %>
+<div class="levels-page">
+  <header class="levels-header">
+    <%= mascot_tag("icon-medal", class: "levels-icon") %>
+    <div>
+      <h1>Seus níveis</h1>
+      <p>O nível vem do total de XP que você ganha respondendo corretamente. Cada resposta certa vale <%= LessonCompletion::XP_PER_CORRECT_ANSWER %> XP.</p>
+    </div>
+  </header>
+
+  <section class="levels-compare" aria-labelledby="compare-title">
+    <h2 id="compare-title">Você está aqui</h2>
+    <div class="compare-grid">
+      <div class="compare-card is-current">
+        <p class="compare-label">Nível atual</p>
+        <p class="compare-name">Nível <%= @level.number %>: <%= @level.name %></p>
+        <p class="compare-xp">A partir de <%= @level.floor %> XP</p>
+      </div>
+      <% if @level.max? %>
+        <div class="compare-card">
+          <p class="compare-label">Próximo nível</p>
+          <p class="compare-name">Você chegou ao topo</p>
+          <p class="compare-xp">Não há nível acima de <%= @level.name %>.</p>
+        </div>
+      <% else %>
+        <div class="compare-card">
+          <p class="compare-label">Próximo nível</p>
+          <p class="compare-name">Nível <%= @level.number + 1 %>: <%= @level.next_name %></p>
+          <p class="compare-xp">A partir de <%= @level.ceiling %> XP</p>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="meter" role="progressbar" aria-label="Progresso no nível atual" aria-valuemin="0" aria-valuemax="100"
+         aria-valuenow="<%= @level.percent %>" style="--p: <%= @level.percent %>"><span></span></div>
+    <p class="compare-summary">
+      Você tem <strong><%= @xp %> XP</strong>.
+      <% if @level.max? %>
+        Esse é o nível máximo. Continue praticando para manter o ritmo!
+      <% else %>
+        Faltam <strong><%= @level.xp_to_next %> XP</strong> para <%= @level.next_name %>, o que equivale a cerca de
+        <%= @answers_to_next %> <%= @answers_to_next == 1 ? "resposta certa" : "respostas certas" %>.
+      <% end %>
+    </p>
+  </section>
+
+  <section aria-labelledby="all-levels-title">
+    <h2 id="all-levels-title">Todos os níveis</h2>
+    <ol class="levels-list">
+      <% @levels.each do |entry| %>
+        <li class="level-row is-<%= entry.state %>"<%= ' aria-current="step"'.html_safe if entry.state == :current %>>
+          <span class="level-number"><%= entry.number %></span>
+          <div class="level-text">
+            <p class="level-name"><%= entry.name %></p>
+            <p class="level-range">
+              <%= entry.to ? "De #{entry.from} a #{entry.to - 1} XP" : "A partir de #{entry.from} XP" %>
+            </p>
+          </div>
+          <p class="level-state">
+            <% if entry.state == :done %>
+              <%= mani_icon(:check) %> Concluído
+            <% elsif entry.state == :current %>
+              <%= mani_icon(:play) %> Você está aqui
+            <% else %>
+              <%= mani_icon(:lock) %> Faltam <%= entry.from - @xp %> XP
+            <% end %>
+          </p>
+        </li>
+      <% end %>
+    </ol>
+  </section>
+
+  <div class="levels-actions">
+    <%= link_to "Voltar à trilha", user_path(current_user), class: "mani-btn mani-btn-primary" %>
+  </div>
+</div>
