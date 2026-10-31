@@ -8,3 +8,8 @@ yarn.lock linguist-generated
 
 # Mark any vendored files as having been vendored.
 vendor/* linguist-vendored
+
+# Always LF: these run inside Linux, where a CRLF breaks the shebang line
+Dockerfile text eol=lf
+bin/* text eol=lf
+*.sh text eol=lf

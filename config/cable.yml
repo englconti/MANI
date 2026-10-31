@@ -5,6 +5,5 @@ test:
   adapter: test
 
 production:
-  adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: MANI_production
+  # The app does not use live channels, so no Redis is needed
+  adapter: async

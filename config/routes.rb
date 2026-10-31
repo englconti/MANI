@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   # keep this on top, otherwise some errors will happen with log in!
   devise_for :users, controllers: { registrations: "users/registrations" }
   root to: 'pages#home'
+  # The server asks this address "are you alive?" (200 = yes, no login needed)
+  get "up", to: "rails/health#show", as: :rails_health_check
   # ----------------------------------------------------------------
 
   resources :users, only: %i[show index]

@@ -85,6 +85,5 @@ test:
 #
 production:
   <<: *default
-  database: MANI_production
-  username: MANI
-  password: <%= ENV['MANI_DATABASE_PASSWORD'] %>
+  # One connection string (DATABASE_URL) holds host, user, password and database name
+  url: <%= ENV["DATABASE_URL"] %>

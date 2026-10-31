@@ -1,6 +1,12 @@
 require "test_helper"
 
 class PagesAndAccessTest < ActionDispatch::IntegrationTest
+  test "the health check answers without a login" do
+    get rails_health_check_url
+
+    assert_response :success
+  end
+
   test "home is public" do
     get root_url
     assert_response :success
