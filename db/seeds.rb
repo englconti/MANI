@@ -1,19 +1,5 @@
 require "csv"
 
-# Creating Products ------------------------------------------------
-puts "-=-=-=-=- CREATING PRODUCTS -=-=-=-=-"
-products_path = "db/data/Mani - products_starter.csv"
-CSV.foreach(products_path, headers: :first_row) do |row|
-  if Product.find_by(title: row['title']).nil?
-    Product.create!(title: row['title'],
-                    description: row['description'],
-                    definition: row['definition'],
-                    kind: row['kind'],
-                    how_to_invest: row['how_to_invest'])
-    puts "Product created: #{Product.last.title}"
-  end
-end
-# -------------------------------------------------------------------
 
 # Creating Informations ------------------------------------------------
 puts "-=-=-=-=- CREATING INFORMATIONS -=-=-=-=-"

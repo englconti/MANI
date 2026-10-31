@@ -12,8 +12,6 @@
       <%= format("%02d:%02d", *[(@next_life_at - Time.current).to_i, 0].max.divmod(60)) %>
     </div>
 
-    <p class="finish-note">Enquanto espera, leia sobre os <%= link_to "produtos de investimento", products_path %>.</p>
-
     <div class="finish-actions">
       <%= link_to "Voltar à trilha", user_path(current_user), class: "mani-btn mani-btn-primary" %>
     </div>

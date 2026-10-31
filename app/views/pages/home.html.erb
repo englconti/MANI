@@ -72,22 +72,13 @@
         <li><span class="team-name">Leonardo Conti</span>
           <a href="https://github.com/englconti" target="_blank" rel="noopener">GitHub</a>
           <a href="https://www.linkedin.com/in/engleonardoconti/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><span class="team-name">Alexandre Vieira</span>
-          <a href="https://github.com/kitodann" target="_blank" rel="noopener">GitHub</a>
-          <a href="http://linkedin.com/in/alexandre-dannemann" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><span class="team-name">Guilherme Jafrone</span>
-          <a href="https://github.com/guilhermejafrone" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://www.linkedin.com/in/guilherme-jafrone/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><span class="team-name">José Paulo Valladares</span>
-          <a href="https://github.com/JPVALLADARES" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </div>
   </section>
 
-  <footer class="landing-footer">
-    <%= link_to "Produtos de investimento", products_path %>
-    <% unless user_signed_in? %>
+  <% unless user_signed_in? %>
+    <footer class="landing-footer">
       <%= link_to "Entrar", new_user_session_path %>
-    <% end %>
-  </footer>
+    </footer>
+  <% end %>
 </main>
