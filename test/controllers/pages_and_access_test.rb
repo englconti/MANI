@@ -14,6 +14,17 @@ class PagesAndAccessTest < ActionDispatch::IntegrationTest
     assert_redirected_to user_url(user)
   end
 
+  test "the landing page shows five-star testimonials, each with a name and a different avatar" do
+    get root_url
+
+    assert_select ".testimonials li.testimonial", 6
+    assert_select ".testimonial .testimonial-stars .mani-icon-star", 30
+    names = css_select(".testimonial-author strong").map(&:text)
+    assert_equal names.uniq, names
+    avatars = css_select(".testimonial-avatar").map { |image| image["src"] }
+    assert_equal 6, avatars.uniq.size
+  end
+
   test "landing page has the calls to action for visitors" do
     get root_url
 
