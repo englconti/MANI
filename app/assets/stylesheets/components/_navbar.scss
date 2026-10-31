@@ -33,11 +33,12 @@
   .navbar-nav { align-items: center; gap: 4px 8px; }
 
   .avatar {
-    width: 42px;
-    height: 42px;
-    border: var(--mani-outline);
-    background: var(--mani-peach);
-    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    // The drawing is a circle inside a white square; zooming a little hides the white ring
+    transform: scale(1.12);
   }
 
   .dropdown-menu {
@@ -94,11 +95,15 @@
 }
 
 .navbar-lewagon .avatar-button {
+  width: 44px;
+  height: 44px;
   padding: 0;
-  border: 0;
-  background: none;
+  overflow: hidden;
+  border: var(--mani-outline);
+  background: var(--mani-teal);
   border-radius: 50%;
   line-height: 0;
+  cursor: pointer;
 
   &::after { display: none; }
   &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 3px; }

@@ -136,39 +136,19 @@
   margin-bottom: 4px;
 }
 
-// Confetti: pure CSS, only for a perfect lesson ------------------------------------
-
-.confetti {
-  position: absolute;
-  top: -12px;
-  width: 8px;
-  height: 14px;
-  border-radius: 2px;
-  opacity: 0;
-  animation: confetti-fall 2.4s ease-in 1 forwards;
-  pointer-events: none;
-
-  @for $i from 1 through 14 {
-    &:nth-child(#{$i}) {
-      left: #{($i * 7) % 100}%;
-      background: nth((#f26b54, #ffc800, #0e6b78, #f6a98a), ($i % 4) + 1);
-      animation-delay: #{($i % 5) * 0.15}s;
-      transform: rotate(#{$i * 23}deg);
-    }
-  }
-}
-
-@keyframes confetti-fall {
-  0% { opacity: 1; transform: translateY(0) rotate(0deg); }
-  100% { opacity: 0; transform: translateY(420px) rotate(540deg); }
-}
-
 @keyframes finish-bounce {
   0% { transform: translateY(-24px) scale(0.9); opacity: 0; }
   60% { transform: translateY(6px) scale(1.02); opacity: 1; }
   100% { transform: translateY(0) scale(1); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .confetti { display: none; }
+
+// The canvas of confetti and fireworks drawn over the page
+.celebration-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1200;
 }

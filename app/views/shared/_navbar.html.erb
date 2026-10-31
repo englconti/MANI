@@ -25,6 +25,9 @@
               <%= link_to "Meu dashboard", user_path(current_user), class: "nav-link" %>
             </li>
           <% end %>
+          <li class="nav-item">
+            <%= link_to "Simulador", simulator_path, class: "nav-link" %>
+          </li>
           <!-- end -->
 
           <% if @show_user_info %>
@@ -41,11 +44,11 @@
 
           <li class="nav-item dropdown">
             <button type="button" class="avatar-button dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu da conta">
-              <%= image_tag "perfil.png", class: "avatar", alt: "" %>
+              <%= image_tag "avatar-mani.webp", class: "avatar", alt: "" %>
             </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Meu perfil", user_path(current_user), class: "dropdown-item" %>
-              <%= link_to "Editar dados", edit_user_registration_path(current_user), class: "dropdown-item" %>
+              <%= link_to "Editar dados", edit_user_registration_path, class: "dropdown-item" %>
               <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
             </div>
           </li>

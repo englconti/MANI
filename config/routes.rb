@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show index]
   resource :daily_goal, only: :update
+  get "simulador", to: "simulations#show", as: :simulator
+  get "niveis", to: "levels#index", as: :levels
 
   get "sem-vidas", to: "lives#show", as: :no_lives
 

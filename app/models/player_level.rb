@@ -2,7 +2,21 @@
 class PlayerLevel
   LEVELS = [["Cofrinho", 0], ["Poupador", 50], ["Investidor", 120], ["Estrategista", 220], ["Mestre", 340]].freeze
 
+  # One row of the list of all levels. state: :done, :current or :locked
+  Entry = Struct.new(:number, :name, :from, :to, :state, keyword_init: true)
+
   attr_reader :number, :name, :floor, :ceiling, :next_name
+
+  # Every level with its XP range and where this XP stands in them
+  def self.all(xp)
+    current = self.for(xp).number
+    LEVELS.each_with_index.map do |(name, from), index|
+      number = index + 1
+      to = LEVELS[index + 1]&.last
+      state = number < current ? :done : (number == current ? :current : :locked)
+      Entry.new(number: number, name: name, from: from, to: to, state: state)
+    end
+  end
 
   def self.for(xp)
     xp = [xp.to_i, 0].max

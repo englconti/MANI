@@ -8,11 +8,12 @@
 
 <section class="progress-panel" aria-label="Seu progresso">
   <div class="progress-tile">
-    <h2 class="tile-title"><%= mani_icon(:star) %> Nível <%= level.number %>: <%= level.name %></h2>
+    <h2 class="tile-title"><%= link_to levels_path, class: "tile-link", "aria-label": "Nível #{level.number}, #{level.name}. Ver todos os níveis" do %><%= mani_icon(:star) %> Nível <%= level.number %>: <%= level.name %><% end %></h2>
     <div class="meter" role="progressbar" aria-label="Progresso no nível" aria-valuemin="0" aria-valuemax="100"
          aria-valuenow="<%= level.percent %>" style="--p: <%= level.percent %>"><span></span></div>
     <p class="tile-note">
       <%= level.max? ? "Nível máximo. Parabéns!" : "Faltam #{level.xp_to_next} XP para #{level.next_name}." %>
+      <%= link_to "Ver níveis", levels_path, class: "tile-more" %>
     </p>
   </div>
 

@@ -119,4 +119,17 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_no_match(/Você sabia/, response.body)
     assert_select ".container-center-info", 0
   end
+  test "the account button shows the base avatar of the mascot" do
+    get user_url(@user)
+
+    assert_select "button.avatar-button[aria-label='Menu da conta'] img.avatar[src*='avatar-mani']"
+    assert_no_match(/perfil.png/, response.body)
+    assert File.exist?(Rails.root.join("app/assets/images/avatar-mani.webp"))
+    assert_not File.exist?(Rails.root.join("app/assets/images/perfil.png"))
+  end
+  test "the account menu links to the edit page without the user id as a format" do
+    get user_url(@user)
+
+    assert_select ".dropdown-menu a[href='/users/edit']", text: "Editar dados"
+  end
 end

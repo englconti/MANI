@@ -1,13 +1,25 @@
 import { Controller } from "stimulus"
+import { playSuccess } from "../lesson/sounds"
+import { launchCelebration } from "../lesson/effects"
 
-// Counts the reward numbers up from zero (skipped when the user prefers less motion).
+// The end of a lesson: a success sound (when the sound is on), confetti and fireworks (unless the
+// user prefers less motion) and the reward numbers counting up from zero.
 export default class extends Controller {
   static targets = ["number"]
+  static values = { stars: Number }
 
   connect() {
+    const stars = this.starsValue || 1
+    playSuccess(stars)
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
+    this.stopEffect = launchCelebration(stars)
     this.numberTargets.forEach((element) => this.countUp(element))
+  }
+
+  disconnect() {
+    if (this.stopEffect) this.stopEffect()
   }
 
   countUp(element) {

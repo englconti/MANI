@@ -21,6 +21,10 @@
     </div>
 
     <div class="container-right-info">
+      <%= link_to simulator_path, class: "feature-card" do %>
+        <%= mascot_tag("icon-chart", class: "feature-icon") %>
+        <span><strong>Simulador de investimentos</strong><small>Compare poupança, CDB, LCI / LCA e ações</small></span>
+      <% end %>
       <%= render 'friends-box', all_users: @all_users, all_friends: @all_friends, ranking: @ranking %>
     </div>
   </div>

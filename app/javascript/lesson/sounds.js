@@ -12,7 +12,7 @@ function context() {
 }
 
 // notes: [[frequency in Hz, duration in seconds], ...] played one after another
-function play(notes) {
+function play(notes, wave = "sine") {
   if (!soundEnabled()) return
   const ctx = context()
   if (!ctx) return
@@ -22,7 +22,7 @@ function play(notes) {
   notes.forEach(([frequency, duration]) => {
     const oscillator = ctx.createOscillator()
     const gain = ctx.createGain()
-    oscillator.type = "sine"
+    oscillator.type = wave
     oscillator.frequency.value = frequency
     gain.gain.setValueAtTime(0.0001, start)
     gain.gain.exponentialRampToValueAtTime(0.25, start + 0.02)
@@ -36,6 +36,16 @@ function play(notes) {
 
 export function playCorrect() {
   play([[659, 0.1], [880, 0.18]])
+}
+
+// A short fanfare when a lesson is finished. More stars, a longer and brighter phrase.
+export function playSuccess(stars = 1) {
+  const phrases = {
+    1: [[523, 0.12], [659, 0.12], [784, 0.3]],
+    2: [[523, 0.1], [659, 0.1], [784, 0.1], [1047, 0.38]],
+    3: [[523, 0.1], [659, 0.1], [784, 0.1], [1047, 0.14], [784, 0.08], [1047, 0.12], [1319, 0.55]]
+  }
+  play(phrases[stars] || phrases[1], "triangle")
 }
 
 export function playWrong() {

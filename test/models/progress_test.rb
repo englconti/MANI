@@ -149,4 +149,18 @@ class ProgressTest < ActiveSupport::TestCase
       user.destroy
     end
   end
+
+  test "all levels list the range of each one and where this XP stands" do
+    entries = PlayerLevel.all(130)
+
+    assert_equal PlayerLevel::LEVELS.size, entries.size
+    assert_equal %i[done done current locked locked], entries.map(&:state)
+    assert_equal [1, 2, 3, 4, 5], entries.map(&:number)
+    assert_equal [0, 50, 120, 220, 340], entries.map(&:from)
+    assert_equal [50, 120, 220, 340, nil], entries.map(&:to)
+  end
+
+  test "with no XP the first level is the current one" do
+    assert_equal %i[current locked locked locked locked], PlayerLevel.all(0).map(&:state)
+  end
 end
