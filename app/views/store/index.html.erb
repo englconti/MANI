@@ -1,5 +1,5 @@
 <% content_for :title, "Mani Store" %>
-<div class="store-page">
+<div class="store-page" data-controller="purchase" data-purchase-balance-value="<%= @manis %>">
   <header class="store-header">
     <%= mascot_tag("icon-money-bag", class: "store-icon") %>
     <div>
@@ -28,7 +28,7 @@
                           "aria-label": "Usar o avatar #{avatar.name}" %>
           <% elsif @manis >= avatar.price %>
             <%= button_to "Comprar por #{avatar.price} M$", purchase_avatar_path(avatar.key), method: :post, class: "mani-btn mani-btn-primary",
-                          form: { class: "store-form", data: { turbo_confirm: "Comprar #{avatar.name} por #{avatar.price} M$?" } },
+                          form: { class: "store-form", data: { action: "submit->purchase#ask", avatar_name: avatar.name, avatar_tier: avatar.tier, avatar_price: avatar.price, avatar_image: image_path(avatar.image) } },
                           "aria-label": "Comprar o avatar #{avatar.name} por #{avatar.price} M$" %>
           <% else %>
             <span class="store-locked" aria-label="Faltam <%= avatar.price - @manis %> M$ para comprar <%= avatar.name %>">
@@ -39,6 +39,23 @@
       </li>
     <% end %>
   </ul>
+
+  <dialog class="store-modal" data-purchase-target="dialog" data-action="click->purchase#backdrop" aria-labelledby="store-modal-title">
+    <div class="store-modal-card">
+      <%= image_tag "avatar-mani.webp", alt: "", class: "store-modal-image", data: { purchase_target: "image" } %>
+      <h2 id="store-modal-title">Comprar este avatar?</h2>
+      <p class="store-modal-who"><strong data-purchase-target="name"></strong> <span data-purchase-target="tier"></span></p>
+      <dl class="store-modal-sums">
+        <div><dt>Preço</dt><dd data-purchase-target="price"></dd></div>
+        <div><dt>Seu saldo</dt><dd data-purchase-target="balance"></dd></div>
+        <div class="is-after"><dt>Saldo depois</dt><dd data-purchase-target="after"></dd></div>
+      </dl>
+      <div class="store-modal-actions">
+        <button type="button" class="mani-btn mani-btn-ghost" autofocus data-action="purchase#close">Cancelar</button>
+        <button type="button" class="mani-btn mani-btn-primary" data-purchase-target="confirm" data-action="purchase#confirm">Comprar</button>
+      </div>
+    </div>
+  </dialog>
 
   <p class="store-note">Os M$ vêm das respostas certas nas lições: cada uma vale <%= LessonCompletion::MANIS_PER_CORRECT_ANSWER %> M$. Cada avatar se compra uma vez só.</p>
   <%= link_to "Voltar à trilha", user_path(current_user), class: "mani-btn mani-btn-ghost store-back" %>

@@ -58,7 +58,12 @@ class StoreControllerTest < ActionDispatch::IntegrationTest
 
     get store_url
 
-    assert_select "form[data-turbo-confirm='Comprar Pokehog Trainer por 20 M$?']"
+    assert_select "form[data-action='submit->purchase#ask'][data-avatar-name='Pokehog Trainer'][data-avatar-price='20'][data-avatar-tier='Comum']"
+    assert_select "[data-controller=purchase][data-purchase-balance-value='50']"
+    assert_select "dialog.store-modal [data-purchase-target=balance]"
+    assert_select "dialog.store-modal button[data-action='purchase#confirm']", text: "Comprar"
+    assert_select "dialog.store-modal button[autofocus]", text: "Cancelar"
+    assert_select "form[data-turbo-confirm]", 0
   end
 
   test "buying takes the M$ and then offers to use the avatar" do

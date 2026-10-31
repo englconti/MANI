@@ -6,6 +6,7 @@ import CountdownController from "./countdown_controller"
 import FlashController from "./flash_controller"
 import FriendsActionsController from "./friends_actions_controller"
 import LessonController from "./lesson_controller"
+import PurchaseController from "./purchase_controller"
 import PasswordController from "./password_controller"
 
 const application = Application.start()
@@ -19,3 +20,4 @@ application.register("flash", FlashController)
 application.register("friends-actions", FriendsActionsController)
 application.register("lesson", LessonController)
 application.register("password", PasswordController)
+application.register("purchase", PurchaseController)
