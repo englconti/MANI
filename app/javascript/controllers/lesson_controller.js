@@ -5,7 +5,7 @@ import { playCorrect, playWrong, soundEnabled, setSoundEnabled } from "../lesson
 // The server grades the answer; this controller only collects it and shows the result.
 export default class extends Controller {
   static targets = ["option", "word", "check", "continue", "feedback", "bar", "hearts",
-                    "heartsCount", "soundToggle", "footer"]
+                    "heart", "pig", "soundToggle", "footer"]
   static values = {
     type: String,
     answerUrl: String,
@@ -13,6 +13,8 @@ export default class extends Controller {
     count: Number,
     lives: Number,
     practice: Boolean,
+    cheerImage: String,
+    cryImage: String,
     nextUrl: String,
     reviewUrl: String,
     last: Boolean
@@ -20,6 +22,8 @@ export default class extends Controller {
 
   connect() {
     this.checked = false
+    // Load the reaction poses now, so the swap is instant when the answer arrives
+    ;[this.cheerImageValue, this.cryImageValue].filter(Boolean).forEach((src) => { new Image().src = src })
     this.renderProgress(this.indexValue)
     this.renderSoundToggle()
   }
@@ -126,6 +130,7 @@ export default class extends Controller {
       playWrong()
     }
 
+    this.reactPig(result.correct)
     this.livesValue = result.lives
     this.renderLives()
     this.renderProgress(this.indexValue + 1)
@@ -184,8 +189,23 @@ export default class extends Controller {
     this.barTarget.parentElement.setAttribute("aria-valuenow", done)
   }
 
+  // The pig of the question shows how the answer went
+  reactPig(correct) {
+    if (!this.hasPigTarget) return
+    const image = this.pigTarget.querySelector("img")
+    const pose = correct ? this.cheerImageValue : this.cryImageValue
+    if (image && pose) image.src = pose
+    this.pigTarget.classList.remove("is-happy", "is-sad")
+    this.pigTarget.classList.add(correct ? "is-happy" : "is-sad")
+  }
+
+  // One heart per life; the ones spent turn grey (the one just lost pops)
   renderLives() {
-    this.heartsCountTarget.textContent = this.livesValue
+    this.heartTargets.forEach((heart, index) => {
+      const lost = index >= this.livesValue
+      if (lost && !heart.classList.contains("is-lost")) heart.classList.add("is-popping")
+      heart.classList.toggle("is-lost", lost)
+    })
     this.heartsTarget.setAttribute("aria-label", `${this.livesValue} ${this.livesValue === 1 ? "vida" : "vidas"}`)
   }
 

@@ -1,0 +1,8 @@
+<%# Statements of "writing" questions carry the blanks as <div class='fill-ins'>; only that markup is allowed %>
+<h1 id="question-statement" class="question-statement">
+  <% if question.question_type == "writing" %>
+    <%= sanitize question.statement, tags: %w[div span strong em b i br], attributes: %w[class] %>
+  <% else %>
+    <%= question.statement %>
+  <% end %>
+</h1>

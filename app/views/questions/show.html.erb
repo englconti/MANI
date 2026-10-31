@@ -17,6 +17,8 @@
      data-lesson-next-url-value="<%= next_question ? question_path(next_question, retry: @retry_ids&.join("-"), practice: (1 if @practice)) : (@practice ? user_path(current_user) : lesson_path(lesson)) %>"
      data-lesson-review-url-value="<%= lesson_path(lesson) %>"
      data-lesson-practice-value="<%= @practice ? "true" : "false" %>"
+     data-lesson-cheer-image-value="<%= image_path("mascot/pig-cheering.png") %>"
+     data-lesson-cry-image-value="<%= image_path("mascot/pig-crying.png") %>"
      data-lesson-last-value="<%= last_question %>">
 
   <header class="question-top-part animate__animated animate__fadeIn">
@@ -29,9 +31,11 @@
       <div class="bar-container" data-lesson-target="bar"></div>
     </div>
     <% if @practice %><span class="practice-badge">Prática<span class="practice-long">: sem perder vidas</span></span><% end %>
+    <%# One heart per life: the ones already spent are greyed out %>
     <div class="hearts" role="img" aria-label="<%= lives %> <%= lives == 1 ? 'vida' : 'vidas' %>" data-lesson-target="hearts">
-      <span aria-hidden="true"><%= mani_icon(:heart) %></span>
-      <span class="hearts-count" aria-hidden="true" data-lesson-target="heartsCount"><%= lives %></span>
+      <% User::MAX_LIVES.times do |index| %>
+        <span class="heart<%= " is-lost" if index >= lives %>" aria-hidden="true" data-lesson-target="heart"><%= mani_icon(:heart) %></span>
+      <% end %>
     </div>
   </header>
 
@@ -40,10 +44,16 @@
     <div class="question-body">
       <% if @question.context.present? %>
         <aside class="question-context" aria-label="Lembrete">
-          <span class="context-art" aria-hidden="true"><%= lesson_image_tag(lesson) %></span>
           <p><%= @question.context %></p>
         </aside>
       <% end %>
+
+      <%# The pig of the lesson asks the question; it cheers or cries when the answer comes in %>
+      <div class="question-ask">
+        <div class="question-pig" aria-hidden="true" data-lesson-target="pig"><%= lesson_image_tag(lesson) %></div>
+        <div class="question-bubble"><%= render "questions/statement", question: @question %></div>
+      </div>
+
       <%= render @question.question_type, question: @question %>
     </div>
   </div>

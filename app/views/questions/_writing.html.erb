@@ -1,10 +1,6 @@
 <%# The word bank may come from the CSV as one column: "palavra1 palavra2 palavra3" %>
 <% words = question.a.present? ? question.a.split : %w[palavra1 palavra2 palavra3 palavra4 palavra5 palavra6] %>
 
-<%# Statements carry the blanks as <div class='fill-ins'>; only that markup is allowed %>
-<h1 id="question-statement" class="question-statement">
-  <%= sanitize question.statement, tags: %w[div span strong em b i br], attributes: %w[class] %>
-</h1>
 <div class="wr-question-cards" role="group" aria-label="Palavras disponíveis">
   <% words.each_with_index do |word, index| %>
     <button type="button" id="word-<%= index %>" class="wr-question-card" aria-pressed="false"
