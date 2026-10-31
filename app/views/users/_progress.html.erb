@@ -46,9 +46,6 @@
     <% end %>
   </div>
 
-  <% if recommended %>
-    <%= link_to question_path(recommended.lesson.questions.first), class: "mani-btn mani-btn-primary progress-cta", id: "btn-continue-trail" do %>
-      Continuar: <%= recommended.lesson.title %>
-    <% end %>
-  <% end %>
+  <%# phones: here; wide screens show it above the store instead %>
+  <%= render "users/continue_button", recommended: recommended, css: "is-phone" %>
 </section>

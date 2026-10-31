@@ -167,6 +167,9 @@
   }
 }
 
+// Left halfway: the same blue as an open lesson, its ring shows how many questions are answered
+.trail-node.is-in-progress .trail-icon { font-size: 1.9rem; }
+
 .trail-node.is-locked {
   .trail-icon { background: #e5e7eb; color: #4b5563; }
   .trail-title { color: var(--mani-muted); }

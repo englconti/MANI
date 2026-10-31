@@ -80,6 +80,42 @@ class ProgressFlowTest < ActionDispatch::IntegrationTest
     assert_select "li.trail-node.is-available:not(.is-recommended) .trail-start", text: "Começar"
   end
 
+  test "a lesson left halfway shows the paused icon, a ring with the answered questions and says continue" do
+    other = create_lesson(title: "Aula Dois", count: 4)
+    user = create_user
+    sign_in user
+    user.answers.find_by!(question: other.questions.first).submit!("a")
+
+    get user_url(user)
+
+    assert_select "li.trail-node.is-available.is-in-progress .mani-icon-pause", 1
+    assert_select "li.trail-node.is-in-progress .trail-link[style*='--p: 25']"
+    assert_select "li.trail-node.is-in-progress .trail-start", text: "Continuar"
+    assert_select "li.trail-node.is-available:not(.is-in-progress) .mani-icon-play", 1
+    assert_select "li.trail-node .mani-icon-retry", 0
+  end
+
+  test "continue goes back to the lesson left halfway most recently, not to the first open one" do
+    older = create_lesson(title: "Aula Antiga", count: 3)
+    recent = create_lesson(title: "Aula Recente", count: 3)
+    user = create_user
+    sign_in user
+    user.answers.find_by!(question: older.questions.first).tap { |answer| answer.submit!("a") }.update_column(:answered_at, 2.days.ago)
+    user.answers.find_by!(question: recent.questions.first).submit!("a")
+
+    get user_url(user)
+
+    assert_select "a#btn-continue-trail[href='#{question_path(recent.questions.first)}']", text: /Continuar: Aula Recente/
+    assert_select "li.trail-node.is-recommended .trail-title", text: /Aula Recente/
+  end
+
+  test "the continue button sits above the store on wide screens and in the panel on phones" do
+    get user_url(@user)
+
+    assert_select ".container-right-info > a.progress-cta.is-wide#btn-continue-trail:first-child"
+    assert_select ".progress-panel a.progress-cta.is-phone", 1
+  end
+
   test "there is nothing to continue when every lesson is done" do
     LessonCompletion.create!(user: @user, lesson: @lesson)
 

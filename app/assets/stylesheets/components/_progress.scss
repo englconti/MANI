@@ -101,8 +101,12 @@
   text-align: center;
 }
 
-@media (min-width: 720px) {
-  .progress-cta { width: auto; justify-self: start; min-width: 320px; }
+// One copy in the progress panel (phones), another above the store (wide screens)
+.progress-cta.is-wide { display: none; }
+
+@media (min-width: 900px) {
+  .progress-cta.is-phone { display: none; }
+  .progress-cta.is-wide { display: block; }
 }
 
 // Recommended lesson and practice link in the trail ----------------------------------------
