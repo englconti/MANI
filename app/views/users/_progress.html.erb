@@ -1,0 +1,53 @@
+<%# Level, daily goal and streak, plus the lesson to continue with %>
+<% level = user.level %>
+<% goal = user.daily_goal %>
+<% xp_today = user.xp_today %>
+<% goal_reached = xp_today >= goal %>
+<% streak = user.current_streak %>
+<% recommended = lesson_map.current %>
+
+<section class="progress-panel" aria-label="Seu progresso">
+  <div class="progress-tile">
+    <h2 class="tile-title"><%= mani_icon(:star) %> Nível <%= level.number %>: <%= level.name %></h2>
+    <div class="meter" role="progressbar" aria-label="Progresso no nível" aria-valuemin="0" aria-valuemax="100"
+         aria-valuenow="<%= level.percent %>" style="--p: <%= level.percent %>"><span></span></div>
+    <p class="tile-note">
+      <%= level.max? ? "Nível máximo. Parabéns!" : "Faltam #{level.xp_to_next} XP para #{level.next_name}." %>
+    </p>
+  </div>
+
+  <div class="progress-tile">
+    <h2 class="tile-title"><%= mani_icon(goal_reached ? :check : :trophy) %> Meta do dia</h2>
+    <div class="meter is-goal" role="progressbar" aria-label="Progresso da meta do dia" aria-valuemin="0" aria-valuemax="<%= goal %>"
+         aria-valuenow="<%= [xp_today, goal].min %>" style="--p: <%= [xp_today * 100 / goal, 100].min %>"><span></span></div>
+    <p class="tile-note">
+      <%= goal_reached ? "Meta batida! #{xp_today} XP hoje." : "#{xp_today} de #{goal} XP hoje." %>
+    </p>
+    <details class="goal-picker">
+      <summary>Mudar meta</summary>
+      <div class="goal-options" role="group" aria-label="Escolher a meta diária">
+        <% User::DAILY_GOALS.each do |value, label| %>
+          <%= button_to "#{label}: #{value} XP", daily_goal_path, method: :patch, params: { goal: value },
+                        class: "goal-option", form_class: "goal-form", "aria-pressed": (value == goal) %>
+        <% end %>
+      </div>
+    </details>
+  </div>
+
+  <div class="progress-tile">
+    <h2 class="tile-title"><%= mani_icon(:flame) %> <%= streak %> <%= streak == 1 ? "dia seguido" : "dias seguidos" %></h2>
+    <% if user.streak_at_risk? %>
+      <p class="tile-note is-warning">Sua sequência termina hoje. Estude uma aula para mantê-la.</p>
+    <% elsif user.studied_today? %>
+      <p class="tile-note">Sequência garantida por hoje.</p>
+    <% else %>
+      <p class="tile-note">Estude hoje para começar uma sequência.</p>
+    <% end %>
+  </div>
+
+  <% if recommended %>
+    <%= link_to question_path(recommended.lesson.questions.first), class: "mani-btn mani-btn-primary progress-cta", id: "btn-continue-trail" do %>
+      Continuar: <%= recommended.lesson.title %>
+    <% end %>
+  <% end %>
+</section>

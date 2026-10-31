@@ -39,18 +39,23 @@
   </dialog>
 
   <div class="box-friends-header">
-    <p>Amigos</p>
-    <p>XP Atual</p>
+    <p>Ranking da semana</p>
+    <p>XP</p>
   </div>
 
-  <div class="box-friends-friends-list">
-    <% all_friends.each do |friend| %>
-      <div class="friend-box">
-        <p><%= friend.username.capitalize %></p>
-        <p><%= friend.xp %> XP</p>
-      </div>
+  <ol class="box-friends-friends-list ranking-list" aria-label="Ranking da semana">
+    <% ranking.each do |place| %>
+      <li class="friend-box<%= " is-me" if place.me %>">
+        <span class="rank"><span class="visually-hidden">Posição </span><%= place.rank %></span>
+        <p><%= place.me ? "Você" : place.user.username.capitalize %></p>
+        <p><%= place.xp %> XP</p>
+      </li>
     <% end %>
-  </div>
+  </ol>
+  <% if all_friends.empty? %>
+    <p class="friends-empty">Você ainda não segue ninguém. Busque um amigo para disputar o ranking.</p>
+  <% end %>
+  <p class="ranking-note">O ranking zera toda segunda-feira.</p>
 
   <footer id="friend-box-footer">
     <button type="button" class="btn btn-primary btn-add-friend" data-action="click->friends-actions#openWindow" >Add um amigo!</button>

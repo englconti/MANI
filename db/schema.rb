@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_31_170000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_31_180000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -99,8 +99,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_31_170000) do
     t.datetime "lives_recharge_started_at"
     t.integer "streak_count", default: 0, null: false
     t.date "last_study_on"
+    t.integer "daily_goal", default: 20, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "xp_days", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "day", null: false
+    t.integer "amount", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["day"], name: "index_xp_days_on_day"
+    t.index ["user_id", "day"], name: "index_xp_days_on_user_id_and_day", unique: true
+    t.index ["user_id"], name: "index_xp_days_on_user_id"
   end
 
   add_foreign_key "answers", "questions"
@@ -111,4 +123,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_31_170000) do
   add_foreign_key "lesson_completions", "users"
   add_foreign_key "lessons", "lessons", column: "prerequisite_id"
   add_foreign_key "questions", "lessons"
+  add_foreign_key "xp_days", "users"
 end

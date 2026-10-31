@@ -9,11 +9,17 @@ class LessonsController < ApplicationController
     @true_count = answers.where(is_correct: true).count
     @wrong_count = answers.where(is_correct: false).count
 
+    xp_before = current_user.xp_today
+    level_before = current_user.level.number
+
     # Idempotent: only an improvement over the best score is rewarded
     gained = LessonCompletion.record!(user: current_user, lesson: @lesson, correct_count: @true_count)
     @xp_gained = gained * LessonCompletion::XP_PER_CORRECT_ANSWER
     @manis_gained = gained * LessonCompletion::MANIS_PER_CORRECT_ANSWER
     @map = LessonMap.new(current_user)
+    current_user.reload
+    @goal_reached_now = xp_before < current_user.daily_goal && current_user.xp_today >= current_user.daily_goal
+    @level_up = current_user.level if current_user.level.number > level_before
     current_user.recharge_lives!
   end
 

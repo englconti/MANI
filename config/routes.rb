@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # ----------------------------------------------------------------
 
   resources :users, only: %i[show index]
+  resource :daily_goal, only: :update
 
   get "sem-vidas", to: "lives#show", as: :no_lives
 

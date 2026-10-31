@@ -13,7 +13,8 @@
           <% lesson = node.lesson %>
           <% icon = mani_icon(node.completed? ? :check : node.available? ? :play : :lock) %>
           <% status = node.completed? ? "concluída, #{node.correct} de #{node.total} acertos" : node.available? ? "aberta" : "bloqueada" %>
-          <li class="trail-node is-<%= node.state %>">
+          <% recommended_now = node.available? && lesson == recommended %>
+          <li class="trail-node is-<%= node.state %><%= " is-recommended" if recommended_now %>">
             <div class="trail-body">
               <% if node.locked? %>
                 <span class="trail-link" role="img" aria-label="<%= lesson.title %>: <%= status %>">
@@ -29,12 +30,14 @@
 
               <span class="trail-title"><span class="visually-hidden"><%= lesson.title %></span><span aria-hidden="true"><%= lesson.subject == track.subject ? "Nível #{lesson.level}" : lesson.subject %></span></span>
               <% if node.available? %>
-                <span class="trail-start">Começar</span>
+                <span class="trail-start"><%= recommended_now ? "Próxima" : "Começar" %></span>
               <% elsif node.completed? %>
                 <span class="trail-stars" aria-hidden="true">
                   <% 3.times do |i| %><span class="<%= 'off' if i >= node.stars %>"><%= mani_icon(:star) %></span><% end %>
                 </span>
                 <span class="trail-meta"><%= node.correct %> / <%= node.total %> acertos</span>
+                <%= link_to "Praticar", question_path(lesson.questions.first, practice: 1), class: "trail-practice",
+                            "aria-label": "Praticar #{lesson.title} sem perder vidas" %>
               <% else %>
                 <span class="trail-meta">Termine <%= node.prerequisite&.title %> para liberar</span>
               <% end %>

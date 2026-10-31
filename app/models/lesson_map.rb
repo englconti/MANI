@@ -59,7 +59,7 @@ class LessonMap
     node.present? && !node.locked?
   end
 
-  # The first lesson still to do among the open ones
+  # The recommended next lesson: the first lesson still to do among the open ones
   def current
     nodes.find(&:available?)
   end

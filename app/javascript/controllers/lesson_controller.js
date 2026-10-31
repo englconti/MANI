@@ -12,6 +12,7 @@ export default class extends Controller {
     index: Number,
     count: Number,
     lives: Number,
+    practice: Boolean,
     nextUrl: String,
     reviewUrl: String,
     last: Boolean
@@ -92,7 +93,7 @@ export default class extends Controller {
           "Accept": "application/json",
           "X-CSRF-Token": document.querySelector("meta[name=csrf-token]")?.content
         },
-        body: JSON.stringify({ answer: this.userAnswer() })
+        body: JSON.stringify({ answer: this.userAnswer(), practice: this.practiceValue })
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       result = await response.json()
@@ -145,10 +146,10 @@ export default class extends Controller {
 
   // Wrong answer with no lives left: go straight to the lesson summary
   showContinue(result) {
-    const outOfLives = !result.correct && result.lives === 0 && !this.lastValue
+    const outOfLives = !result.correct && result.lives === 0 && !this.lastValue && !this.practiceValue
     const toSummary = this.lastValue || outOfLives
     this.continueTarget.href = outOfLives ? this.reviewUrlValue : this.nextUrlValue
-    this.continueTarget.textContent = toSummary ? "Ver resumo" : "Continuar"
+    this.continueTarget.textContent = toSummary ? (this.practiceValue ? "Concluir prática" : "Ver resumo") : "Continuar"
     this.checkTarget.hidden = true
     this.continueTarget.hidden = false
     this.continueTarget.focus()

@@ -1,0 +1,197 @@
+// Progress panel on the trail page: level, daily goal, streak -----------------------------
+
+.progress-panel {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.progress-tile {
+  padding: 14px 16px 16px;
+  background: var(--mani-surface);
+  border: var(--mani-outline);
+  border-radius: var(--mani-radius);
+  box-shadow: var(--mani-shadow-sm);
+}
+
+.tile-title {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.tile-note {
+  margin: 8px 0 0;
+  font-size: 0.9375rem;
+  color: var(--mani-muted);
+  line-height: 1.4;
+
+  &.is-warning { color: var(--mani-red-ink); font-weight: 800; }
+}
+
+// The bar is a track with a coloured fill; --p is the percentage
+.meter {
+  height: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 2.5px solid var(--mani-ink);
+  border-radius: 999px;
+
+  span {
+    display: block;
+    height: 100%;
+    width: calc(var(--p, 0) * 1%);
+    background: var(--mani-teal);
+    border-right: 2.5px solid var(--mani-ink);
+    transition: width 0.4s ease;
+  }
+
+  &.is-goal span { background: var(--mani-gold); }
+  &[aria-valuenow="0"] span { border-right-width: 0; }
+}
+
+.goal-picker {
+  margin-top: 8px;
+
+  summary {
+    display: inline-block;
+    padding: 2px 4px;
+    border-radius: 6px;
+    font-size: 0.9375rem;
+    font-weight: 800;
+    color: var(--mani-teal-dark);
+    cursor: pointer;
+
+    &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; }
+  }
+}
+
+.goal-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.goal-form { margin: 0; }
+
+.goal-option {
+  min-height: 40px;
+  padding: 4px 12px;
+  background: #fff;
+  border: var(--mani-outline);
+  border-radius: 10px;
+  box-shadow: 2px 2px 0 var(--mani-ink);
+  font-family: var(--mani-font-display);
+  font-weight: 800;
+  color: var(--mani-ink);
+  cursor: pointer;
+
+  &[aria-pressed="true"] { background: var(--mani-gold); }
+  &:active { transform: translate(2px, 2px); box-shadow: none; }
+  &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; }
+}
+
+.progress-cta {
+  grid-column: 1 / -1;
+  width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 720px) {
+  .progress-cta { width: auto; justify-self: start; min-width: 320px; }
+}
+
+// Recommended lesson and practice link in the trail ----------------------------------------
+.trail-node.is-recommended .trail-start {
+  background: var(--mani-teal);
+  color: #fff;
+}
+
+.trail-practice {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--mani-teal-dark);
+  text-underline-offset: 3px;
+
+  &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; border-radius: 4px; }
+}
+
+// Ranking ----------------------------------------------------------------------------------
+.ranking-list {
+  list-style: none;
+  margin: 0;
+
+  .friend-box {
+    gap: 10px;
+
+    p:nth-of-type(1) { flex: 1; text-align: left; }
+    &.is-me { background: var(--mani-gold-soft); outline: 2px solid var(--mani-ink); }
+  }
+
+  .rank {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--mani-ink);
+    border-radius: 50%;
+    background: #fff;
+    font-family: var(--mani-font-display);
+    font-weight: 900;
+    font-size: 0.9375rem;
+  }
+}
+
+.friends-empty,
+.ranking-note {
+  margin: 0;
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  color: var(--mani-muted);
+  background: var(--mani-surface);
+}
+
+.ranking-note { text-align: center; padding-top: 0; }
+
+// Practice mode ---------------------------------------------------------------------------
+.practice-badge {
+  flex: none;
+  padding: 3px 10px;
+  background: var(--mani-teal-soft);
+  border: 2px solid var(--mani-ink);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.practice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 4px 0 16px;
+
+  .finish-note { margin: 0; }
+}
+
+.finish-banner {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  background: var(--mani-gold-soft);
+  border: 2px solid var(--mani-ink);
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meter span { transition: none; }
+}
+
+@media (max-width: 479px) {
+  .practice-long { display: none; }
+}

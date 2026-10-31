@@ -143,14 +143,6 @@ $red-heart: #e8505f;
     padding: 10px;
     background: var(--mani-surface);
 
-    &:not(:has(.friend-box))::before {
-      content: "Você ainda não segue ninguém. Busque um amigo para comparar o XP.";
-      display: block;
-      padding: 24px 12px;
-      text-align: center;
-      color: var(--mani-muted);
-    }
-
     .friend-box {
       display: flex;
       justify-content: space-between;
