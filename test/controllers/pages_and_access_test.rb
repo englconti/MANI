@@ -48,10 +48,6 @@ class PagesAndAccessTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "products are public" do
-    get products_url
-    assert_response :success
-  end
 
   test "sign up creates a user and their answers" do
     create_lesson(count: 2)

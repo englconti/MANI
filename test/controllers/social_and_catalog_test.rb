@@ -23,13 +23,4 @@ class SocialAndCatalogTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to user_path(@user)
   end
-
-  test "products index and show render" do
-    product = Product.create!(title: "CDB", description: "d", definition: "x", kind: "k", how_to_invest: "h")
-
-    get products_url
-    assert_response :success
-    get product_url(product)
-    assert_response :success
-  end
 end

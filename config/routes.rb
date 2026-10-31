@@ -12,8 +12,6 @@ Rails.application.routes.draw do
 
   get "sem-vidas", to: "lives#show", as: :no_lives
 
-  resources :products, only: %i[index show]
-
   resources :questions, only: %i[show create] do
     resources :answers, only: %i[create]
   end
