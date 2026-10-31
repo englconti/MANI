@@ -1,63 +1,92 @@
-// Mani design tokens. New components read these custom properties; text/background
-// pairs below keep a contrast of at least 4.5:1.
+// Mani design tokens. New components read these custom properties.
+// The look comes from the mascot: warm-black outline, peach body, coral snout, gold coin.
+// Everything is drawn like a sticker: flat colour, ink outline, hard offset shadow.
 :root {
-  --mani-green: #58cc02;
-  --mani-green-dark: #3f9a00;
-  --mani-green-ink: #14300a;
-  --mani-green-soft: #d7ffb8;
+  --mani-ink: #1b1411;
+  --mani-muted: #5a4d47;
+  --mani-line: #e3d6cf;
+  --mani-surface: #ffffff;
+  --mani-bg: #eaf5f4;
 
-  --mani-blue: #0a74b0;
-  --mani-blue-dark: #075a88;
-  --mani-blue-soft: #ddf4ff;
+  --mani-peach: #f6a98a;
+  --mani-peach-soft: #fde5d9;
+  --mani-coral: #f26b54;
+  --mani-coral-dark: #c9432d;
+
+  --mani-teal: #0e6b78;
+  --mani-teal-dark: #09505a;
+  --mani-teal-soft: #d3eeee;
 
   --mani-gold: #ffc800;
   --mani-gold-ink: #4a3800;
-  --mani-gold-soft: #fff4c2;
+  --mani-gold-soft: #fff1b8;
+
+  // Success has its own hue so "correct" never reads as brand
+  --mani-green: #3fb06b;
+  --mani-green-dark: #277a47;
+  --mani-green-ink: #0c2e1a;
+  --mani-green-soft: #d5f5e0;
+
+  // Legacy names: the old blue is now the brand teal
+  --mani-blue: var(--mani-teal);
+  --mani-blue-dark: var(--mani-teal-dark);
+  --mani-blue-soft: var(--mani-teal-soft);
 
   --mani-red: #e5484d;
   --mani-red-ink: #a31212;
   --mani-red-soft: #ffdfe0;
 
-  --mani-ink: #1f2937;
-  --mani-muted: #4b5563;
-  --mani-line: #e5e5e0;
-  --mani-surface: #ffffff;
-  --mani-bg: #f7f7f5;
+  --mani-outline: 2.5px solid var(--mani-ink);
+  --mani-radius: 18px;
+  --mani-shadow: 4px 4px 0 var(--mani-ink);
+  --mani-shadow-sm: 3px 3px 0 var(--mani-ink);
 
-  --mani-radius: 16px;
-  --mani-shadow: 0 2px 0 rgba(0, 0, 0, 0.06), 0 8px 24px rgba(31, 41, 55, 0.08);
-
-  --mani-font-body: "Nunito", system-ui, sans-serif;
-  --mani-font-display: "Baloo 2", "Nunito", system-ui, sans-serif;
+  --mani-font-body: "Figtree", system-ui, sans-serif;
+  --mani-font-display: "Gabarito", "Figtree", system-ui, sans-serif;
 }
 
-// Shared button used by the redesigned screens (the 3D look of the lesson screen)
+body {
+  background: var(--mani-bg);
+  color: var(--mani-ink);
+  font-family: var(--mani-font-body);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--mani-font-display);
+  letter-spacing: -0.01em;
+}
+
+// Shared button: a sticker that presses flat when clicked
 .mani-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: 10px 24px;
-  border: 0;
-  border-bottom: 5px solid transparent;
+  min-height: 50px;
+  padding: 10px 26px;
+  border: var(--mani-outline);
   border-radius: 14px;
+  box-shadow: var(--mani-shadow-sm);
   font-family: var(--mani-font-display);
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 800;
-  letter-spacing: 0.03em;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
   cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+
+  &:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--mani-ink);
+  }
 
   &:active {
-    transform: translateY(2px);
-    border-bottom-width: 3px;
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--mani-ink);
   }
 
   &:focus-visible {
-    outline: 3px solid var(--mani-blue);
-    outline-offset: 2px;
+    outline: 3px solid var(--mani-teal);
+    outline-offset: 3px;
   }
 
   &[aria-disabled="true"] {
@@ -67,37 +96,21 @@
 }
 
 .mani-btn-primary {
-  background: var(--mani-green);
-  border-bottom-color: var(--mani-green-dark);
-  color: var(--mani-green-ink);
-
-  &:hover {
-    color: var(--mani-green-ink);
-    filter: brightness(1.05);
-  }
+  background: var(--mani-coral);
+  color: var(--mani-ink);
+  &:hover { color: var(--mani-ink); }
 }
 
 .mani-btn-secondary {
-  background: var(--mani-blue);
-  border-bottom-color: var(--mani-blue-dark);
+  background: var(--mani-teal);
   color: #fff;
-
-  &:hover {
-    color: #fff;
-    filter: brightness(1.08);
-  }
+  &:hover { color: #fff; }
 }
 
 .mani-btn-ghost {
   background: var(--mani-surface);
-  border: 2px solid var(--mani-line);
-  border-bottom-width: 5px;
   color: var(--mani-ink);
-
-  &:hover {
-    color: var(--mani-ink);
-    border-color: var(--mani-blue);
-  }
+  &:hover { color: var(--mani-ink); }
 }
 
 @media (prefers-reduced-motion: reduce) {

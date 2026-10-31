@@ -39,7 +39,7 @@
     height: 40px;
     margin-bottom: 8px;
     border-radius: 3px;
-    background: var(--mani-line);
+    background: var(--mani-ink); opacity: 0.18;
   }
 
   // Zig-zag
@@ -80,7 +80,8 @@
   width: 68px;
   height: 68px;
   border-radius: 50%;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.18);
+  border: var(--mani-outline);
+  box-shadow: 3px 3px 0 var(--mani-ink);
   font-size: 1.9rem;
   line-height: 1;
 }
@@ -129,17 +130,17 @@
   display: inline-block;
   padding: 2px 12px;
   border-radius: 999px;
-  background: var(--mani-blue-soft);
-  color: var(--mani-blue-dark);
+  background: var(--mani-gold);
+  color: var(--mani-ink);
   font-size: 0.8125rem;
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  
+  
 }
 
 @keyframes trail-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(10, 116, 176, 0.4); }
-  50% { box-shadow: 0 0 0 12px rgba(10, 116, 176, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(14, 107, 120, 0.45); }
+  50% { box-shadow: 0 0 0 12px rgba(14, 107, 120, 0); }
 }
 
 @media (max-width: 420px) {

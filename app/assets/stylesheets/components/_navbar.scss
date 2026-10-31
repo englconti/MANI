@@ -1,107 +1,94 @@
-$borders: 1px solid black;
-$borders-red: 1px solid rgb(255, 0, 0);
-$borders-red: 0;
-$borders: 0;
-
-$dark: #4d4e4e;
-$dark-grey: #1999d6;
-$grey: #e1e1e1;
-$grey-dark: #aaafb8;
-$red:#ff4c4c;
-$light-green: #a8ff3e;
-$green: #7ac70d;
-$dark-green: #629f0a;
-$blue: #1db0f6;
-$dark-blue: #1999d6;
-$gold: gold;
+// Top bar ---------------------------------------------------------------------------
 
 .navbar {
-  font-family: "Nunito";
+  font-family: var(--mani-font-body);
 }
 
 .navbar-lewagon {
   justify-content: space-between;
-}
+  padding: 8px 0;
+  background: var(--mani-surface);
+  border-bottom: var(--mani-outline);
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
+  .container-fluid { gap: 8px; }
+  .navbar-collapse { flex-grow: 0; }
+  .navbar-brand img { width: 44px; }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
-}
+  .nav-link {
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    color: var(--mani-ink);
 
-// Added by Mani ---------------------------------------------------------------
-.container-fluid {
-  border:$borders;
+    &:hover { background: var(--mani-peach-soft); color: var(--mani-ink); }
+    &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; }
+  }
+
+  .navbar-toggler {
+    border: var(--mani-outline);
+    border-radius: 10px;
+    &:focus { box-shadow: none; outline: 3px solid var(--mani-teal); outline-offset: 2px; }
+  }
+
+  .navbar-nav { align-items: center; gap: 4px 8px; }
+
+  .avatar {
+    width: 42px;
+    height: 42px;
+    border: var(--mani-outline);
+    background: var(--mani-peach);
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    padding: 6px;
+    border: var(--mani-outline);
+    border-radius: 14px;
+    box-shadow: var(--mani-shadow-sm);
+  }
+
+  .dropdown-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    &:hover, &:focus { background: var(--mani-peach-soft); color: var(--mani-ink); }
+  }
 }
 
 .nav-left-box {
-  border: $borders;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 #user-page-greeting {
-  border: $borders;
-  font-style: italic;
-  font-size: 20px;
-  color: $dark;
   margin: 0;
+  font-family: var(--mani-font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--mani-ink);
 }
 
-.navbar-nav {
-  border: $borders;
-}
-
+// Scoreboard: XP, coins, streak, lives
 .box-user-info {
-  border: $borders-red;
-  margin: 0;
-  min-width: 280px;
-
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
-  gap: 6px 12px;
+  gap: 8px;
+  margin: 0;
+}
 
-  p {
-    color: $dark;
-    margin: 0;
-    font-weight: 600;
-    font-size: 25px;
-  }
+.status-chip.is-xp {
+  background: var(--mani-teal-soft);
+  border-color: var(--mani-ink);
+  color: var(--mani-teal-dark);
+}
 
-  .my-status {
-    font-size: 15px;
-    align-self: flex-start;
-  }
+.status-chip.is-manis {
+  background: var(--mani-gold-soft);
+  color: var(--mani-gold-ink);
+}
 
-  .box-manis {
-    border: $borders;
-    // align-self: flex-end;
-  }
-
-  .user-manis {
-    margin-left: 2px;
-    font-size: 15px;
-    font-weight: 600;
-    color: $gold;
-  }
-
-  .box-xps {
-    border: $borders;
-    display: flex;
-
-    p {
-      border: $borders-red;
-    }
-  }
-
-  .user-xp {
-    margin-left: 2px;
-    font-size: 15px;
-    font-weight: 600;
-    color: $dark-blue;
-    }
+@media (max-width: 575px) {
+  #user-page-greeting { font-size: 1rem; max-width: 18ch; line-height: 1.2; }
 }

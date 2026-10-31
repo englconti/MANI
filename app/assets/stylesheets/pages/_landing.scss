@@ -3,104 +3,135 @@
 .landing {
   font-family: var(--mani-font-body);
   color: var(--mani-ink);
-  background: var(--mani-surface);
 
-  h1, h2, h3 { font-family: var(--mani-font-display); }
-
-  section { padding: 56px 16px; }
+  section { padding: 64px 16px; }
 
   .landing-inner {
     max-width: 1040px;
     margin: 0 auto;
   }
-}
 
-.hero {
-  padding-top: 32px;
-  background: linear-gradient(180deg, var(--mani-blue-soft) 0%, #fff 100%);
-  text-align: center;
-
-  .hero-grid {
-    display: grid;
-    gap: 24px;
-    align-items: center;
-    justify-items: center;
-  }
-
-  h1 {
-    font-size: clamp(2.2rem, 8vw, 3.6rem);
+  h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 900;
     line-height: 1.1;
     margin: 0 0 12px;
   }
+}
 
-  .hero-highlight { color: var(--mani-green-dark); }
+// Hero: the one loud moment. Deep teal so the peach mascot and its coin pop.
+.hero {
+  padding-top: 40px;
+  background: var(--mani-teal);
+  color: #fff;
+  border-bottom: var(--mani-outline);
+  overflow: hidden;
+
+  .hero-grid {
+    display: grid;
+    gap: 16px;
+    align-items: center;
+    justify-items: start;
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 9vw, 4.6rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin: 0 0 16px;
+    max-width: 12ch;
+  }
 
   .hero-lead {
-    font-size: 1.15rem;
-    color: var(--mani-muted);
-    max-width: 34ch;
-    margin: 0 auto 24px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    max-width: 32ch;
+    margin: 0 0 28px;
+    color: #e3f5f5;
   }
 
   .hero-actions {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+    width: 100%;
     max-width: 320px;
-    margin: 0 auto;
 
     .mani-btn { width: 100%; }
   }
 
   .hero-img {
-    width: min(70vw, 320px);
+    justify-self: center;
+    width: min(72vw, 360px);
     height: auto;
+    filter: drop-shadow(8px 8px 0 rgba(27, 20, 17, 0.35));
+    transform-origin: 50% 90%;
+    animation: mani-hello 1.1s cubic-bezier(0.3, 1.5, 0.5, 1) 0.2s both;
   }
+}
+
+@keyframes mani-hello {
+  0% { transform: translateY(-40px) rotate(-6deg) scale(0.92); opacity: 0; }
+  100% { transform: none; opacity: 1; }
 }
 
 @media (min-width: 860px) {
   .hero {
-    text-align: left;
+    padding-top: 72px;
+    padding-bottom: 72px;
 
-    .hero-grid { grid-template-columns: 1.1fr 0.9fr; }
-    .hero-lead { margin-left: 0; }
-    .hero-actions { margin-left: 0; }
+    .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 48px; }
+    .hero-img { width: 100%; max-width: 400px; justify-self: end; }
   }
 }
 
+// Steps: a short sequence, each step in its own colour
 .steps {
-  background: var(--mani-bg);
-
-  h2, .section-lead { text-align: center; }
-
-  h2 { font-size: clamp(1.7rem, 5vw, 2.3rem); margin: 0 0 8px; }
-  .section-lead { color: var(--mani-muted); margin-bottom: 32px; }
+  h2 { text-align: center; }
+  .section-lead { text-align: center; color: var(--mani-muted); font-size: 1.1rem; margin: 0 0 36px; }
 
   .steps-grid {
     display: grid;
-    gap: 16px;
+    gap: 22px;
     grid-template-columns: 1fr;
   }
 
   .step-card {
     padding: 24px;
     background: var(--mani-surface);
+    border: var(--mani-outline);
     border-radius: var(--mani-radius);
     box-shadow: var(--mani-shadow);
-    text-align: center;
 
-    .step-emoji { font-size: 2.4rem; line-height: 1; }
-    h3 { font-size: 1.3rem; margin: 12px 0 6px; }
-    p { margin: 0; color: var(--mani-muted); }
+    &:nth-child(1) { background: var(--mani-peach-soft); }
+    &:nth-child(2) { background: var(--mani-gold-soft); }
+    &:nth-child(3) { background: var(--mani-teal-soft); }
+
+    .step-emoji {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      border: var(--mani-outline);
+      border-radius: 50%;
+      background: #fff;
+      font-size: 1.9rem;
+      line-height: 1;
+    }
+    h3 { font-size: 1.35rem; font-weight: 800; margin: 16px 0 6px; }
+    p { margin: 0; color: var(--mani-ink); line-height: 1.5; }
   }
 }
 
 @media (min-width: 720px) {
   .steps .steps-grid { grid-template-columns: repeat(3, 1fr); }
+  .steps .step-card:nth-child(2) { transform: translateY(14px); }
 }
 
+// Pillars: not a sequence, so each one gets a coin instead of a number
 .pillars {
-  h2 { font-size: clamp(1.7rem, 5vw, 2.3rem); text-align: center; margin: 0 0 28px; }
+  padding-top: 24px;
 
   ul {
     list-style: none;
@@ -115,21 +146,22 @@
     gap: 14px;
     align-items: flex-start;
     padding: 16px 18px;
-    border: 2px solid var(--mani-line);
+    background: var(--mani-surface);
+    border: var(--mani-outline);
     border-radius: var(--mani-radius);
     font-size: 1.05rem;
+    line-height: 1.45;
   }
 
   .pillar-mark {
     flex: none;
-    display: grid;
-    place-items: center;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
+    margin-top: 1px;
+    border: var(--mani-outline);
     border-radius: 50%;
-    background: var(--mani-green);
-    color: var(--mani-green-ink);
-    font-weight: 800;
+    background: var(--mani-gold);
+    box-shadow: inset -3px -3px 0 rgba(27, 20, 17, 0.18);
   }
 }
 
@@ -138,19 +170,18 @@
 }
 
 .final-cta {
-  background: var(--mani-blue);
-  color: #fff;
-  text-align: center;
+  background: var(--mani-gold);
+  border-top: var(--mani-outline);
+  border-bottom: var(--mani-outline);
 
-  h2 { font-size: clamp(1.7rem, 5vw, 2.3rem); margin: 0 0 8px; color: #fff; }
-  p { margin: 0 auto 24px; max-width: 40ch; color: #eaf6ff; }
+  .landing-inner { max-width: 640px; }
+  h2 { font-size: clamp(2rem, 6vw, 3rem); }
+  p { margin: 0 0 28px; font-size: 1.15rem; max-width: 36ch; }
   .mani-btn { min-width: 240px; }
 }
 
 .team {
-  text-align: center;
-
-  h2 { font-size: 1.5rem; margin: 0 0 16px; }
+  h2 { font-size: 1.5rem; }
 
   ul {
     list-style: none;
@@ -158,24 +189,33 @@
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px 28px;
+    gap: 12px 32px;
   }
 
   .team-name { font-weight: 800; }
 
   a {
-    color: var(--mani-blue-dark);
+    color: var(--mani-teal-dark);
     font-weight: 700;
-    margin-left: 8px;
+    margin-left: 10px;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+
+    &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; }
   }
 }
 
 .landing-footer {
-  padding: 24px 16px 40px;
+  padding: 24px 16px 48px;
   text-align: center;
-  color: var(--mani-muted);
-  border-top: 2px solid var(--mani-line);
+  background: var(--mani-ink);
 
-  a { color: var(--mani-blue-dark); font-weight: 700; margin: 0 8px; }
+  a {
+    color: #fff;
+    font-weight: 700;
+    margin: 0 12px;
+    text-underline-offset: 3px;
+
+    &:focus-visible { outline: 3px solid var(--mani-gold); outline-offset: 2px; }
+  }
 }
