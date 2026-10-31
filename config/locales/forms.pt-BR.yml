@@ -1,0 +1,11 @@
+pt-BR:
+  simple_form:
+    error_notification:
+      default_message: "Corrija os problemas abaixo:"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            current_password:
+              invalid: "está incorreta"

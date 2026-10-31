@@ -143,14 +143,6 @@ $red-heart: #e8505f;
     padding: 10px;
     background: var(--mani-surface);
 
-    &:not(:has(.friend-box))::before {
-      content: "Você ainda não segue ninguém. Busque um amigo para comparar o XP.";
-      display: block;
-      padding: 24px 12px;
-      text-align: center;
-      color: var(--mani-muted);
-    }
-
     .friend-box {
       display: flex;
       justify-content: space-between;
@@ -194,35 +186,19 @@ $red-heart: #e8505f;
   }
 }
 
-// 4. Modals: add friend and send invite ----------------------------------------------
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(27, 20, 17, 0.55);
-  z-index: 100;
-  transition: opacity 0.25s, visibility 0.25s;
-}
-
-.hidden {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.box-window-add-friend {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+// 4. Friend search window (native <dialog>) ------------------------------------------
+.friend-dialog {
   width: min(92vw, 560px);
   max-height: 85vh;
-  overflow: auto;
   padding: 16px;
+  overflow: auto;
   background: var(--mani-surface);
+  color: var(--mani-ink);
   border: var(--mani-outline);
   border-radius: 24px;
   box-shadow: 6px 6px 0 var(--mani-ink);
-  z-index: 1000;
-  transition: opacity 0.25s, visibility 0.25s;
+
+  &::backdrop { background: rgba(27, 20, 17, 0.55); }
 }
 
 .search-friend-top {

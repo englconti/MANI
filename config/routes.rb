@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   # keep this on top, otherwise some errors will happen with log in!
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
   root to: 'pages#home'
   # ----------------------------------------------------------------
 
   resources :users, only: %i[show index]
+  resource :daily_goal, only: :update
 
   get "sem-vidas", to: "lives#show", as: :no_lives
 

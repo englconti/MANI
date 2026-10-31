@@ -7,5 +7,6 @@ class LivesController < ApplicationController
     return redirect_to user_path(current_user), notice: "Suas vidas voltaram!" unless current_user.out_of_lives?
 
     @next_life_at = current_user.next_life_at
+    @practice_lessons = Lesson.ordered.where(id: current_user.lesson_completions.select(:lesson_id))
   end
 end

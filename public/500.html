@@ -1,66 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Algo deu errado do nosso lado · MANI</title>
   <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
-
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
-
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
-
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+      background: #fde5d9;
+      color: #1b1411;
+      font-family: Gabarito, "Trebuchet MS", system-ui, sans-serif;
+    }
+    main {
+      width: 100%;
+      max-width: 440px;
+      padding: 28px 24px 24px;
+      text-align: center;
+      background: #fff;
+      border: 2.5px solid #1b1411;
+      border-radius: 24px;
+      box-shadow: 4px 4px 0 #1b1411;
+    }
+    img { width: 140px; height: auto; }
+    p.code { margin: 8px 0 0; font-size: 0.95rem; font-weight: 700; color: #5a4d47; }
+    h1 { margin: 4px 0 8px; font-size: 1.8rem; line-height: 1.15; }
+    p.text { margin: 0 0 22px; font-size: 1.05rem; line-height: 1.5; color: #1b1411; }
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 10px 26px;
+      background: #f26b54;
+      color: #1b1411;
+      border: 2.5px solid #1b1411;
+      border-radius: 14px;
+      box-shadow: 3px 3px 0 #1b1411;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    a:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #1b1411; }
+    a:focus-visible { outline: 3px solid #0e6b78; outline-offset: 3px; }
   </style>
 </head>
-
-<body class="rails-default-error-page">
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <div>
-      <h1>We're sorry, but something went wrong.</h1>
-    </div>
-    <p>If you are the application owner check the logs for more information.</p>
-  </div>
+<body>
+  <main>
+    <img src="/mani-erro.png" alt="Mani, o porquinho mascote">
+    <p class="code">Erro 500</p>
+    <h1>Algo deu errado do nosso lado</h1>
+    <p class="text">Não foi culpa sua. Tente de novo em alguns instantes; se continuar, volte ao início.</p>
+    <a href="/">Voltar ao início</a>
+  </main>
 </body>
 </html>

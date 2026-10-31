@@ -39,6 +39,13 @@
       <%= @xp_gained.zero? ? "Sem pontos novos desta vez: só melhorar a sua nota rende mais." : encouragement %>
     </p>
 
+    <% if @level_up %>
+      <p class="finish-banner">Você subiu para o nível <%= @level_up.number %>: <strong><%= @level_up.name %></strong>!</p>
+    <% end %>
+    <% if @goal_reached_now %>
+      <p class="finish-banner">Meta do dia batida!</p>
+    <% end %>
+
     <div class="finish-chips">
       <span class="status-chip is-streak" title="Dias seguidos estudando"><%= mani_icon(:flame) %> <%= streak %> <%= streak == 1 ? "dia" : "dias" %></span>
       <span class="status-chip is-lives" title="Vidas restantes"><%= mani_icon(:heart) %> <%= current_user.lives %> <%= current_user.lives == 1 ? "vida" : "vidas" %></span>
@@ -58,6 +65,8 @@
         <%= button_to "Refazer aula", restart_lesson_path(@lesson), method: :post, id: "btn-redo-lesson",
                       class: "mani-btn mani-btn-ghost" %>
       <% end %>
+      <%= link_to "Praticar sem perder vidas", question_path(@lesson.questions.first, practice: 1),
+                  id: "btn-practice", class: "mani-btn mani-btn-ghost" %>
     </div>
   </div>
 </div>

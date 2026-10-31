@@ -75,3 +75,28 @@
   color: var(--mani-muted);
   cursor: pointer;
 }
+
+// Edit account page --------------------------------------------------------------------
+.account-card {
+  max-width: 520px;
+}
+
+.danger-zone {
+  margin-top: 28px;
+  padding: 16px;
+  border: 2.5px solid var(--mani-red-ink);
+  border-radius: 16px;
+  background: var(--mani-red-soft);
+
+  h2 { margin: 0 0 6px; font-size: 1.25rem; font-weight: 900; color: var(--mani-red-ink); text-align: left; }
+  p { margin: 0 0 12px; color: var(--mani-ink); line-height: 1.45; }
+
+  summary {
+    list-style: none;
+    width: 100%;
+    margin-bottom: 12px;
+    &::-webkit-details-marker { display: none; }
+  }
+
+  .mani-btn-danger { width: 100%; margin-top: 0; }
+}

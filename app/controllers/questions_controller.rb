@@ -7,8 +7,10 @@ class QuestionsController < ApplicationController
       return redirect_to user_path(current_user), alert: "Termine #{@question.lesson.prerequisite&.title || "a aula anterior"} para liberar esta aula."
     end
 
+    @practice = params[:practice].present? && current_user.completed_lesson?(@question.lesson)
+
     current_user.recharge_lives!
-    return redirect_to no_lives_path if current_user.out_of_lives?
+    return redirect_to no_lives_path if current_user.out_of_lives? && !@practice
 
     # "Refazer só as que errei": the ids to go through, kept in the URL so no state is needed
     lesson_questions = @question.lesson.questions.to_a

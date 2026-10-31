@@ -4,8 +4,9 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[username email birthday score lives])
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[username email birthday score lives])
+    # Never lives or score: they would let a person give themselves points through the form
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[username email birthday])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[email birthday])
     # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :birthday, :score, :lives) }
     # devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :birthday, :score, :lives) }
   end

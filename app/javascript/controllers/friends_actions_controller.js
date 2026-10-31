@@ -2,27 +2,30 @@ import { Controller } from "stimulus"
 
 
 export default class extends Controller {
-  static targets = [ "content", "form", "list", "searchInput", "shareStatus" ]
+  static targets = [ "content", "dialog", "form", "list", "searchInput", "shareStatus" ]
 
   disconnect() {
     clearTimeout(this.searchTimer)
   }
 
-  openWindow(e) {
-    // e.preventDefault();
-    const overlay = document.querySelector(".overlay");
-    const windowAddFriend = document.querySelector(".box-window-add-friend");
-
-    overlay.classList.remove("hidden");
-    windowAddFriend.classList.remove("hidden");
+  openWindow() {
+    this.dialogTarget.showModal()
   }
 
   closeWindow() {
-    const overlay = document.querySelector(".overlay");
-    const windowAddFriend = document.querySelector(".box-window-add-friend");
+    this.dialogTarget.close()
+  }
 
-    overlay.classList.add("hidden");
-    windowAddFriend.classList.add("hidden");
+  // A click on the dimmed area (the dialog element itself, outside its content) closes it
+  backdropClick(event) {
+    if (event.target === this.dialogTarget) this.closeWindow()
+  }
+
+  // Runs on every close (button, Esc or backdrop): leave a clean search for next time
+  reset() {
+    clearTimeout(this.searchTimer)
+    this.searchInputTarget.value = ""
+    this.listTarget.innerHTML = ""
   }
 
   // Waits for a pause in typing, then searches; shows loading, empty and error states

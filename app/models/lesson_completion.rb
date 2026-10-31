@@ -18,6 +18,7 @@ class LessonCompletion < ApplicationRecord
         completion.update!(correct_count: correct_count)
         user.update!(xp: user.xp + gained * XP_PER_CORRECT_ANSWER,
                      manis: user.manis + gained * MANIS_PER_CORRECT_ANSWER)
+        XpDay.credit!(user, gained * XP_PER_CORRECT_ANSWER)
       end
       gained
     end

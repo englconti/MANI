@@ -5,6 +5,8 @@
 
   <div class="container-user-show-page animate__animated animate__fadeIn">
 
+    <%= render 'progress', user: current_user, lesson_map: @lesson_map %>
+
     <div class="container-lessons">
       <h1 class="trail-heading">Sua trilha</h1>
       <% available = @lesson_map.available_count %>
@@ -15,7 +17,7 @@
       <% else %>
         <p class="trail-subtitle">Você concluiu todas as aulas! <%= mani_icon(:trophy) %></p>
       <% end %>
-      <%= render 'trail', tracks: @lesson_map.tracks %>
+      <%= render 'trail', tracks: @lesson_map.tracks, recommended: @lesson_map.current&.lesson %>
     </div>
 
     <div class="container-center-info">
@@ -29,7 +31,7 @@
     </div>
 
     <div class="container-right-info">
-      <%= render 'friends-box', all_users: @all_users, all_friends: @all_friends %>
+      <%= render 'friends-box', all_users: @all_users, all_friends: @all_friends, ranking: @ranking %>
     </div>
   </div>
 </div>
