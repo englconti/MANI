@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   # Added for lesson resume page -----
   resources :lessons, only: [:show] do
     member do
+      get :intro
       post :restart
       post :retry_wrong
     end

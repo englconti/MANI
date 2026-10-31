@@ -12,6 +12,14 @@ class QuestionsController < ApplicationController
     current_user.recharge_lives!
     return redirect_to no_lives_path if current_user.out_of_lives? && !@practice
 
+    # The first question of a lesson with an introduction opens it first, unless the person is
+    # already in a flow that skips it (just came from it, practice or retrying the wrong ones)
+    lesson = @question.lesson
+    if lesson.intro? && lesson.questions.first == @question && params[:skip_intro].blank? &&
+       params[:retry].blank? && !@practice
+      return redirect_to intro_lesson_path(lesson)
+    end
+
     # "Refazer só as que errei": the ids to go through, kept in the URL so no state is needed
     lesson_questions = @question.lesson.questions.to_a
     retry_ids = params[:retry].to_s.split("-").map(&:to_i)

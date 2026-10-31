@@ -135,7 +135,9 @@ class AccountAndPagesTest < ActionDispatch::IntegrationTest
       assert_includes html, "Voltar ao início"
       assert_no_match(/The page you were looking for|Sorry|Maybe you tried/i, html)
     end
-    assert File.exist?(Rails.root.join("public/mani-erro.png"))
+    %w[pig-thinking pig-angry pig-crying].each do |pose|
+      assert File.exist?(Rails.root.join("public/mascot/#{pose}.png")), "#{pose} is missing from public/mascot"
+    end
   end
 
   test "errors on the account form are in Portuguese" do

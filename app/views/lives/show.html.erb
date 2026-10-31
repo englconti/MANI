@@ -2,7 +2,7 @@
 ﻿<div class="finish-page" data-controller="countdown"
      data-countdown-until-value="<%= @next_life_at.iso8601 %>">
   <div class="finish-card">
-    <div class="finish-mascot" aria-hidden="true"><%= image_tag "Mani-oficial.png", alt: "" %></div>
+    <div class="finish-mascot" aria-hidden="true"><%= mascot_tag("pig-sleeping") %></div>
     <h1>Suas vidas acabaram</h1>
     <p class="finish-lesson">Cada erro custa uma vida. Elas voltam sozinhas, uma a cada <%= User::LIFE_RECHARGE_TIME.in_minutes.to_i %> minutos.</p>
 

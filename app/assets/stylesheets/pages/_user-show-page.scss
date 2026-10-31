@@ -1,4 +1,4 @@
-// User page: trail, "Você sabia?" and friends -------------------------------------------
+// User page: progress, trail and friends -------------------------------------------
 
 $red-heart: #e8505f;
 
@@ -20,19 +20,19 @@ $red-heart: #e8505f;
   margin: 0 auto;
 }
 
+// Trail on the left, ranking and friends on the right
 @media (min-width: 900px) {
-  .container-user-show-page { grid-template-columns: 1.1fr 1fr; }
-  .container-right-info { grid-column: 1 / -1; }
-}
+  .container-user-show-page { grid-template-columns: minmax(0, 1.8fr) minmax(300px, 1fr); }
 
-@media (min-width: 1100px) {
-  .container-user-show-page { grid-template-columns: 1fr 0.9fr 0.9fr; }
-  .container-right-info { grid-column: auto; }
+  .container-right-info {
+    position: sticky;
+    top: 16px;
+    align-self: start;
+  }
 }
 
 // Shared sticker panel ---------------------------------------------------------------
 .container-lessons,
-.container-center-info,
 .box-friends-list {
   background: var(--mani-surface);
   border: var(--mani-outline);
@@ -47,46 +47,6 @@ $red-heart: #e8505f;
   background: var(--mani-peach-soft);
 
   .trail-heading { font-size: 2rem; font-weight: 900; }
-}
-
-// 2. Você sabia? ---------------------------------------------------------------------
-.container-center-info {
-  display: flex;
-  flex-direction: column;
-
-  h2 {
-    margin: 0;
-    padding: 14px 20px;
-    background: var(--mani-gold);
-    border-bottom: var(--mani-outline);
-    font-size: 1.4rem;
-    font-weight: 900;
-  }
-
-  img {
-    width: 100%;
-    max-height: 220px;
-    object-fit: cover;
-    border-bottom: var(--mani-outline);
-  }
-
-  p {
-    margin: 0;
-    padding: 18px 20px 8px;
-    font-size: 1.05rem;
-    line-height: 1.55;
-    max-width: 62ch;
-  }
-
-  h6 {
-    margin: 0;
-    padding: 0 20px 16px;
-    font-size: 0.8125rem;
-    color: var(--mani-muted);
-    overflow-wrap: anywhere;
-
-    a { color: var(--mani-teal-dark); }
-  }
 }
 
 // 3. Friends -------------------------------------------------------------------------

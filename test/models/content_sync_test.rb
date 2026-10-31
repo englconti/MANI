@@ -108,7 +108,7 @@ class ContentSyncTest < ActiveSupport::TestCase
     changed = ContentSync.call
 
     assert_equal 11, Lesson.count
-    assert_equal 76, Question.count
+    assert_equal 101, Question.count
     assert_operator Information.count, :>=, 5
     assert_operator changed, :>, 90
     assert_equal "Orçamento Pessoal", Lesson.find_by!(title: "Dívidas e Cartão de Crédito").prerequisite.title
@@ -124,5 +124,79 @@ class ContentSyncTest < ActiveSupport::TestCase
     ContentSync.call
 
     assert_equal 0, ContentSync.call
+  end
+  test "the sync carries the lesson introductions and the question reminders" do
+    Dir.mktmpdir do |dir|
+      FileUtils.mkdir_p(File.join(dir, "db/data"))
+      File.write(File.join(dir, "db/data/Mani - lessons_starter.csv"),
+                 "title,description,level,prerequisite,track,intro_title,intro_text,intro_image\n" \
+                 "Aula Intro,desc,1,,,Olá,\"Um.\n\nDois.\",golpes\n")
+      File.write(File.join(dir, "db/data/Mani - questions_starter.csv"),
+                 "lesson_title,question_type,level,statement,a,b,c,d,img_url,correct_answer,explanation,context\n" \
+                 "Aula Intro,abcd,fácil,Pergunta?,a,b,c,d,,A,Porque sim.,Lembrete aqui\n")
+
+      ContentSync.call(root: Pathname.new(dir))
+    end
+
+    lesson = Lesson.find_by!(title: "Aula Intro")
+    assert_equal "Olá", lesson.intro_title
+    assert_equal %w[Um. Dois.], lesson.intro_paragraphs
+    assert_equal "golpes", lesson.intro_image
+    assert_equal "Lembrete aqui", lesson.questions.first.context
+  end
+
+  test "every lesson has an introduction and no reminder points at a missing question" do
+    lessons = CSV.read(Rails.root.join("db/data/Mani - lessons_starter.csv"), headers: true)
+
+    lessons.each do |lesson|
+      assert_operator lesson["intro_text"].to_s.split.size, :>=, 30, "#{lesson['title']} needs an introduction"
+      assert_operator lesson["intro_title"].to_s.size, :>, 3, "#{lesson['title']} needs an introduction title"
+    end
+  end
+
+  test "multiple choice rows have different options" do
+    rows = CSV.read(Rails.root.join("db/data/Mani - questions_starter.csv"), headers: true).select { |row| row["question_type"] == "abcd" }
+
+    rows.each do |row|
+      assert_equal 4, [row["a"], row["b"], row["c"], row["d"]].uniq.size, "#{row['statement'][0, 40]} repeats an option"
+    end
+  end
+
+  test "rebuilding a lesson keeps the answers of questions that did not change" do
+    lesson = create_lesson(title: "Aula Sync", count: 0)
+    kept = Question.create!(lesson: lesson, question_type: "abcd", statement: "Fica?", a: "a", b: "b", c: "c", d: "d", correct_answer: "A")
+    gone = Question.create!(lesson: lesson, question_type: "abcd", statement: "Sai?", a: "a", b: "b", c: "c", d: "d", correct_answer: "A")
+    user = create_user
+    user.answers.where(question_id: kept.id).update_all(is_correct: true)
+    assert_equal 2, user.answers.where(question_id: [kept.id, gone.id]).count
+
+    Dir.mktmpdir do |dir|
+      write_csv(dir, ["Aula Sync,abcd,fácil,Fica?,a,b,c,d,,A,Explicação",
+                      "Aula Sync,abcd,fácil,Nova 1,a,b,c,d,,B,",
+                      "Aula Sync,abcd,fácil,Nova 2,a,b,c,d,,C,"])
+
+      changed = ContentSync.call(root: Pathname.new(dir), replace_questions: true)
+
+      assert_equal 3, changed
+    end
+
+    statements = lesson.questions.reload.map(&:statement)
+    assert_equal ["Fica?", "Nova 1", "Nova 2"], statements
+    assert_not Question.exists?(gone.id)
+    assert_equal 0, Answer.where(question_id: gone.id).count
+    assert_equal [true], user.answers.where(question: lesson.questions.first).pluck(:is_correct)
+    assert_equal 1, user.answers.where(question: lesson.questions).count
+  end
+
+  test "without the replace flag a lesson with another question count is left alone" do
+    lesson = create_lesson(title: "Aula Sync", count: 2)
+
+    Dir.mktmpdir do |dir|
+      write_csv(dir, ["Aula Sync,abcd,fácil,Só uma,a,b,c,d,,A,"])
+
+      assert_equal 0, ContentSync.call(root: Pathname.new(dir))
+    end
+
+    assert_equal 2, lesson.questions.count
   end
 end

@@ -1,7 +1,14 @@
 class LessonsController < ApplicationController
-  before_action :disable_nav, only: [:show]
+  before_action :disable_nav, only: %i[show intro]
   before_action :set_lesson
   before_action :require_unlocked_lesson
+
+  # The introduction of the lesson, before its first question
+  def intro
+    return redirect_to question_path(@lesson.questions.first, skip_intro: 1) unless @lesson.intro?
+
+    @question_count = @lesson.questions.count
+  end
 
   def show
     answers = @lesson.answers.where(user: current_user)
@@ -28,7 +35,7 @@ class LessonsController < ApplicationController
     current_user.recharge_lives!
     return redirect_to no_lives_path if current_user.out_of_lives?
 
-    redirect_to question_path(@lesson.questions.first)
+    redirect_to question_path(@lesson.questions.first, skip_intro: 1)
   end
 
   # Goes through only the questions the user got wrong, in lesson order

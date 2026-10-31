@@ -1,0 +1,87 @@
+// Lesson introduction and the reminder above a question ---------------------------------
+
+.intro-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: var(--mani-peach-soft);
+  font-family: var(--mani-font-body);
+  color: var(--mani-ink);
+}
+
+.intro-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 24px 24px 22px;
+  background: var(--mani-surface);
+  border: var(--mani-outline);
+  border-radius: 24px;
+  box-shadow: var(--mani-shadow);
+
+  h1 {
+    margin: 16px 0 12px;
+    font-size: clamp(1.6rem, 6vw, 2.1rem);
+    font-weight: 900;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  p {
+    margin: 0 0 12px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    max-width: 62ch;
+  }
+
+  .intro-meta {
+    margin: 4px 0 18px;
+    font-size: 0.875rem;
+    color: var(--mani-muted);
+    text-align: center;
+  }
+}
+
+.intro-art {
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  background: var(--mani-teal-soft);
+  border: var(--mani-outline);
+  border-radius: 20px;
+
+  img {
+    width: min(60%, 220px);
+    height: auto;
+  }
+}
+
+.intro-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .mani-btn { width: 100%; }
+}
+
+// A short reminder above a question
+.question-context {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  background: var(--mani-teal-soft);
+  border: 2.5px solid var(--mani-ink);
+  border-radius: 16px;
+
+  p { margin: 0; font-size: 0.9375rem; line-height: 1.45; }
+}
+
+.context-art {
+  flex: none;
+  width: 56px;
+
+  img { width: 100%; height: auto; display: block; }
+}

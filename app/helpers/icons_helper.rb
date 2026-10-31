@@ -74,6 +74,20 @@ module IconsHelper
 
   PLAIN = %i[close_circle volume_on volume_off users].freeze
 
+  # The mascot picture of a lesson: one of the poses in app/assets/images/mascot/ (cut from
+  # the sheet in docs/art), named by lessons.intro_image. The plain mascot when there is none.
+  def lesson_image_tag(lesson, **options)
+    mascot_tag(lesson.intro_image, **options)
+  end
+
+  # mascot_tag("pig-cheering"): a pose of the mascot; the plain mascot if the pose is unknown
+  def mascot_tag(name, **options)
+    key = name.to_s
+    path = "mascot/#{key}.png"
+    path = "Mani-oficial.png" if key.blank? || Rails.application.assets.load_path.find(path).nil?
+    image_tag path, alt: "", **options
+  end
+
   # mani_icon(:flame), mani_icon(:star, class: "off")
   def mani_icon(name, **options)
     body = ICONS.fetch(name.to_sym)

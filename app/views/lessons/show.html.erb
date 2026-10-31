@@ -12,7 +12,7 @@
       <div aria-hidden="true"><% 14.times do %><span class="confetti"></span><% end %></div>
     <% end %>
 
-    <div class="finish-mascot" aria-hidden="true"><%= image_tag "Mani-oficial.png", alt: "" %></div>
+    <div class="finish-mascot" aria-hidden="true"><%= mascot_tag(percent == 100 ? "pig-cheering" : percent >= 60 ? "pig-sunglasses" : "pig-thinking") %></div>
     <h1><%= headline %></h1>
     <p class="finish-lesson"><%= @lesson.title %></p>
 
@@ -64,6 +64,9 @@
         <% end %>
         <%= button_to "Refazer aula", restart_lesson_path(@lesson), method: :post, id: "btn-redo-lesson",
                       class: "mani-btn mani-btn-ghost" %>
+      <% end %>
+      <% if @lesson.intro? %>
+        <%= link_to "Ver a introdução da aula", intro_lesson_path(@lesson), id: "btn-lesson-intro", class: "mani-btn mani-btn-ghost" %>
       <% end %>
       <%= link_to "Praticar sem perder vidas", question_path(@lesson.questions.first, practice: 1),
                   id: "btn-practice", class: "mani-btn mani-btn-ghost" %>

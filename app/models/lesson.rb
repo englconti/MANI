@@ -18,6 +18,15 @@ class Lesson < ApplicationRecord
 
   scope :ordered, -> { order(:position, :id) }
 
+  def intro?
+    intro_text.present?
+  end
+
+  # The introduction as paragraphs (blank lines separate them)
+  def intro_paragraphs
+    intro_text.to_s.split(/\r?\n\s*\r?\n/).map(&:strip).reject(&:blank?)
+  end
+
   # "Finanças Pessoais II" -> "Finanças Pessoais": the subject a lesson belongs to
   def subject
     title.sub(/\s+(I|II|III)\z/, "")

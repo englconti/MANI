@@ -38,6 +38,12 @@
   <%# Not a <main>: a global `main` rule styles the landing page background %>
   <div class="container-question-page animate__animated animate__fadeIn" role="main">
     <div class="question-body">
+      <% if @question.context.present? %>
+        <aside class="question-context" aria-label="Lembrete">
+          <span class="context-art" aria-hidden="true"><%= lesson_image_tag(lesson) %></span>
+          <p><%= @question.context %></p>
+        </aside>
+      <% end %>
       <%= render @question.question_type, question: @question %>
     </div>
   </div>
