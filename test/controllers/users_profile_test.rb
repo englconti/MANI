@@ -55,6 +55,9 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_select "li.trail-node.is-completed", 1
     assert_select "li.trail-node.is-available", 1
     assert_includes response.body, "2 / 3 acertos"
+    # not perfect: gold "do it again" icon instead of the green check
+    assert_select "li.trail-node.is-completed.is-imperfect .mani-icon-retry", 1
+    assert_select "li.trail-node.is-completed .mani-icon-check", 0
   end
 
   test "lessons without questions are not listed" do

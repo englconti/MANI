@@ -28,13 +28,16 @@
           <li class="nav-item">
             <%= link_to "Simulador", simulator_path, class: "nav-link" %>
           </li>
+          <li class="nav-item">
+            <%= link_to "Loja", store_path, class: "nav-link" %>
+          </li>
           <!-- end -->
 
           <% if @show_user_info %>
 
               <li class="box-user-info" aria-label="Meu status">
                 <span class="status-chip is-xp"><%= current_user.xp %> XP</span>
-                <span class="status-chip is-manis"><%= current_user.manis %> M$</span>
+                <%= link_to store_path, class: "status-chip is-manis", title: "Gastar M$ na Mani Store" do %><%= current_user.manis %> M$<% end %>
 
                 <% streak = current_user.current_streak %>
                 <span class="status-chip is-streak" title="Dias seguidos estudando"><%= mani_icon(:flame) %> <%= streak %><span class="visually-hidden"> <%= streak == 1 ? "dia seguido" : "dias seguidos" %></span></span>
@@ -44,7 +47,7 @@
 
           <li class="nav-item dropdown">
             <button type="button" class="avatar-button dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu da conta">
-              <%= image_tag "avatar-mani.webp", class: "avatar", alt: "" %>
+              <%= avatar_tag(current_user, class: "avatar") %>
             </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Meu perfil", user_path(current_user), class: "dropdown-item" %>

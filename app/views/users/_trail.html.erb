@@ -1,7 +1,8 @@
 <ul class="trail-legend" aria-label="Legenda da trilha">
   <li><%= mani_icon(:play) %> Aberta (pode começar)</li>
   <li><%= mani_icon(:lock) %> Bloqueada</li>
-  <li><%= mani_icon(:check) %> Concluída</li>
+  <li><%= mani_icon(:check) %> Concluída (100%)</li>
+  <li><%= mani_icon(:retry) %> Concluída com erros (refaça para 100%)</li>
 </ul>
 
 <ol class="lesson-tracks" aria-label="Trilhas de aulas">
@@ -11,10 +12,10 @@
       <ol class="track-path">
         <% track.nodes.each do |node| %>
           <% lesson = node.lesson %>
-          <% icon = mani_icon(node.completed? ? :check : node.available? ? :play : :lock) %>
-          <% status = node.completed? ? "concluída, #{node.correct} de #{node.total} acertos" : node.available? ? "aberta" : "bloqueada" %>
+          <% icon = mani_icon(node.perfect? ? :check : node.completed? ? :retry : node.available? ? :play : :lock) %>
+          <% status = node.completed? ? "concluída#{node.perfect? ? "" : " com erros"}, #{node.correct} de #{node.total} acertos" : node.available? ? "aberta" : "bloqueada" %>
           <% recommended_now = node.available? && lesson == recommended %>
-          <li class="trail-node is-<%= node.state %><%= " is-recommended" if recommended_now %>">
+          <li class="trail-node is-<%= node.state %><%= " is-recommended" if recommended_now %><%= " is-imperfect" if node.completed? && !node.perfect? %>">
             <div class="trail-body">
               <% if node.locked? %>
                 <span class="trail-link" role="img" aria-label="<%= lesson.title %>: <%= status %>">

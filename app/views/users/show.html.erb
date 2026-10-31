@@ -21,6 +21,10 @@
     </div>
 
     <div class="container-right-info">
+      <%= link_to store_path, class: "feature-card" do %>
+        <%= mascot_tag("icon-money-bag", class: "feature-icon") %>
+        <span><strong>Mani Store</strong><small>Troque seus M$ por avatares</small></span>
+      <% end %>
       <%= link_to simulator_path, class: "feature-card" do %>
         <%= mascot_tag("icon-chart", class: "feature-icon") %>
         <span><strong>Simulador de investimentos</strong><small>Compare poupança, CDB, LCI / LCA e ações</small></span>

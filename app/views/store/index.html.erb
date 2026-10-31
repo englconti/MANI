@@ -1,0 +1,45 @@
+<% content_for :title, "Mani Store" %>
+<div class="store-page">
+  <header class="store-header">
+    <%= mascot_tag("icon-money-bag", class: "store-icon") %>
+    <div>
+      <h1>Mani Store</h1>
+      <p>Troque os M$ que você ganha nas lições por avatares para o seu perfil.</p>
+    </div>
+  </header>
+
+  <p class="store-balance" role="status">Você tem <strong><%= @manis %> M$</strong></p>
+
+  <ul class="store-grid">
+    <% @avatars.each do |avatar| %>
+      <% owned = @owned_keys.include?(avatar.key) %>
+      <% in_use = current_user.avatar_key == avatar.key %>
+      <li class="store-card<%= " is-owned" if owned %><%= " is-in-use" if in_use %>">
+        <div class="store-avatar<%= " is-base" if avatar.default? %>"><%= avatar_tag(avatar, alt: avatar.name) %></div>
+        <h2><%= avatar.name %></h2>
+        <p class="store-tier"><%= avatar.tier %></p>
+        <p class="store-description"><%= avatar.description %></p>
+
+        <div class="store-action">
+          <% if in_use %>
+            <span class="store-badge"><%= mani_icon(:check) %> Em uso</span>
+          <% elsif owned %>
+            <%= button_to "Usar", use_avatar_path(avatar.key), method: :post, class: "mani-btn mani-btn-secondary", form_class: "store-form",
+                          "aria-label": "Usar o avatar #{avatar.name}" %>
+          <% elsif @manis >= avatar.price %>
+            <%= button_to "Comprar por #{avatar.price} M$", purchase_avatar_path(avatar.key), method: :post, class: "mani-btn mani-btn-primary",
+                          form: { class: "store-form", data: { turbo_confirm: "Comprar #{avatar.name} por #{avatar.price} M$?" } },
+                          "aria-label": "Comprar o avatar #{avatar.name} por #{avatar.price} M$" %>
+          <% else %>
+            <span class="store-locked" aria-label="Faltam <%= avatar.price - @manis %> M$ para comprar <%= avatar.name %>">
+              <%= mani_icon(:lock) %> <%= avatar.price %> M$<small>Faltam <%= avatar.price - @manis %> M$</small>
+            </span>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <p class="store-note">Os M$ vêm das respostas certas nas lições: cada uma vale <%= LessonCompletion::MANIS_PER_CORRECT_ANSWER %> M$. Cada avatar se compra uma vez só.</p>
+  <%= link_to "Voltar à trilha", user_path(current_user), class: "mani-btn mani-btn-ghost store-back" %>
+</div>

@@ -7,6 +7,9 @@ class LessonMap
     def available? = state == :available
     def locked? = state == :locked
 
+    # Finished with every answer right
+    def perfect? = completed? && percent == 100
+
     def percent
       total.zero? ? 0 : (correct * 100.0 / total).round
     end

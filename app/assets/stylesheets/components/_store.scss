@@ -1,0 +1,134 @@
+// Mani Store -----------------------------------------------------------------------------------
+
+.store-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+  font-family: var(--mani-font-body);
+  color: var(--mani-ink);
+}
+
+.store-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+
+  h1 { margin: 0 0 4px; font-size: clamp(1.6rem, 5.5vw, 2.3rem); font-weight: 900; line-height: 1.1; }
+  p { margin: 0; color: var(--mani-muted); line-height: 1.45; }
+}
+
+.store-icon { flex: none; width: 64px; height: auto; }
+
+.store-balance {
+  display: inline-block;
+  margin: 0 0 18px;
+  padding: 8px 16px;
+  background: var(--mani-gold-soft);
+  border: var(--mani-outline);
+  border-radius: 999px;
+  font-size: 1.1rem;
+}
+
+.store-grid {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (min-width: 640px) {
+  .store-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .store-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.store-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 12px 14px;
+  text-align: center;
+  background: var(--mani-surface);
+  border: var(--mani-outline);
+  border-radius: var(--mani-radius);
+  box-shadow: var(--mani-shadow-sm);
+
+  &.is-in-use { background: var(--mani-gold-soft); box-shadow: var(--mani-shadow); }
+
+  h2 { margin: 8px 0 2px; font-size: 1.05rem; font-weight: 900; line-height: 1.2; }
+  p { margin: 0; }
+}
+
+.store-avatar {
+  img { display: block; width: 112px; height: 112px; }
+
+  // The base avatar is a round drawing on a white square: a round frame crops the corners
+  &.is-base {
+    width: 112px;
+    height: 112px;
+    overflow: hidden;
+    border-radius: 50%;
+
+    img { transform: scale(1.12); }
+  }
+}
+
+.store-tier { font-size: 0.8125rem; font-weight: 800; color: var(--mani-teal-dark); }
+.store-description { margin-top: 6px; font-size: 0.875rem; color: var(--mani-muted); line-height: 1.35; flex: 1; }
+
+.store-action {
+  width: 100%;
+  margin-top: 12px;
+
+  .store-form { margin: 0; }
+  .mani-btn { width: 100%; min-height: 46px; padding: 6px 10px; font-size: 1rem; }
+}
+
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #fff;
+  border: var(--mani-outline);
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.store-locked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 8px;
+  background: #f3efec;
+  border: 2.5px dashed var(--mani-muted);
+  border-radius: 12px;
+  font-weight: 800;
+
+  small { font-weight: 700; color: var(--mani-muted); }
+}
+
+.store-note { margin: 0 0 16px; font-size: 0.9375rem; color: var(--mani-muted); line-height: 1.45; }
+.store-back { width: 100%; }
+
+// The avatar next to each name of the ranking
+.rank-avatar {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: contain;
+
+  &.is-base { object-fit: cover; transform: scale(1.12); border: 2px solid var(--mani-ink); background: var(--mani-teal); box-sizing: border-box; }
+}
+
+// On a phone the cards are narrow: keep the price on one line of the button
+@media (max-width: 479px) {
+  .store-action .mani-btn { font-size: 0.9375rem; padding: 6px 4px; white-space: nowrap; }
+}

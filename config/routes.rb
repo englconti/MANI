@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resource :daily_goal, only: :update
   get "simulador", to: "simulations#show", as: :simulator
   get "niveis", to: "levels#index", as: :levels
+  get "loja", to: "store#index", as: :store
+  post "loja/:key/comprar", to: "store#purchase", as: :purchase_avatar, constraints: { key: /[a-z0-9-]+/ }
+  post "loja/:key/usar", to: "store#use", as: :use_avatar, constraints: { key: /[a-z0-9-]+/ }
 
   get "sem-vidas", to: "lives#show", as: :no_lives
 

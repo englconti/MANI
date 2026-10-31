@@ -153,6 +153,12 @@
   .trail-icon { background: #fff; }
 }
 
+// Finished, but with mistakes: gold instead of green, so it reads as "not quite there"
+.trail-node.is-completed.is-imperfect {
+  .trail-link { --ring-color: var(--mani-gold); }
+  .trail-icon { background: var(--mani-gold-soft); }
+}
+
 .trail-node.is-available {
   .trail-link { --ring-color: var(--mani-blue); }
   .trail-icon {
