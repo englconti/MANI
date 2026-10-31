@@ -21,6 +21,7 @@
     </div>
 
     <div class="container-right-info">
+      <%= render "users/continue_button", recommended: @lesson_map.current, css: "is-wide", dom_id: "btn-continue-trail" %>
       <%= link_to store_path, class: "feature-card" do %>
         <%= mascot_tag("icon-money-bag", class: "feature-icon") %>
         <span><strong>Mani Store</strong><small>Troque seus M$ por avatares</small></span>

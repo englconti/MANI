@@ -54,6 +54,25 @@
     </div>
   </section>
 
+  <section class="testimonials" aria-labelledby="testimonials-title">
+    <div class="landing-inner">
+      <h2 id="testimonials-title">O que dizem sobre o Mani</h2>
+      <ul>
+        <% testimonials.each do |testimonial| %>
+          <li class="testimonial">
+            <p class="testimonial-stars" role="img" aria-label="5 de 5 estrelas"><% 5.times do %><%= mani_icon(:star) %><% end %></p>
+            <blockquote><p><%= testimonial["text"] %></p></blockquote>
+            <div class="testimonial-author">
+              <%= avatar_tag(Avatar.find!(testimonial["avatar"]), class: "testimonial-avatar") %>
+              <p><strong><%= testimonial["name"] %></strong><span><%= testimonial["about"] %></span></p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+      <p class="testimonials-note">Depoimentos de exemplo, com nomes fictícios.</p>
+    </div>
+  </section>
+
   <section class="final-cta">
     <div class="landing-inner">
       <h2>Pronto para o primeiro passo?</h2>

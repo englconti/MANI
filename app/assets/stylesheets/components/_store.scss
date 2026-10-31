@@ -132,3 +132,61 @@
 @media (max-width: 479px) {
   .store-action .mani-btn { font-size: 0.9375rem; padding: 6px 4px; white-space: nowrap; }
 }
+
+// The confirmation before a purchase
+.store-modal {
+  width: min(92vw, 380px);
+  padding: 0;
+  background: var(--mani-surface);
+  border: var(--mani-outline);
+  border-radius: 24px;
+  box-shadow: var(--mani-shadow);
+  color: var(--mani-ink);
+  font-family: var(--mani-font-body);
+
+  &::backdrop { background: rgba(27, 20, 17, 0.55); }
+}
+
+.store-modal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 20px 20px;
+  text-align: center;
+
+  h2 { margin: 0; font-size: 1.35rem; font-weight: 900; }
+}
+
+.store-modal-image { width: 120px; height: 120px; object-fit: contain; }
+
+.store-modal-who {
+  margin: 0;
+  font-size: 1.05rem;
+
+  span { margin-left: 6px; font-size: 0.8125rem; font-weight: 800; color: var(--mani-teal-dark); }
+}
+
+.store-modal-sums {
+  width: 100%;
+  margin: 4px 0 6px;
+  padding: 10px 14px;
+  background: var(--mani-gold-soft);
+  border: var(--mani-outline);
+  border-radius: 14px;
+
+  div { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; }
+  dt { font-weight: 600; }
+  dd { margin: 0; font-weight: 800; }
+
+  .is-after { margin-top: 4px; padding-top: 7px; border-top: 2px dashed var(--mani-ink); }
+}
+
+.store-modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+
+  .mani-btn { width: 100%; min-height: 46px; }
+}

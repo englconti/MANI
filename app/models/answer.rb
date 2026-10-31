@@ -7,7 +7,7 @@ class Answer < ApplicationRecord
   def submit!(submitted)
     correct = question.correct?(submitted)
     transaction do
-      update!(is_correct: correct)
+      update!(is_correct: correct, answered_at: Time.current)
       user.lose_life! unless correct
       user.register_study_day!
     end

@@ -15,7 +15,8 @@ class QuestionsController < ApplicationController
     # The first question of a lesson with an introduction opens it first, unless the person is
     # already in a flow that skips it (just came from it, practice or retrying the wrong ones)
     lesson = @question.lesson
-    if lesson.intro? && lesson.questions.first == @question && params[:skip_intro].blank? &&
+    # (a lesson left halfway also opens it, to choose between continuing and starting over)
+    if (lesson.intro? || lesson.resume_question_for(current_user)) && lesson.questions.first == @question && params[:skip_intro].blank? &&
        params[:retry].blank? && !@practice
       return redirect_to intro_lesson_path(lesson)
     end

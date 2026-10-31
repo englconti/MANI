@@ -1,0 +1,6 @@
+<%# The lesson to go on with. recommended: a LessonMap node; css: which copy it is (phone or wide) %>
+<% if recommended %>
+  <%= link_to question_path(recommended.lesson.questions.first), class: "mani-btn mani-btn-primary progress-cta #{css}", id: (local_assigns[:dom_id]) do %>
+    Continuar: <%= recommended.lesson.title %>
+  <% end %>
+<% end %>

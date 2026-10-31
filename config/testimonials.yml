@@ -1,0 +1,25 @@
+# Depoimentos de exemplo da página inicial (fictícios). Cada pessoa usa um avatar da Mani Store.
+- name: Camila R.
+  about: Estudante, 19 anos
+  avatar: pokehog
+  text: Eu nunca entendi nada de finanças e achava tudo chato. As lições são curtas, o porquinho explica de um jeito leve e, quando vi, já tinha feito três seguidas.
+- name: Rafael T.
+  about: Estagiário de TI
+  avatar: sherlock-hogmes
+  text: Aprendi a diferença entre CDB, Tesouro e poupança em uma semana. Gosto de que cada erro vem com explicação, e não só um "errou".
+- name: Beatriz M.
+  about: Professora
+  avatar: pig-ruto
+  text: A sequência diária me prende demais! Estudo dez minutos antes de dormir e ainda junto M$ para comprar um avatar novo na loja.
+- name: Lucas A.
+  about: Autônomo
+  avatar: wall-street-hog
+  text: O simulador de investimento abriu meus olhos para o efeito dos juros ao longo do tempo. Parece jogo, mas é conteúdo sério.
+- name: Fernanda S.
+  about: Mãe e empreendedora
+  avatar: pigdalf
+  text: Mostrei para a minha filha e agora a gente compete no ranking. Ela aprendeu a separar o que é desejo do que é necessidade.
+- name: Diego P.
+  about: Estudante de Administração
+  avatar: bat-hog
+  text: Os golpes financeiros que o app ensina a reconhecer me salvaram de um link falso de "renda extra". Valeu cada minutinho.

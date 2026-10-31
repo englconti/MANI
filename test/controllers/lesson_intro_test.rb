@@ -143,4 +143,64 @@ class LessonIntroTest < ActionDispatch::IntegrationTest
 
     assert_select ".intro-art img[src*='Mani-oficial']"
   end
+
+  # --- Lesson left halfway ---------------------------------------------------------------------
+
+  def answer_first(count)
+    @lesson.questions.first(count).each do |question|
+      @user.answers.find_by!(question: question).submit!(question.correct_answer)
+    end
+  end
+
+  test "a lesson left halfway offers to continue where it stopped or start over" do
+    answer_first(2)
+
+    get intro_lesson_url(@lesson)
+
+    assert_select ".intro-progress", text: /pergunta 3 de 3/
+    assert_select "a#btn-resume-lesson[href='#{question_path(@lesson.questions.third, skip_intro: 1)}']", text: "Continuar de onde parei"
+    assert_select "form[action='#{restart_lesson_path(@lesson)}'] button#btn-restart-lesson", text: "Recomeçar a aula"
+  end
+
+  test "a wrong answer also counts as answered when resuming" do
+    @user.answers.find_by!(question: @lesson.questions.first).submit!("b")
+
+    get intro_lesson_url(@lesson)
+
+    assert_select "a#btn-resume-lesson[href='#{question_path(@lesson.questions.second, skip_intro: 1)}']"
+  end
+
+  test "clicking a lesson in progress opens the introduction, even without intro text" do
+    other = create_lesson(title: "Sem Intro", count: 2)
+    user = create_user
+    sign_in user
+    user.answers.find_by!(question: other.questions.first).submit!("a")
+
+    get question_url(other.questions.first)
+
+    assert_redirected_to intro_lesson_url(other)
+    get intro_lesson_url(other)
+    assert_select "a#btn-resume-lesson"
+  end
+
+  test "restarting wipes the answers of that lesson and goes to its first question" do
+    answer_first(2)
+
+    post restart_lesson_url(@lesson)
+
+    assert_redirected_to question_path(@lesson.questions.first, skip_intro: 1)
+    assert_equal 0, @user.answers.where(question: @lesson.questions).where.not(answered_at: nil).count
+    assert_equal 0, @user.answers.where(question: @lesson.questions, is_correct: true).count
+    get intro_lesson_url(@lesson)
+    assert_select "#btn-resume-lesson", 0
+  end
+
+  test "a lesson with every question answered starts over from the introduction button" do
+    answer_first(3)
+
+    get intro_lesson_url(@lesson)
+
+    assert_select "#btn-resume-lesson", 0
+    assert_select "form[action='#{restart_lesson_path(@lesson)}'] button#btn-start-lesson"
+  end
 end

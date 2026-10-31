@@ -20,14 +20,14 @@ class ProgressFlowTest < ActionDispatch::IntegrationTest
 
     assert_select ".progress-panel .tile-title", text: /Nível 1: Cofrinho/
     assert_select ".progress-panel .meter[role=progressbar][aria-valuenow='0']"
-    assert_select ".progress-panel .tile-note", text: /Faltam 50 XP para Poupador/
+    assert_select ".progress-panel .tile-note", text: /Faltam 75 XP para Poupador/
     assert_select ".progress-panel .tile-note", text: /0 de 20 XP hoje/
     assert_select ".progress-panel .tile-title", text: /0 dias seguidos/
     assert_select ".progress-panel .tile-note", text: /Estude hoje para começar uma sequência/
   end
 
   test "the panel follows the XP of the day and the level" do
-    @user.update!(xp: 60)
+    @user.update!(xp: 100)
     XpDay.credit!(@user, 12)
 
     get user_url(@user)
@@ -78,6 +78,42 @@ class ProgressFlowTest < ActionDispatch::IntegrationTest
     assert_select "li.trail-node.is-available", 2
     assert_select "li.trail-node.is-recommended", 1
     assert_select "li.trail-node.is-available:not(.is-recommended) .trail-start", text: "Começar"
+  end
+
+  test "a lesson left halfway shows the paused icon, a ring with the answered questions and says continue" do
+    other = create_lesson(title: "Aula Dois", count: 4)
+    user = create_user
+    sign_in user
+    user.answers.find_by!(question: other.questions.first).submit!("a")
+
+    get user_url(user)
+
+    assert_select "li.trail-node.is-available.is-in-progress .mani-icon-pause", 1
+    assert_select "li.trail-node.is-in-progress .trail-link[style*='--p: 25']"
+    assert_select "li.trail-node.is-in-progress .trail-start", text: "Continuar"
+    assert_select "li.trail-node.is-available:not(.is-in-progress) .mani-icon-play", 1
+    assert_select "li.trail-node .mani-icon-retry", 0
+  end
+
+  test "continue goes back to the lesson left halfway most recently, not to the first open one" do
+    older = create_lesson(title: "Aula Antiga", count: 3)
+    recent = create_lesson(title: "Aula Recente", count: 3)
+    user = create_user
+    sign_in user
+    user.answers.find_by!(question: older.questions.first).tap { |answer| answer.submit!("a") }.update_column(:answered_at, 2.days.ago)
+    user.answers.find_by!(question: recent.questions.first).submit!("a")
+
+    get user_url(user)
+
+    assert_select "a#btn-continue-trail[href='#{question_path(recent.questions.first)}']", text: /Continuar: Aula Recente/
+    assert_select "li.trail-node.is-recommended .trail-title", text: /Aula Recente/
+  end
+
+  test "the continue button sits above the store on wide screens and in the panel on phones" do
+    get user_url(@user)
+
+    assert_select ".container-right-info > a.progress-cta.is-wide#btn-continue-trail:first-child"
+    assert_select ".progress-panel a.progress-cta.is-phone", 1
   end
 
   test "there is nothing to continue when every lesson is done" do
@@ -183,7 +219,7 @@ class ProgressFlowTest < ActionDispatch::IntegrationTest
   # --- Lesson summary ------------------------------------------------------------------------------
 
   test "the summary says when the lesson took the person to the next level" do
-    @user.update!(xp: 40)
+    @user.update!(xp: 65)
     @user.answers.update_all(is_correct: true)
 
     get lesson_url(@lesson)

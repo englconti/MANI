@@ -2,10 +2,18 @@
 # prerequisite the user has not finished yet (finishing = reaching its summary).
 # Level 1 lessons have no prerequisite; a level 2 lesson needs its level 1 lesson.
 class LessonMap
-  Node = Struct.new(:lesson, :state, :correct, :total, :prerequisite, keyword_init: true) do
+  Node = Struct.new(:lesson, :state, :correct, :total, :prerequisite, :answered, :last_answered_at, keyword_init: true) do
     def completed? = state == :completed
     def available? = state == :available
     def locked? = state == :locked
+
+    # Open and already started: some questions answered, the lesson not finished
+    def in_progress? = available? && answered.to_i.positive?
+
+    # How far through the questions the person is (the ring of a lesson in progress)
+    def answered_percent
+      total.zero? ? 0 : (answered.to_i * 100.0 / total).round
+    end
 
     # Finished with every answer right
     def perfect? = completed? && percent == 100
@@ -62,9 +70,10 @@ class LessonMap
     node.present? && !node.locked?
   end
 
-  # The recommended next lesson: the first lesson still to do among the open ones
+  # The lesson to go on with: the one left halfway most recently, else the first lesson still
+  # to do among the open ones
   def current
-    nodes.find(&:available?)
+    nodes.select(&:in_progress?).max_by(&:last_answered_at) || nodes.find(&:available?)
   end
 
   private
@@ -73,6 +82,9 @@ class LessonMap
     totals = Question.group(:lesson_id).count
     corrects = @user.answers.where(is_correct: true).joins(:question)
                     .group("questions.lesson_id").count
+    answered = @user.answers.where.not(answered_at: nil).joins(:question).group("questions.lesson_id")
+    answered_counts = answered.count
+    last_answered = answered.maximum(:answered_at)
     completions = LessonCompletion.where(user_id: @user.id).index_by(&:lesson_id)
     finished_ids = completions.keys.to_set
 
@@ -89,7 +101,8 @@ class LessonMap
       # The best score of a finished lesson stays even if its answers were reset by a content update
       correct = [corrects.fetch(lesson.id, 0), completions[lesson.id]&.correct_count.to_i].max
       Node.new(lesson: lesson, state: state, correct: [correct, totals.fetch(lesson.id)].min,
-               total: totals.fetch(lesson.id), prerequisite: lesson.prerequisite)
+               total: totals.fetch(lesson.id), prerequisite: lesson.prerequisite,
+               answered: answered_counts.fetch(lesson.id, 0), last_answered_at: last_answered[lesson.id])
     end
   end
 end
