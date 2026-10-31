@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 
 
 export default class extends Controller {
-  static targets = [ "content", "form", "list", "searchInput" ]
+  static targets = [ "content", "form", "list", "searchInput", "shareStatus" ]
 
   disconnect() {
     clearTimeout(this.searchTimer)
@@ -57,25 +57,21 @@ export default class extends Controller {
     }
   }
 
-  openInviteWindow(e) {
-    // e.preventDefault();
-    const overlay = document.querySelector(".overlay-send-invite");
-    const windowAddFriend = document.querySelector(".box-window-send-invite");
-
-    overlay.classList.remove("hidden");
-    windowAddFriend.classList.remove("hidden");
-  }
-
-  closeInviteWindow() {
-    const overlay = document.querySelector(".overlay-send-invite");
-    const windowSendInvite = document.querySelector(".box-window-send-invite");
-
-    overlay.classList.add("hidden");
-    windowSendInvite.classList.add("hidden");
-  }
-
-  sendInviteFake() {
-    document.querySelector("#blank-space-send-invite").hidden = true;
-    document.querySelector("#fake-invite-msg").hidden = false;
+  // Shares the address of the app: the phone's share sheet when there is one,
+  // otherwise the link is copied
+  async share() {
+    const data = { title: "Mani", text: "Aprenda finanças jogando com o Mani", url: window.location.origin }
+    try {
+      if (navigator.share) {
+        await navigator.share(data)
+        return
+      }
+      await navigator.clipboard.writeText(data.url)
+      this.shareStatusTarget.textContent = "Link copiado! Envie para quem você quer convidar."
+    } catch (error) {
+      // Closing the share sheet is not an error
+      if (error.name === "AbortError") return
+      this.shareStatusTarget.textContent = `Copie o link: ${data.url}`
+    }
   }
 }

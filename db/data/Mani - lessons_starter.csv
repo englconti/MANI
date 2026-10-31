@@ -1,8 +1,12 @@
-title,description,level,prerequisite
-Conceitos Básicos I,Questões básicas sobre finanças,1,
-Finanças Pessoais I,Questões básicas sobre a disciplina de finanças pessoais.,1,
-Renda Fixa I,Questões relacionadas a investimentos em Renda Fixa de forma geral,1,
-Renda Variável I,Questões relacionadas a investimentos em Renda Variável de forma geral,1,
-FII I,Questões sobre Fundos de Investimento Imobiliário,1,
-Conceitos Básicos II,Questões básicas sobre finanças,2,Conceitos Básicos I
-Finanças Pessoais II,Questões básicas sobre a disciplina de finanças pessoais.,2,Finanças Pessoais I
+title,description,level,prerequisite,track
+Conceitos Básicos I,Questões básicas sobre finanças,1,,
+Orçamento Pessoal,Organize o que entra e o que sai todo mês,1,,Finanças Pessoais
+Golpes Financeiros,Aprenda a reconhecer e evitar golpes,1,,
+Renda Fixa I,Questões relacionadas a investimentos em Renda Fixa de forma geral,1,,
+Renda Variável I,Questões relacionadas a investimentos em Renda Variável de forma geral,1,,
+FII I,Questões sobre Fundos de Investimento Imobiliário,1,,
+Gestão Empresarial I,"Títulos de crédito, tributos e custos de empresas",1,,
+Conceitos Básicos II,Questões básicas sobre finanças,2,Conceitos Básicos I,
+Dívidas e Cartão de Crédito,"Juros, rotativo e como lidar com dívidas",2,Orçamento Pessoal,Finanças Pessoais
+Gestão Empresarial II,"Custos, fluxo de caixa e cenário econômico para empresas",2,Gestão Empresarial I,
+Reserva de Emergência,"Quanto guardar, onde deixar e para que serve",3,Dívidas e Cartão de Crédito,Finanças Pessoais

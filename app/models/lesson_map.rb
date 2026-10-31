@@ -42,9 +42,10 @@ class LessonMap
       roots = nodes.select { |node| node.lesson.prerequisite_id.nil? || !known_ids.include?(node.lesson.prerequisite_id) }
 
       roots.map do |root|
+        # Every lesson that hangs from the root, level by level, so none is ever left out
         chain = [root]
-        chain << by_prerequisite.fetch(chain.last.lesson.id, []).first while by_prerequisite.key?(chain.last.lesson.id)
-        Track.new(subject: root.lesson.subject, nodes: chain)
+        chain.each { |node| chain.concat(by_prerequisite.fetch(node.lesson.id, [])) }
+        Track.new(subject: root.lesson.track.presence || root.lesson.subject, nodes: chain)
       end
     end
   end

@@ -72,4 +72,57 @@ class ContentSyncTest < ActiveSupport::TestCase
       assert_includes %w[A B C D], row["correct_answer"], "#{row['statement'][0, 40]} needs a letter answer"
     end
   end
+
+  test "the lessons CSV is consistent with the questions CSV" do
+    lessons = CSV.read(Rails.root.join("db/data/Mani - lessons_starter.csv"), headers: true)
+    questions = CSV.read(Rails.root.join("db/data/Mani - questions_starter.csv"), headers: true)
+    titles = lessons.map { |lesson| lesson["title"] }
+
+    assert_equal titles.uniq, titles, "lesson titles must be unique"
+    assert_empty questions.map { |question| question["lesson_title"] }.uniq - titles, "questions of lessons that do not exist"
+    titles.each do |title|
+      count = questions.count { |question| question["lesson_title"] == title }
+      assert_operator count, :>=, 5, "#{title} has only #{count} questions"
+    end
+  end
+
+  test "each level is one more than the level of its prerequisite" do
+    lessons = CSV.read(Rails.root.join("db/data/Mani - lessons_starter.csv"), headers: true)
+    levels = lessons.to_h { |lesson| [lesson["title"], lesson["level"].to_i] }
+
+    lessons.each do |lesson|
+      if lesson["prerequisite"].to_s.empty?
+        assert_equal 1, lesson["level"].to_i, "#{lesson['title']} has no prerequisite so it must be level 1"
+      else
+        assert_equal levels.fetch(lesson["prerequisite"]) + 1, lesson["level"].to_i, "#{lesson['title']} has a wrong level"
+      end
+    end
+  end
+
+  test "a fresh database gets lessons, questions and informations from the CSVs" do
+    Question.delete_all
+    Lesson.update_all(prerequisite_id: nil)
+    Lesson.delete_all
+    Information.delete_all
+
+    changed = ContentSync.call
+
+    assert_equal 11, Lesson.count
+    assert_equal 76, Question.count
+    assert_operator Information.count, :>=, 5
+    assert_operator changed, :>, 90
+    assert_equal "Orçamento Pessoal", Lesson.find_by!(title: "Dívidas e Cartão de Crédito").prerequisite.title
+    assert_equal "Finanças Pessoais", Lesson.find_by!(title: "Reserva de Emergência").track
+    assert_equal [1, 2, 3], Lesson.where(track: "Finanças Pessoais").order(:position).pluck(:level)
+  end
+
+  test "running the sync twice changes nothing the second time" do
+    Question.delete_all
+    Lesson.update_all(prerequisite_id: nil)
+    Lesson.delete_all
+    Information.delete_all
+    ContentSync.call
+
+    assert_equal 0, ContentSync.call
+  end
 end

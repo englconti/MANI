@@ -98,4 +98,41 @@ class LessonMapTest < ActiveSupport::TestCase
     assert_equal %i[completed completed completed], states
     assert_nil LessonMap.new(@user).current
   end
+
+  test "a card named by the track holds lessons of different subjects" do
+    root = Lesson.create!(title: "Orçamento Pessoal", description: "d", track: "Finanças Pessoais")
+    Question.create!(lesson: root, question_type: "abcd", statement: "q", a: "a", b: "b", c: "c", d: "d", correct_answer: "a")
+    second = create_lesson(title: "Dívidas e Cartão de Crédito", count: 1, prerequisite: root)
+    third = create_lesson(title: "Reserva de Emergência", count: 1, prerequisite: second)
+    Lesson.where(id: [second.id, third.id]).update_all(track: "Finanças Pessoais")
+    Lesson.where(id: third.id).update_all(level: 3)
+    user = create_user
+
+    track = LessonMap.new(user).tracks.find { |candidate| candidate.subject == "Finanças Pessoais" }
+
+    assert_equal [root, second, third], track.nodes.map(&:lesson)
+  end
+
+  test "two lessons that need the same one both stay in its track" do
+    root = create_lesson(count: 1)
+    a = create_lesson(count: 1, prerequisite: root)
+    b = create_lesson(count: 1, prerequisite: root)
+    user = create_user
+
+    track = LessonMap.new(user).tracks.find { |candidate| candidate.nodes.first.lesson == root }
+
+    assert_equal [root, a, b], track.nodes.map(&:lesson)
+  end
+
+  test "levels go up to three" do
+    lesson = Lesson.new(title: "X", description: "d", level: 3)
+    assert lesson.valid?
+
+    lesson.level = 4
+    assert_not lesson.valid?
+  end
+
+  test "subject drops a trailing III too" do
+    assert_equal "Algo", Lesson.new(title: "Algo III").subject
+  end
 end
