@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
     # devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :birthday, :score, :lives) }
   end
 
+  # After signing in (or up) go straight to the user's trail, unless they were
+  # sent to the login by a protected page: then send them back there.
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || user_path(resource)
+  end
+
   # REMOVE Navbar --------------------------------------
   def disable_nav
     @disable_nav = true
