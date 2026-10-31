@@ -29,7 +29,7 @@ class LessonFlowTest < ActionDispatch::IntegrationTest
 
     post restart_lesson_url(@lesson)
 
-    assert_redirected_to question_path(@lesson.questions.first)
+    assert_redirected_to question_path(@lesson.questions.first, skip_intro: 1)
     assert_equal 1, @user.reload.lives
   end
 

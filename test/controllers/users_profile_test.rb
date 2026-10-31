@@ -112,4 +112,11 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_select "button", text: /Envie um convite/, count: 0
     assert_select ".box-window-send-invite", count: 0
   end
+  test "the Você sabia card is not shown" do
+    get user_url(@user)
+
+    assert_response :success
+    assert_no_match(/Você sabia/, response.body)
+    assert_select ".container-center-info", 0
+  end
 end

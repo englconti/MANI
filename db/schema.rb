@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_31_180000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_31_200000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,6 +62,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_31_180000) do
     t.integer "level", default: 1, null: false
     t.bigint "prerequisite_id"
     t.string "track"
+    t.string "intro_title"
+    t.text "intro_text"
+    t.string "intro_image"
     t.index ["position"], name: "index_lessons_on_position"
     t.index ["prerequisite_id"], name: "index_lessons_on_prerequisite_id"
   end
@@ -80,6 +83,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_31_180000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "explanation"
+    t.text "context"
     t.index ["lesson_id"], name: "index_questions_on_lesson_id"
   end
 

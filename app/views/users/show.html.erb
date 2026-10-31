@@ -20,16 +20,6 @@
       <%= render 'trail', tracks: @lesson_map.tracks, recommended: @lesson_map.current&.lesson %>
     </div>
 
-    <div class="container-center-info">
-
-      <h2>Você sabia? <%= mani_icon(:star) %></h2>
-      <% if @information %>
-        <%= image_tag @information.img_url, alt: "" %>
-        <p><%= @information.text %></p>
-        <h6>fonte: <a href="<%= @information.source %>" target="_blank" rel="noopener"><%= @information.source %></a></h6>
-      <% end %>
-    </div>
-
     <div class="container-right-info">
       <%= render 'friends-box', all_users: @all_users, all_friends: @all_friends, ranking: @ranking %>
     </div>

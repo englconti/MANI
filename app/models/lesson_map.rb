@@ -70,7 +70,8 @@ class LessonMap
     totals = Question.group(:lesson_id).count
     corrects = @user.answers.where(is_correct: true).joins(:question)
                     .group("questions.lesson_id").count
-    finished_ids = @user.lesson_completions.pluck(:lesson_id).to_set
+    completions = LessonCompletion.where(user_id: @user.id).index_by(&:lesson_id)
+    finished_ids = completions.keys.to_set
 
     lessons = Lesson.ordered.includes(:prerequisite).where(id: totals.keys)
 
@@ -82,7 +83,9 @@ class LessonMap
               else
                 :locked
               end
-      Node.new(lesson: lesson, state: state, correct: corrects.fetch(lesson.id, 0),
+      # The best score of a finished lesson stays even if its answers were reset by a content update
+      correct = [corrects.fetch(lesson.id, 0), completions[lesson.id]&.correct_count.to_i].max
+      Node.new(lesson: lesson, state: state, correct: [correct, totals.fetch(lesson.id)].min,
                total: totals.fetch(lesson.id), prerequisite: lesson.prerequisite)
     end
   end

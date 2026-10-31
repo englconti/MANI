@@ -21,7 +21,6 @@ class UsersController < ApplicationController
 
     @all_friends = find_friends
     @ranking = build_ranking(@all_friends)
-    @information = random_information
   end
 
   private
@@ -49,7 +48,4 @@ class UsersController < ApplicationController
     end
   end
 
-  def random_information
-    Information.all.sample
-  end
 end

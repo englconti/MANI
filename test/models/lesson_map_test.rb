@@ -135,4 +135,24 @@ class LessonMapTest < ActiveSupport::TestCase
   test "subject drops a trailing III too" do
     assert_equal "Algo", Lesson.new(title: "Algo III").subject
   end
+
+  test "a finished lesson keeps its best score after its answers were reset" do
+    @user.answers.where(question: @first.questions).update_all(is_correct: false)
+    LessonCompletion.create!(user: @user, lesson: @first, correct_count: 3)
+
+    node = LessonMap.new(@user).nodes.first
+
+    assert_equal 3, node.correct
+    assert_equal 75, node.percent
+    assert_equal 2, node.stars
+  end
+
+  test "the score never goes above the number of questions" do
+    LessonCompletion.create!(user: @user, lesson: @second, correct_count: 99)
+
+    node = LessonMap.new(@user).nodes.find { |candidate| candidate.lesson == @second }
+
+    assert_equal node.total, node.correct
+    assert_equal 100, node.percent
+  end
 end
