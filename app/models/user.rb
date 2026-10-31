@@ -6,16 +6,16 @@ class User < ApplicationRecord
   include HasLives
   include HasStreak
 
-  has_many :answers
-  has_many :lesson_completions
+  has_many :answers, dependent: :destroy
+  has_many :lesson_completions, dependent: :destroy
 
   validates :lives, numericality: { greater_than_or_equal_to: 0 }
 
   after_create :populate_answers
 
   # for Friendships ------------------
-  has_many :friendships_as_asker, class_name: "Friendship", foreign_key: :asker_id
-  has_many :friendships_as_receiver, class_name: "Friendship", foreign_key: :receiver_id
+  has_many :friendships_as_asker, class_name: "Friendship", foreign_key: :asker_id, dependent: :destroy
+  has_many :friendships_as_receiver, class_name: "Friendship", foreign_key: :receiver_id, dependent: :destroy
   # ----------------------------------
 
   # for searching friends ------------

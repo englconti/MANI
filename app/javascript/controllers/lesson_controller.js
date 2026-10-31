@@ -198,7 +198,8 @@ export default class extends Controller {
     const button = this.soundToggleTarget
     button.setAttribute("aria-pressed", on)
     button.setAttribute("aria-label", on ? "Desligar o som" : "Ligar o som")
-    button.querySelector("i").className = on ? "fas fa-volume-up" : "fas fa-volume-mute"
+    button.querySelector("[data-sound-icon=on]").hidden = !on
+    button.querySelector("[data-sound-icon=off]").hidden = on
   }
 
   // --- Keyboard shortcuts -----------------------------------------------------

@@ -148,3 +148,18 @@ h1, h2, h3, h4 {
   color: var(--mani-muted);
   text-align: center;
 }
+
+.mani-icon.is-plain {
+  filter: none;
+  vertical-align: -0.2em;
+}
+
+.mani-btn-danger {
+  background: var(--mani-red-soft);
+  color: var(--mani-red-ink);
+  border-color: var(--mani-red-ink);
+  box-shadow: 3px 3px 0 var(--mani-red-ink);
+
+  &:hover { color: var(--mani-red-ink); box-shadow: 4px 4px 0 var(--mani-red-ink); }
+  &:active { box-shadow: 0 0 0 var(--mani-red-ink); }
+}

@@ -48,15 +48,36 @@ module IconsHelper
       <path d="M11 19l8-4 8 3 10 1v12l-6 6-6 3-6-2-6-6-4-1z" fill="#f6a98a" stroke="#{INK}" stroke-width="3" stroke-linejoin="round"/>
       <path d="M20 28l5 5M24 25l5 5M28 22l4 4" fill="none" stroke="#{INK}" stroke-width="2.5" stroke-linecap="round"/>
     SVG
-    play: <<~SVG
+    play: <<~SVG,
       <path d="M16 10l22 14-22 14z" fill="#fffaf0" stroke="#{INK}" stroke-width="3" stroke-linejoin="round"/>
     SVG
+    # Controls: they take the colour of the text around them
+    close_circle: <<~SVG,
+      <circle cx="24" cy="24" r="20" fill="currentColor"/>
+      <path d="M17 17l14 14M31 17L17 31" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+    SVG
+    volume_on: <<~SVG,
+      <path d="M7 19h8l11-9v28l-11-9H7z" fill="currentColor"/>
+      <path d="M32 17a10 10 0 0 1 0 14M37 12a17 17 0 0 1 0 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+    SVG
+    volume_off: <<~SVG,
+      <path d="M7 19h8l11-9v28l-11-9H7z" fill="currentColor"/>
+      <path d="M33 19l10 10M43 19L33 29" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+    SVG
+    users: <<~SVG
+      <circle cx="18" cy="16" r="7" fill="currentColor"/>
+      <path d="M4 41c0-8 6-13 14-13s14 5 14 13z" fill="currentColor"/>
+      <circle cx="34" cy="17" r="5.5" fill="currentColor" opacity=".65"/>
+      <path d="M34 27c6 0 11 4 11 11 0 1-.2 2-.5 3H36c.3-1 .5-2 .5-3 0-4-1-8-2.5-11z" fill="currentColor" opacity=".65"/>
+    SVG
   }.freeze
+
+  PLAIN = %i[close_circle volume_on volume_off users].freeze
 
   # mani_icon(:flame), mani_icon(:star, class: "off")
   def mani_icon(name, **options)
     body = ICONS.fetch(name.to_sym)
-    css = ["mani-icon", "mani-icon-#{name}", options[:class]].compact.join(" ")
+    css = ["mani-icon", "mani-icon-#{name}", ("is-plain" if PLAIN.include?(name.to_sym)), options[:class]].compact.join(" ")
     %(<svg class="#{css}" viewBox="0 0 48 48" aria-hidden="true" focusable="false">#{body}</svg>).html_safe
   end
 end

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # keep this on top, otherwise some errors will happen with log in!
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
   root to: 'pages#home'
   # ----------------------------------------------------------------
 

@@ -1,14 +1,14 @@
-<% if notice %>
-  <div class="alert alert-info alert-dismissible fade show m-1" role="alert">
-    <%= notice %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar">
-    </button>
-  </div>
-<% end %>
-<% if alert %>
-  <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
-    <%= alert %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar">
-    </button>
+<%# Notices fade away on their own; alerts (problems) stay until closed %>
+<% messages = { notice: notice, alert: alert }.reject { |_kind, message| message.blank? } %>
+<% if messages.any? %>
+  <div class="mani-flashes" data-turbo-temporary>
+    <% messages.each do |kind, message| %>
+      <div class="mani-flash is-<%= kind %>" role="<%= kind == :alert ? "alert" : "status" %>"
+           data-controller="flash" data-flash-delay-value="<%= kind == :alert ? 0 : 6000 %>"
+           data-action="mouseenter->flash#pause mouseleave->flash#schedule focusin->flash#pause focusout->flash#schedule">
+        <span class="mani-flash-text"><%= message %></span>
+        <button type="button" class="mani-flash-close" aria-label="Fechar aviso" data-action="flash#dismiss"><%= mani_icon(:close_circle) %></button>
+      </div>
+    <% end %>
   </div>
 <% end %>

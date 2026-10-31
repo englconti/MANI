@@ -21,7 +21,7 @@
   <header class="question-top-part animate__animated animate__fadeIn">
     <%= link_to user_path(current_user), data: { turbo_confirm: "Tem certeza que deseja sair da aula?" },
                 class: "question-cancel-btn", "aria-label": "Sair da aula" do %>
-      <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+      <%= mani_icon(:close_circle) %>
     <% end %>
     <div class="bar-container-part" role="progressbar" aria-label="Progresso da aula"
          aria-valuemin="0" aria-valuemax="<%= lesson_questions.size %>" aria-valuenow="<%= current_question_i %>">
@@ -44,7 +44,7 @@
   <div class="question-footer" data-lesson-target="footer">
     <button type="button" class="sound-toggle" data-lesson-target="soundToggle" data-action="lesson#toggleSound"
             aria-pressed="true" aria-label="Desligar o som">
-      <i class="fas fa-volume-up" aria-hidden="true"></i>
+      <span data-sound-icon="on"><%= mani_icon(:volume_on) %></span><span data-sound-icon="off" hidden><%= mani_icon(:volume_off) %></span>
     </button>
     <div class="answer-feedback" role="status" aria-live="polite" data-lesson-target="feedback"></div>
     <div class="right-buttons">
