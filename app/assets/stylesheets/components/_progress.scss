@@ -199,3 +199,21 @@
 @media (max-width: 479px) {
   .practice-long { display: none; }
 }
+
+// Wide screens: the panel uses the columns of the page below it, so the streak tile lines up
+// with the right column (continue button, store, ranking) and the first two tiles with the trail
+.progress-tiles { display: contents; }
+
+@media (min-width: 900px) {
+  .progress-panel {
+    grid-template-columns: minmax(0, 1.8fr) minmax(300px, 1fr);
+    gap: 24px;
+  }
+
+  .progress-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+}

@@ -7,6 +7,7 @@
 <% recommended = lesson_map.current %>
 
 <section class="progress-panel" aria-label="Seu progresso">
+  <div class="progress-tiles">
   <div class="progress-tile">
     <h2 class="tile-title"><%= link_to levels_path, class: "tile-link", "aria-label": "Nível #{level.number}, #{level.name}. Ver todos os níveis" do %><%= mani_icon(:star) %> Nível <%= level.number %>: <%= level.name %><% end %></h2>
     <div class="meter" role="progressbar" aria-label="Progresso no nível" aria-valuemin="0" aria-valuemax="100"
@@ -33,6 +34,7 @@
         <% end %>
       </div>
     </details>
+  </div>
   </div>
 
   <div class="progress-tile">
