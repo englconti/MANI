@@ -195,8 +195,7 @@ $red-heart: #e8505f;
 }
 
 // 4. Modals: add friend and send invite ----------------------------------------------
-.overlay,
-.overlay-send-invite {
+.overlay {
   position: fixed;
   inset: 0;
   background: rgba(27, 20, 17, 0.55);
@@ -209,8 +208,7 @@ $red-heart: #e8505f;
   opacity: 0;
 }
 
-.box-window-add-friend,
-.box-window-send-invite {
+.box-window-add-friend {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -227,8 +225,7 @@ $red-heart: #e8505f;
   transition: opacity 0.25s, visibility 0.25s;
 }
 
-.search-friend-top,
-.send-invite-top {
+.search-friend-top {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -236,8 +233,7 @@ $red-heart: #e8505f;
   gap: 10px;
   margin-bottom: 12px;
 
-  #search-friend-statement,
-  #send-invite-statement {
+  #search-friend-statement {
     margin: 0;
     font-family: var(--mani-font-display);
     font-size: 1.25rem;
@@ -254,8 +250,7 @@ $red-heart: #e8505f;
   }
 }
 
-.add-friend-cancel-btn,
-.send-invite-cancel-btn {
+.add-friend-cancel-btn {
   padding: 0;
   border: 0;
   background: none;
@@ -306,33 +301,13 @@ $red-heart: #e8505f;
   .btn-search-unfollow { background: var(--mani-surface); }
 }
 
-#send-invite-body {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 12px;
+// Feedback of the "Compartilhar link" button
+.share-status {
+  margin: 0;
+  padding: 0 14px 14px;
+  font-weight: 700;
+  color: var(--mani-teal-dark);
+  background: var(--mani-peach-soft);
 
-  p { margin: 0; }
-  #fake-invite-msg { color: var(--mani-teal-dark); font-weight: 700; }
-}
-
-#form-send-invite {
-  width: 100%;
-  min-height: 46px;
-  padding: 6px 12px;
-  border: var(--mani-outline);
-  border-radius: 12px;
-}
-
-#box-btn-send-invite {
-  min-height: 48px;
-  border: var(--mani-outline);
-  border-radius: 12px;
-  background: var(--mani-coral);
-  box-shadow: 3px 3px 0 var(--mani-ink);
-  font-family: var(--mani-font-display);
-  font-weight: 800;
-  color: var(--mani-ink);
-
-  &:active { transform: translate(3px, 3px); box-shadow: none; }
+  &:empty { display: none; }
 }

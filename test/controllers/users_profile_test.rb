@@ -86,4 +86,30 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
 
     assert_select "title", text: "Sua trilha · MANI"
   end
+
+  test "inside a card the lessons of the same subject are labelled by level and others by name" do
+    root = create_lesson(title: "Conceitos X I", count: 1)
+    create_lesson(title: "Conceitos X II", count: 1, prerequisite: root)
+    other = Lesson.create!(title: "Orçamento Z", description: "d", track: "Trilha Z")
+    Question.create!(lesson: other, question_type: "abcd", statement: "q", a: "a", b: "b", c: "c", d: "d", correct_answer: "a")
+    follow = create_lesson(title: "Reserva Z", count: 1, prerequisite: other)
+    Lesson.where(id: follow.id).update_all(track: "Trilha Z")
+
+    get user_url(@user)
+
+    assert_select "h2.track-title", text: "Conceitos X"
+    assert_select "h2.track-title", text: "Trilha Z"
+    assert_select ".trail-title [aria-hidden]", text: "Nível 1"
+    assert_select ".trail-title [aria-hidden]", text: "Nível 2"
+    assert_select ".trail-title [aria-hidden]", text: "Orçamento Z"
+    assert_select ".trail-title [aria-hidden]", text: "Reserva Z"
+  end
+
+  test "the friends box offers to share the link instead of sending invites" do
+    get user_url(@user)
+
+    assert_select "button", text: "Compartilhar link"
+    assert_select "button", text: /Envie um convite/, count: 0
+    assert_select ".box-window-send-invite", count: 0
+  end
 end

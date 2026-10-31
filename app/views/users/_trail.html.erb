@@ -27,7 +27,7 @@
                 <% end %>
               <% end %>
 
-              <span class="trail-title"><span class="visually-hidden"><%= lesson.title %></span><span aria-hidden="true">Nível <%= lesson.level %></span></span>
+              <span class="trail-title"><span class="visually-hidden"><%= lesson.title %></span><span aria-hidden="true"><%= lesson.subject == track.subject ? "Nível #{lesson.level}" : lesson.subject %></span></span>
               <% if node.available? %>
                 <span class="trail-start">Começar</span>
               <% elsif node.completed? %>

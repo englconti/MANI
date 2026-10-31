@@ -11,7 +11,7 @@ class Lesson < ApplicationRecord
 
   validates :title, presence: true
   validates :description, presence: true
-  validates :level, inclusion: { in: 1..2 }
+  validates :level, inclusion: { in: 1..3 }
   validate :prerequisite_is_another_lesson
 
   before_validation :set_default_position, on: :create
@@ -20,7 +20,7 @@ class Lesson < ApplicationRecord
 
   # "Finanças Pessoais II" -> "Finanças Pessoais": the subject a lesson belongs to
   def subject
-    title.sub(/\s+(I|II)\z/, "")
+    title.sub(/\s+(I|II|III)\z/, "")
   end
 
   private

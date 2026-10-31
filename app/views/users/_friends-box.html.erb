@@ -40,10 +40,6 @@
   </div>
   <!--end of window to add friends-->
 
-  <!--Window for sending invites (under development)-->
-  <%= render 'send-invite' %>
-  <!--end of window to send invites-->
-
   <div class="box-friends-header">
     <p>Amigos</p>
     <p>XP Atual</p>
@@ -60,7 +56,8 @@
 
   <footer id="friend-box-footer">
     <button type="button" class="btn btn-primary btn-add-friend" data-action="click->friends-actions#openWindow" >Add um amigo!</button>
-    <button type="button" class="btn btn-success btn-send-invite" data-action="click->friends-actions#openInviteWindow" >Envie um convite!</button>
+    <button type="button" class="btn btn-send-invite" data-action="click->friends-actions#share">Compartilhar link</button>
   </footer>
+  <p class="share-status" role="status" data-friends-actions-target="shareStatus"></p>
 
 </div>
