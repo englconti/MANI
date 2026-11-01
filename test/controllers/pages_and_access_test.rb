@@ -92,6 +92,15 @@ class PagesAndAccessTest < ActionDispatch::IntegrationTest
     assert_select "title", text: "Aprenda finanças jogando · MANI"
   end
 
+  test "every page carries the loading screen, hidden until a slow page change shows it" do
+    [root_url, new_user_session_url].each do |url|
+      get url
+
+      assert_select ".loading-overlay[hidden][data-controller='loading'][role='status']", count: 1
+      assert_select ".loading-overlay .loading-text", text: "Carregando…"
+    end
+  end
+
   test "pages without a title fall back to the app name" do
     get new_user_session_url
 

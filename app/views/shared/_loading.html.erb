@@ -1,0 +1,28 @@
+<%# Shown by the loading controller when changing page takes a while: a pig running in a hamster wheel %>
+<div class="loading-overlay" hidden role="status" aria-live="polite"
+     data-controller="loading"
+     data-action="turbo:visit@document->loading#schedule turbo:submit-start@document->loading#schedule turbo:render@document->loading#hide turbo:load@document->loading#hide turbo:before-cache@document->loading#hide turbo:fetch-request-error@document->loading#hide pageshow@window->loading#hide">
+  <svg class="loading-art" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <%# The stand holds the wheel and does not turn %>
+    <path class="loading-stand" d="M100 90 L66 184 M100 90 L134 184 M52 184 H148" />
+    <g class="loading-wheel">
+      <circle class="loading-rim" cx="100" cy="90" r="76" />
+      <path class="loading-spokes" d="M100 14 V166 M24 90 H176 M46 36 L154 144 M154 36 L46 144" />
+    </g>
+    <circle class="loading-axle" cx="100" cy="90" r="6" />
+    <%# The pig stays at the bottom of the wheel and runs in place %>
+    <g class="loading-pig">
+      <rect class="loading-leg leg-a" x="82" y="148" width="6" height="15" rx="3" />
+      <rect class="loading-leg leg-b" x="94" y="148" width="6" height="15" rx="3" />
+      <path class="loading-tail" d="M76 132 q-10 -2 -8 -10 q2 -5 7 -2" />
+      <ellipse class="loading-body" cx="100" cy="136" rx="26" ry="16" />
+      <path class="loading-ear" d="M118 118 L125 110 L129 121 Z" />
+      <circle class="loading-body" cx="126" cy="128" r="12.5" />
+      <ellipse class="loading-snout" cx="137" cy="131" rx="6" ry="5" />
+      <circle class="loading-eye" cx="129" cy="124.5" r="1.8" />
+      <rect class="loading-leg leg-c" x="106" y="148" width="6" height="15" rx="3" />
+      <rect class="loading-leg leg-d" x="118" y="148" width="6" height="15" rx="3" />
+    </g>
+  </svg>
+  <p class="loading-text">Carregando…</p>
+</div>

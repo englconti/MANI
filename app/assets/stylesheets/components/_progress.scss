@@ -120,6 +120,11 @@
   font-weight: 800;
   color: var(--mani-teal-dark);
   text-underline-offset: 3px;
+  display: inline-block;
+  transition: transform 0.12s ease, color 0.12s ease;
+
+  &:hover { color: var(--mani-ink); transform: translateY(-1px); }
+  &:active { transform: translateY(1px); }
 
   &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; border-radius: 4px; }
 }
