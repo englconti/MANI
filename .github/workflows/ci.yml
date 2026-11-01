@@ -46,3 +46,12 @@ jobs:
         with:
           bundler-cache: true
       - run: gem install brakeman --no-document && brakeman -q --no-pager --no-exit-on-warn
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Builds the same image Render builds, so a broken Dockerfile fails here first
+      - run: docker build -t mani:ci .
+      # Puma writes its PID file here at start-up; .dockerignore skips tmp/*, so the Dockerfile must create it
+      - run: docker run --rm --entrypoint ls mani:ci -d tmp/pids
