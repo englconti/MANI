@@ -1,0 +1,93 @@
+// Loading screen: a pig running in a hamster wheel (markup in shared/_loading) ----------------
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000; // above the navbar and Bootstrap modals
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: rgba(234, 245, 244, 0.94);
+  animation: loading-fade-in 0.2s ease-out;
+
+  // display: flex above would otherwise win over the hidden attribute
+  &[hidden] { display: none; }
+}
+
+.loading-art {
+  width: min(60vw, 240px);
+  height: auto;
+  overflow: visible;
+}
+
+.loading-text {
+  margin: 0;
+  font-family: var(--mani-font-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--mani-ink);
+}
+
+// Everything is drawn like the rest of the app: flat colour and an ink outline
+.loading-stand,
+.loading-rim,
+.loading-spokes,
+.loading-tail {
+  fill: none;
+  stroke: var(--mani-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.loading-stand { stroke-width: 5; }
+.loading-rim { stroke-width: 6; fill: rgba(255, 255, 255, 0.55); }
+.loading-spokes { stroke-width: 3; opacity: 0.55; }
+.loading-axle { fill: var(--mani-gold); stroke: var(--mani-ink); stroke-width: 2.5; }
+.loading-tail { stroke-width: 3; }
+
+.loading-body,
+.loading-leg,
+.loading-ear,
+.loading-snout {
+  stroke: var(--mani-ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.loading-body,
+.loading-leg { fill: var(--mani-peach); }
+.loading-ear { fill: var(--mani-coral); }
+.loading-snout { fill: var(--mani-coral); }
+.loading-eye { fill: var(--mani-ink); }
+
+// The wheel turns clockwise, so the pig at the bottom is running to the right
+.loading-wheel {
+  transform-origin: 100px 90px;
+  animation: loading-spin 3s linear infinite;
+}
+
+.loading-pig { animation: loading-bob 0.36s ease-in-out infinite; }
+
+.loading-leg {
+  transform-box: fill-box;
+  transform-origin: 50% 8%;
+  animation: loading-step 0.36s ease-in-out infinite;
+
+  // Diagonal pairs move together, like a trot
+  &.leg-b,
+  &.leg-c { animation-direction: reverse; }
+}
+
+@keyframes loading-spin { to { transform: rotate(360deg); } }
+@keyframes loading-bob { 50% { transform: translateY(-1.5px); } }
+@keyframes loading-step {
+  from { transform: rotate(-32deg); }
+  to { transform: rotate(32deg); }
+}
+@keyframes loading-fade-in { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-overlay,
+  .loading-wheel,
+  .loading-pig,
+  .loading-leg { animation: none; }
+}
