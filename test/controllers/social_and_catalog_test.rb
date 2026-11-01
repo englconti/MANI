@@ -31,6 +31,28 @@ class SocialAndCatalogTest < ActionDispatch::IntegrationTest
     assert_select "form[action='#{friendships_path(receiver_username: "bob")}'] button", text: "Seguir"
   end
 
+  test "the friend list never shows email addresses, nor matches on them" do
+    @friend.update_columns(email: "segredo@example.com")
+
+    get user_url(@user, query: "bob"), headers: { "Accept" => "text/plain" }
+    assert_not_includes response.body, "segredo@example.com"
+
+    get user_url(@user, query: "segredo"), headers: { "Accept" => "text/plain" }
+    assert_empty response.body.strip
+  end
+
+  test "someone else's address shows nothing of theirs: it goes back to the logged in person's own page" do
+    get user_url(@friend)
+
+    assert_redirected_to user_url(@user)
+  end
+
+  test "an old numeric address goes to the username address, keeping the search" do
+    get "/users/#{@user.id}", params: { query: "bob" }
+
+    assert_redirected_to user_url(@user, query: "bob")
+  end
+
   test "searching for someone who does not exist returns an empty list" do
     get user_url(@user, query: "zzzxqy"), headers: { "Accept" => "text/plain" }
 

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :redirect_to_own_page, only: [:show]
   before_action :disable_dashboard_button, only: [:show]
   before_action :show_user_info, only: [:show]
 
@@ -11,7 +12,7 @@ class UsersController < ApplicationController
 
     # SEARCHING FOR FRIENDS ---------------------------------------------------------------
     # all_users passed as users to partial _friends.html AND removed current_user from list
-    @all_users = User.search_by_username_and_email(params[:query]).where("id != ?", current_user.id)
+    @all_users = User.search_by_username(params[:query]).where("id != ?", current_user.id)
 
     respond_to do |format|
       format.html # Follow regular flow of Rails
@@ -24,6 +25,14 @@ class UsersController < ApplicationController
   end
 
   private
+
+  # The page always belongs to the person logged in. Whatever else is in the address (another
+  # person's name, an old numeric id) is sent back to their own address, never read as a lookup.
+  def redirect_to_own_page
+    return if params[:id] == current_user.to_param
+
+    redirect_to user_path(current_user, query: params[:query].presence)
+  end
 
   def find_friends
     friends = Friendship.where(asker: current_user).map { |friendship| friendship.receiver }

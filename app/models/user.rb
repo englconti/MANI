@@ -26,13 +26,27 @@ class User < ApplicationRecord
   # ----------------------------------
 
   # for searching friends ------------
+  # By username only: searching by email would let anyone discover other people's addresses
   include PgSearch::Model
-  pg_search_scope :search_by_username_and_email,
-                  against: %i[username email],
+  pg_search_scope :search_by_username,
+                  against: :username,
                   using: {
                     tsearch: { prefix: true } # <-- now `superman batm` will return something!
                   }
   # ----------------------------------
+
+  # Names that Devise already serves under /users/..., so they cannot be a profile address
+  RESERVED_URL_NAMES = %w[edit new sign_in sign_out sign_up password cancel].freeze
+  URL_SAFE_USERNAME = /\A[A-Za-z0-9_-]+\z/
+
+  # The profile address shows the username instead of the sequential database id
+  # (the id still is the fallback for names that would break a URL)
+  def to_param
+    return super unless persisted? && username.to_s.match?(URL_SAFE_USERNAME)
+    return super if RESERVED_URL_NAMES.include?(username.downcase)
+
+    username
+  end
 
 
   def level

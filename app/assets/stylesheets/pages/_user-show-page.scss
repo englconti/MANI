@@ -215,8 +215,7 @@ $red-heart: #e8505f;
   border-radius: 12px;
 
   p { margin: 0; overflow-wrap: anywhere; }
-  .friend-username { font-weight: 800; }
-  .friend-email { flex: 1 1 160px; font-size: 0.9rem; color: var(--mani-muted); }
+  .friend-username { flex: 1 1 160px; font-weight: 800; }
   form { margin: 0; }
 
   .btn-search-follow,
