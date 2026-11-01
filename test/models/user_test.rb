@@ -25,11 +25,29 @@ class UserTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::NotNullViolation) { user.save! }
   end
 
-  test "search_by_username_and_email finds by username prefix" do
+  test "search_by_username finds by username prefix" do
     target = create_user(username: "batman")
     create_user(username: "robin")
 
-    assert_includes User.search_by_username_and_email("batm"), target
-    assert_equal 1, User.search_by_username_and_email("batm").count
+    assert_includes User.search_by_username("batm"), target
+    assert_equal 1, User.search_by_username("batm").count
+  end
+
+  test "search_by_username does not match on email" do
+    create_user(username: "robin", email: "segredo@example.com")
+
+    assert_empty User.search_by_username("segredo")
+  end
+
+  test "the profile address uses the username, not the id" do
+    assert_equal "batman", create_user(username: "batman").to_param
+  end
+
+  test "a username that would break or clash with a route falls back to the id" do
+    ["com espaço", "a/b", "ma.ni", "edit", "Sign_In"].each do |name|
+      user = create_user(username: name)
+
+      assert_equal user.id.to_s, user.to_param, "expected #{name.inspect} to fall back to the id"
+    end
   end
 end
