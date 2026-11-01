@@ -3,14 +3,31 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answer_id = Answer.where(question: @question, user: current_user)[0].id
-  end
+    unless LessonMap.new(current_user).unlocked?(@question.lesson)
+      return redirect_to user_path(current_user), alert: "Termine #{@question.lesson.prerequisite&.title || "a aula anterior"} para liberar esta aula."
+    end
 
-  private
+    @practice = params[:practice].present? && current_user.completed_lesson?(@question.lesson)
 
-  def question_params
-    params.require(:question).permit(:question_type,
-                                     :statement, :level, :a, :b,
-                                     :c, :d, :img_url, :correct_answer)
+    current_user.recharge_lives!
+    return redirect_to no_lives_path if current_user.out_of_lives? && !@practice
+
+    # The first question of a lesson with an introduction opens it first, unless the person is
+    # already in a flow that skips it (just came from it, practice or retrying the wrong ones)
+    lesson = @question.lesson
+    # (a lesson left halfway also opens it, to choose between continuing and starting over)
+    if (lesson.intro? || lesson.resume_question_for(current_user)) && lesson.questions.first == @question && params[:skip_intro].blank? &&
+       params[:retry].blank? && !@practice
+      return redirect_to intro_lesson_path(lesson)
+    end
+
+    # "Refazer só as que errei": the ids to go through, kept in the URL so no state is needed
+    lesson_questions = @question.lesson.questions.to_a
+    retry_ids = params[:retry].to_s.split("-").map(&:to_i)
+    @retry_ids = retry_ids if retry_ids.include?(@question.id)
+    @sequence = @retry_ids ? lesson_questions.select { |question| @retry_ids.include?(question.id) } : lesson_questions
+
+    # Questions added after the user signed up get their answer row on first visit
+    @answer_id = current_user.answers.find_or_create_by!(question: @question).id
   end
 end

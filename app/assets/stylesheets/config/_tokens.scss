@@ -1,0 +1,165 @@
+// Mani design tokens. New components read these custom properties.
+// The look comes from the mascot: warm-black outline, peach body, coral snout, gold coin.
+// Everything is drawn like a sticker: flat colour, ink outline, hard offset shadow.
+:root {
+  --mani-ink: #1b1411;
+  --mani-muted: #5a4d47;
+  --mani-line: #e3d6cf;
+  --mani-surface: #ffffff;
+  --mani-bg: #eaf5f4;
+
+  --mani-peach: #f6a98a;
+  --mani-peach-soft: #fde5d9;
+  --mani-coral: #f26b54;
+  --mani-coral-dark: #c9432d;
+
+  --mani-teal: #0e6b78;
+  --mani-teal-dark: #09505a;
+  --mani-teal-soft: #d3eeee;
+
+  --mani-gold: #ffc800;
+  --mani-gold-ink: #4a3800;
+  --mani-gold-soft: #fff1b8;
+
+  // Success has its own hue so "correct" never reads as brand
+  --mani-green: #3fb06b;
+  --mani-green-dark: #277a47;
+  --mani-green-ink: #0c2e1a;
+  --mani-green-soft: #d5f5e0;
+
+  // Legacy names: the old blue is now the brand teal
+  --mani-blue: var(--mani-teal);
+  --mani-blue-dark: var(--mani-teal-dark);
+  --mani-blue-soft: var(--mani-teal-soft);
+
+  --mani-red: #e5484d;
+  --mani-red-ink: #a31212;
+  --mani-red-soft: #ffdfe0;
+
+  --mani-outline: 2.5px solid var(--mani-ink);
+  --mani-radius: 18px;
+  --mani-shadow: 4px 4px 0 var(--mani-ink);
+  --mani-shadow-sm: 3px 3px 0 var(--mani-ink);
+
+  --mani-font-body: "Figtree", system-ui, sans-serif;
+  --mani-font-display: "Gabarito", "Figtree", system-ui, sans-serif;
+}
+
+body {
+  background: var(--mani-bg);
+  color: var(--mani-ink);
+  font-family: var(--mani-font-body);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--mani-font-display);
+  letter-spacing: -0.01em;
+}
+
+// Shared button: a sticker that presses flat when clicked
+.mani-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 10px 26px;
+  border: var(--mani-outline);
+  border-radius: 14px;
+  box-shadow: var(--mani-shadow-sm);
+  font-family: var(--mani-font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+
+  &:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--mani-ink);
+  }
+
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--mani-ink);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--mani-teal);
+    outline-offset: 3px;
+  }
+
+  &[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.mani-btn-primary {
+  background: var(--mani-coral);
+  color: var(--mani-ink);
+  &:hover { color: var(--mani-ink); }
+}
+
+.mani-btn-secondary {
+  background: var(--mani-teal);
+  color: #fff;
+  &:hover { color: #fff; }
+}
+
+.mani-btn-ghost {
+  background: var(--mani-surface);
+  color: var(--mani-ink);
+  &:hover { color: var(--mani-ink); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Icons (see IconsHelper) ----------------------------------------------------------------
+.mani-icon {
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -0.28em;
+  flex: none;
+  filter: drop-shadow(1.5px 1.5px 0 rgba(27, 20, 17, 0.28));
+
+  // An earned/unearned state shown by colour is also shown by shape elsewhere,
+  // so greying out is enough for stars and spent hearts
+  .off > &,
+  &.off {
+    filter: grayscale(1) opacity(0.35);
+  }
+}
+
+// Short legal note under the content
+.disclaimer {
+  margin: 0;
+  padding: 16px;
+  font-size: 0.875rem;
+  color: var(--mani-muted);
+  text-align: center;
+}
+
+.mani-icon.is-plain {
+  filter: none;
+  vertical-align: -0.2em;
+}
+
+.mani-btn-danger {
+  background: var(--mani-red-soft);
+  color: var(--mani-red-ink);
+  border-color: var(--mani-red-ink);
+  box-shadow: 3px 3px 0 var(--mani-red-ink);
+
+  &:hover { color: var(--mani-red-ink); box-shadow: 4px 4px 0 var(--mani-red-ink); }
+  &:active { box-shadow: 0 0 0 var(--mani-red-ink); }
+}

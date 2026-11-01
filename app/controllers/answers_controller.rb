@@ -3,36 +3,20 @@ class AnswersController < ApplicationController
     # We will not have create because all instances of answers will be createad when a new user id created.
   end
 
+  # The client only sends what the user chose/typed (params[:answer]); the
+  # server decides whether it is correct. Only the user's own answers are reachable.
   def update
-    puts "ENTREI NO UPDATE 💛💛💛💛💛💛"
-    # answer_id
-    # question_type
-    answer_id = params[:answer_id].to_i
-    answer = Answer.find(answer_id)
-    user = current_user
-    if params[:question_type] == "writing"
-      # params[:answer] == Boolean
-      answer.is_correct = params[:answer]
-      puts answer.is_correct
-      user.lives -= answer.is_correct ? 0 : 1
-      user.save
-    elsif params[:question_type] == "abcd"
-      # params[:answer] == String
-      user_answer = params[:answer]
-      question = Answer.find(answer_id).question
-      question_id = question.id
-      correct_answer = Question.find(question_id).correct_answer
-      if correct_answer == user_answer
-        puts "Well Done!! 😁😁😁"
-        answer.is_correct = true
-      else
-        puts "Wrong answer!! 👿👿👿"
-        answer.is_correct = false
-        user.lives -= 1
-        user.save
-      end
-    end
-    answer.save
+    answer = current_user.answers.find(params[:id])
+    # Practice grades the answer but costs no life and changes no score or streak. It is only
+    # for lessons already completed, so it can't be used to peek at answers without penalty.
+    practice = ActiveModel::Type::Boolean.new.cast(params[:practice]) && current_user.completed_lesson?(answer.question.lesson)
+    correct = practice ? answer.question.correct?(params[:answer]) : answer.submit!(params[:answer])
+    # The correct answer is revealed only now, after the user has answered
+    render json: { correct: correct,
+                   correct_answer_label: answer.question.correct_answer_label,
+                   correct_answer_text: answer.question.correct_answer_text,
+                   correct_option: answer.question.question_type == "abcd" ? answer.question.correct_answer : nil,
+                   explanation: answer.question.explanation.presence,
+                   lives: current_user.reload.lives }
   end
-
 end

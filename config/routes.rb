@@ -1,16 +1,20 @@
 Rails.application.routes.draw do
-  get 'friendships/new'
-  get 'friendships/create'
-  get 'friendships/index'
-  get 'friendships/destroy'
   # keep this on top, otherwise some errors will happen with log in!
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations" }
   root to: 'pages#home'
+  # The server asks this address "are you alive?" (200 = yes, no login needed)
+  get "up", to: "rails/health#show", as: :rails_health_check
   # ----------------------------------------------------------------
 
   resources :users, only: %i[show index]
+  resource :daily_goal, only: :update
+  get "simulador", to: "simulations#show", as: :simulator
+  get "niveis", to: "levels#index", as: :levels
+  get "loja", to: "store#index", as: :store
+  post "loja/:key/comprar", to: "store#purchase", as: :purchase_avatar, constraints: { key: /[a-z0-9-]+/ }
+  post "loja/:key/usar", to: "store#use", as: :use_avatar, constraints: { key: /[a-z0-9-]+/ }
 
-  resources :products, only: %i[index show]
+  get "sem-vidas", to: "lives#show", as: :no_lives
 
   resources :questions, only: %i[show create] do
     resources :answers, only: %i[create]
@@ -18,7 +22,13 @@ Rails.application.routes.draw do
   resources :answers, only: %i[update]
 
   # Added for lesson resume page -----
-  resources :lessons, only: [:show]
+  resources :lessons, only: [:show] do
+    member do
+      get :intro
+      post :restart
+      post :retry_wrong
+    end
+  end
   # ----------------------------------
   # Added for friendships ------------
   resources :friendships, only: %i[show create index destroy]

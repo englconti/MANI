@@ -1,283 +1,106 @@
-<% renda_fixa = "O investimento MAIS SEGURO e MAIS RENTAVEL que a poupanca por apenas R$30,00." %>
-<% renda_emergencia = "A sua SEGURANCA antes de investir qualquer centavo!" %>
-<% renda_variavel = "A forma MAIS RAPIDA de ter ganhos exponencias.<br>Para esse investimento e aconselhavel ter uma reserva de emergica de no minimo 6 meses." %>
-<% pilar_1 = "Auxiliar na educação financeira de pessoas que tem pouco ou nenhum conhecimento" %>
-<% pilar_2 = "Ensinar finanças de maneira educativa, interativa e lúdica para todos os públicos" %>
-<% pilar_3 = "Transmitir o conhecimento ou aprendizado de forma gratuita" %>
-<% pilar_4 = "Possibilitar o acesso a esse tipo de conhecimento ao máximo de pessoas interessadas no assunto" %>
-
-<main>
-  <div id="banner">
-    <h1>MANI</h1>
-    <h2>Aprenda <strong>FINANÇAS</strong><span
-                  class="txt-rotate"
-                  data-period="2000"
-                  data-rotate='[ " e se divirta", " jogando", " gratuitamente", " e mude a sua vida!" ]'></span>
-    </h2>
-    <div class="banner-lower-container">
-      <div class="banner-central-img">
-        <%= image_tag "Mani-oficial-bg.png", class: "banner-img" %>
+<% content_for :title, "Aprenda finanças jogando" %>
+<main class="landing">
+  <section class="hero">
+    <div class="landing-inner hero-grid">
+      <div>
+        <h1>Aprenda finanças jogando</h1>
+        <p class="hero-lead">Lições curtas, desafios divertidos e zero enrolação. O jeito mais leve de entender seu dinheiro, de graça.</p>
+        <div class="hero-actions">
+          <% if user_signed_in? %>
+            <%= link_to "Continuar minha trilha", user_path(current_user), class: "mani-btn mani-btn-primary", id: "banner-btn-login" %>
+          <% else %>
+            <%= link_to "Começar grátis", new_user_registration_path, class: "mani-btn mani-btn-primary", id: "banner-btn-register" %>
+            <%= link_to "Já tenho conta", new_user_session_path, class: "mani-btn mani-btn-ghost", id: "banner-btn-login" %>
+          <% end %>
+        </div>
       </div>
+      <%= image_tag "Mani-oficial-bg.png", class: "hero-img", alt: "Mani, o porquinho mascote, com uma moeda na cabeça" %>
+    </div>
+  </section>
 
-      <div class="banner-btns">
-        <% if user_signed_in? %>
-          <%= button_to"Acesse seu dashboard", user_path(current_user), method: "get", class:"banner-btn", id:"banner-btn-login" %>
-        <% else %>
-          <%= button_to "Registre-se agora", new_user_registration_path, method: "get", class:"banner-btn", id:"banner-btn-register" %>
-          <%= button_to"Já é um Maner? Faça seu login!", new_user_session_path, method: "get", class:"banner-btn", id:"banner-btn-login" %>
+  <section class="steps" aria-labelledby="steps-title">
+    <div class="landing-inner">
+      <h2 id="steps-title">Como funciona</h2>
+      <p class="section-lead">Três passos para transformar estudo em hábito.</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-emoji" aria-hidden="true"><%= mani_icon(:books) %></div>
+          <h3>Aprenda em lições curtas</h3>
+          <p>Perguntas rápidas sobre renda fixa, renda variável, finanças pessoais e mais.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-emoji" aria-hidden="true"><%= mani_icon(:trophy) %></div>
+          <h3>Ganhe XP e M$</h3>
+          <p>Cada acerto rende pontos. Mantenha a sequência diária e cuide das suas vidas.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-emoji" aria-hidden="true"><%= mani_icon(:handshake) %></div>
+          <h3>Evolua com amigos</h3>
+          <p>Siga seus amigos, compare o XP e aprenda junto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillars" aria-labelledby="pillars-title">
+    <div class="landing-inner">
+      <h2 id="pillars-title">Nossos pilares</h2>
+      <ul>
+        <li><span class="pillar-mark" aria-hidden="true"></span>Auxiliar na educação financeira de pessoas que têm pouco ou nenhum conhecimento.</li>
+        <li><span class="pillar-mark" aria-hidden="true"></span>Ensinar finanças de maneira educativa, interativa e lúdica para todos os públicos.</li>
+        <li><span class="pillar-mark" aria-hidden="true"></span>Transmitir o conhecimento de forma gratuita.</li>
+        <li><span class="pillar-mark" aria-hidden="true"></span>Dar acesso a esse conhecimento ao máximo de pessoas interessadas no assunto.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="testimonials" aria-labelledby="testimonials-title">
+    <div class="landing-inner">
+      <h2 id="testimonials-title">O que dizem sobre o Mani</h2>
+      <ul>
+        <% testimonials.each do |testimonial| %>
+          <li class="testimonial">
+            <p class="testimonial-stars" role="img" aria-label="5 de 5 estrelas"><% 5.times do %><%= mani_icon(:star) %><% end %></p>
+            <blockquote><p><%= testimonial["text"] %></p></blockquote>
+            <div class="testimonial-author">
+              <%= avatar_tag(Avatar.find!(testimonial["avatar"]), class: "testimonial-avatar") %>
+              <p><strong><%= testimonial["name"] %></strong><span><%= testimonial["about"] %></span></p>
+            </div>
+          </li>
         <% end %>
-      </div>
+      </ul>
+      <p class="testimonials-note">Depoimentos de exemplo, com nomes fictícios.</p>
     </div>
-    <div class="box-effect-p">
-      <p id="home-effect-p">A maneira mais eficaz e divertida de aprender finanças gratuitamente!</p>
+  </section>
+
+  <section class="final-cta">
+    <div class="landing-inner">
+      <h2>Pronto para o primeiro passo?</h2>
+      <p>Crie sua conta e comece a primeira lição agora mesmo.</p>
+      <% if user_signed_in? %>
+        <%= link_to "Ir para minha trilha", user_path(current_user), class: "mani-btn mani-btn-primary" %>
+      <% else %>
+        <%= link_to "Criar conta grátis", new_user_registration_path, class: "mani-btn mani-btn-primary" %>
+      <% end %>
     </div>
-  </div>
-  <hr style="width:60%; margin-left:20%;">
+  </section>
 
-    <%# <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(https://res.cloudinary.com/guijafrone/image/upload/v1654543696/MANI%20GAMES/ideia-de-dinheiro-crescendo-passo-com-arvore_34152-2619_ez400j.webp);">
-            <div class="banner__text">
-
-              <h1><strong>Mani Invest</strong></h1>
-            <h2>Aprenda a investir jogando!
-                <br><span
-                  class="txt-rotate"
-                  data-period="2000"
-                  data-rotate='[ "Conheça", "Jogue", "Divirta-se", "Mude!" ]'></span>
-              </h2>
-              <a href="#" class="btn_banner">COMECAR</a>
-
-            </div>
-    </div> %>
-
-    <!--
-            <div class="menu_btn">
-                <br>
-                <a class="btn btn-ghost" href="http://localhost:3000/products/4" target="_blank">Reserva  Emergencia</a>
-                <a class="btn btn-ghost" href="http://localhost:3000/products/2" target="_blank">Renda Fixa</a>
-                <a class="btn btn-ghost" href="http://localhost:3000/products/6" target="_blank">Fundos Imobiliarios</a>
-                <a class="btn btn-ghost" href="http://localhost:3000/products/4" target="_blank">Renda Variavel</a>
-                <a class="btn btn-ghost" href="#">Crypto</a>
-            </div>
-    -->
-  <br><br>
-  <div class="card-investments">
-    <div class="card-investment-model-01">
-      <%= image_tag "p8.png"%>
-      <div class="card-investment-model-01-infos">
-          <h2><%= pilar_1 %></h2>
-      </div>
+  <section class="team" aria-labelledby="team-title">
+    <div class="landing-inner">
+      <h2 id="team-title">Quem faz o Mani</h2>
+      <ul>
+        <li><span class="team-name">Leonardo Conti</span>
+          <a href="https://github.com/englconti" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/engleonardoconti/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
     </div>
-    <br><br>
-    <div class="card-investment-model-02">
-      <div class="card-investment-model-02-infos">
-          <h2><%= pilar_2 %></h2>
-      </div>
-        <%= image_tag "p7.png"%>
-    </div>
-    <br><br>
-    <div class="card-investment-model-01">
-      <%= image_tag "p5.png"%>
-      <div class="card-investment-model-01-infos">
-          <h2><%= pilar_3 %></h2>
-      </div>
-    </div>
+  </section>
 
-    <br><br>
+  <p class="disclaimer">Conteúdo educacional. Não é recomendação de investimento.</p>
 
-    <div class="card-investment-model-02">
-      <div class="card-investment-model-02-infos">
-          <h2><%= pilar_4 %></h2>
-      </div>
-      <%= image_tag "p6.png"%>
-    </div>
-    <br><br>
-  </div>
-
-  <script>
-    var TxtRotate = function(el, toRotate, period) {
-      this.toRotate = toRotate;
-      this.el = el;
-      this.loopNum = 0;
-      this.period = parseInt(period, 10) || 2000;
-      this.txt = '';
-      this.tick();
-      this.isDeleting = false;
-    };
-
-    TxtRotate.prototype.tick = function() {
-      var i = this.loopNum % this.toRotate.length;
-      var fullTxt = this.toRotate[i];
-
-      if (this.isDeleting) {
-        this.txt = fullTxt.substring(0, this.txt.length - 1);
-      } else {
-        this.txt = fullTxt.substring(0, this.txt.length + 1);
-      }
-
-      this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
-
-      var that = this;
-      var delta = 150 - Math.random() * 100;
-
-      if (this.isDeleting) { delta /= 2; }
-
-      if (!this.isDeleting && this.txt === fullTxt) {
-        delta = this.period;
-        this.isDeleting = true;
-      } else if (this.isDeleting && this.txt === '') {
-        this.isDeleting = false;
-        this.loopNum++;
-        delta = 500;
-      }
-
-      setTimeout(function() {
-        that.tick();
-      }, delta);
-    };
-
-    window.onload = function() {
-      var elements = document.getElementsByClassName('txt-rotate');
-      for (var i=0; i<elements.length; i++) {
-        var toRotate = elements[i].getAttribute('data-rotate');
-        var period = elements[i].getAttribute('data-period');
-        if (toRotate) {
-          new TxtRotate(elements[i], JSON.parse(toRotate), period);
-        }
-      }
-      // INJECT CSS
-      var css = document.createElement("style");
-      css.type = "text/css";
-      css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
-      document.body.appendChild(css);
-    };
-  </script>
-  <hr style="width:60%; margin-left:20%;">
-  <!--------------------------------------------------------------------------------------------------------------------->
-  <%# CARD TESTMONIALS %>
-  <div id="testmonials">
-    <div class="cards_testmonials_text">
-      <br>
-      <h2>Testemunhos</h2>
-      <p>MANI: vidas transformadas através de aprendizado e diversão!</p>
-    </div>
-
-    <div id="cards_testmonials">
-
-      <figure class="snip1139">
-        <blockquote style="text-align:center">Coloca um container do C@ralh0!!
-          <div class="arrow"></div>
-        </blockquote>
-        <img src="https://media-exp2.licdn.com/dms/image/C4D03AQH5HMLx2rGX_Q/profile-displayphoto-shrink_400_400/0/1560366864705?e=1660780800&v=beta&t=XUcO4vObFH4EisL8jR0ckvJUq0h1E1JVWCkkiKMYifI" alt="sample3"/>
-        <div class="author">
-          <h5>Milene Cardoso<span>- Gerente Gringa</span></h5>
-        </div>
-      </figure>
-
-      <figure class="snip1139 hover">
-        <blockquote style="text-align:center">Great job, PEOPLE!!
-          <div class="arrow"></div>
-        </blockquote>
-        <img src="https://media-exp2.licdn.com/dms/image/C4D03AQGqFOCqhXo_4g/profile-displayphoto-shrink_400_400/0/1618832584717?e=1660780800&v=beta&t=b0qJWl0p3dd1EAyhE07gtA9bwC-X8jNnNo2ygRMdAXc" alt="sample47"/>
-        <div class="author">
-          <h5>André Menezes<span>- Professor JavaScript</span></h5>
-        </div>
-      </figure>
-
-      <figure class="snip1139">
-        <blockquote style="text-align:center">Amazing, amazing, amazing!!
-          <div class="arrow"></div>
-        </blockquote>
-        <img src="https://media-exp2.licdn.com/dms/image/C4E03AQHINUT-Jw2Lww/profile-displayphoto-shrink_400_400/0/1540845343075?e=1660780800&v=beta&t=QmI-VXyYX577l1ijHuYO-OLzWZMoY0o7AyyCWiexJaU" alt="sample17"/>
-        <div class="author">
-          <h5>Carla Valdivia<span>- Professora Ruby</span></h5>
-        </div>
-      </figure>
-
-      <figure class="snip1139">
-        <blockquote style="text-align:center">Let's rake this sh1t!
-          <div class="arrow"></div>
-        </blockquote>
-        <img src="https://media-exp2.licdn.com/dms/image/C4E03AQE80JqcZH4mJA/profile-displayphoto-shrink_400_400/0/1654001063709?e=1660780800&v=beta&t=Wzz2KYE4cpcqLq8jFmKo61CKL-jeuKA5nZDH-EDVjTk" alt="sample3"/>
-        <div class="author">
-          <h5>Arthur Miranda<span>- Desenvolvedor Fullstack</span></h5>
-        </div>
-      </figure>
-
-  </div>
-
-  <hr style="width:60%;margin-top:80px;">
-  <div class="container_owners">
-    <div class="row developers-div">
-
-      <%# LEONARDO CONTI %>
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="our-team">
-          <div class="picture">
-            <img class="img-fluid" src="https://avatars.githubusercontent.com/u/99144261?v=4">
-          </div>
-          <div class="team-content">
-            <h3 class="name">Leonardo<br>Conti</h3>
-            <h4 class="title">Web Developer</h4>
-          </div>
-          <ul class="social">
-            <li><a href="https://github.com/englconti" target="blank" class="fa fa-github" aria-hidden="true"></a></li>
-            <li><a href="https://www.linkedin.com/in/engleonardoconti/" target="blank" class="fa fa-linkedin" aria-hidden="true"></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <%# ALEXANDRE %>
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="our-team">
-          <div class="picture">
-            <img class="img-fluid" src="https://avatars.githubusercontent.com/u/91762552?v=4">
-          </div>
-          <div class="team-content">
-            <h3 class="name">Alexandre<br>Vieira</h3>
-            <h4 class="title">Web Developer</h4>
-          </div>
-          <ul class="social">
-            <li><a href="https://github.com/kitodann" target="blank" class="fa fa-github" aria-hidden="true"></a></li>
-            <li><a href="http://linkedin.com/in/alexandre-dannemann" target="blank" class="fa fa-linkedin" aria-hidden="true"></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <%# GUILHERME %>
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="our-team">
-          <div class="picture">
-            <img class="img-fluid" src="https://avatars.githubusercontent.com/u/100196358?v=4">
-          </div>
-
-          <div class="team-content">
-            <h3 class="name">Guilherme<br>Jafrone</h3>
-            <h4 class="title">Web Developer</h4>
-          </div>
-          <ul class="social">
-            <li><a href="https://github.com/guilhermejafrone" target="blank" class="fa fa-github" aria-hidden="true"></a></li>
-            <li><a href="https://www.linkedin.com/in/guilherme-jafrone/" target="blank" class="fa fa-linkedin" aria-hidden="true"></a></li>
-          </ul>
-        </div>
-      </div>
-
-      <%# JP Valladares %>
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="our-team">
-          <div class="picture">
-            <img class="img-fluid" src="https://avatars.githubusercontent.com/u/96074809?v=4">
-          </div>
-          <div class="team-content">
-            <h3 class="name">Jose Paulo Valladares</h3>
-            <h4 class="title">Web Developer</h4>
-          </div>
-          <ul class="social">
-            <li><a href="https://github.com/JPVALLADARES" target="blank" class="fa fa-github" aria-hidden="true"></a></li>
-            <li><a href="https://codepen.io/collection/XdWJOQ/" target="blank" class="fa fa-linkedin" aria-hidden="true"></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <% unless user_signed_in? %>
+    <footer class="landing-footer">
+      <%= link_to "Entrar", new_user_session_path %>
+    </footer>
+  <% end %>
 </main>
-<%= render 'footer' %>

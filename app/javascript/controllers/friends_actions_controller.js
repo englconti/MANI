@@ -2,60 +2,79 @@ import { Controller } from "stimulus"
 
 
 export default class extends Controller {
-  static targets = [ "content", "form", "list", "searchInput" ]
+  static targets = [ "content", "dialog", "form", "list", "searchInput", "shareStatus" ]
 
-  connect() {
-    console.log("Connected:", this.element);
+  disconnect() {
+    clearTimeout(this.searchTimer)
   }
 
-  openWindow(e) {
-    // e.preventDefault();
-    const overlay = document.querySelector(".overlay");
-    const windowAddFriend = document.querySelector(".box-window-add-friend");
-
-    overlay.classList.remove("hidden");
-    windowAddFriend.classList.remove("hidden");
+  openWindow() {
+    this.dialogTarget.showModal()
   }
 
   closeWindow() {
-    const overlay = document.querySelector(".overlay");
-    const windowAddFriend = document.querySelector(".box-window-add-friend");
-
-    overlay.classList.add("hidden");
-    windowAddFriend.classList.add("hidden");
+    this.dialogTarget.close()
   }
 
+  // A click on the dimmed area (the dialog element itself, outside its content) closes it
+  backdropClick(event) {
+    if (event.target === this.dialogTarget) this.closeWindow()
+  }
+
+  // Runs on every close (button, Esc or backdrop): leave a clean search for next time
+  reset() {
+    clearTimeout(this.searchTimer)
+    this.searchInputTarget.value = ""
+    this.listTarget.innerHTML = ""
+  }
+
+  // Waits for a pause in typing, then searches; shows loading, empty and error states
   update(e) {
     e.preventDefault();
-    console.log("teste");
-    const url = `${this.formTarget.action}?query=${this.searchInputTarget.value}`
-    fetch(url, { headers: { 'Accept': 'text/plain' } })
-      .then(response => response.text())
-      .then((data) => {
-        console.log(data);
-        this.listTarget.innerHTML = data;
-      })
+    clearTimeout(this.searchTimer)
+    this.searchTimer = setTimeout(() => this.search(), 250)
   }
 
-  openInviteWindow(e) {
-    // e.preventDefault();
-    const overlay = document.querySelector(".overlay-send-invite");
-    const windowAddFriend = document.querySelector(".box-window-send-invite");
+  async search() {
+    const query = this.searchInputTarget.value.trim()
+    if (query === "") {
+      this.listTarget.innerHTML = ""
+      return
+    }
 
-    overlay.classList.remove("hidden");
-    windowAddFriend.classList.remove("hidden");
+    this.listTarget.textContent = "Buscando..."
+    const url = `${this.formTarget.action}?query=${encodeURIComponent(query)}`
+    try {
+      const response = await fetch(url, { headers: { 'Accept': 'text/plain' } })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      const data = await response.text()
+      // Ignore an answer that arrives after the person kept typing
+      if (query !== this.searchInputTarget.value.trim()) return
+      if (data.trim() === "") {
+        this.listTarget.textContent = "Nenhuma pessoa encontrada."
+      } else {
+        this.listTarget.innerHTML = data
+      }
+    } catch (error) {
+      this.listTarget.textContent = "Não foi possível buscar agora. Tente de novo."
+    }
   }
 
-  closeInviteWindow() {
-    const overlay = document.querySelector(".overlay-send-invite");
-    const windowSendInvite = document.querySelector(".box-window-send-invite");
-
-    overlay.classList.add("hidden");
-    windowSendInvite.classList.add("hidden");
-  }
-
-  sendInviteFake() {
-    document.querySelector("#blank-space-send-invite").hidden = true;
-    document.querySelector("#fake-invite-msg").hidden = false;
+  // Shares the address of the app: the phone's share sheet when there is one,
+  // otherwise the link is copied
+  async share() {
+    const data = { title: "Mani", text: "Aprenda finanças jogando com o Mani", url: window.location.origin }
+    try {
+      if (navigator.share) {
+        await navigator.share(data)
+        return
+      }
+      await navigator.clipboard.writeText(data.url)
+      this.shareStatusTarget.textContent = "Link copiado! Envie para quem você quer convidar."
+    } catch (error) {
+      // Closing the share sheet is not an error
+      if (error.name === "AbortError") return
+      this.shareStatusTarget.textContent = `Copie o link: ${data.url}`
+    }
   }
 }

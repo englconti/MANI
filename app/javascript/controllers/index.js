@@ -1,9 +1,23 @@
-// Load all the controllers within this directory and all subdirectories. 
-// Controller files must be named *_controller.js.
-
 import { Application } from "stimulus"
-import { definitionsFromContext } from "stimulus/webpack-helpers"
+
+import AutosubmitController from "./autosubmit_controller"
+import CelebrationController from "./celebration_controller"
+import CountdownController from "./countdown_controller"
+import FlashController from "./flash_controller"
+import FriendsActionsController from "./friends_actions_controller"
+import LessonController from "./lesson_controller"
+import PurchaseController from "./purchase_controller"
+import PasswordController from "./password_controller"
 
 const application = Application.start()
-const context = require.context("controllers", true, /_controller\.js$/)
-application.load(definitionsFromContext(context))
+application.debug = false
+window.Stimulus = application
+
+application.register("autosubmit", AutosubmitController)
+application.register("celebration", CelebrationController)
+application.register("countdown", CountdownController)
+application.register("flash", FlashController)
+application.register("friends-actions", FriendsActionsController)
+application.register("lesson", LessonController)
+application.register("password", PasswordController)
+application.register("purchase", PurchaseController)

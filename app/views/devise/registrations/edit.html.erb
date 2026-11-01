@@ -1,42 +1,74 @@
-<h2>Here you can edit your personal information, <%= current_user.username.humanize %></h2>
-<br>
+<% content_for :title, "Editar dados" %>
+<div class="auth-page">
+  <div class="auth-card account-card" data-controller="password">
+    <h1>Seus dados</h1>
+    <p class="auth-lead">Olá, <%= current_user.username %>! Altere o que precisar e confirme com a sua senha.</p>
 
-<div class="container-edit-form" style="width: 500px; margin: 0 auto;" >
-  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= f.error_notification %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_notification %>
 
-    <div class="form-inputs">
-      <%= f.input :email, required: true, autofocus: true %>
+      <div class="form-inputs">
+        <%= f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" } %>
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-      <% end %>
+        <%# Native date picker; the value is formatted for <input type="date"> %>
+        <%= f.input :birthday,
+                    as: :string,
+                    required: true,
+                    label: "Data de nascimento",
+                    input_html: { type: "date",
+                                  min: "1922-12-31",
+                                  max: Date.current.iso8601,
+                                  value: f.object.birthday&.to_date&.iso8601,
+                                  autocomplete: "bday" } %>
 
-      <%= f.input :password, # this is the text on top of the form box
-                  hint: "leave it blank if you don't want to change it",
-                  label: "New password:",
-                  required: false,
-                  input_html: { autocomplete: "new-password" } %>
+        <%= f.input :password,
+                    label: "Nova senha",
+                    hint: ("deixe em branco para manter a atual" + (@minimum_password_length ? " (mínimo de #{@minimum_password_length} caracteres)" : "")),
+                    required: false,
+                    input_html: { autocomplete: "new-password", data: { password_target: "field" } } %>
 
-      <%= f.input :password_confirmation,
-                  label: "New password confirmation:",
-                  required: false,
-                  input_html: { autocomplete: "new-password" } %>
+        <%= f.input :password_confirmation,
+                    label: "Confirme a nova senha",
+                    required: false,
+                    input_html: { autocomplete: "new-password", data: { password_target: "field" } } %>
 
-      <%= f.input :current_password,
-                  hint: "Input your current password to confirm your changes",
-                  required: true,
-                  input_html: { autocomplete: "current-password" } %>
+        <%= f.input :current_password,
+                    label: "Senha atual",
+                    hint: "necessária para salvar as alterações",
+                    required: true,
+                    input_html: { autocomplete: "current-password", data: { password_target: "field" } } %>
+
+        <label class="auth-show-password">
+          <input type="checkbox" data-action="password#toggle"> Mostrar senhas
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Salvar alterações", class: "mani-btn mani-btn-primary" %>
+      </div>
+    <% end %>
+
+    <div class="auth-links">
+      <%= link_to "Voltar à trilha", user_path(current_user) %>
     </div>
 
-    <div class="form-actions">
-      <%= f.button :submit, "Update", class: "btn btn-warning", style: "width: 200px; margin-bottom: 20px" %>
-    </div>
+    <section class="danger-zone" aria-labelledby="danger-title">
+      <h2 id="danger-title">Excluir conta</h2>
+      <p>Isso apaga a sua conta, o progresso nas aulas, o XP, as M$ e as suas amizades. Não dá para desfazer.</p>
 
-    <div style="display: flex; flex-direction: column; width: 200px">
-      <%= link_to "Back", :back, class: "btn btn-secondary" %>
-      <br>
-      <%= link_to "Cancel my account", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "Are you sure?" }, method: :delete %>
-    </div>
-  <% end %>
+      <details>
+        <summary class="mani-btn mani-btn-ghost">Quero excluir minha conta</summary>
+
+        <%= form_with url: registration_path(resource_name), method: :delete,
+                      data: { turbo_confirm: "Excluir a conta de #{current_user.username} para sempre?" } do %>
+          <div class="mb-3">
+            <label class="form-label" for="delete-account-password">Digite sua senha para confirmar</label>
+            <input type="password" id="delete-account-password" name="current_password"
+                   class="form-control" required autocomplete="current-password">
+          </div>
+          <%= button_tag "Excluir minha conta e meu progresso", type: "submit", class: "mani-btn mani-btn-danger" %>
+        <% end %>
+      </details>
+    </section>
+  </div>
 </div>

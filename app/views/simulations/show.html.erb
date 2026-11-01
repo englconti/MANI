@@ -1,0 +1,160 @@
+<% content_for :title, "Simulador de investimentos" %>
+<div class="simulator-page">
+  <header class="simulator-header">
+    <%= mascot_tag("icon-chart", class: "simulator-icon") %>
+    <div>
+      <h1>Simulador de investimentos</h1>
+      <p class="simulator-lead">Veja como um valor pode crescer ao longo do tempo em cada tipo de investimento. É uma simulação para aprender, não uma promessa.</p>
+    </div>
+  </header>
+
+  <%= form_with url: simulator_path, method: :get, class: "simulator-form",
+                data: { controller: "autosubmit", action: "change->autosubmit#submit input->autosubmit#debounce" } do %>
+    <div class="simulator-fields">
+      <div class="simulator-field">
+        <label for="initial">Valor inicial (R$)</label>
+        <input type="text" id="initial" name="initial" inputmode="decimal" autocomplete="off"
+               value="<%= @initial_text %>" aria-describedby="simulator-errors">
+      </div>
+      <div class="simulator-field">
+        <label for="monthly">Aporte mensal (R$), opcional</label>
+        <input type="text" id="monthly" name="monthly" inputmode="decimal" autocomplete="off"
+               value="<%= @monthly_text %>" aria-describedby="simulator-errors">
+      </div>
+      <div class="simulator-field">
+        <label for="months">Prazo</label>
+        <select id="months" name="months">
+          <% @terms.each do |months, label| %>
+            <option value="<%= months %>"<%= " selected" if months == @months %>><%= label %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <fieldset class="simulator-choices">
+      <legend>Investimentos para comparar</legend>
+      <% @products.each do |product| %>
+        <label class="simulator-choice" style="--line: <%= product.color %>">
+          <input type="checkbox" name="products[]" value="<%= product.key %>"<%= " checked" if @selected.include?(product.key) %>>
+          <span class="choice-box" aria-hidden="true"></span>
+          <span class="choice-text"><strong><%= product.name %></strong><small><%= product.summary %></small></span>
+        </label>
+      <% end %>
+    </fieldset>
+
+    <button type="submit" class="mani-btn mani-btn-primary simulator-submit">Simular</button>
+  <% end %>
+
+  <div id="simulator-errors" role="alert">
+    <% @errors.each do |message| %>
+      <p class="simulator-error"><%= message %></p>
+    <% end %>
+  </div>
+
+  <% if @result %>
+    <% term_label = @terms.fetch(@months) %>
+    <section class="simulator-results" aria-label="Resultado da simulação">
+      <div class="simulator-cards">
+        <% @result.products.each do |product| %>
+          <div class="simulator-card" style="--line: <%= product.color %>">
+            <h2><%= product.name %></h2>
+            <p class="card-value"><%= brl(@result.final(product.key)) %></p>
+            <p class="card-gain"><%= @result.gain(product.key).negative? ? "Perda de" : "Ganho de" %>
+              <%= brl(@result.gain(product.key).abs) %> (<%= percent_br(@result.gain_percent(product.key)) %>)</p>
+          </div>
+        <% end %>
+      </div>
+
+      <figure class="simulator-figure">
+        <svg viewBox="0 0 <%= SimulationChart::WIDTH %> <%= SimulationChart::HEIGHT %>" role="img"
+             aria-labelledby="chart-title chart-desc" class="simulator-chart">
+          <title id="chart-title">Projeção do dinheiro ao longo de <%= term_label %></title>
+          <desc id="chart-desc"><%= simulation_summary(@result, term_label) %></desc>
+
+          <% @chart.y_ticks.each do |value, y| %>
+            <line x1="<%= SimulationChart::LEFT %>" x2="<%= SimulationChart::WIDTH - SimulationChart::RIGHT %>" y1="<%= y.round(1) %>" y2="<%= y.round(1) %>" class="grid-line"/>
+            <text x="<%= SimulationChart::LEFT - 8 %>" y="<%= (y + 4).round(1) %>" text-anchor="end" class="axis-label"><%= brl_short(value) %></text>
+          <% end %>
+          <% @chart.x_ticks.each do |_month, x, label| %>
+            <text x="<%= x.round(1) %>" y="<%= SimulationChart::HEIGHT - 28 %>" text-anchor="middle" class="axis-label"><%= label %></text>
+          <% end %>
+          <text x="<%= (SimulationChart::LEFT + (SimulationChart::WIDTH - SimulationChart::RIGHT)) / 2 %>" y="<%= SimulationChart::HEIGHT - 6 %>" text-anchor="middle" class="axis-title">Prazo em <%= @chart.x_unit %></text>
+
+          <path d="<%= @chart.invested_path %>" class="chart-line is-invested"/>
+          <% @result.products.each do |product| %>
+            <path d="<%= @chart.path_for(product.key) %>" class="chart-line" stroke="<%= product.color %>"
+                  <%= %(stroke-dasharray="#{product.dash}").html_safe if product.dash %>/>
+          <% end %>
+          <% @result.products.each do |product| %>
+            <% x, y = @chart.end_point(product.key) %>
+            <%= chart_marker(product.shape, x, y, product.color) %>
+          <% end %>
+        </svg>
+
+        <figcaption>
+          <ul class="chart-legend">
+            <li><svg viewBox="0 0 40 12" aria-hidden="true"><line x1="0" y1="6" x2="40" y2="6" class="chart-line is-invested"/></svg> Total investido</li>
+            <% @result.products.each do |product| %>
+              <li>
+                <svg viewBox="0 0 40 12" aria-hidden="true"><line x1="0" y1="6" x2="40" y2="6" class="chart-line" stroke="<%= product.color %>"
+                  <%= %(stroke-dasharray="#{product.dash}").html_safe if product.dash %>/></svg>
+                <%= product.name %>
+              </li>
+            <% end %>
+          </ul>
+        </figcaption>
+      </figure>
+
+      <div class="simulator-table-wrap">
+        <table class="simulator-table">
+          <caption>Valores ao fim de <%= term_label %></caption>
+          <thead>
+            <tr><th scope="col">Investimento</th><th scope="col">Total investido</th><th scope="col">Valor final</th><th scope="col">Ganho</th></tr>
+          </thead>
+          <tbody>
+            <% @result.products.each do |product| %>
+              <tr>
+                <th scope="row"><%= product.name %></th>
+                <td><%= brl(@result.invested.last) %></td>
+                <td><%= brl(@result.final(product.key)) %></td>
+                <td><%= brl(@result.gain(product.key)) %> (<%= percent_br(@result.gain_percent(product.key)) %>)</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  <% end %>
+
+  <section class="simulator-notes" aria-labelledby="notes-title">
+    <h2 id="notes-title">Como a simulação é feita</h2>
+    <ul>
+      <li>Cada mês, o saldo rende a taxa do investimento e, depois, entra o aporte mensal.</li>
+      <li>As taxas de poupança (0,5%), CDB (0,8%) e LCI / LCA (0,85%) são fixas e servem só para comparar. Elas não mudam com o tempo.</li>
+      <li>Os valores são brutos: não descontam Imposto de Renda (o CDB paga; LCI / LCA e poupança são isentas para pessoa física), tarifas nem inflação.</li>
+      <li>A linha de <strong>ações</strong> repete, mês a mês, a variação do Ibovespa de <%= month_label(InvestmentSimulator.data["months"].first["month"]) %> a <%= month_label(InvestmentSimulator.data["months"].last["month"]) %>
+        (<%= percent_br(InvestmentSimulator.ibovespa_year_percent) %> no período). Ela oscila porque a bolsa oscila. É o passado, não uma previsão, e o futuro pode ser bem diferente, para mais ou para menos.</li>
+    </ul>
+
+    <details>
+      <summary>Variação mensal do Ibovespa usada</summary>
+      <table class="simulator-table is-small">
+        <caption class="visually-hidden">Variação mensal do Ibovespa usada na simulação</caption>
+        <thead><tr><th scope="col">Mês</th><th scope="col">Variação</th></tr></thead>
+        <tbody>
+          <% InvestmentSimulator.data["months"].each do |entry| %>
+            <tr><th scope="row"><%= month_label(entry["month"]) %></th><td><%= percent_br(entry["change"], precision: 2) %></td></tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p class="simulator-sources">Fontes (conferidas em <%= l(Date.parse(InvestmentSimulator.data["as_of"]), format: "%d/%m/%Y") %>):</p>
+      <ul class="simulator-sources">
+        <% InvestmentSimulator.data["sources"].each do |source| %>
+          <li><%= link_to source["name"], source["url"], target: "_blank", rel: "noopener" %></li>
+        <% end %>
+      </ul>
+    </details>
+
+    <p class="disclaimer">Conteúdo educacional. Não é recomendação de investimento. Rentabilidade passada não garante rentabilidade futura.</p>
+  </section>
+</div>

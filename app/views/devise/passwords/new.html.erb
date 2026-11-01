@@ -1,18 +1,24 @@
-<h2>Forgot your password?</h2>
+<% content_for :title, "Recuperar senha" %>
+<div class="auth-page">
+  <div class="auth-card">
+    <h1>Esqueceu sua senha?</h1>
+    <p class="auth-lead">Digite seu e-mail e enviaremos as instruções para criar uma nova.</p>
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
+      <div class="form-inputs">
+        <%= f.input :email,
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "email" } %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Enviar instruções", class: "mani-btn mani-btn-primary" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

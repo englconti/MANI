@@ -6,21 +6,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    refill_lives
-    # Conceitos Básicos I
-    @lesson1 = render_lesson(1)
-    # Conceitos Básicos II
-    @lesson2 = render_lesson(2)
-    # Finanças Pessoais I
-    @lesson3 = render_lesson(3)
-    # Renda Fixa I
-    @lesson4 = render_lesson(4)
-    # Renda Variável I
-    @lesson5 = render_lesson(5)
-    # Finanças Pessoais II
-    @lesson6 = render_lesson(6)
-    # FII I
-    @lesson7 = render_lesson(7)
+    current_user.recharge_lives!
+    @lesson_map = LessonMap.new(current_user)
 
     # SEARCHING FOR FRIENDS ---------------------------------------------------------------
     # all_users passed as users to partial _friends.html AND removed current_user from list
@@ -28,40 +15,37 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # Follow regular flow of Rails
-      format.text { render partial: 'friends.html', locals: { users: @all_users } }
+      format.text { render partial: 'friends', formats: [:html], locals: { users: @all_users } }
     end
     # END ---------------------------------------------------------------------------------
 
-    # FOLLOWED friends to be rendered -----------------------------------------------------
     @all_friends = find_friends
-    # -------------------------------------------------------------------------------------
-
-    # RANDOM Information ------------------------------------------------------------------
-    @information = random_information
-    # -------------------------------------------------------------------------------------
+    @ranking = build_ranking(@all_friends)
   end
+
+  private
 
   def find_friends
     friends = Friendship.where(asker: current_user).map { |friendship| friendship.receiver }
     friends.sort_by { |friend| friend.xp }.reverse
   end
 
-  def render_lesson(lesson_id)
-    @user = current_user
-    lesson = Lesson.find(lesson_id)
-    questions_count = lesson.questions.count
-    lesson_answers = @user.answers.where("question_id > ? and question_id < ?",
-                                         lesson.questions.first.id - 1, lesson.questions.first.id + questions_count)
-    correct_answers_count = lesson_answers.where("is_correct = ?", true).count
-    [lesson, correct_answers_count, questions_count]
+  # Me and the people I follow, by XP earned this week (Monday to today). Same XP, same place.
+  Place = Struct.new(:user, :xp, :rank, :me, keyword_init: true)
+
+  def build_ranking(friends)
+    people = (friends + [current_user]).uniq
+    totals = XpDay.week_totals(people.map(&:id))
+    ordered = people.sort_by { |person| [-totals.fetch(person.id, 0), person.username.downcase] }
+
+    rank = 0
+    previous = nil
+    ordered.each_with_index.map do |person, index|
+      xp = totals.fetch(person.id, 0)
+      rank = index + 1 unless xp == previous
+      previous = xp
+      Place.new(user: person, xp: xp, rank: rank, me: person == current_user)
+    end
   end
 
-  def refill_lives
-    current_user.lives = 5
-    current_user.save
-  end
-
-  def random_information
-    Information.all.sample
-  end
 end

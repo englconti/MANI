@@ -5,11 +5,12 @@
 
 // External libraries
 @import "bootstrap/scss/bootstrap";
-@import "font-awesome-sprockets";
-@import "font-awesome";
+// Font Awesome comes from the CDN kit loaded in the layout
+@import "animate.css/animate.min";
+
+// Mani tokens and shared buttons come after Bootstrap so they can override .btn
+@import "config/tokens";
 
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-@import "pages/product";
-@import "pages/product-show";

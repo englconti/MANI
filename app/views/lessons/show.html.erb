@@ -1,56 +1,71 @@
+<% content_for :title, "Resumo da aula" %>
+<% total = @questions.size %>
+<% percent = total.zero? ? 0 : (@true_count * 100.0 / total).round %>
+<% stars = percent == 100 ? 3 : percent >= 60 ? 2 : 1 %>
+<% headline = percent == 100 ? "Aula perfeita!" : percent >= 60 ? "Muito bem!" : "Aula concluída!" %>
+<% encouragement = percent == 100 ? "Você gabaritou. Seu dinheiro agradece!" : percent >= 60 ? "Quase lá: refazer a aula rende mais pontos." : "Errar faz parte. Refaça a aula para ganhar mais XP." %>
+<% streak = current_user.current_streak %>
 
-<% q_count = @questions.count %>
-<% bar_fill = (1 - @true_count.fdiv(q_count)) - 0.011 %>
-<% bar_color = @true_count == q_count ? "#58cc02" : @true_count >= q_count * 0.5 ? "#ffc800" : "#ff4b4b" %>
-<% top_emoji = @true_count == q_count ? "🤑" : @true_count >= q_count * 0.5 ? "🙂" : "🥵" %>
-<% xp = (@true_count * 5) %>
-<% manis = (@true_count * 3) %>
+<div class="finish-page" data-controller="celebration" data-celebration-stars-value="<%= stars %>">
+  <div class="finish-card">
+    <div class="finish-mascot" aria-hidden="true"><%= mascot_tag(percent == 100 ? "pig-cheering" : percent >= 60 ? "pig-sunglasses" : "pig-thinking") %></div>
+    <h1><%= headline %></h1>
+    <p class="finish-lesson"><%= @lesson.title %></p>
 
-<div class="lesson-page">
-  <div class="lesson-top-part animate__animated animate__fadeIn">
-    <h1>Resumo da Aula</h1>
-  </div>
+    <div class="finish-stars" role="img" aria-label="<%= stars %> de 3 estrelas">
+      <% 3.times do |i| %><span class="<%= 'off' if i >= stars %>" aria-hidden="true"><%= mani_icon(:star) %></span><% end %>
+    </div>
 
-  <div class="container-lesson-page">
-
-    <div class="container-lesson-left animate__animated animate__fadeIn animate__delay-1s">
-      <p id="lesson-title"><%= @current_lesson.title %></p>
-      <p id="lesson-description">Descrição: <%= @current_lesson.description %></p>
-      <p>Você acertou: </p>
-      <div class="box-right-answers">
-        <p id="correct-over-all" class="lesson-important-info"><%= "#{@answers_array.count(true)} / #{q_count}" %></p>
+    <dl class="finish-stats">
+      <div class="is-score">
+        <dt>Acertos</dt>
+        <dd><%= @true_count %> / <%= total %></dd>
       </div>
-    </div>
-
-    <div class="container-lesson-center animate__animated animate__fadeIn">
-      <p id="top-circle-emoji"><%= top_emoji %></p>
-      <%= render 'progress-circle-bars', bar_fill: (360 * bar_fill), bar_color: bar_color %>
-    </div>
-
-    <div class="container-lesson-right animate__animated animate__fadeIn animate__delay-1s">
-
-      <p>XP adquirida:</p>
-      <div class="box-xps">
-        <p class="lesson-important-info"><%= xp %></p>
-        <p class="xps">XP</p>
+      <div class="is-xp">
+        <dt>XP</dt>
+        <dd>+<span data-celebration-target="number" data-celebration-value="<%= @xp_gained %>"><%= @xp_gained %></span></dd>
       </div>
-
-      <p>Mani$ conquistados:</p>
-      <div class="box-manis">
-        <p class="lesson-important-info"><%= manis %> </p>
-        <p class="manis">M$<p>
+      <div class="is-manis">
+        <dt>M$</dt>
+        <dd>+<span data-celebration-target="number" data-celebration-value="<%= @manis_gained %>"><%= @manis_gained %></span></dd>
       </div>
+    </dl>
+
+    <p class="finish-note">
+      <%= @xp_gained.zero? ? "Sem pontos novos desta vez: só melhorar a sua nota rende mais." : encouragement %>
+    </p>
+
+    <% if @level_up %>
+      <p class="finish-banner">Você subiu para o nível <%= @level_up.number %>: <strong><%= @level_up.name %></strong>!</p>
+    <% end %>
+    <% if @goal_reached_now %>
+      <p class="finish-banner">Meta do dia batida!</p>
+    <% end %>
+
+    <div class="finish-chips">
+      <span class="status-chip is-streak" title="Dias seguidos estudando"><%= mani_icon(:flame) %> <%= streak %> <%= streak == 1 ? "dia" : "dias" %></span>
+      <span class="status-chip is-lives" title="Vidas restantes"><%= mani_icon(:heart) %> <%= current_user.lives %> <%= current_user.lives == 1 ? "vida" : "vidas" %></span>
     </div>
 
-  </div>
+    <p class="disclaimer">Conteúdo educacional. Não é recomendação de investimento.</p>
 
-  <div class="lesson-footer">
-    <div class="lesson-buttons">
-      <% current_user.lives = 5 %>
-      <% current_user.save %>
-      <%= button_to 'Refazer aula', question_path(@current_lesson.questions.first), method: :get, id:"btn-redo-lesson", class:"btn btn-primary", disabled: false %>
-      <%= button_to 'Voltar ao menu', user_path(current_user), method: :get, id:"btn-lesson-page-to-user-page", class:"btn btn-success", disabled: false %>
+    <div class="finish-actions">
+      <%= link_to "Continuar", user_path(current_user), class: "mani-btn mani-btn-primary", id: "btn-lesson-page-to-user-page" %>
+      <% if current_user.out_of_lives? %>
+        <%= link_to "Sem vidas: veja quando voltam", no_lives_path, class: "mani-btn mani-btn-ghost" %>
+      <% else %>
+        <% if @wrong_count.positive? %>
+          <%= button_to "Refazer só as que errei (#{@wrong_count})", retry_wrong_lesson_path(@lesson), method: :post,
+                        id: "btn-retry-wrong", class: "mani-btn mani-btn-secondary" %>
+        <% end %>
+        <%= button_to "Refazer aula", restart_lesson_path(@lesson), method: :post, id: "btn-redo-lesson",
+                      class: "mani-btn mani-btn-ghost" %>
+      <% end %>
+      <% if @lesson.intro? %>
+        <%= link_to "Ver a introdução da aula", intro_lesson_path(@lesson), id: "btn-lesson-intro", class: "mani-btn mani-btn-ghost" %>
+      <% end %>
+      <%= link_to "Praticar sem perder vidas", question_path(@lesson.questions.first, practice: 1),
+                  id: "btn-practice", class: "mani-btn mani-btn-ghost" %>
     </div>
   </div>
-
 </div>

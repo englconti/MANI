@@ -1,0 +1,32 @@
+<% content_for :title, "Sem vidas" %>
+﻿<div class="finish-page" data-controller="countdown"
+     data-countdown-until-value="<%= @next_life_at.iso8601 %>">
+  <div class="finish-card">
+    <div class="finish-mascot" aria-hidden="true"><%= mascot_tag("pig-sleeping") %></div>
+    <h1>Suas vidas acabaram</h1>
+    <p class="finish-lesson">Cada erro custa uma vida. Elas voltam sozinhas, uma a cada <%= User::LIFE_RECHARGE_TIME.in_minutes.to_i %> minutos.</p>
+
+    <div class="finish-hearts" role="img" aria-label="0 vidas"><span aria-hidden="true"><% 5.times do %><span class="off"><%= mani_icon(:heart) %></span><% end %></span></div>
+
+    <p class="finish-note">Próxima vida em</p>
+    <div class="finish-countdown" data-countdown-target="display" role="timer" aria-live="off">
+      <%= format("%02d:%02d", *[(@next_life_at - Time.current).to_i, 0].max.divmod(60)) %>
+    </div>
+
+    <div class="practice-list">
+      <% practice = @practice_lessons.select { |lesson| lesson.questions.any? } %>
+      <% if practice.any? %>
+        <p class="finish-note">Enquanto espera, pratique sem gastar vidas:</p>
+        <% practice.each do |lesson| %>
+          <%= link_to lesson.title, question_path(lesson.questions.first, practice: 1), class: "mani-btn mani-btn-secondary" %>
+        <% end %>
+      <% else %>
+        <p class="finish-note">Conclua uma aula para liberar o modo prática.</p>
+      <% end %>
+    </div>
+
+    <div class="finish-actions">
+      <%= link_to "Voltar à trilha", user_path(current_user), class: "mani-btn mani-btn-primary" %>
+    </div>
+  </div>
+</div>

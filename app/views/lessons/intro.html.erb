@@ -1,0 +1,29 @@
+<% content_for :title, @lesson.intro_title.presence || @lesson.title %>
+<div class="intro-page">
+  <div class="intro-card">
+    <div class="intro-art" aria-hidden="true"><%= lesson_image_tag(@lesson) %></div>
+    <h1><%= @lesson.intro_title.presence || @lesson.title %></h1>
+    <% @lesson.intro_paragraphs.each do |paragraph| %>
+      <p><%= paragraph %></p>
+    <% end %>
+    <p class="intro-meta"><%= @lesson.title %> · <%= @question_count %> <%= @question_count == 1 ? "pergunta" : "perguntas" %></p>
+
+    <div class="intro-actions">
+      <% if @resume_question %>
+        <p class="intro-progress" role="status">Você parou na pergunta <%= @lesson.questions.index(@resume_question) + 1 %> de <%= @question_count %>.</p>
+        <%= link_to "Continuar de onde parei", question_path(@resume_question, skip_intro: 1),
+                    id: "btn-resume-lesson", class: "mani-btn mani-btn-primary" %>
+        <%= button_to "Recomeçar a aula", restart_lesson_path(@lesson), method: :post,
+                      id: "btn-restart-lesson", class: "mani-btn mani-btn-secondary", form_class: "intro-form" %>
+      <% elsif @answered_before.positive? %>
+        <%# every question already answered (a finished lesson): starting means going through it again %>
+        <%= button_to "Começar a aula", restart_lesson_path(@lesson), method: :post,
+                      id: "btn-start-lesson", class: "mani-btn mani-btn-primary", form_class: "intro-form" %>
+      <% else %>
+        <%= link_to "Começar a aula", question_path(@lesson.questions.first, skip_intro: 1),
+                    id: "btn-start-lesson", class: "mani-btn mani-btn-primary" %>
+      <% end %>
+      <%= link_to "Voltar à trilha", user_path(current_user), class: "mani-btn mani-btn-ghost" %>
+    </div>
+  </div>
+</div>

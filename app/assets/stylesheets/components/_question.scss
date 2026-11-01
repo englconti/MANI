@@ -14,367 +14,492 @@ $dark-green: #629f0a;
 $blue: #1db0f6;
 $dark-blue: #1999d6;
 
-.question-page {
-  // height: 100vh;
-  background-color: #A9C9FF;
-  background-image: linear-gradient(180deg, #A9C9FF 0%, #ffffff 100%);
-  position:fixed;
-  top:0px;
-  bottom:0px;
-  left:0px;
-  right:0px;
+// Lesson/question screen ------------------------------------------------
+// Mobile first. Text/background pairs below keep a contrast of at least 4.5:1.
+$q-text: #1b1411;
+$q-muted: #5a4d47;
+$q-border: #1b1411;
+$q-action: #0e6b78;
+$q-action-shadow: #1b1411;
+$q-continue: #3fb06b;
+$q-continue-shadow: #1b1411;
+$q-continue-text: #0c2e1a;
+$q-selected-bg: #d3eeee;
+$q-selected-border: #0e6b78;
+$q-correct-bg: #d5f5e0;
+$q-correct-border: #277a47;
+$q-correct-text: #17532f;
+$q-wrong-bg: #ffdfe0;
+$q-wrong-border: #c9302c;
+$q-wrong-text: #a31212;
 
+.question-page {
+  background-color: #fde5d9;
+  background-image: none;
+  color: $q-text;
+  font-family: var(--mani-font-body);
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+
+  // Some global rules set an invalid font on labels/buttons; inherit the page font
+  label, button, a, legend {
+    font-family: inherit;
+  }
 }
+
+%focus-ring {
+  outline: 3px solid $q-action;
+  outline-offset: 2px;
+}
+
+.question-page :focus-visible {
+  @extend %focus-ring;
+}
+
+// TOP: close, progress, lives ---------------------------------------------
 
 .question-top-part {
-  margin: 0 auto;
-  // margin-top: 30px;
-  // padding-top: 20px;
-  border: $borders;
-  height: 15vh;
-  width: 85vw;
-  display:flex;
-  justify-content: space-evenly;
+  display: flex;
   align-items: center;
-}
-
-.hearts {
-  border: $borders-red;
-  width: 120px;
-}
-
-.question-close-box {
-  border: $borders;
-  text-align: center;
-  width: 120px;
+  gap: 12px;
+  padding: 12px 16px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .question-cancel-btn {
-  color: rgb(145, 145, 145);
+  color: #6b7280;
   font-size: 30px;
+  line-height: 1;
   &:hover {
     color: $red-heart;
   }
 }
 
-// The container below determines the style of the landing page footer
-
-.container {
-  margin-top: 50px;
-  // text-align: center;
-  // padding: 0px 220px;
-}
-
 .bar-container-part {
-  background-color: rgb(240, 240, 240);
+  flex: 1;
+  background-color: #fff;
+  border: 2.5px solid #1b1411;
   border-radius: 8px;
-  box-shadow: 0px 0px 4px #e5e5e5;
-  height: 19px;
-  width: 60vw;
-}
-
-.bar-evolution {
-  width: 100px;
+  
+  height: 22px;
+  overflow: hidden;
 }
 
 .bar-container {
-  height: 20px;
-  // width: 12vw;
-  background-color: #1cb0f6;
+  height: 100%;
+  width: 0;
+  background-color: #ffc800;
+  border-right: 2.5px solid #1b1411;
   border-radius: 8px;
-  box-shadow: inset 0px 0px 10px rgb(190, 207, 240);
+  
+  transition: width 0.4s ease;
 }
 
-// CENTER CONTAINER ABCD ---------------------------
+.hearts {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.heart {
+  display: inline-flex;
+
+  .mani-icon { width: 28px; height: 28px; vertical-align: 0; }
+  &.is-lost .mani-icon { filter: grayscale(1) opacity(0.3); }
+  &.is-popping .mani-icon { animation: heart-pop 0.5s ease-out; }
+}
+
+@keyframes heart-pop {
+  0% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 479px) {
+  .heart .mani-icon { width: 22px; height: 22px; }
+  .question-top-part { gap: 8px; padding: 10px 12px; }
+}
+
+// BODY ----------------------------------------------------------------------
 
 .container-question-page {
-  border: $borders;
-  height: 70vh;
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 16px 24px;
 }
 
-.container-parts {
-  border: $borders-red;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  h1 {
-    border: $borders;
-    width: 90vw;
-    text-align: center;
-  }
+.question-body {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.questions-container {
-  border: $borders;
-  border-radius: 10px;
-  width: 90vw;
-  height: 350px;
+.question-statement {
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  font-size: clamp(1.25rem, 4.5vw, 2rem);
+  line-height: 1.35;
+  margin: 8px 0 24px;
 }
 
 .question-cards {
-  border: $borders-red;
-  border-radius: 10px;
-  width: 80vw;
-  height: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
 }
 
 .question-card {
-  // background-color: green;
-  background-color: white;
-  box-shadow: 0px 0px 5px #e5e5e5;
-  border-radius: 10px;
-  // min-width: 200px;
-  width: 15vw;
-  min-height: 150px;
-  margin: 5px;
-  margin-bottom: 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  transition: 0.5s;
-  &:hover {
-    width: 18vw;
-  }
-  border-bottom: 7px solid #e5e5e5;
-  border-right: 2px solid #e5e5e5;
-  border-top: 2px solid #e5e5e5;
-  border-left: 2px solid #e5e5e5;
+  gap: 14px;
+  min-height: 60px;
+  padding: 12px 16px;
+  background-color: #fff;
+  color: $q-text;
+  border: 2.5px solid $q-border;
+  
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 #1b1411;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s, border-color 0.2s;
 
-  .question-answer {
-    border: $borders;
-    height: 80%;
-    margin: auto;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  &:hover {
+    border-color: $q-selected-border;
+  }
+
+  &:focus-within {
+    @extend %focus-ring;
   }
 
   .answer-letter {
-    font-size: 30px;
-    font-weight: 900;
-    color: #6a6a81;
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 2.5px solid $q-border;
+    border-radius: 10px;
+    font-size: 1.125rem;
+    font-weight: 800;
+    color: $q-muted;
+    margin: 0;
+  }
+
+  .question-answer {
+    flex: 1;
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
   }
 }
 
 .marked {
-  background-color: #e5e5e5;
-  color: white;
-  font-weight: bolder;
+  background-color: $q-selected-bg;
+  border-color: $q-selected-border;
+  color: $q-text;
+  font-weight: 700;
 }
 
 .correct-answer-card {
-  background-color: $light-green;
-  color: #6a6a81;
+  background-color: $q-correct-bg;
+  border-color: $q-correct-border;
+  color: $q-text;
+
+  .answer-letter::after,
+  &.wr-question-card::after {
+    content: "✔";
+  }
 }
 
 .wrong-answer-card {
-  color: #6a6a81;
-  background-color: $red;
+  background-color: $q-wrong-bg;
+  border-color: $q-wrong-border;
+  color: $q-text;
+
+  .answer-letter::after,
+  &.wr-question-card::after {
+    content: "✘";
+  }
+}
+
+// The marker replaces the letter inside the badge so state is not only a colour
+.correct-answer-card .answer-letter,
+.wrong-answer-card .answer-letter {
+  font-size: 0;
+  &::after {
+    font-size: 1.125rem;
+  }
 }
 
 .question-card-greyed {
-  background-color: #e5e5e5;
+  opacity: 0.6;
+  cursor: default;
 }
 
-// CENTER CONTAINER WRITING ---------------------------
+// Writing questions --------------------------------------------------------
 
-.wr-questions-container {
-  border: $borders;
-  border-radius: 10px;
-  width: 90vw;
-  height: 350px;
-  // text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.fill-ins {
+  display: inline-block;
+  min-width: 5em;
+  text-align: center;
+  border-bottom: 3px solid $q-muted;
+  margin: 0 4px;
+}
+
+.filled-blank {
+  background: #ffc800;
+  border-radius: 6px;
+  padding: 0px 10px;
+  font-weight: bolder;
+  color: #1b1411;
+  border-bottom-color: transparent;
 }
 
 .wr-question-cards {
-  border: $borders-red;
-  border-radius: 10px;
-  width: 80vw;
-  // height: 50%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: stretch;
+  gap: 10px;
 }
 
 .wr-question-card {
-  // background-color: green;
-  background-color: white;
-  box-shadow: 0px 0px 5px #e5e5e5;
-  border-radius: 10px;
-  // min-width: 200px;
-  width: 10vw;
-  min-height: 60px;
-  margin: 5px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: 0.5s;
+  min-height: 48px;
+  padding: 8px 18px;
+  background-color: #fff;
+  color: $q-text;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  border: 2.5px solid $q-border;
+  
+  border-radius: 12px;
+  cursor: pointer;
+
   &:hover {
-    width: 12vw;
-  }
-  border-bottom: 7px solid #e5e5e5;
-  border-right: 2px solid #e5e5e5;
-  border-top: 2px solid #e5e5e5;
-  border-left: 2px solid #e5e5e5;
-
-  .question-answer {
-    border: $borders;
-    height: 80%;
-    margin: auto;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    border-color: $q-selected-border;
   }
 
-  .answer-letter {
-    font-size: 20px;
-    font-weight: 900;
-    color: #6a6a81;
+  &:disabled {
+    cursor: default;
   }
 }
 
 .highlight {
-  background-color: lightgray;
+  background-color: $q-selected-bg;
+  border-color: $q-selected-border;
 }
 
-.filled-blank {
-  background: #f5b7b7;
-  border-radius: 6px;
-  padding: 0px 10px;
-  font-weight: bolder;
-  color: #183477;
-}
-
-// FOOTER ---------------------------------------------
-
-.right-buttons {
-  border: $borders;
-}
+// FOOTER: feedback + single action button -----------------------------------
 
 .question-footer {
-  border-top: 3px solid #e5e5e5;
-  border-bottom: 1px solid black;
-  height: 15vh;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  flex-grow: 1;
-  align-self: stretch;
+  gap: 8px 10px;
+  // The content stays in a column of 640px at most, centred, so nothing is far apart
+  padding: 10px max(16px, calc((100% - 640px) / 2)) calc(10px + env(safe-area-inset-bottom));
+  background-color: #fff;
+  border-top: 2.5px solid #1b1411;
 }
 
 .correct-answer-footer-style {
-  box-shadow: inset 0px 0px 60px $light-green;
-  border: none;
+  background-color: $q-correct-bg;
+  border-top-color: $q-correct-border;
 }
 
 .wrong-answer-footer-style {
-  box-shadow: inset 0px 0px 60px $red;
-  border: none;
-}
-
-#question-buttons {
-  border: $borders;
-  display:flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 80vw;
-  margin: 0 auto;
-}
-
-#confirm-button {
-  width: 20vw;
-  border-radius: 10px;
-  background-color: #1cb0f6;
-  border: 0;
-  border-bottom: 5px solid #1899d6;
-}
-
-#btn-next-question {
-  width: 20vw;
-  border-radius: 10px;
-  color: white;
-  background-color: #7ac70c;
-  border: 0;
-  border-bottom: 5px solid #619f09;
+  background-color: $q-wrong-bg;
+  border-top-color: $q-wrong-border;
 }
 
 .answer-feedback {
-  border: $borders-red;
-  width: 20vw;
+  order: -1;
+  flex: 1 1 100%;
+  font-weight: 800;
+  font-size: 1.0625rem;
+  text-align: left;
+
+  &:empty {
+    display: none;
+  }
+
+  &.is-correct {
+    color: $q-correct-text;
+  }
+
+  &.is-wrong {
+    color: $q-wrong-text;
+  }
+
+  &.is-error {
+    color: $q-wrong-text;
+  }
 }
 
-#correct-answer-msg {
-  margin: 0;
+.right-buttons {
+  flex: 1;
+  display: flex;
+}
+
+.question-action {
+  flex: 1;
+  min-height: 52px;
+  min-width: 0;
+  padding: 10px 20px;
+  font-size: 1.125rem;
+  font-weight: 800;
+  font-family: var(--mani-font-display);
   text-align: center;
-  border: $borders;
-  width: 20vw;
-  color: #619f09;
-  font-weight: bolder;
+  text-decoration: none;
+  border: 2.5px solid #1b1411;
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 #1b1411;
+
+  &:active:not(:disabled) {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+  }
+
+  &[hidden] {
+    display: none;
+  }
 }
 
-#wrong-answer-msg {
-  margin: 0;
-  text-align: center;
-  border: $borders;
-  width: 20vw;
-  color: rgb(167, 24, 24);
-  font-weight: bolder;
+#check-button {
+  background-color: $q-action;
+  border-bottom-color: $q-action-shadow;
+  color: #fff;
+
+  &:disabled {
+    background-color: #e9e1dc;
+    box-shadow: none;
+    color: #5a4d47;
+    opacity: 1;
+  }
 }
 
-#btn-lesson-review {
-  width: 20vw;
-  border-radius: 10px;
-  color: white;
-  background-color: #7ac70c;
-  border: 0;
-  border-bottom: 5px solid #619f09;
+#continue-link {
+  background-color: $q-continue;
+  border-bottom-color: $q-continue-shadow;
+  color: $q-continue-text;
 }
 
-#sound-off{
-  color: rgb(145, 145, 145);
-  position: absolute;
-  left: 30px;
+.sound-toggle {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #4b5563;
+  font-size: 1.25rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+  }
 }
 
-#sound-on{
-  color: rgb(145, 145, 145);
-  position: absolute;
-  left: 30px;
-  cursor: pointer;
+// Larger screens ------------------------------------------------------------
+
+@media (min-width: 640px) {
+  .question-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-#no-sound{
-  color: rgb(145, 145, 145);
-  position: absolute;
-  left: 30px;
-  cursor: pointer;
+// Respect users who ask for less motion
+@media (prefers-reduced-motion: reduce) {
+  .question-page .animate__animated {
+    animation: none !important;
+  }
+
+  .bar-container,
+  .question-card {
+    transition: none;
+  }
 }
 
-#sound{
-  color: rgb(145, 145, 145);
-  position: absolute;
-  left: 30px;
-  cursor: pointer;
+// Short "why" under the verdict
+.answer-explanation {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: $q-text;
+}
+
+.question-cancel-btn .mani-icon { width: 1em; height: 1em; vertical-align: top; }
+
+// The pig asks the question -------------------------------------------------------------
+
+.question-ask {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin: 6px 0 20px;
+}
+
+.question-pig {
+  flex: none;
+  width: clamp(72px, 22vw, 112px);
+
+  img { width: 100%; height: auto; display: block; }
+
+  &.is-happy img { animation: pig-hop 0.7s ease-out; }
+  &.is-sad img { animation: pig-shake 0.5s ease-out; }
+}
+
+// Speech bubble with a small tail towards the pig
+.question-bubble {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px;
+  background: #fff;
+  border: 2.5px solid #1b1411;
+  border-radius: 18px;
+  box-shadow: 3px 3px 0 #1b1411;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -9px;
+    bottom: 22px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-left: 2.5px solid #1b1411;
+    border-bottom: 2.5px solid #1b1411;
+    transform: rotate(45deg);
+  }
+
+  .question-statement {
+    margin: 0;
+    text-align: left;
+    font-size: clamp(1.1rem, 4.4vw, 1.5rem);
+    line-height: 1.3;
+  }
+}
+
+@keyframes pig-hop {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-14px) rotate(-3deg); }
+  60% { transform: translateY(0); }
+  80% { transform: translateY(-6px) rotate(2deg); }
+}
+
+@keyframes pig-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px) rotate(-2deg); }
+  40% { transform: translateX(6px) rotate(2deg); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(3px); }
 }

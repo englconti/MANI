@@ -1,0 +1,142 @@
+// Levels page ----------------------------------------------------------------------------------
+
+.levels-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+  font-family: var(--mani-font-body);
+  color: var(--mani-ink);
+
+  h2 { margin: 0 0 10px; font-size: 1.2rem; font-weight: 900; }
+}
+
+.levels-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+
+  h1 { margin: 0 0 4px; font-size: clamp(1.5rem, 5vw, 2.1rem); font-weight: 900; line-height: 1.1; }
+  p { margin: 0; color: var(--mani-muted); line-height: 1.45; }
+}
+
+.levels-icon { flex: none; width: 56px; height: auto; }
+
+.levels-compare {
+  margin-bottom: 22px;
+  padding: 16px;
+  background: var(--mani-surface);
+  border: var(--mani-outline);
+  border-radius: var(--mani-radius);
+  box-shadow: var(--mani-shadow-sm);
+}
+
+.compare-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  margin-bottom: 14px;
+}
+
+@media (min-width: 520px) {
+  .compare-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.compare-card {
+  padding: 10px 14px;
+  background: var(--mani-peach-soft);
+  border: var(--mani-outline);
+  border-radius: 14px;
+
+  &.is-current { background: var(--mani-gold-soft); }
+
+  p { margin: 0; }
+  .compare-label { font-size: 0.8125rem; color: var(--mani-muted); font-weight: 700; }
+  .compare-name { font-family: var(--mani-font-display); font-size: 1.15rem; font-weight: 900; line-height: 1.2; margin: 2px 0; }
+  .compare-xp { font-size: 0.9375rem; }
+}
+
+.compare-summary { margin: 10px 0 0; line-height: 1.5; }
+
+.levels-list {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.level-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--mani-surface);
+  border: var(--mani-outline);
+  border-radius: 14px;
+
+  &.is-current { background: var(--mani-gold-soft); box-shadow: var(--mani-shadow-sm); }
+  &.is-locked { background: #f3efec; }
+
+  p { margin: 0; }
+}
+
+.level-number {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: #fff;
+  border: var(--mani-outline);
+  border-radius: 50%;
+  font-family: var(--mani-font-display);
+  font-weight: 900;
+}
+
+.level-text { flex: 1; min-width: 0; }
+.level-name { font-family: var(--mani-font-display); font-weight: 900; font-size: 1.1rem; }
+.level-range { font-size: 0.875rem; color: var(--mani-muted); }
+.level-state { flex: none; font-size: 0.875rem; font-weight: 800; text-align: right; }
+
+.levels-actions .mani-btn { width: 100%; }
+
+// Link on the level tile of the progress panel, and the card to the simulator ------------------------
+.tile-link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; text-underline-offset: 3px; }
+  &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 3px; border-radius: 6px; }
+}
+
+.tile-more {
+  display: inline-block;
+  margin-left: 4px;
+  font-weight: 800;
+  color: var(--mani-teal-dark);
+  text-underline-offset: 3px;
+
+  &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; border-radius: 4px; }
+}
+
+.feature-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--mani-gold-soft);
+  border: var(--mani-outline);
+  border-radius: var(--mani-radius);
+  box-shadow: var(--mani-shadow-sm);
+  color: var(--mani-ink);
+  text-decoration: none;
+
+  strong { display: block; font-family: var(--mani-font-display); font-weight: 900; }
+  small { display: block; color: var(--mani-muted); line-height: 1.3; }
+
+  &:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--mani-ink); color: var(--mani-ink); }
+  &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 3px; }
+}
+
+.feature-icon { flex: none; width: 48px; height: auto; }

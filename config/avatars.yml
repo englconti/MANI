@@ -1,0 +1,31 @@
+# The avatars of the Mani Store. Prices are in M$, the money earned by answering lessons
+# (3 M$ per right answer, about 300 M$ in all the lessons today), so the cheap ones come
+# quickly and the rare ones ask for a lot of study. The pictures are in
+# app/assets/images/avatars/<key>.png, cut from docs/art/avatars-sheet.webp.
+#
+# To add one: put its picture there, add an entry below (a new key, a price and a short line)
+# and it shows up in the store.
+default: mani
+
+# The first avatar everyone has. Not for sale.
+base:
+  key: mani
+  name: "Mani"
+  description: "O porquinho que acompanha você desde o primeiro dia."
+
+avatars:
+  - { key: pokehog, name: "Pokehog Trainer", price: 20, description: "Sempre com uma bolinha na mão para guardar as moedas." }
+  - { key: prison-hog, name: "Prison Hog", price: 20, description: "Saiu das dívidas pelo portão da frente: pagando." }
+  - { key: sherlock-hogmes, name: "Sherlock Hogmes", price: 30, description: "Investiga cada taxa escondida com a sua lupa." }
+  - { key: pig-ruto, name: "Pig-ruto", price: 30, description: "Nunca desiste de poupar, mesmo quando o mês aperta." }
+  - { key: piggy-porker, name: "Piggy Porker", price: 40, description: "Estuda finanças como quem estuda magia." }
+  - { key: one-pig, name: "One Pig", price: 40, description: "Navega atrás do tesouro: o dinheiro rendendo." }
+  - { key: neo-hog, name: "Neo Hog", price: 50, description: "Enxerga o código por trás dos juros." }
+  - { key: wall-street-hog, name: "The Hog of Wall Street", price: 60, description: "Terno e gravata para conversar sobre bolsa de valores." }
+  - { key: pigdalf, name: "Pigdalf", price: 60, description: "Guarda a reserva de emergência como ninguém." }
+  - { key: breaking-hog, name: "Breaking Hog", price: 60, description: "Faz a química entre risco e retorno." }
+  - { key: obi-pig, name: "Obi-Pig Kenobi", price: 80, description: "Que os juros compostos estejam com você." }
+  - { key: walking-hog, name: "The Walking Hog", price: 80, description: "Sobreviveu a mil faturas de cartão." }
+  - { key: bat-hog, name: "Bat-Hog", price: 100, description: "Protege o patrimônio nas noites de crise." }
+  - { key: iron-hog, name: "Iron Hog", price: 120, description: "Blindado contra golpes financeiros." }
+  - { key: hog-of-thrones, name: "Hog of Thrones", price: 150, description: "Reina sobre o orçamento do reino." }

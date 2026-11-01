@@ -1,6 +1,46 @@
-.alert {
+// Notices and alerts at the top, above the content but out of the way of the buttons below
+.mani-flashes {
   position: fixed;
-  bottom: 16px;
-  right: 16px;
-  z-index: 1000;
+  top: 76px;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.mani-flash {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 460px;
+  padding: 10px 12px 10px 16px;
+  border: var(--mani-outline);
+  border-radius: 14px;
+  box-shadow: var(--mani-shadow-sm);
+  font-weight: 700;
+  pointer-events: auto;
+
+  &.is-notice { background: var(--mani-teal-soft); color: var(--mani-ink); }
+  &.is-alert { background: var(--mani-red-soft); color: var(--mani-red-ink); }
+}
+
+.mani-flash-text { flex: 1; line-height: 1.35; }
+
+.mani-flash-close {
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:focus-visible { outline: 3px solid var(--mani-teal); outline-offset: 2px; border-radius: 50%; }
 }

@@ -1,0 +1,11 @@
+.git
+.env*
+log/*
+tmp/*
+node_modules
+storage/*
+app/assets/builds/*
+public/assets
+config/master.key
+docs
+test

@@ -1,30 +1,13 @@
-
-<h1><%= question.statement %></h1>
-<div class="questions-container" id="questions-container" data-question-id="<%= question.id %>" data-answer-id="<%= answer_id %>" data-lesson-questions-count="<%= question.lesson.questions.count %>" data-first-question-id="<%= question.lesson.questions.first.id %>" data-question-type="<%= question.question_type %>">
-  <div class="question-cards" data-controller="option-card">
-    <div id="questionA" class="question-card questionA"  data-action="click->option-card#markCard">
-      <div class="question-answer" >
-        <p><%= question.a %></p>
-      </div>
-      <p class="answer-letter">A</p>
-    </div>
-    <div id="questionB" class="question-card questionB" data-action="click->option-card#markCard">
-      <div class="question-answer">
-        <p><%= question.b %></p>
-      </div>
-      <p class="answer-letter">B</p>
-    </div>
-    <div id="questionC" class="question-card questionC" data-action="click->option-card#markCard">
-      <div class="question-answer">
-        <p><%= question.c %></p>
-      </div>
-      <p class="answer-letter">C</p>
-    </div>
-    <div id="questionD" class="question-card questionD" data-action="click->option-card#markCard">
-      <div class="question-answer">
-        <p><%= question.d %></p>
-      </div>
-      <p class="answer-letter">D</p>
-    </div>
-  </div>
-</div>
+<fieldset class="question-cards" aria-describedby="question-statement">
+  <legend class="visually-hidden">Escolha uma alternativa</legend>
+  <%# The value stays the original letter (what the server grades); the badge shows the position %>
+  <% question.options_for(current_user).each_with_index do |(letter, text), position| %>
+    <% shown = %w[A B C D][position] %>
+    <label class="question-card">
+      <input type="radio" name="answer" value="<%= letter %>" class="visually-hidden"
+             data-lesson-target="option" data-action="change->lesson#select">
+      <span class="answer-letter" aria-hidden="true"><%= shown %></span>
+      <span class="question-answer"><span class="visually-hidden">Alternativa <%= shown %>: </span><%= text %></span>
+    </label>
+  <% end %>
+</fieldset>

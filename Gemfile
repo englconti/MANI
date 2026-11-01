@@ -1,20 +1,23 @@
-source 'https://rubygems.org'
+﻿source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.3'
+ruby '3.4.11'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.6'
+gem 'rails', '~> 8.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
+# Not a default gem since Ruby 3.4; used by db/seeds.rb and lib/content_sync.rb
+gem 'csv'
+
+# Asset pipeline: Propshaft serves files built by esbuild (JS) and dart-sass (CSS)
+gem 'propshaft'
+gem 'jsbundling-rails'
+gem 'cssbundling-rails'
+# Hotwire: Turbo replaces Turbolinks and rails-ujs
+gem 'turbo-rails'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+gem 'puma', '>= 6.4'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -28,11 +31,12 @@ gem 'redis', '~> 4.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-gem 'devise'
+gem 'devise', '>= 4.9'
+# Portuguese (pt-BR) translations for Rails and Devise
+gem 'rails-i18n', '>= 7.0'
+gem 'devise-i18n'
 
-gem 'autoprefixer-rails', '10.2.5'
-gem 'font-awesome-sass', '~> 5.6.1'
-gem 'simple_form', github: 'heartcombo/simple_form'
+gem 'simple_form', '~> 5.3'
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
@@ -49,7 +53,6 @@ group :development do
   # gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
 end
 
 group :test do
@@ -57,7 +60,6 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -69,3 +71,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'flatpickr'
 gem 'pg_search', '~> 2.3.0'
 gem 'rack-cors'
+
+
+# Rails 7.1 test runner is not compatible with minitest 6
+gem 'minitest', '< 6'
+

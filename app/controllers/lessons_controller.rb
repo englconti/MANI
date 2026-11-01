@@ -1,40 +1,67 @@
 class LessonsController < ApplicationController
-  before_action :disable_nav, only: [:show]
+  before_action :disable_nav, only: %i[show intro]
+  before_action :set_lesson
+  before_action :require_unlocked_lesson
+
+  # The introduction of the lesson, before its first question
+  def intro
+    @resume_question = @lesson.resume_question_for(current_user)
+    return redirect_to question_path(@lesson.questions.first, skip_intro: 1) unless @lesson.intro? || @resume_question
+
+    @question_count = @lesson.questions.count
+    @answered_before = @lesson.answers.where(user: current_user).where.not(answered_at: nil).count
+  end
 
   def show
-    @current_lesson = Lesson.find(params[:id])
+    answers = @lesson.answers.where(user: current_user)
+    @questions = @lesson.questions
+    @true_count = answers.where(is_correct: true).count
+    @wrong_count = answers.where(is_correct: false).count
 
-    # Finding all answers from the lesson questions of current user (*Try to make it better later!)
-    @questions = @current_lesson.questions
+    xp_before = current_user.xp_today
+    level_before = current_user.level.number
 
-    # answers = @questions.map { |question| Answer.where(user: current_user, question: question)[0] }
-    # new way of calling answers -> lesson has_many :answers, through: :questions
-    answers = @current_lesson.answers.where(user: current_user)
-    @answers_array = answers.map { |answer| answer.is_correct }
-    @true_count = @answers_array.count(true)
+    # Idempotent: only an improvement over the best score is rewarded
+    gained = LessonCompletion.record!(user: current_user, lesson: @lesson, correct_count: @true_count)
+    @xp_gained = gained * LessonCompletion::XP_PER_CORRECT_ANSWER
+    @manis_gained = gained * LessonCompletion::MANIS_PER_CORRECT_ANSWER
+    @map = LessonMap.new(current_user)
+    current_user.reload
+    @goal_reached_now = xp_before < current_user.daily_goal && current_user.xp_today >= current_user.daily_goal
+    @level_up = current_user.level if current_user.level.number > level_before
+    current_user.recharge_lives!
+  end
 
-    # Add XP points to user
-    add_xp
+  # Redoing a lesson needs at least one life; lives are only recharged by time
+  def restart
+    current_user.recharge_lives!
+    return redirect_to no_lives_path if current_user.out_of_lives?
 
-    # Add Mani$ to user
-    add_manis
+    @lesson.reset_answers_for(current_user)
+    redirect_to question_path(@lesson.questions.first, skip_intro: 1)
+  end
+
+  # Goes through only the questions the user got wrong, in lesson order
+  def retry_wrong
+    current_user.recharge_lives!
+    return redirect_to no_lives_path if current_user.out_of_lives?
+
+    wrong_ids = current_user.answers.where(question: @lesson.questions, is_correct: false).pluck(:question_id).to_set
+    wrong = @lesson.questions.select { |question| wrong_ids.include?(question.id) }
+    return redirect_to lesson_path(@lesson), notice: "Você acertou tudo: não há o que refazer." if wrong.empty?
+
+    redirect_to question_path(wrong.first, retry: wrong.map(&:id).join("-"))
   end
 
   private
 
-  def add_xp
-    user = current_user
-    user.xp += @true_count * 5
-    user.save
+  def set_lesson
+    @lesson = Lesson.find(params[:id])
   end
 
-  def add_manis
-    user = current_user
-    user.manis += @true_count * 3
-    user.save
-  end
+  def require_unlocked_lesson
+    return if LessonMap.new(current_user).unlocked?(@lesson)
 
-  def lesson_params
-    params.require(:lesson).permit(:title, :description)
+    redirect_to user_path(current_user), alert: "Termine #{@lesson.prerequisite&.title || "a aula anterior"} para liberar esta aula."
   end
 end

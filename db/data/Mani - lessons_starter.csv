@@ -1,8 +1,38 @@
-title,description
-Conceitos Básicos I,Questões básicas sobre finanças
-Conceitos Básicos II,Questões básicas sobre finanças
-Finanças Pessoais I,Questões básicas sobre a disciplina de finanças pessoais.
-Renda Fixa I,Questões relacionadas a investimentos em Renda Fixa de forma geral
-Renda Variável I,Questões relacionadas a investimentos em Renda Variável de forma geral
-Finanças Pessoais II,Questões básicas sobre a disciplina de finanças pessoais.
-FII I,Questões sobre Fundos de Investimento Imobiliário
+title,description,level,prerequisite,track,intro_title,intro_text,intro_image
+Conceitos Básicos I,Questões básicas sobre finanças,1,,,Do escambo ao dinheiro,"Antes de falar em investir, vale entender o básico: o que é o dinheiro e por que ele existe.
+
+Nesta aula você vai ver como as pessoas trocavam coisas antes das moedas e das notas e por que nunca há o bastante de tudo para todos. Isso se chama escassez e está por trás de muitas decisões financeiras.
+
+Sem pressa: cada pergunta traz uma explicação curta.",pig-coin
+Orçamento Pessoal,Organize o que entra e o que sai todo mês,1,,Finanças Pessoais,Para onde vai o seu dinheiro?,"Orçamento é só um jeito de comparar o que entra com o que sai a cada mês. Não precisa ser complicado nem exige cortar tudo o que dá prazer.
+
+Você vai ver os tipos de gasto, uma regra simples para dividir a renda e o que costuma acontecer quando se gasta mais do que se ganha. Com isso, fica mais fácil fazer escolhas com calma.",pig-phone
+Golpes Financeiros,Aprenda a reconhecer e evitar golpes,1,,,Desconfiar também é cuidar do dinheiro,"Golpistas usam mensagens, ligações e promessas bonitas para enganar, e qualquer pessoa pode ser alvo. A boa notícia é que muitos golpes seguem padrões fáceis de reconhecer.
+
+Nesta aula você vai conhecer sinais de alerta, cuidados com senhas e o que fazer quando alguém pede dinheiro ou dados com pressa. Na dúvida, pare e confirme por um canal oficial.",pig-thinking
+Renda Fixa I,Questões relacionadas a investimentos em Renda Fixa de forma geral,1,,,Renda fixa: regras combinadas desde o início,"Na renda fixa, você empresta dinheiro a um banco, a uma empresa ou ao governo, e as regras de remuneração são definidas na hora da contratação. Isso dá mais previsibilidade, mas não elimina todos os riscos.
+
+Você vai conhecer nomes como CDB, LCI, LCA e Tesouro Direto, além de ideias como liquidez e FGC. Nada aqui é recomendação de investimento.",pig-three-quarter
+Renda Variável I,Questões relacionadas a investimentos em Renda Variável de forma geral,1,,,Ações e bolsa de valores,"Na renda variável, o retorno não é definido de antemão: ele pode ser positivo ou negativo. Ações, por exemplo, são pequenas partes de empresas negociadas na bolsa.
+
+Nesta aula você vai ver como a bolsa funciona, para que serve a corretora e algumas formas de investir e operar, de prazos longos a curtos. Entender os conceitos vem antes de qualquer decisão.",pig-running
+FII I,Questões sobre Fundos de Investimento Imobiliário,1,,,"Fundos imobiliários, sem mistério","Fundos imobiliários, os FIIs, reúnem o dinheiro de várias pessoas para aplicar em imóveis ou em títulos ligados ao setor imobiliário. Quem compra cotas participa dos resultados sem precisar comprar um imóvel inteiro.
+
+Você vai conhecer os principais tipos de fundos, como tijolo, papel e fundo de fundos, e alguns termos do dia a dia. Os rendimentos podem variar e as cotas podem oscilar.",pig-side
+Gestão Empresarial I,"Títulos de crédito, tributos e custos de empresas",1,,,"Crédito, tributos e lucro na empresa","Quem toca um negócio precisa lidar com cobranças, impostos e preços. Esta aula apresenta o básico: o que são títulos de crédito, como funcionam boletos e duplicatas e como os tributos se dividem.
+
+No fim, uma conta simples sobre lucro. É um conteúdo de gestão de empresas, não de investimentos.",pig-sunglasses
+Conceitos Básicos II,Questões básicas sobre finanças,2,Conceitos Básicos I,,Como a economia mexe com o seu bolso,"Preços sobem, juros mudam, o dinheiro rende mais ou menos. Tudo isso tem nome, e conhecê-los ajuda a entender as notícias e as suas próprias escolhas.
+
+Aqui você vai ver inflação, oferta e demanda, a diferença entre poupar e investir e o que é a taxa Selic.
+
+São ideias gerais, um bom ponto de partida.",pig-peeking
+Dívidas e Cartão de Crédito,"Juros, rotativo e como lidar com dívidas",2,Orçamento Pessoal,Finanças Pessoais,Entendendo juros e cartão,"Dívidas fazem parte da vida de muita gente, e entender como funcionam evita que elas cresçam sem você perceber. Juros são o preço de usar o dinheiro de outra pessoa ou do banco.
+
+Nesta aula você vai ver como o cartão de crédito cobra, por que pagar só o mínimo costuma sair caro e como se organizar para negociar e decidir com calma.",pig-angry
+Gestão Empresarial II,"Custos, fluxo de caixa e cenário econômico para empresas",2,Gestão Empresarial I,,Custos e caixa: o dia a dia do negócio,"Uma empresa pode vender bem e ainda assim ficar sem dinheiro no caixa. Por isso, gestores acompanham custos e fluxo de caixa.
+
+Aqui você vai ver como classificar custos, o que entra e o que sai do caixa, como os prazos afetam o dinheiro disponível e por que algumas empresas não sobrevivem. É conteúdo de gestão de empresas, não de investimentos.",pig-front
+Reserva de Emergência,"Quanto guardar, onde deixar e para que serve",3,Dívidas e Cartão de Crédito,Finanças Pessoais,Um colchão para os imprevistos,"A vida traz surpresas: perda de renda, problema de saúde, conserto urgente. A reserva de emergência é um dinheiro separado para essas horas, para você não precisar recorrer a empréstimos caros.
+
+Você vai ver para que ela serve, como estimar o tamanho dela e que características importam mais no lugar onde ela fica guardada. Cada pessoa tem uma realidade diferente.",pig-sleeping

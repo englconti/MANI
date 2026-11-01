@@ -1,0 +1,198 @@
+// Lesson trail on the profile page ----------------------------------------------
+
+.trail-heading {
+  font-family: var(--mani-font-display);
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 0 0 4px;
+  color: var(--mani-ink);
+}
+
+.trail-subtitle {
+  text-align: center;
+  color: var(--mani-muted);
+  margin: 0 0 8px;
+}
+
+.trail-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 16px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+// One card per subject; its lessons run left to right, one behind the other
+.lesson-tracks {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.track {
+  --ring: 88px;
+  --icon: 68px;
+  padding: 14px 12px 16px;
+  background: var(--mani-surface);
+  border: var(--mani-outline);
+  border-radius: var(--mani-radius);
+  box-shadow: var(--mani-shadow-sm);
+}
+
+.track-title {
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.track-path {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.trail-node {
+  position: relative;
+  flex: 0 1 140px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  // Connector to the previous lesson of the track
+  & + &::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--ring) / 2 - 3px);
+    right: calc(50% + var(--ring) / 2);
+    width: calc(100% - var(--ring));
+    min-width: 16px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--mani-ink);
+    opacity: 0.2;
+  }
+
+  &.is-completed + &::before,
+  &.is-completed + &.is-available::before {
+    background: var(--mani-green);
+    opacity: 1;
+  }
+}
+
+
+.trail-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  max-width: 140px;
+}
+
+// The progress ring: a conic gradient filled up to --p percent
+.trail-link {
+  --p: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--ring);
+  height: var(--ring);
+  border-radius: 50%;
+  background: conic-gradient(var(--ring-color, var(--mani-line)) calc(var(--p) * 1%), var(--mani-line) 0);
+  text-decoration: none;
+  color: var(--mani-ink);
+
+  &:focus-visible {
+    outline: 3px solid var(--mani-blue);
+    outline-offset: 4px;
+  }
+}
+
+.trail-icon {
+  display: grid;
+  place-items: center;
+  width: var(--icon);
+  height: var(--icon);
+  border-radius: 50%;
+  border: var(--mani-outline);
+  box-shadow: 3px 3px 0 var(--mani-ink);
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.trail-title {
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--mani-ink);
+}
+
+.trail-meta {
+  font-size: 0.875rem;
+  color: var(--mani-muted);
+}
+
+.trail-stars {
+  font-size: 1.1rem;
+  display: inline-flex;
+  gap: 2px;
+}
+
+.trail-node.is-completed {
+  .trail-link { --ring-color: var(--mani-green); }
+  .trail-icon { background: #fff; }
+}
+
+// Finished, but with mistakes: gold instead of green, so it reads as "not quite there"
+.trail-node.is-completed.is-imperfect {
+  .trail-link { --ring-color: var(--mani-gold); }
+  .trail-icon { background: var(--mani-gold-soft); }
+}
+
+.trail-node.is-available {
+  .trail-link { --ring-color: var(--mani-blue); }
+  .trail-icon {
+    background: var(--mani-blue);
+    color: #fff;
+  }
+}
+
+// Left halfway: the same blue as an open lesson, its ring shows how many questions are answered
+.trail-node.is-in-progress .trail-icon { font-size: 1.9rem; }
+
+.trail-node.is-locked {
+  .trail-icon { background: #e5e7eb; color: #4b5563; }
+  .trail-title { color: var(--mani-muted); }
+}
+
+.trail-start {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--mani-gold);
+  color: var(--mani-ink);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  
+  
+}
+
+// Three or more lessons in a card: smaller rings so they fit side by side
+.track:has(.trail-node:nth-child(3)) {
+  --ring: 68px;
+  --icon: 52px;
+
+  .trail-icon { font-size: 1.6rem; }
+  .trail-title { font-size: 0.8125rem; }
+  .trail-body { max-width: 104px; }
+}

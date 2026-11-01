@@ -1,41 +1,36 @@
+<% content_for :title, "Sua trilha" %>
 <div id="user-page-container">
   <div class="box-user-header">
   </div>
 
   <div class="container-user-show-page animate__animated animate__fadeIn">
 
+    <%= render 'progress', user: current_user, lesson_map: @lesson_map %>
+
     <div class="container-lessons">
-
-      <div class="box-lessons">
-        <%= render 'lesson', lesson: @lesson1[0], l_correct_answers: @lesson1[1], l_num_questions: @lesson1[2] %>
-      </div>
-
-      <br><br>
-
-      <div class="box-lessons">
-        <%= render 'lesson', lesson: @lesson2[0], l_correct_answers: @lesson2[1], l_num_questions: @lesson2[2] %>
-        <%= render 'lesson', lesson: @lesson3[0], l_correct_answers: @lesson3[1], l_num_questions: @lesson3[2] %>
-      </div>
-
-      <br><br>
-
-      <div class="box-lessons">
-        <%= render 'lesson', lesson: @lesson4[0], l_correct_answers: @lesson4[1], l_num_questions: @lesson4[2] %>
-        <%= render 'lesson', lesson: @lesson5[0], l_correct_answers: @lesson5[1], l_num_questions: @lesson5[2] %>
-        <%= render 'lesson', lesson: @lesson6[0], l_correct_answers: @lesson6[1], l_num_questions: @lesson6[2] %>
-      </div>
-
-    </div>
-
-    <div class="container-center-info">
-
-      <h2>Você sabia? 🤓</h2>
-      <%= image_tag @information.img_url, style:"max-width:350px; max-height: 150px;" %>
-      <p><%= @information.text %></p>
-      <h6 style="font-size:10px">fonte: <a href="<%= @information.source %>" target="blank"><%= @information.source %></a></h6>
+      <h1 class="trail-heading">Sua trilha</h1>
+      <% available = @lesson_map.available_count %>
+      <% if available > 1 %>
+        <p class="trail-subtitle"><strong><%= available %> aulas abertas</strong>: escolha por onde começar.</p>
+      <% elsif available == 1 %>
+        <p class="trail-subtitle">Próxima aula: <strong><%= @lesson_map.current.lesson.title %></strong></p>
+      <% else %>
+        <p class="trail-subtitle">Você concluiu todas as aulas! <%= mani_icon(:trophy) %></p>
+      <% end %>
+      <%= render 'trail', tracks: @lesson_map.tracks, recommended: @lesson_map.current&.lesson %>
     </div>
 
     <div class="container-right-info">
-      <%= render 'friends-box', all_users: @all_users, all_friends: @all_friends %>
+      <%= render "users/continue_button", recommended: @lesson_map.current, css: "is-wide", dom_id: "btn-continue-trail" %>
+      <%= link_to store_path, class: "feature-card" do %>
+        <%= mascot_tag("icon-money-bag", class: "feature-icon") %>
+        <span><strong>Mani Store</strong><small>Troque seus M$ por avatares</small></span>
+      <% end %>
+      <%= link_to simulator_path, class: "feature-card" do %>
+        <%= mascot_tag("icon-chart", class: "feature-icon") %>
+        <span><strong>Simulador de investimentos</strong><small>Compare poupança, CDB, LCI / LCA e ações</small></span>
+      <% end %>
+      <%= render 'friends-box', all_users: @all_users, all_friends: @all_friends, ranking: @ranking %>
     </div>
+  </div>
 </div>

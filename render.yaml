@@ -1,0 +1,14 @@
+# Tells Render how to run the app ("Blueprint"). The database lives outside, on Neon.
+services:
+  - type: web
+    name: mani
+    runtime: docker
+    plan: free
+    healthCheckPath: /up
+    envVars:
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false # pasted in the Render dashboard (the Neon connection string)
+      - key: APP_HOST
+        sync: false # the address Render gives, e.g. mani.onrender.com

@@ -1,0 +1,11 @@
+#!/bin/sh
+# What runs each time the server starts in production
+set -e
+
+# Creates the tables on an empty database and runs any migration still pending
+bundle exec rails db:prepare
+
+# Lessons, questions and texts from db/data. Safe to repeat: it only creates or updates.
+bundle exec rails content:sync
+
+exec bundle exec puma -C config/puma.rb
