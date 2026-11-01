@@ -25,6 +25,9 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
+# .dockerignore skips tmp/*, but Puma writes its PID file to tmp/pids at start-up
+RUN mkdir -p tmp/pids tmp/cache tmp/sockets
+
 # Builds JS/CSS and fingerprints every asset. The key is a throwaway: this step only needs
 # Rails to boot, and the real secret comes from the server's environment at run time.
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
